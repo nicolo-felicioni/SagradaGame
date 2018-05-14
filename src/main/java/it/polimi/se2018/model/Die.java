@@ -40,7 +40,7 @@ public class Die implements Cloneable{
 		this.value=value;
 	}
 	public void roll() {
-		this.value=DieValue.getRandom();
+		this.value = DieValue.getRandom();
 	}
 
 }

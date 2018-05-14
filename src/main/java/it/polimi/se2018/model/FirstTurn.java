@@ -37,7 +37,7 @@ public class FirstTurn extends PlayerState {
         if(!p.isEdgyPoint())
             throw new FirstTurnPlacementException("tried to place a die not at the edge of the window at first turn");
 
-        if(!window.getSpace(p).isPlaceable(die))
+        if(!window.getSpace(p).respectAllRestrictions(die))
             throw new PlacementException("Color or Value restriction fail");
 
         window.placeDie(die, p);

@@ -1,5 +1,6 @@
 package it.polimi.se2018.model;
 
+import it.polimi.se2018.exceptions.GameMoveException;
 import it.polimi.se2018.exceptions.NotValidPatternVectorException;
 import it.polimi.se2018.exceptions.NotValidPointException;
 import it.polimi.se2018.exceptions.PlacementException;
@@ -106,7 +107,7 @@ public class Player {
 		state.placeDie(chosenPattern, p, die);
 	}
 
-	public void useTool(ToolCard card) throws PlacementException {
+	public void useTool(ToolCard card) throws GameMoveException {
 		state.useTool(card);
 	}
 

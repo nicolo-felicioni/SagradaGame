@@ -8,5 +8,10 @@ public enum DieColor {
 	BLUE,
 	YELLOW,
 	GREEN,
-	PURPLE
+	PURPLE;
+
+
+	public static DieColor getRandom() {
+		return values()[(int) (Math.random() * values().length)];
+	}
 }
