@@ -17,9 +17,6 @@ public class ValueSpace extends Space {
 		super(space);
 		this.value= value;
 	}
-	public ValueSpace(){
-
-	}
 	public ValueSpace(DieValue value) {
 		this.value=value;
 	}
@@ -28,8 +25,8 @@ public class ValueSpace extends Space {
 	public void placeDie(Die die) throws PlacementException{
 
 		//checks the value restriction
-		if(this.value == die.getValue())
-			placeDie(die);
+		if(respectAllRestrictions(die))
+			super.placeDie(die);
 		else
 			//color restriction violated
 			throw new ValueRestrictionViolatedException("This space has value:" + this.value +
@@ -59,9 +56,9 @@ public class ValueSpace extends Space {
 	 * @inheritDoc
 	 */
 	@Override
-	public boolean isPlaceable(Die die) {
-		if (this.value == die.getValue()){
-			return !this.hasDie();
+	public boolean respectAllRestrictions(Die die) {
+		if (this.getValueRestriction() == die.getValue()){
+			return true;
 		}else{
 			return false;
 		}

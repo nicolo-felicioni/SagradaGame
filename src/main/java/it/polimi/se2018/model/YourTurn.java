@@ -4,6 +4,7 @@ package it.polimi.se2018.model;
  * @author Nicolò Felicioni
  */
 
+import it.polimi.se2018.exceptions.GameMoveException;
 import it.polimi.se2018.exceptions.NotValidPointException;
 import it.polimi.se2018.exceptions.PlacementException;
 
@@ -12,6 +13,7 @@ public class YourTurn extends PlayerState {
     @Override
     public void placeDie(WindowPattern window, Point p, Die die) throws PlacementException {
         window.getSpace(p).placeDie(die);
+        setDiePlaced(true);
     }
 
     @Override
@@ -22,9 +24,9 @@ public class YourTurn extends PlayerState {
     }
 
     @Override
-    public void useTool(ToolCard card) throws PlacementException {
+    public void useTool(ToolCard card) throws GameMoveException {
         //TODO - DA FINIRE
-        toolActivated = true;
+        setToolActivated(true);
     }
 
     @Override

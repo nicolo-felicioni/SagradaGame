@@ -74,7 +74,7 @@ public abstract class Space implements SpaceInterface, Cloneable{
 	 * @inheritDoc
 	 */
 	@Override
-	public abstract boolean isPlaceable(Die die);
+	public abstract boolean respectAllRestrictions(Die die);
 
 	/**
 	 * @inheritDoc

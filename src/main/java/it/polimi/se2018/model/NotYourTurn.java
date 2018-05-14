@@ -2,6 +2,7 @@ package it.polimi.se2018.model;
 
 
 
+import it.polimi.se2018.exceptions.GameMoveException;
 import it.polimi.se2018.exceptions.NotValidPointException;
 import it.polimi.se2018.exceptions.PlacementException;
 
@@ -22,8 +23,8 @@ public class NotYourTurn extends PlayerState {
     }
 
     @Override
-    public void useTool(ToolCard card) throws PlacementException {
-        throw new PlacementException("The player tried to usa a tool when it wasn't his turn");
+    public void useTool(ToolCard card) throws GameMoveException {
+        throw new GameMoveException("The player tried to usa a tool when it wasn't his turn");
     }
 
     @Override

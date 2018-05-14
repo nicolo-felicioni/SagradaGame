@@ -40,6 +40,13 @@ public class Point {
 	public static final int Y_MAX = 4;
 
 
+	public boolean isEdgyPoint(){
+		if(getX() == X_MIN || getX() == X_MAX|| getY() == Y_MIN || getY() == Y_MIN)
+			return true;
+		else
+			return false;
+	}
+
 	/**
 	 * Constructor of the Point class.
 	 *

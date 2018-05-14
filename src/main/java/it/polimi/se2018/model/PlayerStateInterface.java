@@ -1,5 +1,6 @@
 package it.polimi.se2018.model;
 
+import it.polimi.se2018.exceptions.GameMoveException;
 import it.polimi.se2018.exceptions.NotValidPointException;
 import it.polimi.se2018.exceptions.PlacementException;
 
@@ -15,7 +16,7 @@ public interface PlayerStateInterface {
 
 	void placeDie(WindowPattern window, int x, int y, Die die) throws NotValidPointException, PlacementException;
 
-	void useTool(ToolCard card) throws PlacementException;
+	void useTool(ToolCard card) throws GameMoveException;
 
 	void endTurn();
 

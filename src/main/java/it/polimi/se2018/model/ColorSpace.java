@@ -25,7 +25,7 @@ public class ColorSpace extends Space {
 	public void placeDie(Die die) throws PlacementException{
 
 		//checks the color restriction
-		if(this.color == die.getColor())
+		if(respectAllRestrictions(die))
 			super.placeDie(die);
 		else
 			//color restriction violated
@@ -57,9 +57,9 @@ public class ColorSpace extends Space {
 	 * @inheritDoc
 	 */
 	@Override
-	public boolean isPlaceable(Die die) {
-		if (this.color == die.getColor()){
-			return !this.hasDie();
+	public boolean respectAllRestrictions(Die die) {
+		if (this.getColorRestriction() == die.getColor()){
+			return true;
 		}else {
 			return false;
 		}

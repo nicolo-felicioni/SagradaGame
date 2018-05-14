@@ -2,6 +2,9 @@ package it.polimi.se2018.model;
 
 import it.polimi.se2018.exceptions.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -102,6 +105,8 @@ public class WindowPattern {
 		else throw new PlacementException("There isn't any adjacent die here");
 
 	}
+
+
 
 	/**
 	 * Places a die on a space of the window pattern ignoring its color restrictions
@@ -208,7 +213,7 @@ public class WindowPattern {
 	public boolean isPlaceable(Die die, Point p) {
 
 		//check color and value restrictions
-		if(getSpace(p).isPlaceable(die)){
+		if(getSpace(p).respectAllRestrictions(die)){
 
 			//check if there is another die adjacent (diagonally  or orthogonally)
 			return isThereSomeDieAdjacent(p);
@@ -228,7 +233,7 @@ public class WindowPattern {
 
 		//check color and value restrictions
 
-		if(spaces[x][y].isPlaceable(die)){
+		if(getSpace(p).respectAllRestrictions(die)){
 			//check if there is another die adjacent (diagonally  or orthogonally)
 			return isThereSomeDieAdjacent(p);
 		}
@@ -308,6 +313,26 @@ public class WindowPattern {
 			columnArray[i] = this.spaces[i][column].clone();
 		}
 		return columnArray;
+	}
+
+
+
+	public List<Space> getAllSpacesAsList(){
+		ArrayList<Space> spaces;
+		spaces = new ArrayList<Space>();
+
+		for(int i = 0; i < SPACES_HEIGTH; i++){
+			for(int j = 0; j < SPACES_LENGTH; j++){
+				spaces.add(this.spaces[i][j].clone());
+			}
+		}
+		return spaces;
+	}
+
+
+
+	public int getNumberOfDice(){
+		return (int) getAllSpacesAsList().stream().filter(Space::hasDie).count();
 	}
 
 }

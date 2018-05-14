@@ -48,7 +48,7 @@ public interface SpaceInterface{
 	 * @param die the die that have to be checked if it's possible to be placed on this space.
 	 * @return true if the die can be placed, false otherwise.
 	 */
-	boolean isPlaceable(Die die);
+	boolean respectAllRestrictions(Die die);
 
 	/**
 	 * Check if this space is color restricted.

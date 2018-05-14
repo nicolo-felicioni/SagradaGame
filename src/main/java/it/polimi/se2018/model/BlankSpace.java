@@ -45,8 +45,8 @@ public class BlankSpace extends Space {
      * @inheritDoc
      */
     @Override
-    public boolean isPlaceable(Die die) {
-        return !this.hasDie();
+    public boolean respectAllRestrictions(Die die) {
+        return true;
     }
 
     /**
