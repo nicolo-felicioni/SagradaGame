@@ -88,6 +88,6 @@ public class BlankSpace extends Space {
      */
     @Override
     public Space clone() {
-        return null;
+        return new BlankSpace(this);
     }
 }

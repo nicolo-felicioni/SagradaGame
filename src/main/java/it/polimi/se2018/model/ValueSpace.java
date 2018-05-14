@@ -103,6 +103,6 @@ public class ValueSpace extends Space {
 	 */
 	@Override
 	public Space clone() {
-		return null;
+		return new ValueSpace(this, this.value);
 	}
 }

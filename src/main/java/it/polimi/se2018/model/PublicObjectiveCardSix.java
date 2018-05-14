@@ -28,7 +28,7 @@ public class PublicObjectiveCardSix extends PublicObjectiveCard {
 	/**
 	 * Second value of the pair of values.
 	 */
-	public static final DieValue SECOND_VALUE = DieValue.THREE;
+	public static final DieValue SECOND_VALUE = DieValue.FOUR;
 
 	/**
 	 * Constructor of the class. No parameters.
@@ -61,8 +61,8 @@ public class PublicObjectiveCardSix extends PublicObjectiveCard {
 	private int getAmountOfDiceWith(WindowPattern windowPattern, DieValue value) {
 		Space[][] spaces = windowPattern.getAllSpaces();
 		int numberOfDice = 0;
-		for(int i = 0; i < WindowPattern.SPACES_LENGTH; i++) {
-			for(int j = 0; j < WindowPattern.SPACES_HEIGTH; j++) {
+		for(int i = 0; i < WindowPattern.SPACES_HEIGTH; i++) {
+			for(int j = 0; j < WindowPattern.SPACES_LENGTH; j++) {
 				if(spaces[i][j].hasDie()) {
 					if (value.equals(spaces[i][j].getDie().getValue())) {
 						numberOfDice++;
