@@ -3,14 +3,11 @@ package it.polimi.se2018.exceptions;
 /**
  * @author PeiQing Gao
  */
-public class DiceBagEmptyException extends Exception {
-    private final String message;
+public class DiceBagEmptyException extends DiceBagException {
 
     public DiceBagEmptyException(String message) {
-        this.message = message;
+        super(message);
+
     }
-    @Override
-    public String getMessage() {
-        return message;
-    }
+
 }

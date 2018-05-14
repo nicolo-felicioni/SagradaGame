@@ -123,6 +123,26 @@ public class SpaceTest {
             fail();
         }
 
+        try {
+            blankSpace.placeDieIgnoreColor(new Die(DieColor.getRandom(), DieValue.getRandom()));
+            assertTrue(blankSpace.hasDie());
+        } catch (PlacementException e) {
+            fail();
+        }
+
+
+
+        /*
+        spaces.remove(colorSpace);
+        spaces.stream().forEach(space -> {
+            try {
+                space.placeDieIgnoreColor(new Die(DieColor.getRandom(), DieValue.getRandom()));
+            } catch (PlacementException e) {
+                fail();
+            }
+        });
+        assertTrue(spaces.stream().allMatch(Space::hasDie));
+        */
     }
 
     @Test
@@ -137,6 +157,13 @@ public class SpaceTest {
         try {
             valueSpace.placeDieIgnoreValue(new Die(DieColor.getRandom(), tempVal));
             assertTrue(valueSpace.hasDie());
+        } catch (PlacementException e) {
+            fail();
+        }
+
+        try {
+            blankSpace.placeDieIgnoreColor(new Die(DieColor.getRandom(), DieValue.getRandom()));
+            assertTrue(blankSpace.hasDie());
         } catch (PlacementException e) {
             fail();
         }

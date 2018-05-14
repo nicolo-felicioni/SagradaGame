@@ -3,14 +3,12 @@ package it.polimi.se2018.exceptions;
 /**
  * @author PeiQing Gao
  */
-public class NotEnoughDiceException extends Exception {
-    private final String message;
-
+public class NotEnoughDiceException extends DiceBagException {
+    /**
+     * @param message
+     * @inheritDoc
+     */
     public NotEnoughDiceException(String message) {
-        this.message = message;
-    }
-    @Override
-    public String getMessage() {
-        return message;
+        super(message);
     }
 }
