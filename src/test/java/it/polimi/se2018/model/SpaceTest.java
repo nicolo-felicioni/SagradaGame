@@ -200,8 +200,14 @@ public class SpaceTest {
 
         assertFalse(spaces.stream().anyMatch(Space::hasDie));
 
-        spaces.get()
+        int tempRandom = (int) Math.random() * (spaces.size()-1);
 
+        try {
+            spaces.get(tempRandom).removeDie();
+            fail();
+        } catch (SpaceNotOccupiedException e) {
+
+        }
 
 
     }
@@ -267,5 +273,18 @@ public class SpaceTest {
     @Test
     public void hasDie() {
         assertTrue(spaces.stream().noneMatch(Space::hasDie));
+    }
+    @Test
+    public void copyFieldFrom(){
+        Space space1= new BlankSpace();
+        Space space2=new BlankSpace();
+        try {
+            space1.placeDie(new Die(DieColor.getRandom(),DieValue.getRandom()));
+        } catch (PlacementException e) {
+            fail();
+        }
+        space2.copyFieldsFrom(space1);
+        assertTrue(space1.die.equalsDie(space2.die));
+
     }
 }

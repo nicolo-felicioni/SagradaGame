@@ -10,22 +10,22 @@ public enum DieValue {
 	FOUR(4),
 	FIVE(5),
 	SIX(6);
-	private int dievalue;
+	private int dieNumber;
 
 	/**
 	 *
 	 * @param dieValue
 	 */
 	DieValue(int dieValue){
-		this.dievalue =dieValue;
+		this.dieNumber =dieValue;
 	}
 
 	/**
 	 *
-	 * @return dievalue
+	 * @return dieNumber
 	 */
 	public int toInt(){
-			return this.dievalue;
+			return this.dieNumber;
 	}
 
 	/**
@@ -35,7 +35,7 @@ public enum DieValue {
 	 */
 	public static DieValue fromInt(int n){
 		for (DieValue value : DieValue.values()) {
-			if (value.dievalue == n) {
+			if (value.dieNumber == n) {
 				return value;
 			}
 		}

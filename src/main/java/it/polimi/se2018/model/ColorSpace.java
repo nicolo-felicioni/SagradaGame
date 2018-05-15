@@ -103,7 +103,7 @@ public class ColorSpace extends Space {
 	 * @return a clone of this space.
 	 */
 	@Override
-	public Space clone() {
+	public Space cloneSpace() {
 		return new ColorSpace(this, this.color);
 	}
 }

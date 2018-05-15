@@ -80,5 +80,5 @@ public abstract class Space implements SpaceInterface, Cloneable{
 	 *
 	 * @return a clone of this space.
 	 */
-	public abstract Space clone();
+	public abstract Space cloneSpace();
 }
