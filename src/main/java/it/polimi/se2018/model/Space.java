@@ -40,18 +40,6 @@ public abstract class Space implements SpaceInterface, Cloneable{
 	 * @inheritDoc
 	 */
 	@Override
-	public abstract void placeDieIgnoreColor(Die die) throws PlacementException;
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public abstract void placeDieIgnoreValue(Die die) throws PlacementException ;
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
 	public Die removeDie() throws SpaceNotOccupiedException {
 		if(hasDie()) {
 			Die removedDie = die;
@@ -69,36 +57,6 @@ public abstract class Space implements SpaceInterface, Cloneable{
 	public Die getDie() {
 		return new Die(die.getColor(), die.getValue());
 	}
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public abstract boolean respectAllRestrictions(Die die);
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public abstract boolean isColorRestricted();
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public abstract boolean isValueRestricted();
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public abstract DieColor getColorRestriction();
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public abstract DieValue getValueRestriction();
 
 	/**
 	 * @inheritDoc

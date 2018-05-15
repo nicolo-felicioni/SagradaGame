@@ -72,6 +72,12 @@ public class SpaceTest {
         } catch (PlacementException e) {
             fail();
         }
+        try{
+            blankSpace.placeDie(new Die(tempCol,tempVal));
+            fail();
+        } catch (PlacementException e) {
+
+        }
     }
 
     @Test(expected = PlacementException.class)
@@ -193,6 +199,8 @@ public class SpaceTest {
         System.out.println("rimossi dadi");
 
         assertFalse(spaces.stream().anyMatch(Space::hasDie));
+
+        spaces.get()
 
 
 

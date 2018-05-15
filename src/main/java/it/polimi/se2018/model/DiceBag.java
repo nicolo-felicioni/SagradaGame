@@ -12,18 +12,17 @@ import java.util.*;
 
 public class DiceBag {
 
-	//private ArrayList<Die> diceBag;
 
 	private ArrayList<Integer> numberOfPresentDice;
 
-	private final int initialNumber = 18;
-	private final int numberOfColors = 5;
+	private final static int INITIAL_NUMBER = 18;
+	private final static int NUMBER_OF_COLORS = 5;
 
 
 	public DiceBag(){
-		numberOfPresentDice = new ArrayList<Integer>(numberOfColors);
-		for(int i=0; i<numberOfColors; i++)
-			numberOfPresentDice.add(initialNumber);
+		numberOfPresentDice = new ArrayList<Integer>(NUMBER_OF_COLORS);
+		for(int i = 0; i< NUMBER_OF_COLORS; i++)
+			numberOfPresentDice.add(INITIAL_NUMBER);
 	}
 	/**
 	 * choose a random die, remove it from the diceBag and return it

@@ -105,6 +105,8 @@ public abstract class ToolCard implements Card, Cloneable, ToolCardEffect{
 	 */
 	public void activate() {
 		this.used = true;
+
+		//TODO - forse è sbagliato
 		this.favorTokensSpent =+ cost();
 		this.active = true;
 	}

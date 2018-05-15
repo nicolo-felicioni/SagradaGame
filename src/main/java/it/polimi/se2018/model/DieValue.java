@@ -10,21 +10,42 @@ public enum DieValue {
 	FOUR(4),
 	FIVE(5),
 	SIX(6);
-	private int dieValue;
+	private int dievalue;
+
+	/**
+	 *
+	 * @param dieValue
+	 */
 	DieValue(int dieValue){
-		this.dieValue=dieValue;
+		this.dievalue =dieValue;
 	}
+
+	/**
+	 *
+	 * @return dievalue
+	 */
 	public int toInt(){
-			return this.dieValue;
+			return this.dievalue;
 	}
+
+	/**
+	 *
+	 * @param n
+	 * @return corresponding Die Value of input n
+	 */
 	public static DieValue fromInt(int n){
 		for (DieValue value : DieValue.values()) {
-			if (value.dieValue == n) {
+			if (value.dievalue == n) {
 				return value;
 			}
 		}
 		return null;
 	}
+
+	/**
+	 *
+	 * @return a random Die Value
+	 */
 	public static DieValue getRandom() {
 		return values()[(int) (Math.random() * values().length)];
 	}

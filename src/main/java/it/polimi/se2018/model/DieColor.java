@@ -12,13 +12,27 @@ public enum DieColor {
 
 	private int value;
 
+    /**
+     * Constructor
+     * @param i
+     */
     DieColor(int i) {
         this.value = i;
     }
 
+    /**
+     *
+     * @return the corresponding value of the color
+     */
     public int toInt(){
 	    return this.value;
     }
+
+    /**
+     *
+     * @param n
+     * @return the corresponding color of the input n
+     */
     public static DieColor fromInt(int n) {
         for (DieColor color : DieColor.values()) {
             if (color.value == n) {
@@ -28,7 +42,10 @@ public enum DieColor {
          return null;
     }
 
-
+    /**
+     *
+     * @return a random color
+     */
 	public static DieColor getRandom() {
 		return values()[(int) (Math.random() * values().length)];
 	}
