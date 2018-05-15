@@ -57,6 +57,8 @@ public class PublicObjectiveCardTwo extends PublicObjectiveCard {
 					if(spaces[i].getDie().getColor().equals(spaces[j].getDie().getColor())) {
 						return false;
 					}
+				}else{
+					return false;
 				}
 			}
 		}

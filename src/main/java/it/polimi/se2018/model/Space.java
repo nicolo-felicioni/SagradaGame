@@ -21,7 +21,9 @@ public abstract class Space implements SpaceInterface, Cloneable{
 	 * Copy Constructor.
 	 */
 	protected Space(Space space){
-		this.die = space.getDie();
+		if(space.hasDie()) {
+			this.die = space.getDie();
+		}
 	}
 
 	/**

@@ -19,7 +19,7 @@ public class BlankSpace extends Space {
      * Constructor with no parameters
      */
     public BlankSpace() {
-
+        super();
     }
 
     /**

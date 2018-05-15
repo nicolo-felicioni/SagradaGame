@@ -45,25 +45,5 @@ public class PublicObjectiveCardEight extends PublicObjectiveCard {
 		return numberOfSets * POINTS_PER_SET;
 	}
 
-	/**
-	 * Get the amount of dice that has a certain value in a window pattern.
-	 *
-	 * @param windowPattern the WindowPattern of the player.
-	 * @param value the value of the die.
-	 * @return the amount of dice that has a value equals to the input value.
-	 */
-	private int getAmountOfDiceWith(WindowPattern windowPattern, DieValue value) {
-		Space[][] spaces = windowPattern.getAllSpaces();
-		int numberOfDice = 0;
-		for(int i = 0; i < WindowPattern.SPACES_HEIGTH; i++) {
-			for(int j = 0; j < WindowPattern.SPACES_LENGTH; j++) {
-				if(spaces[i][j].hasDie()) {
-					if (value.equals(spaces[i][j].getDie().getValue())) {
-						numberOfDice++;
-					}
-				}
-			}
-		}
-		return numberOfDice;
-	}
+
 }

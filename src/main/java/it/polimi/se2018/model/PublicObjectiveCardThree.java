@@ -57,6 +57,8 @@ public class PublicObjectiveCardThree extends PublicObjectiveCard {
 					if (spaces[i].getDie().getValue().equals(spaces[j].getDie().getValue())) {
 						return false;
 					}
+				}else{
+					return false;
 				}
 			}
 		}

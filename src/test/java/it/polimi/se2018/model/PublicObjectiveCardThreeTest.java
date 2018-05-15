@@ -7,18 +7,22 @@ import static org.junit.Assert.*;
 /**
  * @author davide yi xian hu
  */
-public class TestPublicObjectiveCardTen {
-
+public class PublicObjectiveCardThreeTest {
 	private WindowPattern window;
-	private PublicObjectiveCardTen card;
+	private PublicObjectiveCardThree card;
 
 	@Before
-	public void setUp(){
-		card = new PublicObjectiveCardTen();
+	public void setUp() {
+		card = new PublicObjectiveCardThree();
+	}
+
+	@After
+	public void tearDown(){
+		window = null;
 	}
 
 	@Test
-	public void tesCalculatePoints1() {
+	public void testCalculatePoints1() {
 		try {
 			card.calculatePoints(window);
 			fail();
@@ -27,7 +31,7 @@ public class TestPublicObjectiveCardTen {
 	}
 
 	@Test
-	public void tesCalculatePoints2() {
+	public void testCalculatePoints2() {
 		try {
 			Space[][] spaces = new Space[WindowPattern.SPACES_HEIGTH][WindowPattern.SPACES_LENGTH];
 			for (int i = 0; i < WindowPattern.SPACES_HEIGTH; i++) {
@@ -36,34 +40,34 @@ public class TestPublicObjectiveCardTen {
 				}
 			}
 			spaces[0][0].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[0][1].placeDie(new Die(DieColor.RED, DieValue.ONE));
-			spaces[0][2].placeDie(new Die(DieColor.GREEN, DieValue.ONE));
-			spaces[0][3].placeDie(new Die(DieColor.RED, DieValue.ONE));
+			spaces[0][1].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
+			spaces[0][2].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
+			spaces[0][3].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
 			spaces[0][4].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
 			spaces[1][0].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[1][1].placeDie(new Die(DieColor.RED, DieValue.ONE));
-			spaces[1][2].placeDie(new Die(DieColor.GREEN, DieValue.ONE));
-			spaces[1][3].placeDie(new Die(DieColor.YELLOW, DieValue.ONE));
-			spaces[1][4].placeDie(new Die(DieColor.PURPLE, DieValue.ONE));
+			spaces[1][1].placeDie(new Die(DieColor.BLUE, DieValue.TWO));
+			spaces[1][2].placeDie(new Die(DieColor.BLUE, DieValue.THREE));
+			spaces[1][3].placeDie(new Die(DieColor.BLUE, DieValue.FOUR));
+			spaces[1][4].placeDie(new Die(DieColor.BLUE, DieValue.FIVE));
 			spaces[2][0].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[2][1].placeDie(new Die(DieColor.RED, DieValue.ONE));
-			spaces[2][2].placeDie(new Die(DieColor.YELLOW, DieValue.ONE));
-			spaces[2][3].placeDie(new Die(DieColor.RED, DieValue.ONE));
+			spaces[2][1].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
+			spaces[2][2].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
+			spaces[2][3].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
 			spaces[2][4].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
 			spaces[3][0].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
 			spaces[3][1].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[3][2].placeDie(new Die(DieColor.RED, DieValue.ONE));
+			spaces[3][2].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
 			spaces[3][3].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[3][4].placeDie(new Die(DieColor.RED, DieValue.ONE));
+			spaces[3][4].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
 			window = new WindowPattern(spaces, 4);
 		} catch (Exception e) {
 			fail();
 		}
-		assertEquals(4, card.calculatePoints(window));
+		assertEquals(5, card.calculatePoints(window));
 	}
 
 	@Test
-	public void tesCalculatePoints3() {
+	public void testCalculatePoints3() {
 		try {
 			Space[][] spaces = new Space[WindowPattern.SPACES_HEIGTH][WindowPattern.SPACES_LENGTH];
 			for (int i = 0; i < WindowPattern.SPACES_HEIGTH; i++) {
@@ -72,34 +76,34 @@ public class TestPublicObjectiveCardTen {
 				}
 			}
 			spaces[0][0].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[0][1].placeDie(new Die(DieColor.RED, DieValue.ONE));
-			spaces[0][2].placeDie(new Die(DieColor.GREEN, DieValue.ONE));
-			spaces[0][3].placeDie(new Die(DieColor.YELLOW, DieValue.ONE));
-			spaces[0][4].placeDie(new Die(DieColor.PURPLE, DieValue.ONE));
+			spaces[0][1].placeDie(new Die(DieColor.BLUE, DieValue.TWO));
+			spaces[0][2].placeDie(new Die(DieColor.BLUE, DieValue.THREE));
+			spaces[0][3].placeDie(new Die(DieColor.BLUE, DieValue.FOUR));
+			spaces[0][4].placeDie(new Die(DieColor.BLUE, DieValue.FIVE));
 			spaces[1][0].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[1][1].placeDie(new Die(DieColor.RED, DieValue.ONE));
-			spaces[1][2].placeDie(new Die(DieColor.GREEN, DieValue.ONE));
-			spaces[1][3].placeDie(new Die(DieColor.YELLOW, DieValue.ONE));
-			spaces[1][4].placeDie(new Die(DieColor.PURPLE, DieValue.ONE));
+			spaces[1][1].placeDie(new Die(DieColor.BLUE, DieValue.TWO));
+			spaces[1][2].placeDie(new Die(DieColor.BLUE, DieValue.THREE));
+			spaces[1][3].placeDie(new Die(DieColor.BLUE, DieValue.FOUR));
+			spaces[1][4].placeDie(new Die(DieColor.BLUE, DieValue.FIVE));
 			spaces[2][0].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[2][1].placeDie(new Die(DieColor.RED, DieValue.ONE));
-			spaces[2][2].placeDie(new Die(DieColor.GREEN, DieValue.ONE));
-			spaces[2][3].placeDie(new Die(DieColor.YELLOW, DieValue.ONE));
-			spaces[2][4].placeDie(new Die(DieColor.PURPLE, DieValue.ONE));
+			spaces[2][1].placeDie(new Die(DieColor.BLUE, DieValue.TWO));
+			spaces[2][2].placeDie(new Die(DieColor.BLUE, DieValue.THREE));
+			spaces[2][3].placeDie(new Die(DieColor.BLUE, DieValue.FOUR));
+			spaces[2][4].placeDie(new Die(DieColor.BLUE, DieValue.FIVE));
 			spaces[3][0].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[3][1].placeDie(new Die(DieColor.RED, DieValue.ONE));
-			spaces[3][2].placeDie(new Die(DieColor.GREEN, DieValue.ONE));
-			spaces[3][3].placeDie(new Die(DieColor.YELLOW, DieValue.ONE));
-			spaces[3][4].placeDie(new Die(DieColor.PURPLE, DieValue.ONE));
+			spaces[3][1].placeDie(new Die(DieColor.BLUE, DieValue.TWO));
+			spaces[3][2].placeDie(new Die(DieColor.BLUE, DieValue.THREE));
+			spaces[3][3].placeDie(new Die(DieColor.BLUE, DieValue.FOUR));
+			spaces[3][4].placeDie(new Die(DieColor.BLUE, DieValue.FIVE));
 			window = new WindowPattern(spaces, 4);
 		} catch (Exception e) {
 			fail();
 		}
-		assertEquals(16, card.calculatePoints(window));
+		assertEquals(20, card.calculatePoints(window));
 	}
 
 	@Test
-	public void tesCalculatePoints4() {
+	public void testCalculatePoints4() {
 		try {
 			Space[][] spaces = new Space[WindowPattern.SPACES_HEIGTH][WindowPattern.SPACES_LENGTH];
 			for (int i = 0; i < WindowPattern.SPACES_HEIGTH; i++) {
@@ -122,11 +126,6 @@ public class TestPublicObjectiveCardTen {
 			spaces[2][2].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
 			spaces[2][3].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
 			spaces[2][4].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[3][0].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[3][1].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[3][2].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[3][3].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[3][4].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
 			window = new WindowPattern(spaces, 4);
 		} catch (Exception e) {
 			fail();

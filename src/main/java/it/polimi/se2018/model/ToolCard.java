@@ -105,8 +105,6 @@ public abstract class ToolCard implements Card, Cloneable, ToolCardEffect{
 	 */
 	public void activate() {
 		this.used = true;
-
-		//TODO - forse è sbagliato
 		this.favorTokensSpent =+ cost();
 		this.active = true;
 	}
@@ -130,10 +128,122 @@ public abstract class ToolCard implements Card, Cloneable, ToolCardEffect{
 	}
 
 	/**
-	 * Consume the effect of the card. It can enable or disable some effect or set the card from active to inactive.
-	 *
+	 * @inheritDoc
+	 * When the effect is used the card is deactivated.
 	 */
-	abstract void effectUsed();
+	void effectUsed() {
+		this.endActivion();
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	@Override
+	public boolean increaseDieValue() {
+		return false;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	@Override
+	public boolean decreaseDieValue() {
+		return false;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	@Override
+	public boolean moveDieIgnoreColor() {
+		return false;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	@Override
+	public boolean moveDieIgnoreValue() { return false; }
+
+	/**
+	 * @inheritDoc
+	 */
+	@Override
+	public boolean moveTwoDice() {
+		return false;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	@Override
+	public boolean swapDraftDieWithRoundTrackDie() {
+		return false;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	@Override
+	public boolean rerollDraftedDie() {
+		return false;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	@Override
+	public boolean rerollAllDraftPoolDice() {
+		return false;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	@Override
+	public boolean placeDieAfterFirstTurn() {
+		return false;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	@Override
+	public boolean placeDraftedDieNoAdjacent() {
+		return false;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	@Override
+	public boolean flipDraftedDie() {
+		return false;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	@Override
+	public boolean returnDieAndGetNewFromDiceBag() {
+		return false;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	@Override
+	public boolean chooseNewDieValue() {
+		return false;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	@Override
+	public boolean moveTwoDiceMatchColorOnRoundTrack() {
+		return false;
+	}
 
 
 }
