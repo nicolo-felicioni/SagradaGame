@@ -168,7 +168,7 @@ public class SpaceTest {
         }
 
         try {
-            blankSpace.placeDieIgnoreColor(new Die(DieColor.getRandom(), DieValue.getRandom()));
+            blankSpace.placeDieIgnoreValue(new Die(DieColor.getRandom(), DieValue.getRandom()));
             assertTrue(blankSpace.hasDie());
         } catch (PlacementException e) {
             fail();

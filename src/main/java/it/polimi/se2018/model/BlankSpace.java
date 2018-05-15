@@ -9,10 +9,10 @@ import it.polimi.se2018.exceptions.SpaceAlreadyOccupiedException;
 public class BlankSpace extends Space {
     /**
      * Copy Constructor
-     * @param space
+     * @param blankspace
      */
-    public BlankSpace(Space space){
-        super(space);
+    public BlankSpace(BlankSpace blankspace){
+        super(blankspace);
     }
 
     /**

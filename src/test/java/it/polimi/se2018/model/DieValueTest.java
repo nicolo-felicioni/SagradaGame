@@ -13,4 +13,9 @@ public class DieValueTest {
         DieValue dieValue = DieValue.fromInt(temp);
         assertEquals(temp, dieValue.toInt());
     }
+    @Test
+    public void fromInt(){
+        assertNull(DieValue.fromInt(7));
+
+    }
 }
