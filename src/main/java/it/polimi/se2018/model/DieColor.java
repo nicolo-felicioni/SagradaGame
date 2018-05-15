@@ -19,14 +19,14 @@ public enum DieColor {
     public int toInt(){
 	    return this.value;
     }
-     public static DieColor fromInt(int n) {
-         for (DieColor color : DieColor.values()) {
-             if (color.value == n) {
-                 return color;
-             }
-         }
+    public static DieColor fromInt(int n) {
+        for (DieColor color : DieColor.values()) {
+            if (color.value == n) {
+                return color;
+            }
+        }
          return null;
-     }
+    }
 
 
 	public static DieColor getRandom() {
