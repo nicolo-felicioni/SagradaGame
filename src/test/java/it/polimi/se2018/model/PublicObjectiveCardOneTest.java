@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 /**
  * @author davide yi xian hu
  */
-public class TestPublicObjectiveCardOne {
+public class PublicObjectiveCardOneTest {
 
 	private WindowPattern window;
 	private PublicObjectiveCardOne card;
@@ -17,8 +17,13 @@ public class TestPublicObjectiveCardOne {
 		card = new PublicObjectiveCardOne();
 	}
 
+	@After
+	public void tearDown(){
+		window = null;
+	}
+
 	@Test
-	public void tesCalculatePoints1() {
+	public void testCalculatePoints1() {
 		try {
 			card.calculatePoints(window);
 			fail();
@@ -27,7 +32,7 @@ public class TestPublicObjectiveCardOne {
 	}
 
 	@Test
-	public void tesCalculatePoints2() {
+	public void testCalculatePoints2() {
 		try {
 			Space[][] spaces = new Space[WindowPattern.SPACES_HEIGTH][WindowPattern.SPACES_LENGTH];
 			for (int i = 0; i < WindowPattern.SPACES_HEIGTH; i++) {
@@ -63,7 +68,7 @@ public class TestPublicObjectiveCardOne {
 	}
 
 	@Test
-	public void tesCalculatePoints3() {
+	public void testCalculatePoints3() {
 		try {
 			Space[][] spaces = new Space[WindowPattern.SPACES_HEIGTH][WindowPattern.SPACES_LENGTH];
 			for (int i = 0; i < WindowPattern.SPACES_HEIGTH; i++) {
@@ -99,7 +104,7 @@ public class TestPublicObjectiveCardOne {
 	}
 
 	@Test
-	public void tesCalculatePoints4() {
+	public void testCalculatePoints4() {
 		try {
 			Space[][] spaces = new Space[WindowPattern.SPACES_HEIGTH][WindowPattern.SPACES_LENGTH];
 			for (int i = 0; i < WindowPattern.SPACES_HEIGTH; i++) {
@@ -122,11 +127,6 @@ public class TestPublicObjectiveCardOne {
 			spaces[2][2].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
 			spaces[2][3].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
 			spaces[2][4].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[3][0].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[3][1].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[3][2].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[3][3].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			spaces[3][4].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
 			window = new WindowPattern(spaces, 4);
 		} catch (Exception e) {
 			fail();

@@ -24,95 +24,6 @@ public class ToolCardEleven extends ToolCard {
 
 	/**
 	 * @inheritDoc
-	 */
-	@Override
-	public boolean increaseDieValue() {
-		return false;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public boolean decreaseDieValue() {
-		return false;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public boolean moveDieIgnoreColor() {
-		return false;
-	}
-
-	/**
-	 * @inheritDoc
-	 *
-	 */
-	@Override
-	public boolean moveDieIgnoreValue() {
-		return false;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public boolean moveTwoDice() {
-		return false;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public boolean swapDraftDieWithRoundTrackDie() {
-		return false;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public boolean rerollDraftedDie() {
-		return false;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public boolean rerollAllDraftPoolDice() {
-		return false;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public boolean placeDieAfterFirstTurn() {
-		return false;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public boolean placeDraftedDieNoAdjacent() {
-		return false;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public boolean flipDraftedDie() {
-		return false;
-	}
-
-	/**
-	 * @inheritDoc
 	 * If the card is active, it returns true.
 	 */
 	@Override
@@ -127,14 +38,6 @@ public class ToolCardEleven extends ToolCard {
 	@Override
 	public boolean chooseNewDieValue() {
 		return isActive();
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public boolean moveTwoDiceMatchColorOnRoundTrack() {
-		return false;
 	}
 
 	/**

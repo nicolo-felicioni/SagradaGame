@@ -2,16 +2,10 @@ package it.polimi.se2018.model;
 
 import it.polimi.se2018.exceptions.ColorRestrictionViolatedException;
 import it.polimi.se2018.exceptions.PlacementException;
-import it.polimi.se2018.exceptions.SpaceAlreadyOccupiedException;
 
 public class ColorSpace extends Space {
 
 	private DieColor color;
-
-	public ColorSpace(Space space,DieColor color){
-	super(space);
-	this.color= color;
-	}
 
 	/**
 	 * 
@@ -21,7 +15,11 @@ public class ColorSpace extends Space {
 		this.color=color;
 	}
 
+	public ColorSpace(ColorSpace colorSpace){
+	    this.color= colorSpace.color;
+    }
 
+    @Override
 	public void placeDie(Die die) throws PlacementException{
 
 		//checks the color restriction
@@ -103,7 +101,7 @@ public class ColorSpace extends Space {
 	 * @return a clone of this space.
 	 */
 	@Override
-	public Space clone() {
-		return new ColorSpace(this, this.color);
+	public Space cloneSpace() {
+		return new ColorSpace(this);
 	}
 }

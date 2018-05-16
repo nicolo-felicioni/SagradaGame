@@ -41,7 +41,7 @@ public class Point {
 
 
 	public boolean isEdgyPoint(){
-		if(getX() == X_MIN || getX() == X_MAX|| getY() == Y_MIN || getY() == Y_MIN)
+		if(getX() == X_MIN || getX() == X_MAX|| getY() == Y_MIN || getY() == Y_MAX)
 			return true;
 		else
 			return false;

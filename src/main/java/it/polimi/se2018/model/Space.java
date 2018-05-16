@@ -21,7 +21,9 @@ public abstract class Space implements SpaceInterface, Cloneable{
 	 * Copy Constructor.
 	 */
 	protected Space(Space space){
-		this.die = space.getDie();
+		if(space.hasDie()) {
+			this.die = space.getDie();
+		}
 	}
 
 	/**
@@ -35,18 +37,6 @@ public abstract class Space implements SpaceInterface, Cloneable{
 			throw new SpaceAlreadyOccupiedException("Can not place a die on a occupied space");
 		}
 	}
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public abstract void placeDieIgnoreColor(Die die) throws PlacementException;
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public abstract void placeDieIgnoreValue(Die die) throws PlacementException ;
 
 	/**
 	 * @inheritDoc
@@ -74,36 +64,6 @@ public abstract class Space implements SpaceInterface, Cloneable{
 	 * @inheritDoc
 	 */
 	@Override
-	public abstract boolean respectAllRestrictions(Die die);
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public abstract boolean isColorRestricted();
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public abstract boolean isValueRestricted();
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public abstract DieColor getColorRestriction();
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
-	public abstract DieValue getValueRestriction();
-
-	/**
-	 * @inheritDoc
-	 */
-	@Override
 	public boolean hasDie() {
 		return die != null;
 	}
@@ -122,5 +82,5 @@ public abstract class Space implements SpaceInterface, Cloneable{
 	 *
 	 * @return a clone of this space.
 	 */
-	public abstract Space clone();
+	public abstract Space cloneSpace();
 }

@@ -9,19 +9,14 @@ public class ValueSpace extends Space {
 
 	private DieValue value;
 
-	/**
-	 * 
-	 * @param value
-	 */
-	public ValueSpace(Space space,DieValue value){
-		super(space);
-		this.value= value;
-	}
 	public ValueSpace(DieValue value) {
 		this.value=value;
 	}
 
 
+	public ValueSpace(ValueSpace valueSpace){
+	    this.value=valueSpace.value;
+    }
 	public void placeDie(Die die) throws PlacementException{
 
 		//checks the value restriction
@@ -102,7 +97,7 @@ public class ValueSpace extends Space {
 	 * @return a clone of this space.
 	 */
 	@Override
-	public Space clone() {
-		return new ValueSpace(this, this.value);
+	public Space cloneSpace() {
+		return new ValueSpace(this);
 	}
 }

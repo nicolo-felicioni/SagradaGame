@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 
 public class DiceBagTest {
 
-    DiceBag diceBag;
+    private DiceBag diceBag;
 
     @Before
     public void setUp() throws Exception {
@@ -38,9 +38,44 @@ public class DiceBagTest {
             fail();
         }
 
+
+
         assertEquals(oldSize, diceBag.size() + 1);
+        try {
+            diceBag.drawDice(89);
+        } catch (DiceBagException e) {
+            fail();
+        }
+
+        try {
+            diceBag.drawDie();
+            fail();
+        } catch (DiceBagException e) {
+            System.out.println("sacchetto vuoto");
+        }
 
     }
+    @Test
+    public void drawDiceNegativeNumber(){
+        try {
+            diceBag.drawDice(-1);
+            fail();
+        } catch (DiceBagException e) {
+
+        }
+    }
+
+
+    @Test
+    public void drawDiceNotEnough(){
+        try {
+            diceBag.drawDice(diceBag.size()+1);
+            fail();
+        } catch (DiceBagException e) {
+
+        }
+    }
+
 
     @Test
     public void drawDice() {

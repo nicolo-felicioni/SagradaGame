@@ -4,7 +4,7 @@ package it.polimi.se2018.model;
  * The Class of Die
  * @author PeiQing Gao
  */
-public class Die implements Cloneable{
+public class Die{
 
 	private final DieColor color;
 	private DieValue value;
@@ -41,6 +41,9 @@ public class Die implements Cloneable{
 	}
 	public void roll() {
 		this.value = DieValue.getRandom();
+	}
+	public boolean equalsDie(Die die){
+		return ((this.color == die.color) && (this.value == die.value));
 	}
 
 }

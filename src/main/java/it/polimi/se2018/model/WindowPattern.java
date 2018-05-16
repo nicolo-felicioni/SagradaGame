@@ -61,7 +61,7 @@ public class WindowPattern {
 	 */
 	public Space getSpace(Point p){
 
-		return spaces[p.getX()][p.getY()].clone();
+		return spaces[p.getX()][p.getY()].cloneSpace();
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class WindowPattern {
 
 		for(int i = 0; i < SPACES_HEIGTH; i++){
 			for(int j = 0; j < SPACES_LENGTH; j++){
-				newMatrix[i][j] = spaces[i][j].clone();
+				newMatrix[i][j] = spaces[i][j].cloneSpace();
 			}
 		}
 		return newMatrix;
@@ -296,7 +296,7 @@ public class WindowPattern {
 	public Space[] getSpacesRow (int row) {
 		Space[] rowArray = new Space[SPACES_LENGTH];
 		for(int i=0; i < SPACES_LENGTH; i ++) {
-			rowArray[i] = this.spaces[row][i].clone();
+			rowArray[i] = this.spaces[row][i].cloneSpace();
 		}
 		return rowArray;
 	}
@@ -310,7 +310,7 @@ public class WindowPattern {
 	public Space[] getSpacesColumn (int column) {
 		Space[] columnArray = new Space[SPACES_HEIGTH];
 		for(int i=0; i < SPACES_HEIGTH; i ++) {
-			columnArray[i] = this.spaces[i][column].clone();
+			columnArray[i] = this.spaces[i][column].cloneSpace();
 		}
 		return columnArray;
 	}
@@ -323,7 +323,7 @@ public class WindowPattern {
 
 		for(int i = 0; i < SPACES_HEIGTH; i++){
 			for(int j = 0; j < SPACES_LENGTH; j++){
-				spaces.add(this.spaces[i][j].clone());
+				spaces.add(this.spaces[i][j].cloneSpace());
 			}
 		}
 		return spaces;
