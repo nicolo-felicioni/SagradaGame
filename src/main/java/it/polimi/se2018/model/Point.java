@@ -87,7 +87,7 @@ public class Point {
 	 * @return a list of points.
 	 */
 	public List<Point> getOrtogonalPoints() {
-		List<Point> ortoganalPoints = new ArrayList<Point>();
+		List<Point> ortoganalPoints = new ArrayList<>();
 		try {
 			ortoganalPoints.add(new Point(x - 1, y));
 		} catch (NotValidPointException e) { }
@@ -137,4 +137,29 @@ public class Point {
 		return adjacentPoints;
 	}
 
+	/**
+	 * Compare this point with another point.
+	 *
+	 * @return true if the points are equals.
+	 */
+	public boolean equalsPoint(Point p) {
+		return this.getX() == p.getX() && this.getY() == p.getY();
+	}
+
+	/**
+	 * Clone this point.
+	 *
+	 * @return a clone of this point.
+	 */
+	public Point clonePoint() {
+		try {
+			return new Point(this.getX(), this.getY());
+		} catch (NotValidPointException e) {
+			return null;
+		}
+	}
+
+	public String toString() {
+		return "Point: X: " + x + ", Y: " + y;
+	}
 }
