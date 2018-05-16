@@ -10,34 +10,35 @@ import it.polimi.se2018.exceptions.PlacementException;
 
 public abstract class PlayerState implements PlayerStateInterface{
 
+    private boolean diePlaced ;
+    private boolean toolActivated ;
+    private ToolCard activeTool ;
 
-    private boolean diePlaced;
-    private boolean toolActivated;
+    protected PlayerState(){
+        this.diePlaced=false;
+        this.toolActivated=false;
+        ToolCard activeTool = null;
+    }
 
-
-
-    public boolean isDiePlaced() {
+    protected boolean isDiePlaced(){
         return diePlaced;
     }
 
-    protected void setDiePlaced(boolean diePlaced) {
-        this.diePlaced = diePlaced;
-    }
-
-    public boolean isToolActivated() {
+    protected boolean isToolActivated(){
         return toolActivated;
     }
 
-    public void setToolActivated(boolean toolActivated) {
-        this.toolActivated = toolActivated;
+    protected void setDiePlaced(){
+        this.diePlaced = true;
     }
 
-    public abstract void placeDie(WindowPattern window, Point p, Die die) throws PlacementException;
+    protected void setToolActivated(ToolCard tool){
+        this.activeTool=tool;
+        this.toolActivated = true;
+    }
 
-    public abstract void placeDie(WindowPattern window, int x, int y, Die die) throws NotValidPointException, PlacementException;
+    public ToolCard getActiveToolCard(){
+        return this.activeTool;
+    }
 
-
-    public abstract void useTool(ToolCard card) throws GameMoveException, GameMoveException;
-
-    public abstract void endTurn();
 }

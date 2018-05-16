@@ -319,7 +319,7 @@ public class WindowPattern {
 
 	public List<Space> getAllSpacesAsList(){
 		ArrayList<Space> spaces;
-		spaces = new ArrayList<Space>();
+		spaces = new ArrayList<>();
 
 		for(int i = 0; i < SPACES_HEIGTH; i++){
 			for(int j = 0; j < SPACES_LENGTH; j++){
@@ -334,5 +334,10 @@ public class WindowPattern {
 	public int getNumberOfDice(){
 		return (int) getAllSpacesAsList().stream().filter(Space::hasDie).count();
 	}
+
+	public WindowPattern cloneWindowPattern() throws WindowPatternDimensionException, UnboundDifficultyValueException {
+		return new WindowPattern(getAllSpaces(), this.difficulty);
+	}
+
 
 }

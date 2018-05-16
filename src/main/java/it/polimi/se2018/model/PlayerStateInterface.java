@@ -1,6 +1,7 @@
 package it.polimi.se2018.model;
 
 import it.polimi.se2018.exceptions.GameMoveException;
+import it.polimi.se2018.exceptions.IllegalMoveTurnException;
 import it.polimi.se2018.exceptions.NotValidPointException;
 import it.polimi.se2018.exceptions.PlacementException;
 
@@ -10,14 +11,16 @@ import it.polimi.se2018.exceptions.PlacementException;
 
 public interface PlayerStateInterface {
 
+	boolean canPlaceDie();
 
+	boolean canUseTool();
 
-	void placeDie(WindowPattern window, Point p, Die die) throws PlacementException;
+	boolean canEndTurn();
 
-	void placeDie(WindowPattern window, int x, int y, Die die) throws NotValidPointException, PlacementException;
+	void diePlaced() throws IllegalMoveTurnException;
 
-	void useTool(ToolCard card) throws GameMoveException;
+	void useTool(ToolCard card) throws IllegalMoveTurnException;
 
-	void endTurn();
+	ToolCard getActiveToolCard();
 
 }

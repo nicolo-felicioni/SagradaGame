@@ -96,23 +96,25 @@ public class Player {
 	}
 
 
-
 	public void placeDie(Point p, Die die) throws PlacementException {
-		state.placeDie(chosenPattern, p, die);
+
+		//state.placeDie(chosenPattern, p, die);
 	}
 
 	public void placeDie(int x, int y, Die die) throws PlacementException, NotValidPointException {
 
 		Point p = new Point(x, y);
-		state.placeDie(chosenPattern, p, die);
+		//state.placeDie(chosenPattern, p, die);
 	}
+
+
 
 	public void useTool(ToolCard card) throws GameMoveException {
 		state.useTool(card);
 	}
 
 	public void endTurn(){
-		state.endTurn();
+		//state.endTurn();
 	}
 
 }

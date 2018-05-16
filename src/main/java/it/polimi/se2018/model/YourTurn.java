@@ -5,32 +5,44 @@ package it.polimi.se2018.model;
  */
 
 import it.polimi.se2018.exceptions.GameMoveException;
+import it.polimi.se2018.exceptions.IllegalMoveTurnException;
 import it.polimi.se2018.exceptions.NotValidPointException;
 import it.polimi.se2018.exceptions.PlacementException;
 
 public class YourTurn extends PlayerState {
 
+    public YourTurn(){
+        super();
+    }
+
+
     @Override
-    public void placeDie(WindowPattern window, Point p, Die die) throws PlacementException {
-        window.getSpace(p).placeDie(die);
-        setDiePlaced(true);
+    public boolean canPlaceDie() {
+        return !isDiePlaced();
     }
 
     @Override
-    public void placeDie(WindowPattern window, int x, int y, Die die) throws NotValidPointException, PlacementException {
-
-        window.getSpace(new Point(x, y)).placeDie(die);
-
+    public boolean canUseTool() {
+        return !isToolActivated();
     }
 
     @Override
-    public void useTool(ToolCard card) throws GameMoveException {
-        //TODO - DA FINIRE
-        setToolActivated(true);
+    public boolean canEndTurn() {
+        return true;
     }
 
     @Override
-    public void endTurn() {
-
+    public void diePlaced() throws IllegalMoveTurnException {
+        this.setDiePlaced();
     }
+
+    @Override
+    public void useTool(ToolCard card) throws IllegalMoveTurnException {
+        if(canUseTool())
+            this.setToolActivated(card);
+        else throw new IllegalMoveTurnException("there's a toolcard activated already");
+    }
+
+
+
 }

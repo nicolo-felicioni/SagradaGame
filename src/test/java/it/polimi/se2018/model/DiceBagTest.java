@@ -56,7 +56,7 @@ public class DiceBagTest {
                 count=0;
 
                 for(Die die : dice){
-                    if(die.getColor( )== DieColor.fromInt(i))
+                    if(die.getColor( ) == DieColor.fromInt(i))
                         count = count + 1;
                 }
                 assertEquals(count, 18);
