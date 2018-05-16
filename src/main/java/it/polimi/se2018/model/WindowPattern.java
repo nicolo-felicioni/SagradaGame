@@ -100,42 +100,14 @@ public class WindowPattern {
 	 */
 	public void placeDie(Die die, Point p) throws PlacementException {
 
-		if(isThereSomeDieAdjacent(p))
+		//checks if it is the very first turn
+		if(this.getNumberOfDice() == 0)
 			spaces[p.getX()][p.getY()].placeDie(die);
-		else throw new PlacementException("There isn't any adjacent die here");
-
-	}
-
-
-
-	/**
-	 * Places a die on a space of the window pattern ignoring its color restrictions
-	 * @param die a die
-	 * @param p the point where you want to place the die
-	 * @throws PlacementException  it will be thrown if the die is not placeable
-	 */
-	public void placeDieIgnoreColor(Die die, Point p) throws PlacementException {
-
-		if(isThereSomeDieAdjacent(p)){
-			spaces[p.getX()][p.getY()].placeDieIgnoreColor(die);
-		}else
-			throw new PlacementException("There isn't any adjacent die here");
-
-
-	}
-
-	/**
-	 *Places a die on a space of the window pattern ignoring its value restrictions
-	 * @param die a die
-	 * @param p the point where you want to place the die
-	 * @throws PlacementException
-	 */
-	public void placeDieIgnoreValue(Die die, Point p) throws PlacementException {
-
-		if(isThereSomeDieAdjacent(p)){
-			spaces[p.getX()][p.getY()].placeDieIgnoreColor(die);
-		}else
-			throw new PlacementException("There isn't any adjacent die here");
+		else //checks if there is some die adjacent to the point p
+			if(isThereSomeDieAdjacent(p)){
+				spaces[p.getX()][p.getY()].placeDie(die);
+			}else
+				throw new PlacementException("There isn't any adjacent die here");
 
 	}
 
@@ -148,13 +120,36 @@ public class WindowPattern {
 	public void placeDie(Die die, int x, int y) throws PlacementException, NotValidPointException {
 
 		Point p = new Point(x, y);
-
-
-		//checks if there is some die adjacent to the point p
-		if(isThereSomeDieAdjacent(p)){
+		//checks if it is the very first turn
+		if(this.getNumberOfDice() == 0)
 			spaces[p.getX()][p.getY()].placeDie(die);
-		}else
-			throw new PlacementException("There isn't any adjacent die here");
+		else //checks if there is some die adjacent to the point p
+			if(isThereSomeDieAdjacent(p)){
+				spaces[p.getX()][p.getY()].placeDie(die);
+			}else
+				throw new PlacementException("There isn't any adjacent die here");
+
+
+
+	}
+
+
+	/**
+	 * Places a die on a space of the window pattern ignoring its color restrictions
+	 * @param die a die
+	 * @param p the point where you want to place the die
+	 * @throws PlacementException  it will be thrown if the die is not placeable
+	 */
+	public void placeDieIgnoreColor(Die die, Point p) throws PlacementException {
+
+		//checks if it is the very first turn
+		if(this.getNumberOfDice() == 0)
+			spaces[p.getX()][p.getY()].placeDieIgnoreColor(die);
+		else //checks if there is some die adjacent to the point p
+			if(isThereSomeDieAdjacent(p)){
+				spaces[p.getX()][p.getY()].placeDieIgnoreColor(die);
+			}else
+				throw new PlacementException("There isn't any adjacent die here");
 
 	}
 
@@ -170,16 +165,33 @@ public class WindowPattern {
 
 		Point p = new Point(x, y);
 
-		//TODO - credo si potrebbe fare in altro modo
+		//checks if it is the very first turn
+		if(this.getNumberOfDice() == 0)
+			spaces[p.getX()][p.getY()].placeDieIgnoreColor(die);
+		else //checks if there is some die adjacent to the point p
+			if(isThereSomeDieAdjacent(p)){
+				spaces[p.getX()][p.getY()].placeDieIgnoreColor(die);
+			}else
+				throw new PlacementException("There isn't any adjacent die here");
+	}
 
-		//checks if there is some die adjacent to the point p
-		if(isThereSomeDieAdjacent(p)){
+	/**
+	 *Places a die on a space of the window pattern ignoring its value restrictions
+	 * @param die a die
+	 * @param p the point where you want to place the die
+	 * @throws PlacementException
+	 */
+	public void placeDieIgnoreValue(Die die, Point p) throws PlacementException {
 
-			spaces[x][y].placeDieIgnoreColor(die);
+		//checks if it is the very first turn
+		if(this.getNumberOfDice() == 0)
+			spaces[p.getX()][p.getY()].placeDieIgnoreValue(die);
+		else //checks if there is some die adjacent to the point p
+			if(isThereSomeDieAdjacent(p)){
+				spaces[p.getX()][p.getY()].placeDieIgnoreValue(die);
+			}else
+				throw new PlacementException("There isn't any adjacent die here");
 
-		}else
-			//if there isn't a die adjacent to the point p
-			throw new PlacementException("There's no adjacent die");
 	}
 
 
@@ -193,14 +205,14 @@ public class WindowPattern {
 		Point p = new Point(x, y);
 
 
-		//checks if there is some die adjacent to the point p
-		if(isThereSomeDieAdjacent(p)){
-
-			spaces[x][y].placeDieIgnoreValue(die);
-
-		}else
-			//if there isn't a die adjacent to the point p
-			throw new PlacementException("There's no adjacent die");
+		//checks if it is the very first turn
+		if(this.getNumberOfDice() == 0)
+			spaces[p.getX()][p.getY()].placeDieIgnoreValue(die);
+		else //checks if there is some die adjacent to the point p
+			if(isThereSomeDieAdjacent(p)){
+				spaces[p.getX()][p.getY()].placeDieIgnoreValue(die);
+			}else
+				throw new PlacementException("There isn't any adjacent die here");
 
 	}
 

@@ -85,5 +85,6 @@ public interface SpaceInterface{
 	 */
 	boolean hasDie();
 
+	boolean equalsSpace(Space space);
 
 }

@@ -104,4 +104,16 @@ public class ColorSpace extends Space {
 	public Space cloneSpace() {
 		return new ColorSpace(this);
 	}
+
+	@Override
+	public boolean equalsSpace(Space space){
+		if(space.isColorRestricted())
+			if(this.getColorRestriction() == space.getColorRestriction())
+				if(space.hasDie()){
+					if(this.hasDie())
+						return this.getDie().equalsDie(space.getDie());
+				}else
+					return !this.hasDie();
+		return false;
+	}
 }

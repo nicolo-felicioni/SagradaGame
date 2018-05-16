@@ -100,4 +100,17 @@ public class ValueSpace extends Space {
 	public Space cloneSpace() {
 		return new ValueSpace(this);
 	}
+
+	@Override
+	public boolean equalsSpace(Space space){
+		if(space.isValueRestricted())
+			if(this.getValueRestriction() == space.getValueRestriction())
+				if(space.hasDie()){
+					if(this.hasDie())
+						return this.getDie().equalsDie(space.getDie());
+				}else
+					return !this.hasDie();
+		return false;
+	}
+
 }

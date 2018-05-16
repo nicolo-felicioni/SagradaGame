@@ -90,4 +90,17 @@ public class BlankSpace extends Space {
     public Space cloneSpace() {
         return new BlankSpace(this);
     }
+
+    @Override
+    public boolean equalsSpace(Space space){
+        if(!(space.isColorRestricted() || space.isValueRestricted())){
+            if(space.hasDie()){
+                if(this.hasDie())
+                    return this.getDie().equalsDie(space.getDie());
+            } else
+                return !this.hasDie();
+        }
+        return false;
+    }
+
 }

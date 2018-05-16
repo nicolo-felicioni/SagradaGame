@@ -68,6 +68,7 @@ public abstract class Space implements SpaceInterface, Cloneable{
 		return die != null;
 	}
 
+
 	/**
 	 * Copy the fields of a space.
 	 *
@@ -83,4 +84,5 @@ public abstract class Space implements SpaceInterface, Cloneable{
 	 * @return a clone of this space.
 	 */
 	public abstract Space cloneSpace();
+
 }

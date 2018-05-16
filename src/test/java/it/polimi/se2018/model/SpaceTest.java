@@ -287,4 +287,99 @@ public class SpaceTest {
         assertTrue(space1.die.equalsDie(space2.die));
 
     }
+
+    @Test
+    public void equalsSpace(){
+        Space newBlankSpace = new BlankSpace();
+        Space newColorSpace = new ColorSpace(color);
+        Space newValueSpace = new ValueSpace(value);
+        Die die;
+        DieValue tempVal;
+        DieColor tempCol;
+
+        assertTrue(newBlankSpace.equalsSpace(blankSpace));
+        assertTrue(newColorSpace.equalsSpace(colorSpace));
+        assertTrue(newValueSpace.equalsSpace(valueSpace));
+        assertFalse(newBlankSpace.equalsSpace(valueSpace));
+        assertFalse(newColorSpace.equalsSpace(valueSpace));
+        assertFalse(newValueSpace.equalsSpace(colorSpace));
+
+        die = new Die(DieColor.getRandom(), DieValue.getRandom());
+        try {
+            newBlankSpace.placeDie(die);
+            blankSpace.placeDie(die);
+        } catch (PlacementException e) {
+            fail();
+        }
+        assertTrue(newBlankSpace.equalsSpace(blankSpace));
+
+        die = new Die(colorSpace.getColorRestriction(), DieValue.getRandom());
+
+        try {
+            newColorSpace.placeDie(die);
+            colorSpace.placeDie(die);
+        } catch (PlacementException e) {
+            fail();
+        }
+        assertTrue(newColorSpace.equalsSpace(colorSpace));
+
+        try {
+            newColorSpace.removeDie();
+            colorSpace.removeDie();
+        } catch (SpaceNotOccupiedException e) {
+            fail();
+        }
+
+        die = new Die(DieColor.getRandom(), valueSpace.getValueRestriction());
+
+
+        try {
+            newValueSpace.placeDie(die);
+            valueSpace.placeDie(die);
+        } catch (PlacementException e) {
+            fail();
+        }
+        assertTrue(newValueSpace.equalsSpace(valueSpace));
+
+        try {
+            newValueSpace.removeDie();
+            valueSpace.removeDie();
+        } catch (SpaceNotOccupiedException e) {
+            fail();
+        }
+
+
+
+
+
+        try {
+            newBlankSpace.removeDie();
+            blankSpace.removeDie();
+        } catch (SpaceNotOccupiedException e) {
+            fail();
+        }
+
+
+        do {
+            tempVal = DieValue.getRandom();
+        } while(tempVal == valueSpace.getValueRestriction());
+
+        do {
+            tempCol = DieColor.getRandom();
+        } while(tempCol == colorSpace.getColorRestriction());
+
+        try {
+            newBlankSpace.placeDie(new Die(DieColor.getRandom(), DieValue.getRandom()));
+        } catch (PlacementException e) {
+            fail();
+        }
+
+        newColorSpace = new ColorSpace(tempCol);
+        newValueSpace = new ValueSpace(tempVal);
+
+        assertFalse(newBlankSpace.equalsSpace(blankSpace));
+        assertFalse(newColorSpace.equalsSpace(colorSpace));
+        assertFalse(newValueSpace.equalsSpace(valueSpace));
+
+    }
 }
