@@ -46,4 +46,8 @@ public class Die{
 		return ((this.color == die.color) && (this.value == die.value));
 	}
 
+	public String toString(){
+		return("Die color: " + color + "\nDie value: " + value);
+	}
+
 }
