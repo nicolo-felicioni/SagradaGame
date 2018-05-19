@@ -102,28 +102,21 @@ public class WindowPattern {
 	 * otherwise it will check if there is any adjacent die to the point p.
 	 * @param p a point
 	 */
-	private boolean isPlaceable(Point p) {
+	private boolean isPlaceable(Die die, Point p) {
 		if(this.getNumberOfDice() == 0)
 			return p.isEdgyPoint();
 		else
-			return isThereSomeDieAdjacent(p);
-	}
+			return this.isThereSomeDieAdjacent(p) &&
+				!(p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
+						.anyMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
+								this.getSpace(point).getDie().getValue()==die.getValue()));
 
-	/**
-	 * checks if the die is placeable for the window pattern.
-	 * If the window is empty, this method checks if the point is on the edge of the window,
-	 * otherwise it will check if there is any adjacent die to the point at the coordinates x and y.
-	 * @param x first coordinate of the point
-	 * @param y second coordinate of the point
-	 * @throws NotValidPointException if the point isn't valid
-	 */
-	private boolean isPlaceable(int x, int y) throws NotValidPointException {
-		Point p = new Point(x, y);
 
-		if(this.getNumberOfDice() == 0)
-			return p.isEdgyPoint();
-		else
-			return isThereSomeDieAdjacent(p);
+
+
+
+
+
 	}
 
 
@@ -135,10 +128,17 @@ public class WindowPattern {
 	 */
 	public void placeDie(Die die, Point p) throws PlacementException {
 
-		if(isPlaceable(p))
+
+
+		if(isPlaceable(die, p)){
+
 			spaces[p.getX()][p.getY()].placeDie(die);
+
+		}
+
 		else
 			throw new PlacementException("Die not placeable due to window restrictions");
+
 	}
 
 	/**
@@ -150,7 +150,7 @@ public class WindowPattern {
 	public void placeDie(Die die, int x, int y) throws PlacementException, NotValidPointException {
 
 		Point p = new Point(x, y);
-		if(isPlaceable(p))
+		if(isPlaceable(die, p))
 			spaces[p.getX()][p.getY()].placeDie(die);
 		else
 			throw new PlacementException("Die not placeable due to window restrictions");
@@ -167,7 +167,7 @@ public class WindowPattern {
 	 */
 	public void placeDieIgnoreColor(Die die, Point p) throws PlacementException {
 
-		if(isPlaceable(p))
+		if(isPlaceable(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreColor(die);
 		else
 			throw new PlacementException("Die not placeable due to window restrictions");
@@ -186,7 +186,7 @@ public class WindowPattern {
 
 		Point p = new Point(x, y);
 
-		if(isPlaceable(p))
+		if(isPlaceable(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreColor(die);
 		else
 			throw new PlacementException("Die not placeable due to window restrictions");
@@ -200,7 +200,7 @@ public class WindowPattern {
 	 */
 	public void placeDieIgnoreValue(Die die, Point p) throws PlacementException {
 
-		if(isPlaceable(p))
+		if(isPlaceable(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreValue(die);
 		else
 			throw new PlacementException("Die not placeable due to window restrictions");
@@ -218,7 +218,9 @@ public class WindowPattern {
 		Point p = new Point(x, y);
 
 
-		if(isPlaceable(p))
+
+
+		if(isPlaceable(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreValue(die);
 		else
 			throw new PlacementException("Die not placeable due to window restrictions");
@@ -247,19 +249,22 @@ public class WindowPattern {
 	 * @param b the second point
 	 * @throws NotValidMoveException if the first point is empty or the second point has already a die
 	 */
+
+
 	public void moveDie(Point a, Point b) throws NotValidMoveException{
-		Die die = getSpace(a).getDie();
+		Die die;
+
 
 		try {
-			removeDie(a);
+			die = this.removeDie(a);
 		} catch (SpaceNotOccupiedException e) {
 			throw new NotValidMoveException("There's no die in this point:" + a );
 		}
 
 		try {
-			placeDie(die, b);
+			this.placeDie(die, b);
 		} catch (PlacementException e) {
-			throw new NotValidMoveException(b + "is already occupied");
+			throw new NotValidMoveException("exception :" + e);
 		}
 	}
 
@@ -270,9 +275,10 @@ public class WindowPattern {
 	 * @throws SpaceNotOccupiedException if there isn't any die in the point p
 	 *
 	 */
-	public void removeDie(Point p) throws SpaceNotOccupiedException {
+	public Die removeDie(Point p) throws SpaceNotOccupiedException {
+
 		if(getSpace(p).hasDie())
-			spaces[p.getX()][p.getY()].removeDie();
+			return spaces[p.getX()][p.getY()].removeDie();
 		else
 			throw new SpaceNotOccupiedException("Not occupied: " + p.getX() + ", " + p.getY());
 	}
@@ -313,7 +319,7 @@ public class WindowPattern {
 	 */
 	public List<Space> getAllSpacesAsList(){
 		ArrayList<Space> listOfSpaces;
-		listOfSpaces = new ArrayList<>();
+		listOfSpaces = new ArrayList<Space>();
 
 		for(int i = 0; i < SPACES_HEIGTH; i++){
 			for(int j = 0; j < SPACES_LENGTH; j++){

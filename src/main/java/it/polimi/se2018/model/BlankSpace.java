@@ -95,8 +95,9 @@ public class BlankSpace extends Space {
     public boolean equalsSpace(Space space){
         return !space.isColorRestricted() &&
                 !space.isValueRestricted() &&
-                ( space.hasDie() && this.hasDie() && this.getDie().equalsDie(space.getDie()) ||
-                        !space.hasDie() && !this.hasDie() );
+                this.hasDie()
+                    ? space.hasDie() && this.getDie().equalsDie(space.getDie())
+                    : !space.hasDie() ;
     }
 
 }

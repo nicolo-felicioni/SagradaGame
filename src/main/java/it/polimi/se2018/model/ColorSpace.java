@@ -16,7 +16,10 @@ public class ColorSpace extends Space {
 	}
 
 	public ColorSpace(ColorSpace colorSpace){
-	    this.color= colorSpace.color;
+		if(colorSpace.hasDie())
+			this.die=colorSpace.getDie();
+	    this.color= colorSpace.getColorRestriction();
+
     }
 
     @Override

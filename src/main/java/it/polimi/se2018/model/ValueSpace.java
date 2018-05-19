@@ -16,6 +16,8 @@ public class ValueSpace extends Space {
 
 	public ValueSpace(ValueSpace valueSpace){
 	    this.value=valueSpace.value;
+	    if(valueSpace.hasDie())
+	    	this.die=valueSpace.getDie();
     }
 	public void placeDie(Die die) throws PlacementException{
 
