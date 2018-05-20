@@ -40,12 +40,4 @@ public class ToolCardOne extends ToolCard {
 		return isActive();
 	}
 
-	/**
-	 * @inheritDoc
-	 * When the effect is used the card is deactivated.
-	 */
-	@Override
-	void effectUsed() {
-		this.endActivion();
-	}
 }
