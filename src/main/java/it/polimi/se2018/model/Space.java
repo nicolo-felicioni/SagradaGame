@@ -32,6 +32,9 @@ public abstract class Space implements SpaceInterface, Cloneable{
 	@Override
 	public void placeDie(Die die) throws PlacementException {
 		if(!hasDie()) {
+
+
+
 			this.die = die;
 		}else{
 			throw new SpaceAlreadyOccupiedException("Can not place a die on a occupied space");
@@ -43,9 +46,12 @@ public abstract class Space implements SpaceInterface, Cloneable{
 	 */
 	@Override
 	public Die removeDie() throws SpaceNotOccupiedException {
+
+
 		if(hasDie()) {
-			Die removedDie = die;
-			die = null;
+			Die removedDie = this.die;
+			this.die = null;
+
 			return new Die(removedDie.getColor(), removedDie.getValue());
 		}else{
 			throw new SpaceNotOccupiedException("Can not remove a die on a empty space");
@@ -84,5 +90,20 @@ public abstract class Space implements SpaceInterface, Cloneable{
 	 * @return a clone of this space.
 	 */
 	public abstract Space cloneSpace();
+
+
+	public String toString(){
+		String message = "Color restriction: " + this.getColorRestriction() +
+				"\nValue restriction: " + this.getValueRestriction() ;
+		if(this.hasDie())
+			message = message + "\nDie color: " + this.getDie().getColor() +
+					"\nDie value: " + this.getDie().getValue() ;
+		else
+			message = message + "\nNo die";
+
+		return message;
+
+
+	}
 
 }

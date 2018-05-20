@@ -16,7 +16,10 @@ public class ColorSpace extends Space {
 	}
 
 	public ColorSpace(ColorSpace colorSpace){
-	    this.color= colorSpace.color;
+		if(colorSpace.hasDie())
+			this.die=colorSpace.getDie();
+	    this.color= colorSpace.getColorRestriction();
+
     }
 
     @Override
@@ -107,13 +110,11 @@ public class ColorSpace extends Space {
 
 	@Override
 	public boolean equalsSpace(Space space){
-		if(space.isColorRestricted())
-			if(this.getColorRestriction() == space.getColorRestriction())
-				if(space.hasDie()){
-					if(this.hasDie())
-						return this.getDie().equalsDie(space.getDie());
-				}else
-					return !this.hasDie();
-		return false;
+
+		return space.isColorRestricted() &&
+				this.getColorRestriction() == space.getColorRestriction() &&
+				( space.hasDie() && this.hasDie() && this.getDie().equalsDie(space.getDie()) ||
+						!space.hasDie() && !this.hasDie() );
+
 	}
 }
