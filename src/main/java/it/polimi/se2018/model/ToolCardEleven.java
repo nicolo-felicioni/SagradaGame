@@ -1,5 +1,7 @@
 package it.polimi.se2018.model;
 
+import it.polimi.se2018.exceptions.ToolCardStateException;
+
 /**
  * @author Davide Yi Xian Hu
  */
@@ -45,7 +47,7 @@ public class ToolCardEleven extends ToolCard {
 	 * When the effect is used the card is deactivated.
 	 */
 	@Override
-	void effectUsed() {
+	public void consumeEffect() throws ToolCardStateException {
 		this.endActivion();
 	}
 

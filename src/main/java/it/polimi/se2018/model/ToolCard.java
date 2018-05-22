@@ -1,5 +1,7 @@
 package it.polimi.se2018.model;
 
+import it.polimi.se2018.exceptions.ToolCardStateException;
+
 /**
  * @author Davide Yi Xian Hu
  */
@@ -88,7 +90,7 @@ public abstract class ToolCard implements Card, Cloneable, ToolCardEffect{
 	 * @return true if the card is active, false otherwise.
 	 */
 	public boolean isActive() {
-		return used;
+		return active;
 	}
 
 	/**
@@ -103,17 +105,25 @@ public abstract class ToolCard implements Card, Cloneable, ToolCardEffect{
 	/**
 	 * Activate this card.
 	 */
-	public void activate() {
-		this.used = true;
-		this.favorTokensSpent =+ cost();
-		this.active = true;
+	public void activate() throws ToolCardStateException {
+		if(isActive()) {
+			throw new ToolCardStateException(this.getName() + " is already active.");
+		}else{
+			this.used = true;
+			this.favorTokensSpent += cost();
+			this.active = true;
+		}
 	}
 
 	/**
 	 * End activation of this card.
 	 */
-	public void endActivion() {
-		this.active = false;
+	public void endActivion() throws ToolCardStateException {
+		if(!isActive()) {
+			throw new ToolCardStateException(this.getName() + " is not active or cannot end the activation of the card.");
+		}else {
+			this.active = false;
+		}
 	}
 
 	/**
@@ -129,9 +139,10 @@ public abstract class ToolCard implements Card, Cloneable, ToolCardEffect{
 
 	/**
 	 * @inheritDoc
-	 * When the effect is used the card is deactivated.
+	 * The default behaviour is to end the activation of the card.
 	 */
-	void effectUsed() {
+	@Override
+	public void consumeEffect() throws ToolCardStateException{
 		this.endActivion();
 	}
 
@@ -169,7 +180,7 @@ public abstract class ToolCard implements Card, Cloneable, ToolCardEffect{
 	 * @inheritDoc
 	 */
 	@Override
-	public boolean moveTwoDice() {
+	public boolean moveADie() {
 		return false;
 	}
 
@@ -244,6 +255,5 @@ public abstract class ToolCard implements Card, Cloneable, ToolCardEffect{
 	public boolean moveTwoDiceMatchColorOnRoundTrack() {
 		return false;
 	}
-
 
 }

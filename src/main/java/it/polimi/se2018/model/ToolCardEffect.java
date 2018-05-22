@@ -1,5 +1,7 @@
 package it.polimi.se2018.model;
 
+import it.polimi.se2018.exceptions.ToolCardStateException;
+
 /**
  * @author Davide Yi Xian Hu
  */
@@ -40,7 +42,7 @@ public interface ToolCardEffect {
 	 *
 	 * @return true if a player can move two die.
 	 */
-	boolean moveTwoDice();
+	boolean moveADie();
 
 	/**
 	 * This effect permit the player to swap a die from the draft pool with a die from the round track.
@@ -105,4 +107,8 @@ public interface ToolCardEffect {
 	 */
 	boolean moveTwoDiceMatchColorOnRoundTrack();
 
+	/**
+	 * Consume the effect of the card.
+	 */
+	void consumeEffect() throws ToolCardStateException;
 }
