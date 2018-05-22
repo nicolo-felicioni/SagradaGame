@@ -244,28 +244,47 @@ public class WindowPattern {
 	}
 
 	/**
-	 * Moves the die from a point to another.
+	 * checks if is possible to move a die from a point of the window to another.
+	 * if the first point has a die and it is placeable on the second point return true.
+	 * if the first point hasn't a die or the die on the first point can't be placed on the second point
+	 * return false.
 	 * @param a the first point
 	 * @param b the second point
+	 * @return true if the first point has a die and it is placeable on the second point
+	 */
+	private boolean isPossibleMoveDie(Point a, Point b){
+		Die die;
+		WindowPattern copy = this.cloneWindowPattern();
+
+		try {
+			die = copy.removeDie(a);
+			copy.placeDie(die, b);
+		} catch (PlacementException e) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Moves the die from a point to another.
+	 * @param a the first point of the window
+	 * @param b the second point of the window
 	 * @throws NotValidMoveException if the first point is empty or the second point has already a die
 	 */
-
-
 	public void moveDie(Point a, Point b) throws NotValidMoveException{
 		Die die;
 
+		if(this.isPossibleMoveDie(a, b)){
+			try {
+				die = this.removeDie(a);
+				this.placeDie(die, b);
+			} catch (PlacementException e) {
+				//impossible
+				throw new NotValidMoveException("Impossible to move the die");
+			}
+		}else
+			throw new NotValidMoveException("Impossible to move the die");
 
-		try {
-			die = this.removeDie(a);
-		} catch (SpaceNotOccupiedException e) {
-			throw new NotValidMoveException("There's no die in this point:" + a );
-		}
-
-		try {
-			this.placeDie(die, b);
-		} catch (PlacementException e) {
-			throw new NotValidMoveException("exception :" + e);
-		}
 	}
 
 	/**
@@ -346,8 +365,14 @@ public class WindowPattern {
 	 * @throws WindowPatternDimensionException
 	 * @throws UnboundDifficultyValueException
 	 */
-	public WindowPattern cloneWindowPattern() throws WindowPatternDimensionException, UnboundDifficultyValueException {
-		return new WindowPattern(getAllSpaces(), this.difficulty);
+	public WindowPattern cloneWindowPattern() {
+		try {
+			return new WindowPattern(getAllSpaces(), this.difficulty);
+		} catch (WindowPatternDimensionException e) {
+
+		} catch (UnboundDifficultyValueException e) {
+		}
+		return null;
 	}
 
 
