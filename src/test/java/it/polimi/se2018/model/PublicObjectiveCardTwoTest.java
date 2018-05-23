@@ -21,13 +21,10 @@ public class PublicObjectiveCardTwoTest {
 		window = null;
 	}
 
-	@Test
+	@Test(expected = NullPointerException.class)
 	public void testCalculatePoints1() {
-		try {
-			card.calculatePoints(window);
-			fail();
-		} catch (NullPointerException e) {
-		}
+		card.calculatePoints(window);
+		fail();
 	}
 
 	@Test

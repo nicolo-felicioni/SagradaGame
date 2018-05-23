@@ -4,6 +4,7 @@ import it.polimi.se2018.exceptions.ToolCardStateException;
 import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -38,7 +39,7 @@ public class ToolCardOneTest {
 	}
 
 	@Test
-	public void testConsumeEffect() {
+	public void testConsumeEffect1() {
 		assertTrue(activeCard.increaseDieValue());
 		assertTrue(activeCard.decreaseDieValue());
 		try {
@@ -48,6 +49,12 @@ public class ToolCardOneTest {
 		}
 		assertFalse(activeCard.increaseDieValue());
 		assertFalse(activeCard.decreaseDieValue());
+	}
+
+	@Test(expected = ToolCardStateException.class)
+	public void testConsumeEffect2() throws ToolCardStateException{
+			inactiveCard.consumeEffect();
+			fail();
 	}
 
 	@Test

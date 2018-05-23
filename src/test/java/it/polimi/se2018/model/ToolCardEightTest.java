@@ -11,14 +11,14 @@ import static org.junit.Assert.assertTrue;
 /**
  * @author davide yi xian hu
  */
-public class ToolCardTwoTest {
-	private ToolCardTwo activeCard;
-	private ToolCardTwo inactiveCard;
+public class ToolCardEightTest {
+	private ToolCardEight activeCard;
+	private ToolCardEight inactiveCard;
 
 	@Before
 	public void setUp(){
-		activeCard = new ToolCardTwo();
-		inactiveCard = new ToolCardTwo();
+		activeCard = new ToolCardEight();
+		inactiveCard = new ToolCardEight();
 		try {
 			activeCard.activate();
 		} catch (ToolCardStateException e) {
@@ -28,19 +28,19 @@ public class ToolCardTwoTest {
 
 	@Test
 	public void testMoveDieIgnoreColor() {
-		assertTrue(activeCard.moveDieIgnoreColor());
-		assertFalse(inactiveCard.moveDieIgnoreColor());
+		assertTrue(activeCard.placeDieAfterFirstTurn());
+		assertFalse(inactiveCard.placeDieAfterFirstTurn());
 	}
 
 	@Test
 	public void testConsumeEffect1() {
-		assertTrue(activeCard.moveDieIgnoreColor());
+		assertTrue(activeCard.placeDieAfterFirstTurn());
 		try {
 			activeCard.consumeEffect();
 		} catch (ToolCardStateException e) {
 
 		}
-		assertFalse(activeCard.moveDieIgnoreColor());
+		assertFalse(activeCard.placeDieAfterFirstTurn());
 	}
 
 	@Test(expected = ToolCardStateException.class)
@@ -53,16 +53,16 @@ public class ToolCardTwoTest {
 	public void testOtherMethods() {
 		assertFalse(activeCard.chooseNewDieValue());
 		assertFalse(activeCard.flipDraftedDie());
-		assertFalse(activeCard.moveADie());
+		assertFalse(activeCard.moveDieIgnoreValue());
 		assertFalse(activeCard.increaseDieValue());
 		assertFalse(activeCard.decreaseDieValue());
-		assertFalse(activeCard.moveDieIgnoreValue());
+		assertFalse(activeCard.moveDieIgnoreColor());
 		assertFalse(activeCard.moveTwoDiceMatchColorOnRoundTrack());
-		assertFalse(activeCard.placeDieAfterFirstTurn());
+		assertFalse(activeCard.swapDraftDieWithRoundTrackDie());
 		assertFalse(activeCard.placeDraftedDieNoAdjacent());
 		assertFalse(activeCard.rerollAllDraftPoolDice());
 		assertFalse(activeCard.rerollDraftedDie());
 		assertFalse(activeCard.returnDieAndGetNewFromDiceBag());
-		assertFalse(activeCard.swapDraftDieWithRoundTrackDie());
+		assertFalse(activeCard.moveADie());
 	}
 }
