@@ -11,14 +11,14 @@ import static org.junit.Assert.assertTrue;
 /**
  * @author davide yi xian hu
  */
-public class ToolCardSevenTest {
-	private ToolCardSeven activeCard;
-	private ToolCardSeven inactiveCard;
+public class ToolCardNineTest {
+	private ToolCardNine activeCard;
+	private ToolCardNine inactiveCard;
 
 	@Before
-	public void setUp(){
-		activeCard = new ToolCardSeven();
-		inactiveCard = new ToolCardSeven();
+	public void setUp() {
+		activeCard = new ToolCardNine();
+		inactiveCard = new ToolCardNine();
 		try {
 			activeCard.activate();
 		} catch (ToolCardStateException e) {
@@ -28,25 +28,23 @@ public class ToolCardSevenTest {
 
 	@Test
 	public void testMoveDieIgnoreColor() {
-		assertTrue(activeCard.rerollAllDraftPoolDice());
-		assertFalse(inactiveCard.rerollAllDraftPoolDice());
+		assertTrue(activeCard.placeDraftedDieNoAdjacent());
+		assertFalse(inactiveCard.placeDraftedDieNoAdjacent());
 	}
 
 	@Test
-	public void testConsumeEffect() {
-		assertTrue(activeCard.rerollAllDraftPoolDice());
-		assertTrue(activeCard.isActive());
+	public void testConsumeEffect1() {
+		assertTrue(activeCard.placeDraftedDieNoAdjacent());
 		try {
 			activeCard.consumeEffect();
 		} catch (ToolCardStateException e) {
 
 		}
-		assertFalse(activeCard.rerollAllDraftPoolDice());
-		assertFalse(activeCard.isActive());
+		assertFalse(activeCard.placeDraftedDieNoAdjacent());
 	}
 
 	@Test(expected = ToolCardStateException.class)
-	public void testConsumeEffect2() throws ToolCardStateException{
+	public void testConsumeEffect2() throws ToolCardStateException {
 		inactiveCard.consumeEffect();
 		fail();
 	}
@@ -60,10 +58,10 @@ public class ToolCardSevenTest {
 		assertFalse(activeCard.decreaseDieValue());
 		assertFalse(activeCard.moveDieIgnoreColor());
 		assertFalse(activeCard.moveTwoDiceMatchColorOnRoundTrack());
-		assertFalse(activeCard.placeDieAfterFirstTurn());
-		assertFalse(activeCard.placeDraftedDieNoAdjacent());
-		assertFalse(activeCard.rerollDraftedDie());
 		assertFalse(activeCard.swapDraftDieWithRoundTrackDie());
+		assertFalse(activeCard.placeDieAfterFirstTurn());
+		assertFalse(activeCard.rerollAllDraftPoolDice());
+		assertFalse(activeCard.rerollDraftedDie());
 		assertFalse(activeCard.returnDieAndGetNewFromDiceBag());
 		assertFalse(activeCard.moveADie());
 	}
