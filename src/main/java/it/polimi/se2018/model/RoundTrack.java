@@ -4,18 +4,17 @@ import it.polimi.se2018.exceptions.NotValidDieException;
 import it.polimi.se2018.exceptions.NotValidRoundException;
 import it.polimi.se2018.exceptions.RoundTrackEmptyException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class RoundTrack {
 
-    private ArrayList<Die>[] track;
+    private List<Die>[] track;
 
     /**
      * Copy Constructor
      * @param track
      */
-    public RoundTrack(ArrayList<Die>[] track){
+    public RoundTrack(List<Die>[] track){
         this.track=track;
     }
 
@@ -23,25 +22,33 @@ public class RoundTrack {
      * empty constructor
      */
     public RoundTrack(){
-        track=new ArrayList[10];
+        track=new List[10];
+        for (int i = 0; i < track.length; i++) {
+            track[i] = new ArrayList();
+        }
+
     }
 
+    /**
+     * return true if the round track is empty or false if round track is not empty
+     * @return true or false
+     */
     public boolean isEmpty(){
-        return track[0] == null;
+        return track[0].isEmpty();
     }
     /**
-     *
+     *return the current turn number, from 1 to 10
      * @return the current turn number
      */
     public int getRound() {
-        int i=0;
-        for (i = 0; i < 10 && track[i]!=null; i++) {
+        int i;
+        for (i = 0; i < 10 && !track[i].isEmpty(); i++) {
         }
         return i + 1;
     }
         /**
-         *
-         * @return all the dice in the RoundTrack as an ArrayList
+         *return an List with all the dice on the round track
+         * @return all the dice in the RoundTrack as a List
          * @throws RoundTrackEmptyException if the round track is empty
          */
         public ArrayList<Die> getAllDice () throws RoundTrackEmptyException {
@@ -51,7 +58,7 @@ public class RoundTrack {
                 ArrayList<Die> temp = new ArrayList<>();
                 Die tempDie;
 
-                for (int i=0;i<10&&track[i]!=null;i++) {
+                for (int i=0;i<10&&!track[i].isEmpty();i++) {
                     for (Die die : track[i]) {
                         tempDie = new Die(die);
                         temp.add(tempDie);
@@ -62,19 +69,20 @@ public class RoundTrack {
         }
 
         /**
-         *@return all the dice in a specific round as an arraylist
+         * return all the dice in a specific round as a list
+         *@return all the dice in a specific round as a list
          * @param round
          * @throws RoundTrackEmptyException if the round track is empty
          * @throws NotValidRoundException if the input is greater than 10 or lower than 0
          */
-        public ArrayList<Die> getDice ( int round) throws RoundTrackEmptyException, NotValidRoundException {
+        public List<Die> getDice ( int round) throws RoundTrackEmptyException, NotValidRoundException {
             if (isEmpty())
                 throw new RoundTrackEmptyException("Round Track is empty");
             if ((round < 1) || (round > getRound())) throw new NotValidRoundException("Not valid round number");
             else {
                 ArrayList<Die> temp = new ArrayList<>();
                 Die tempDie;
-                ArrayList<Die> list = track[round];
+                List<Die> list = track[round-1];
                 for (Die die : list) {
                     tempDie = new Die(die);
                     temp.add(tempDie);
@@ -89,39 +97,28 @@ public class RoundTrack {
          * @return true or false
          */
         public boolean hasDie (Die die){
-            for (int i=0;i<10&&track[i]!=null;i++) {
-                if (track[i].contains(die))
-                    return true;
+            for (int i = 0; (i < 10) && (!track[i].isEmpty()); i++) {
+                for (Die tempdie : track[i]){
+                    if (tempdie.equalsDie(die)) return true;
+                }
             }
             return false;
         }
+        public void addDice(ArrayList<Die> dice,int round) throws NotValidRoundException {
+            if ((round < 1) || (round > getRound()))
+                throw new NotValidRoundException("Not valid round exception");
+            for (Die die : dice) {
+                track[round -1].add(new Die(die));
+            }
+            sortRoundTrack();
+        }
         /**
-         *method for adding an Arraylist of dice on the last round
+         *method for adding an Arraylist of dice on the next round
          * @param dice
          *
          */
-        public void addDice (ArrayList<Die> dice) {
-            for (Die die : dice) {
-                track[getRound()-1].add(new Die(die));
-            }
-        }
-
-        /**
-         *method for swapping die
-         * @param addDie
-         * @param removeDie
-         * @param round
-         * @return true or false
-         */
-        public boolean swapDice (Die addDie, Die removeDie,int round)throws NotValidDieException, NotValidRoundException
-        {
-            if ((round < 1) || (round > getRound()))
-                throw new NotValidRoundException("Not valid round number");
-            if (hasDie(removeDie)) {
-                return track[getRound()-1].add(new Die(addDie)) && track[getRound()-1].remove(removeDie);
-            } else {
-                throw new NotValidDieException("Not valid die");
-            }
+        public void addDice (ArrayList<Die> dice) throws NotValidRoundException {
+            addDice(dice,getRound());
         }
 
         /**
@@ -132,11 +129,12 @@ public class RoundTrack {
         public void addDie (Die die,int round)throws NotValidRoundException {
             if ((round < 1) || (round > getRound()))
                 throw new NotValidRoundException("Not valid round exception");
-            track[round-1].add(die);
+            track[round-1].add(new Die(die));
+            sortRoundTrack();
         }
 
         /**
-         * method for adding a single die on the last round of the round track
+         * method for adding a single die on the next round of the round track
          * @param die
          * @throws NotValidRoundException
          */
@@ -151,7 +149,33 @@ public class RoundTrack {
          * @return true or false
          */
         public boolean remove (Die die,int round) {
-            return track[round].contains(die) && track[round].remove(die);
+                for(Die tempdie:track[round]){
+                    if (tempdie.equalsDie(die)) {
+                        track[round].remove(tempdie);
+                        sortRoundTrack();
+                        return true;
+                    }
+                }
+            return false;
+        }
+        /**
+         *method for swapping die, 1st Die is the added die and the 2nd die is the removed
+         * @param addDie
+         * @param removeDie
+         * @param round
+         * @return true or false
+         */
+        public boolean swapDice (Die addDie, Die removeDie,int round)throws NotValidDieException, NotValidRoundException
+        {
+            if ((round < 1) || (round > getRound()))
+                throw new NotValidRoundException("Not valid round number");
+            if (hasDie(removeDie)) {
+                track[round-1].add(new Die(addDie));
+                sortRoundTrack();
+                return remove(removeDie,round-1);
+            } else {
+                throw new NotValidDieException("Not valid die");
+            }
         }
 
         /**
@@ -161,4 +185,13 @@ public class RoundTrack {
         public RoundTrack cloneRoundTrack () {
             return new RoundTrack(track);
         }
+
+    /**
+     * method for sorting the round track
+     */
+    public void sortRoundTrack(){
+        for (int i=0;i<10&&!track[i].isEmpty();i++){
+            track[i].sort(Die.DieComparator);
+        }
+    }
     }
