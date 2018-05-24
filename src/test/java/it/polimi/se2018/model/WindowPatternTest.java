@@ -578,8 +578,8 @@ public class WindowPatternTest {
         Die second = new Die(DieColor.PURPLE, DieValue.TWO);
 
 
-        blankWindow.placeDie(new Die(DieColor.getRandom(), DieValue.getRandom()), x);
-        blankWindow.placeDie(new Die(DieColor.getRandom(), DieValue.getRandom()), y );
+        blankWindow.placeDie(first, x);
+        blankWindow.placeDie(second, y );
 
         try {
             blankWindow.moveDie(x, y);
@@ -590,6 +590,7 @@ public class WindowPatternTest {
 
 
     }
+
 
     @Test
     public void removeDie() throws NotValidPointException {
@@ -675,7 +676,7 @@ public class WindowPatternTest {
     }
 
     @Test
-    public void cloneWindowPattern() throws WindowPatternDimensionException, UnboundDifficultyValueException, NotValidPointException {
+    public void cloneWindowPattern() throws NotValidPointException {
         WindowPattern clone = window.cloneWindowPattern();
         for(int i=0; i<WindowPattern.SPACES_HEIGTH; i++)
             for(int j=0; j<WindowPattern.SPACES_LENGTH; j++)
