@@ -1,9 +1,7 @@
 package it.polimi.se2018.network.rmi;
 
-import it.polimi.se2018.model.*;
-import it.polimi.se2018.network.SessionControllerInterface;
+import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.network.client.AbstractClient;
-import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.network.client.ClientSessionController;
 import it.polimi.se2018.network.server.ServerInterface;
 
@@ -43,13 +41,20 @@ public class RMIClient extends AbstractClient implements Remote{
 		UnicastRemoteObject.exportObject(this, 0);
 	}
 
-
 	/**
-	 * Update the dice bag.
-	 * @param diceBag the updated dice bag.
+	 * Connect to the RMI server.
+	 *
+	 * @param uid the unique identifier of the user.
+	 *
+	 * @throws RemoteException if the connection with thr RMI server fails.
 	 */
 	@Override
-	public void updateDiceBag(DiceBag diceBag) throws RemoteException{
-		super.updateDiceBag(diceBag);
+	public void login(String uid) throws LoginException {
+		try {
+			this.setSession(server.login(uid, this));
+		}catch(RemoteException e) {
+			throw new LoginException("Login to server failed.");
+		}
 	}
+
 }
