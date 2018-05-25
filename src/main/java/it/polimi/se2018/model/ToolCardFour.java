@@ -47,10 +47,14 @@ public class ToolCardFour extends ToolCard {
 	 */
 	@Override
 	public void consumeEffect() throws ToolCardStateException {
-		if(numberOfDiceMoved == 1) {
-			this.endActivion();
+		if(this.isActive()) {
+			if (numberOfDiceMoved == 1) {
+				this.endActivion();
+			} else {
+				numberOfDiceMoved++;
+			}
 		}else{
-			numberOfDiceMoved++;
+			throw new ToolCardStateException("this.getName() + \" is not active or cannot end the activation of the card.");
 		}
 	}
 
