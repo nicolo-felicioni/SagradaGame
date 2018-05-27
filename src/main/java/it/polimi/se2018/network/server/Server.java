@@ -1,10 +1,11 @@
 package it.polimi.se2018.network.server;
 
 import it.polimi.se2018.exceptions.LoginException;
-import it.polimi.se2018.network.GameRoom;
+import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.network.rmi.RMIServer;
 import it.polimi.se2018.network.socket.SocketServer;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,21 +65,25 @@ public class Server {
 	 * @throws LoginException if the login fails.
 	 */
 	public void login(String uid, SessionInterface session) throws LoginException {
-		//Look for a game room where a client has already logged in.
-		GameRoom room = getGameRoom(uid);
-		ServerSessionController controller = new ServerSessionController(session);
-		if(room == null) {
-			//Look for a game room that has not started yet.
-			room = getNotStartedGameRoom();
+		try {
+			//Look for a game room where a client has already logged in.
+			GameRoom room = getGameRoom(uid);
+			ServerSessionController controller = new ServerSessionController(session);
 			if(room == null) {
-				//Create a new game room.
-				room = new GameRoom();
-				roomList.add(room);
+				//Look for a game room that has not started yet.
+				room = getNotStartedGameRoom();
+				if(room == null) {
+					//Create a new game room.
+					room = new GameRoom();
+					roomList.add(room);
+				}
 			}
+			room.addPlayerSession(controller);
+			session.addCommandObserverver(controller);
+			controller.addCommandObserverver(room);
+		}catch(NetworkException | RemoteException e) {
+			throw new LoginException("Login failed");
 		}
-		room.addPlayerSession(controller);
-		session.addSessionController(controller);
-		controller.addGameRoom(room);
 	}
 
 	/**

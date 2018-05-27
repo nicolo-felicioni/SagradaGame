@@ -1,10 +1,8 @@
 package it.polimi.se2018.network.client;
 
 import it.polimi.se2018.controller.CommandInterface;
-import it.polimi.se2018.exceptions.SessionException;
-import it.polimi.se2018.model.*;
-import it.polimi.se2018.network.SessionControllerInterface;
-import it.polimi.se2018.network.server.SessionInterface;
+import it.polimi.se2018.exceptions.NetworkException;
+import it.polimi.se2018.network.utils.NetworkCommandObserver;
 
 import java.rmi.RemoteException;
 
@@ -16,43 +14,35 @@ public abstract class AbstractClient implements ClientInterface{
 	/**
 	 * Server session. It handle the requests to the server.
 	 */
-	private SessionInterface serverSession;
+	private NetworkCommandObserver serverSession;
 
 	/**
 	 * Session controller. It handle the requests from the server.
 	 */
-	private SessionControllerInterface controller;
+	//private NetworkCommandObserver controller;
 
 	/**
-	 * Constructor of the abstract class.
+	 * {@inheritDoc}
+	 * Add a server session.
 	 */
-	protected AbstractClient(SessionControllerInterface controller) {
-		this.controller = controller;
+	public void addCommandObserverver(NetworkCommandObserver observer) throws RemoteException, NetworkException {
+		this.serverSession = observer;
 	}
 
 	/**
-	 * Update the dice bag. Forward the request to the controller.
-	 * @param diceBag the updated dice bag.
+	 * {@inheritDoc}
+	 * Notify the server session.
 	 */
-	@Override
-	public void updateDiceBag(DiceBag diceBag) throws RemoteException {
-		this.controller.updateDiceBag(diceBag);
+	public void notify(CommandInterface command) throws RemoteException, NetworkException {
+		this.serverSession.handle(command);
 	}
 
 	/**
-	 * Notify a command to the server session.
-	 * @param command the command to be executed.
+	 * {@inheritDoc}
+	 * Forward the request to the server session.
 	 */
-	public void notify(CommandInterface command) throws RemoteException, SessionException {
-		this.serverSession.notify(command);
-	}
-
-	/**
-	 * Session setter.
-	 * @param session the session between client and server.
-	 */
-	public void setSession(SessionInterface session) {
-		this.serverSession = session;
+	public void handle(CommandInterface command) throws RemoteException, NetworkException {
+		this.serverSession.handle(command);
 	}
 
 }
