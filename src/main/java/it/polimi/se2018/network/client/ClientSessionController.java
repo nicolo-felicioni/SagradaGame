@@ -12,7 +12,10 @@ import java.rmi.RemoteException;
  */
 public class ClientSessionController implements SessionControllerInterface {
 
-	NetworkCommandObserver client;
+	/**
+	 * The network client. It observe command created from the controller.
+	 */
+	private NetworkCommandObserver client;
 
 	@Override
 	public void addCommandObserverver(NetworkCommandObserver observer) throws RemoteException, NetworkException {

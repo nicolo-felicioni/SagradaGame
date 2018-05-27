@@ -1,10 +1,12 @@
 package it.polimi.se2018.network.rmi;
 
 import it.polimi.se2018.controller.CommandInterface;
+import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.network.server.SessionInterface;
 import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.network.utils.NetworkCommandObserver;
+import it.polimi.se2018.network.utils.NetworkViewUpdaterObserver;
 
 import java.rmi.RemoteException;
 
@@ -16,7 +18,7 @@ public class RMIServerSession implements SessionInterface{
 	/**
 	 * RMI Client
 	 */
-	private ClientInterface client;
+	private NetworkViewUpdaterObserver client;
 
 	/**
 	 * RMI Server session.
@@ -31,10 +33,9 @@ public class RMIServerSession implements SessionInterface{
 	/**
 	 * Default constructor. Create a RMI session between the client and the server.
 	 *
-	 * @param client the client.
-	 * @param server the server.
+	 * @param client the client, a network view updater observer.
 	 */
-	public RMIServerSession(ClientInterface client) {
+	public RMIServerSession(NetworkViewUpdaterObserver client) {
 		this.client = client;
 		this.controller = null;
 	}
@@ -50,11 +51,46 @@ public class RMIServerSession implements SessionInterface{
 
 	/**
 	 * {@inheritDoc}
+	 * Add a client observer.
+	 */
+	@Override
+	public void addViewUpdaterObserverver(NetworkViewUpdaterObserver observer) throws RemoteException, NetworkException {
+		this.client = observer;
+	}
+
+	/**
+	 * {@inheritDoc}
 	 * Notify the server session controller.
 	 */
 	@Override
 	public void notify(CommandInterface command) throws RemoteException, NetworkException{
 		this.controller.handle(command);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * Notify a view updater to the client;
+	 */
+	@Override
+	public void notify(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
+		this.client.handle(updater);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * Forward the request to the server controller.
+	 */
+	@Override
+	public void handle(CommandInterface command) throws RemoteException, NetworkException {
+		this.notify(command);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * Forward the view updater to the client.
+	 */
+	public void handle(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
+		this.notify(updater);
 	}
 
 	@Override
@@ -67,12 +103,5 @@ public class RMIServerSession implements SessionInterface{
 		return this.uid;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 * Forward the request to the server controller.
-	 */
-	@Override
-	public void handle(CommandInterface command) throws RemoteException, NetworkException {
 
-	}
 }

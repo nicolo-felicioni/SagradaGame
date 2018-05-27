@@ -5,8 +5,6 @@ import it.polimi.se2018.controller.CommandObservable;
 import it.polimi.se2018.controller.CommandObserver;
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.exceptions.NetworkException;
-import it.polimi.se2018.network.server.Server;
-import it.polimi.se2018.network.server.ServerSessionController;
 import it.polimi.se2018.network.utils.NetworkCommandObserver;
 
 import java.rmi.RemoteException;
@@ -15,7 +13,7 @@ import java.util.List;
 /**
  * @author davide yi xian hu
  */
-public class GameRoom implements NetworkCommandObserver, CommandObservable {
+public class GameRoom implements GameRoomInterface {
 
 	/**
 	 * If the game is already started, it's true. False otherwise.
@@ -49,7 +47,7 @@ public class GameRoom implements NetworkCommandObserver, CommandObservable {
 
 	@Override
 	public void notify(CommandInterface command) {
-		controller.update(command);
+		controller.handle(command);
 	}
 
 	public void addPlayerSession(ServerSessionController session) {
@@ -82,6 +80,6 @@ public class GameRoom implements NetworkCommandObserver, CommandObservable {
 	 */
 	@Override
 	public void handle(CommandInterface command) throws RemoteException, NetworkException {
-		controller.update(command);
+		controller.handle(command);
 	}
 }

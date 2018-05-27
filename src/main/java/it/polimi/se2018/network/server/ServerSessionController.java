@@ -1,9 +1,11 @@
 package it.polimi.se2018.network.server;
 
 import it.polimi.se2018.controller.CommandInterface;
+import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.exceptions.SessionException;
 import it.polimi.se2018.network.utils.NetworkCommandObserver;
+import it.polimi.se2018.network.utils.NetworkViewUpdaterObserver;
 
 import java.rmi.RemoteException;
 
@@ -12,7 +14,7 @@ import java.rmi.RemoteException;
  */
 public class ServerSessionController implements SessionControllerInterface {
 
-	private SessionInterface session;
+	private NetworkViewUpdaterObserver session;
 	private NetworkCommandObserver gameRoom;
 	private String uid;
 
@@ -34,7 +36,16 @@ public class ServerSessionController implements SessionControllerInterface {
 	 */
 	@Override
 	public void addCommandObserverver(NetworkCommandObserver observer) throws RemoteException, NetworkException {
-		gameRoom = observer;
+		this.gameRoom = observer;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * Add a server session.
+	 */
+	@Override
+	public void addViewUpdaterObserverver(NetworkViewUpdaterObserver observer) throws RemoteException, NetworkException {
+		this.session = observer;
 	}
 
 	/**
@@ -48,10 +59,27 @@ public class ServerSessionController implements SessionControllerInterface {
 
 	/**
 	 * {@inheritDoc}
+	 * Notify a view updater to the session;
+	 */
+	@Override
+	public void notify(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
+		this.session.handle(updater);
+	}
+
+	/**
+	 * {@inheritDoc}
 	 * Forward the command to the game room.
 	 */
 	@Override
 	public void handle(CommandInterface command) throws RemoteException, NetworkException {
 		this.notify(command);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * Forward the view updater to the client.
+	 */
+	public void handle(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
+		this.notify(updater);
 	}
 }

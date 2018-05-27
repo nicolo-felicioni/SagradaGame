@@ -11,7 +11,7 @@ public class Controller implements CommandObserver{
 	 * @param command the command that have to be notified to the observer.
 	 */
 	@Override
-	public void update(CommandInterface command) {
+	public void handle(CommandInterface command) {
 		command.executeCommand(this);
 	}
 

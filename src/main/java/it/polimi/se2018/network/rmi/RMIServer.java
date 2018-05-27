@@ -52,7 +52,7 @@ public class RMIServer implements Remote, ServerInterface {
 	 * @return the session between the client and the server.
 	 */
 	public SessionInterface login(String uid, ClientInterface client) throws RemoteException, LoginException {
-		SessionInterface session =new RMIServerSession(client, this);
+		SessionInterface session =new RMIServerSession(client);
 		Server.getInstance().login(uid, session);
 		return session;
 	}
