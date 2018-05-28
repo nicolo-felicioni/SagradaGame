@@ -11,7 +11,7 @@ import java.rmi.RemoteException;
 /**
  * @author davide yi xian hu
  */
-public interface SessionControllerInterface extends NetworkForwarder {
+public interface ServerSessionControllerInterface extends NetworkForwarder {
 
 	String getUID();
 

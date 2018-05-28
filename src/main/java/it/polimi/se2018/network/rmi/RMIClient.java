@@ -1,10 +1,12 @@
 package it.polimi.se2018.network.rmi;
 
+import it.polimi.se2018.controller.CommandInterface;
 import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.network.client.AbstractClient;
-import it.polimi.se2018.network.client.ClientSessionController;
 import it.polimi.se2018.network.server.ServerInterface;
+import it.polimi.se2018.network.utils.NetworkCommandObservable;
+import it.polimi.se2018.network.utils.NetworkCommandObserver;
 
 import java.rmi.NotBoundException;
 import java.rmi.Remote;
@@ -16,7 +18,14 @@ import java.rmi.server.UnicastRemoteObject;
 /**
  * @author davide yi xian hu
  */
-public class RMIClient extends AbstractClient implements Remote{
+public class RMIClient extends AbstractClient implements Remote, NetworkCommandObservable {
+
+
+	/**
+	 * Server session. It handle the requests to the server.
+	 */
+	private NetworkCommandObserver serverSession;
+
 
 	/**
 	 * RMI server.
@@ -48,10 +57,36 @@ public class RMIClient extends AbstractClient implements Remote{
 	@Override
 	public void login(String uid) throws LoginException {
 		try {
-			this.addCommandObserverver(server.login(uid, this));
+			this.addCommandObserver(server.login(uid, this));
 		}catch(RemoteException | NetworkException e) {
 			throw new LoginException("Login to server failed.");
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * Add a server session.
+	 */
+	@Override
+	public void addCommandObserver(NetworkCommandObserver observer) throws RemoteException, NetworkException {
+		this.serverSession = observer;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * Notify a command to the server session.
+	 */
+	@Override
+	public void notify(CommandInterface command) throws RemoteException, NetworkException {
+		this.serverSession.handle(command);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * Forward the command to the server session.
+	 */
+	public void handle(CommandInterface command) throws RemoteException, NetworkException {
+		this.notify(command);
 	}
 
 }

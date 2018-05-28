@@ -6,14 +6,16 @@ import it.polimi.se2018.exceptions.SessionException;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.network.server.SessionInterface;
 import it.polimi.se2018.network.utils.NetworkCommandForwarder;
+import it.polimi.se2018.network.utils.NetworkCommandObserver;
 import it.polimi.se2018.network.utils.NetworkForwarder;
+import it.polimi.se2018.network.utils.NetworkViewUpdaterForwarder;
 
 import java.rmi.RemoteException;
 
 /**
  * @author davide yi xian hu
  */
-public interface ClientInterface extends NetworkForwarder {
+public interface ClientInterface extends NetworkCommandObserver, NetworkViewUpdaterForwarder {
 
 	/**
 	 * Login a client to the server.

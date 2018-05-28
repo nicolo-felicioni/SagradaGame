@@ -19,9 +19,15 @@ public class SocketServer {
 	 * Default constructor.
 	 */
 	public SocketServer(){
+		ServerSocket serverSocket = null;
 		try {
-			ServerSocket serverSocket = new ServerSocket(port);
+			serverSocket = new ServerSocket(port);
 		} catch(IOException ex) {
+		} finally {
+			try {
+				serverSocket.close();
+			} catch (IOException ex) {
+			}
 		}
 	}
 

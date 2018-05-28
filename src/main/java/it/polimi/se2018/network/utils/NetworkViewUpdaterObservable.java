@@ -1,6 +1,5 @@
 package it.polimi.se2018.network.utils;
 
-import it.polimi.se2018.controller.CommandInterface;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.exceptions.NetworkException;
 
@@ -18,7 +17,7 @@ public interface NetworkViewUpdaterObservable {
 	 * @throws RemoteException if RMI errors occur during the connection.
 	 * @throws NetworkException if any connection error occurs during the connection.
 	 */
-	void addViewUpdaterObserverver(NetworkViewUpdaterObserver observer) throws RemoteException, NetworkException;
+	void addViewUpdaterObserver(NetworkViewUpdaterObserver observer) throws RemoteException, NetworkException;
 
 	/**
 	 * Notify a view updater.
