@@ -1,25 +1,62 @@
 package it.polimi.se2018.network.socket;
 
 import it.polimi.se2018.exceptions.LoginException;
-import it.polimi.se2018.network.SessionControllerInterface;
+import it.polimi.se2018.network.server.SessionControllerInterface;
 import it.polimi.se2018.network.client.AbstractClient;
+
+import java.io.*;
+import java.net.Socket;
 
 /**
  * @author davide yi xian hu
  */
 public class SocketClient extends AbstractClient {
 
+	private Socket socket;
+	private DataInputStream inStream;
+	private BufferedOutputStream outStream;
+	private NetworkListener listener;
+
 	/**
-	 * Constructor of the class.
+	 * Connect to the socket server.
 	 *
-	 * @param controller the client session controller
+	 * @param address the ip address of the socket server.
+	 * @param port the port number of the socket server.
+	 *
 	 */
-	protected SocketClient(SessionControllerInterface controller) {
-		super(controller);
+	public void connect(String address, int port) {
+		try {
+			socket = new Socket(address, port);
+			inStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+			outStream = new BufferedOutputStream(socket.getOutputStream());
+			listener = new NetworkListener();
+			new Thread(listener).start();
+		} catch (IOException e) {
+		}
 	}
 
+	/**
+	 * Login a client to the server.
+	 *
+	 * @param uid the unique identifier of the client.
+	 */
 	@Override
 	public void login(String uid) throws LoginException {
+
+	}
+
+	private class NetworkListener implements Runnable {
+		private boolean run = true;
+
+		@Override
+		public void run() {
+			while(this.run) {
+				try {
+					String request = inStream.readUTF();
+				} catch (IOException e) {
+				}
+			}
+		}
 
 	}
 }

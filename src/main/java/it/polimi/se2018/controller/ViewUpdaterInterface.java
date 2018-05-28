@@ -3,11 +3,11 @@ package it.polimi.se2018.controller;
 /**
  * @author davide yi xian hu
  */
-public interface CommandInterface {
+public interface ViewUpdaterInterface {
 
 	/**
-	 * Execute this command.
+	 * Update a view.
 	 * @param controller the object that have to be modified by this command.
 	 */
-	void executeCommand (Controller controller);
+	void update(Controller controller);
 }

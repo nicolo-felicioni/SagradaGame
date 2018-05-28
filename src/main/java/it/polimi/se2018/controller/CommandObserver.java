@@ -6,10 +6,10 @@ package it.polimi.se2018.controller;
 public interface CommandObserver {
 
 	/**
-	 * Update the command to the observer.
+	 * Handle the command.
 	 *
 	 * @param command the command that have to be notified to the observer.
 	 */
-	void update(CommandInterface command);
+	void handle(CommandInterface command);
 
 }

@@ -1,6 +1,7 @@
 package it.polimi.se2018.network.rmi;
 
 import it.polimi.se2018.exceptions.LoginException;
+import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.network.client.AbstractClient;
 import it.polimi.se2018.network.client.ClientSessionController;
 import it.polimi.se2018.network.server.ServerInterface;
@@ -17,14 +18,10 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class RMIClient extends AbstractClient implements Remote{
 
-	private ServerInterface server;
-
 	/**
-	 * Constructor of class.
+	 * RMI server.
 	 */
-	public RMIClient() {
-		super(new ClientSessionController());
-	}
+	private ServerInterface server;
 
 	/**
 	 * Connect to the RMI server.
@@ -51,8 +48,8 @@ public class RMIClient extends AbstractClient implements Remote{
 	@Override
 	public void login(String uid) throws LoginException {
 		try {
-			this.setSession(server.login(uid, this));
-		}catch(RemoteException e) {
+			this.addCommandObserverver(server.login(uid, this));
+		}catch(RemoteException | NetworkException e) {
 			throw new LoginException("Login to server failed.");
 		}
 	}

@@ -5,7 +5,18 @@ package it.polimi.se2018.controller;
  */
 public interface CommandObservable {
 
-	void addObserver(CommandObserver o);
+	/**
+	 * Add a command observer.
+	 *
+	 * @param observer the command observer.
+	 */
+	void addObserver(CommandObserver observer);
 
-	void notify(CommandInterface commandInterface);
+	/**
+	 * Notify a command.
+	 *
+	 * @param command the command to be executed.
+	 */
+	void notify(CommandInterface command);
+
 }

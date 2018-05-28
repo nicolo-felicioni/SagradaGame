@@ -1,10 +1,10 @@
 package it.polimi.se2018.network.client;
 
 import it.polimi.se2018.controller.CommandInterface;
-import it.polimi.se2018.exceptions.SessionException;
-import it.polimi.se2018.model.*;
-import it.polimi.se2018.network.SessionControllerInterface;
-import it.polimi.se2018.network.server.SessionInterface;
+import it.polimi.se2018.controller.ViewUpdaterInterface;
+import it.polimi.se2018.exceptions.NetworkException;
+import it.polimi.se2018.network.utils.NetworkCommandObserver;
+import it.polimi.se2018.network.utils.NetworkViewUpdaterObserver;
 
 import java.rmi.RemoteException;
 
@@ -16,43 +16,62 @@ public abstract class AbstractClient implements ClientInterface{
 	/**
 	 * Server session. It handle the requests to the server.
 	 */
-	private SessionInterface serverSession;
+	private NetworkCommandObserver serverSession;
 
 	/**
 	 * Session controller. It handle the requests from the server.
 	 */
-	private SessionControllerInterface controller;
+	private NetworkViewUpdaterObserver controller;
 
 	/**
-	 * Constructor of the abstract class.
-	 */
-	protected AbstractClient(SessionControllerInterface controller) {
-		this.controller = controller;
-	}
-
-	/**
-	 * Update the dice bag. Forward the request to the controller.
-	 * @param diceBag the updated dice bag.
+	 * {@inheritDoc}
+	 * Add a server session.
 	 */
 	@Override
-	public void updateDiceBag(DiceBag diceBag) throws RemoteException {
-		this.controller.updateDiceBag(diceBag);
+	public void addCommandObserverver(NetworkCommandObserver observer) throws RemoteException, NetworkException {
+		this.serverSession = observer;
 	}
 
 	/**
+	 * {@inheritDoc}
+	 * Add a client network controller.
+	 */
+	@Override
+	public void addViewUpdaterObserverver(NetworkViewUpdaterObserver observer) throws RemoteException, NetworkException {
+		this.controller = observer;
+	}
+
+	/**
+	 * {@inheritDoc}
 	 * Notify a command to the server session.
-	 * @param command the command to be executed.
 	 */
-	public void notify(CommandInterface command) throws RemoteException, SessionException {
-		this.serverSession.notify(command);
+	@Override
+	public void notify(CommandInterface command) throws RemoteException, NetworkException {
+		this.serverSession.handle(command);
 	}
 
 	/**
-	 * Session setter.
-	 * @param session the session between client and server.
+	 * {@inheritDoc}
+	 * Notify a view updater to the client controller;
 	 */
-	public void setSession(SessionInterface session) {
-		this.serverSession = session;
+	@Override
+	public void notify(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
+		this.controller.handle(updater);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * Forward the command to the server session.
+	 */
+	public void handle(CommandInterface command) throws RemoteException, NetworkException {
+		this.serverSession.handle(command);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * Forward the view updater to the controller.
+	 */
+	public void handle(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
+		this.controller.handle(updater);
+	}
 }
