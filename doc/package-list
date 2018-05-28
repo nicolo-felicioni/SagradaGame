@@ -1,0 +1,9 @@
+it.polimi.se2018
+it.polimi.se2018.controller
+it.polimi.se2018.exceptions
+it.polimi.se2018.model
+it.polimi.se2018.network.client
+it.polimi.se2018.network.rmi
+it.polimi.se2018.network.server
+it.polimi.se2018.network.socket
+it.polimi.se2018.network.utils
