@@ -3,6 +3,7 @@ package it.polimi.se2018.model;
 import it.polimi.se2018.exceptions.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -107,9 +108,9 @@ public class WindowPattern {
 			return p.isEdgyPoint();
 		else
 			return this.isThereSomeDieAdjacent(p) &&
-				!(p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
-						.anyMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
-								this.getSpace(point).getDie().getValue()==die.getValue()));
+					p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
+                            .noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
+                                    this.getSpace(point).getDie().getValue()==die.getValue());
 
 
 
@@ -338,7 +339,7 @@ public class WindowPattern {
 	 */
 	public List<Space> getAllSpacesAsList(){
 		ArrayList<Space> listOfSpaces;
-		listOfSpaces = new ArrayList<Space>();
+		listOfSpaces = new ArrayList<>();
 
 		for(int i = 0; i < SPACES_HEIGTH; i++){
 			for(int j = 0; j < SPACES_LENGTH; j++){
@@ -375,5 +376,24 @@ public class WindowPattern {
 		return null;
 	}
 
+	/**
+	 * this method compares this pattern to another and returns true if they're equals.
+	 *
+	 * @param pattern a given window pattern
+	 * @return true if the two window pattern are the same
+	 */
+	public boolean equalsWindowPattern(WindowPattern pattern){
+		for(int i=0; i<WindowPattern.SPACES_HEIGTH; i++){
+			for(int j=0; j<WindowPattern.SPACES_LENGTH; j++) {
+				try {
+					if(! this.getSpace(i, j).equalsSpace(pattern.getSpace(i, j)))
+						return false;
+				} catch (NotValidPointException e) {
+					//impossible
+				}
+			}
+		}
+		return (this.getDifficulty() == pattern.getDifficulty());
+	}
 
 }

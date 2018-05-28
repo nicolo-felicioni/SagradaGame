@@ -1,8 +1,6 @@
 package it.polimi.se2018.model;
 
-/**
- * @author Nicolò Felicioni
- */
+
 
 import it.polimi.se2018.exceptions.*;
 import org.junit.After;
@@ -15,10 +13,15 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+ /**
+  @author Nicolò Felicioni
+ */
+
+
 public class WindowPatternTest {
 
-    WindowPattern window;
-    WindowPattern blankWindow;
+   private WindowPattern window;
+   private WindowPattern blankWindow;
 
 
     private int randomDiff;
@@ -76,7 +79,6 @@ public class WindowPatternTest {
     public void tearDown(){
 
         window = null;
-        assertNull(window);
 
     }
 
@@ -369,7 +371,7 @@ public class WindowPatternTest {
         }
 
         for(int i=0; i<100; i++){
-            placeDieIgnoreColorRandom();;
+            placeDieIgnoreColorRandom();
             System.out.println(i);
 
             tearDown();
@@ -538,6 +540,8 @@ public class WindowPatternTest {
         }
     }
 
+
+    //TODO - DA SPEZZARE IN PIU TEST UNITARI
     @Test
     public void moveDie() throws NotValidPointException, PlacementException {
         DieValue val = window.getSpace(3, 0).getValueRestriction();

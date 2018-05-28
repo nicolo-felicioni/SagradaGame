@@ -1,7 +1,4 @@
 package it.polimi.se2018.model;
-/**
- * @author Nicolò Felicioni
- */
 
 import it.polimi.se2018.exceptions.DiceBagEmptyException;
 import it.polimi.se2018.exceptions.DiceBagException;
@@ -9,6 +6,10 @@ import it.polimi.se2018.exceptions.NotEnoughDiceException;
 import it.polimi.se2018.exceptions.NotValidNumberOfDiceException;
 
 import java.util.*;
+
+/**
+ * @author Nicolò Felicioni
+ */
 
 public class DiceBag {
 
@@ -20,10 +21,21 @@ public class DiceBag {
 
 
 	public DiceBag(){
-		numberOfPresentDice = new ArrayList<Integer>(NUMBER_OF_COLORS);
+		numberOfPresentDice = new ArrayList<>(NUMBER_OF_COLORS);
 		for(int i = 0; i< NUMBER_OF_COLORS; i++)
 			numberOfPresentDice.add(INITIAL_NUMBER);
 	}
+
+
+	/**
+	 * copy constructor.
+	 * @param copy a dice bag to be copied
+	 */
+	public DiceBag(DiceBag copy){
+		this.numberOfPresentDice =  new ArrayList<>(NUMBER_OF_COLORS);
+		this.numberOfPresentDice.addAll(copy.numberOfPresentDice);
+	}
+
 	/**
 	 * choose a random die, remove it from the diceBag and return it
 	 * @return randomDie, a random die
@@ -49,7 +61,7 @@ public class DiceBag {
 
 	/**
 	 * choose n random dice, remove them form the diceBag and return them
-	 * @param n
+	 * @param n number of random dice that will be returned
 	 * @return temp, an ArrayList with removed dice
 	 */
 
@@ -60,7 +72,7 @@ public class DiceBag {
 		if (this.size() < n)
 			throw new NotEnoughDiceException("Not enough dice in the dice bag");
 
-		ArrayList<Die> dice = new ArrayList<Die>(n) ;
+		ArrayList<Die> dice = new ArrayList<>(n) ;
 
 		for(int i = 0; i < n; i++ ){
 			dice.add(this.drawDie());

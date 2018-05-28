@@ -3,6 +3,7 @@ package it.polimi.se2018.network.client;
 import it.polimi.se2018.controller.CommandInterface;
 import it.polimi.se2018.exceptions.SessionException;
 import it.polimi.se2018.model.DiceBag;
+import it.polimi.se2018.network.GameRoom;
 import it.polimi.se2018.network.SessionControllerInterface;
 
 import java.rmi.RemoteException;
@@ -26,6 +27,16 @@ public class ClientSessionController implements SessionControllerInterface {
 	@Override
 	public void notify(CommandInterface command) throws RemoteException, SessionException {
 		this.client.notify(command);
+	}
+
+	@Override
+	public String getUID() {
+		return null;
+	}
+
+	@Override
+	public void addGameRoom(GameRoom gameRoom) {
+
 	}
 
 }

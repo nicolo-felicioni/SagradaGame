@@ -1,5 +1,6 @@
 package it.polimi.se2018.network.socket;
 
+import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.network.SessionControllerInterface;
 import it.polimi.se2018.network.client.AbstractClient;
 
@@ -15,5 +16,10 @@ public class SocketClient extends AbstractClient {
 	 */
 	protected SocketClient(SessionControllerInterface controller) {
 		super(controller);
+	}
+
+	@Override
+	public void login(String uid) throws LoginException {
+
 	}
 }

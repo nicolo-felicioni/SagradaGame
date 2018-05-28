@@ -33,8 +33,6 @@ public abstract class Space implements SpaceInterface, Cloneable{
 	public void placeDie(Die die) throws PlacementException {
 		if(!hasDie()) {
 
-
-
 			this.die = die;
 		}else{
 			throw new SpaceAlreadyOccupiedException("Can not place a die on a occupied space");
