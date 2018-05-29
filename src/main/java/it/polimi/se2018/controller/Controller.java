@@ -1,9 +1,13 @@
 package it.polimi.se2018.controller;
 
+import it.polimi.se2018.model.Model;
+
 /**
  * @author davide yi xian hu
  */
 public class Controller implements CommandObserver{
+
+	private Model model;
 
 	/**
 	 * Notify the command to the observer.
@@ -12,7 +16,7 @@ public class Controller implements CommandObserver{
 	 */
 	@Override
 	public void handle(CommandInterface command) {
-		command.executeCommand(this);
+		command.executeCommand(model);
 	}
 
 }

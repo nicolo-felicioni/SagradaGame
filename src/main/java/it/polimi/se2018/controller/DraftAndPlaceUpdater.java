@@ -1,0 +1,18 @@
+package it.polimi.se2018.controller;
+
+import it.polimi.se2018.model.Die;
+import it.polimi.se2018.model.Player;
+import it.polimi.se2018.model.Point;
+import it.polimi.se2018.view.View;
+
+public class DraftAndPlaceUpdater implements ViewUpdaterInterface {
+
+    private Die draftedDie;
+    private Point point;
+    private String playerId;
+
+    @Override
+    public void update(View view) {
+        view.moveDieFromDraftToWindow(point, draftedDie, playerId);
+    }
+}

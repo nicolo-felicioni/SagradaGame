@@ -12,10 +12,10 @@ import it.polimi.se2018.exceptions.*;
 import java.util.*;
 
 
-public class Model implements ModelInterface, ViewUpdaterObservable{
+public class Model implements ModelInterface{
 
     private ArrayList<Player> players;
-    private DiceBag diceBag;
+    private DiceBag diceBag; //no
     private DraftPool draftPool;
     private PublicObjectiveCard[] publicObjectiveCards;
     private ToolCard[] toolCards;
@@ -236,20 +236,4 @@ public class Model implements ModelInterface, ViewUpdaterObservable{
         return diceBag.drawDice(players.size() * 2 + 1);
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void addObserver(ViewUpdaterObserver observer) {
-
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void notify(ViewUpdaterInterface updater) {
-
-    }
 }
