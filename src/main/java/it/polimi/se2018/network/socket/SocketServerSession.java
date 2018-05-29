@@ -6,14 +6,27 @@ import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.exceptions.SessionException;
 import it.polimi.se2018.network.server.SessionInterface;
 import it.polimi.se2018.network.utils.NetworkCommandObserver;
-import it.polimi.se2018.network.utils.NetworkViewUpdaterObserver;
 
+import java.io.BufferedOutputStream;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.rmi.RemoteException;
 
 /**
  * @author davide yi xian hu
  */
 public class SocketServerSession implements SessionInterface {
+
+	private Socket socket;
+	private DataInputStream inStream;
+	private BufferedOutputStream outStream;
+	private NetworkListener listener;
+
+	/**
+	 * Server session controller.
+	 */
+	private NetworkCommandObserver controller;
 
 	@Override
 	public void logout(String uid) throws SessionException {
@@ -33,8 +46,8 @@ public class SocketServerSession implements SessionInterface {
 	 * @throws NetworkException if any connection error occurs during the connection.
 	 */
 	@Override
-	public void addCommandObserverver(NetworkCommandObserver observer) throws RemoteException, NetworkException {
-
+	public void addCommandObserver(NetworkCommandObserver observer) throws RemoteException, NetworkException {
+		this.controller = observer;
 	}
 
 	/**
@@ -46,7 +59,7 @@ public class SocketServerSession implements SessionInterface {
 	 */
 	@Override
 	public void notify(CommandInterface command) throws RemoteException, NetworkException {
-
+		this.controller.handle(command);
 	}
 
 	/**
@@ -58,31 +71,7 @@ public class SocketServerSession implements SessionInterface {
 	 */
 	@Override
 	public void handle(CommandInterface command) throws RemoteException, NetworkException {
-
-	}
-
-	/**
-	 * Add a network view updater observer.
-	 *
-	 * @param observer the network view updater observer.
-	 * @throws RemoteException  if RMI errors occur during the connection.
-	 * @throws NetworkException if any connection error occurs during the connection.
-	 */
-	@Override
-	public void addViewUpdaterObserverver(NetworkViewUpdaterObserver observer) throws RemoteException, NetworkException {
-
-	}
-
-	/**
-	 * Notify a view updater.
-	 *
-	 * @param updater the view updater.
-	 * @throws RemoteException  if RMI errors occur during the connection.
-	 * @throws NetworkException if any connection error occurs during the connection.
-	 */
-	@Override
-	public void notify(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
-
+		this.notify(command);
 	}
 
 	/**
@@ -94,6 +83,21 @@ public class SocketServerSession implements SessionInterface {
 	 */
 	@Override
 	public void handle(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
+		String message = updater.toString();
+	}
+
+	private class NetworkListener implements Runnable {
+		private boolean run = true;
+
+		@Override
+		public void run() {
+			while(this.run) {
+				try {
+					String request = inStream.readUTF();
+				} catch (IOException e) {
+				}
+			}
+		}
 
 	}
 }

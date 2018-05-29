@@ -4,8 +4,8 @@ import it.polimi.se2018.controller.CommandInterface;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.network.server.SessionInterface;
-import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.network.utils.NetworkCommandObserver;
+import it.polimi.se2018.network.utils.NetworkViewUpdaterObservable;
 import it.polimi.se2018.network.utils.NetworkViewUpdaterObserver;
 
 import java.rmi.RemoteException;
@@ -13,7 +13,7 @@ import java.rmi.RemoteException;
 /**
  * @author davide yi xian hu
  */
-public class RMIServerSession implements SessionInterface{
+public class RMIServerSession implements SessionInterface, NetworkViewUpdaterObservable {
 
 	/**
 	 * RMI Client
@@ -21,7 +21,7 @@ public class RMIServerSession implements SessionInterface{
 	private NetworkViewUpdaterObserver client;
 
 	/**
-	 * RMI Server session.
+	 * Server session controller.
 	 */
 	private NetworkCommandObserver controller;
 
@@ -45,7 +45,7 @@ public class RMIServerSession implements SessionInterface{
 	 * Add a server session controller.
 	 */
 	@Override
-	public void addCommandObserverver(NetworkCommandObserver observer) throws RemoteException, NetworkException {
+	public void addCommandObserver(NetworkCommandObserver observer) throws RemoteException, NetworkException {
 		this.controller = observer;
 	}
 
@@ -54,7 +54,7 @@ public class RMIServerSession implements SessionInterface{
 	 * Add a client observer.
 	 */
 	@Override
-	public void addViewUpdaterObserverver(NetworkViewUpdaterObserver observer) throws RemoteException, NetworkException {
+	public void addViewUpdaterObserver(NetworkViewUpdaterObserver observer) throws RemoteException, NetworkException {
 		this.client = observer;
 	}
 

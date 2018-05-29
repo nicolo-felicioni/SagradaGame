@@ -79,8 +79,8 @@ public class Server {
 				}
 			}
 			room.addPlayerSession(controller);
-			session.addCommandObserverver(controller);
-			controller.addCommandObserverver(room);
+			session.addCommandObserver(controller);
+			controller.addCommandObserver(room);
 		}catch(NetworkException | RemoteException e) {
 			throw new LoginException("Login failed");
 		}
