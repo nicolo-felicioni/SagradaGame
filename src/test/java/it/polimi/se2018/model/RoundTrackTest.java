@@ -15,8 +15,6 @@ import static org.junit.Assert.*;
  * @author PeiQing Gao
  */
 public class RoundTrackTest {
-
-
     private RoundTrack roundTrack;
     @Before
     public void setup(){
@@ -25,7 +23,6 @@ public class RoundTrackTest {
     @After
     public void tearDown(){
     }
-
 
     @Test
     public void isEmptyTest(){
@@ -38,8 +35,6 @@ public class RoundTrackTest {
         }
         assertFalse(roundTrack.isEmpty());
     }
-
-    /*
     @Test
     public void getRoundTest(){
         int i;
@@ -227,5 +222,4 @@ public class RoundTrackTest {
         }
             roundTrack.sortRoundTrack();
     }
-    */
 }
