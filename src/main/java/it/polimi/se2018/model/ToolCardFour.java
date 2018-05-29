@@ -58,4 +58,10 @@ public class ToolCardFour extends ToolCard {
 		}
 	}
 
+	@Override
+	public ToolCard cloneToolCard() {
+		//TODO - implementare clone
+		return null;
+	}
+
 }

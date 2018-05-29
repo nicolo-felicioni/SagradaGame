@@ -136,6 +136,8 @@ public class ModelTest {
 
         player.choosePattern(window0);
 
+        player.changePlayerStateTo(new YourTurn());
+
 
         try {
             model.addPlayer(player);
@@ -145,10 +147,8 @@ public class ModelTest {
 
         try {
             model.placeDie(new Point (0, 0), die, "Nico");
-        } catch (GameMoveException e) {
+        } catch (GameException e) {
             System.out.println(e);
-        } catch (NotValidIdException e) {
-            e.printStackTrace();
         }
 
         assertTrue(model.getPlayer("Nico").getPattern().getSpace(0, 0).getDie().equalsDie(die));

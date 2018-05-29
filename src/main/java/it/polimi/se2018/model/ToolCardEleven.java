@@ -51,4 +51,10 @@ public class ToolCardEleven extends ToolCard {
 		this.endActivion();
 	}
 
+	@Override
+	public ToolCard cloneToolCard() {
+		//TODO - implementare clone
+		return null;
+	}
+
 }

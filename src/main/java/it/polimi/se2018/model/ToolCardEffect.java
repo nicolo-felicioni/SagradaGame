@@ -111,4 +111,5 @@ public interface ToolCardEffect {
 	 * Consume the effect of the card.
 	 */
 	void consumeEffect() throws ToolCardStateException;
+
 }

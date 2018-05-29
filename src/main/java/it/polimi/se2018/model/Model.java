@@ -4,12 +4,15 @@ package it.polimi.se2018.model;
  * @author Nicolò Felicioni
  */
 
+import it.polimi.se2018.controller.ViewUpdaterInterface;
+import it.polimi.se2018.controller.ViewUpdaterObservable;
+import it.polimi.se2018.controller.ViewUpdaterObserver;
 import it.polimi.se2018.exceptions.*;
 
 import java.util.*;
 
 
-public class Model implements PlayerStateObservable, RoundTrackObservable, ToolCardObservable, DraftPoolObservable, WindowPatternObservable {
+public class Model implements ModelInterface, ViewUpdaterObservable{
 
     private ArrayList<Player> players;
     private DiceBag diceBag;
@@ -17,7 +20,6 @@ public class Model implements PlayerStateObservable, RoundTrackObservable, ToolC
     private PublicObjectiveCard[] publicObjectiveCards;
     private ToolCard[] toolCards;
     private RoundTrack roundTrack;
-
     private final static int MAX_NUMBER_OF_PLAYERS = 4;
 
 
@@ -107,21 +109,32 @@ public class Model implements PlayerStateObservable, RoundTrackObservable, ToolC
     }
 
 
-    //che vuol dire?
-    public ToolCard getToolCard() {
-        // TODO - non so che vuol dire
-        throw new UnsupportedOperationException();
+    /**
+     * Tool card getter.
+     * n is the number of which of the 3 tool card you want to get.
+     * @param n the number of which tool card you want to get
+     * @return the tool card number n
+     */
+    public ToolCard getToolCard(int n) throws GameException{
+        if(n < 0 || n > toolCards.length)
+            throw new GameException("The card number :" + n + "doesn't exists.");
+
+        return this.toolCards[n].cloneToolCard();
     }
 
 
 
     /**
-     *
-     * @param n
+     * Public objective card getter.
+     * n is the number of which of the 3 public objective card you want to get.
+     * @param n the number of which tool card you want to get
+     * @return the tool card number n
      */
-    public PublicObjectiveCard getPublicObjectiveCard(int n) {
-        // TODO - implement it.polimi.se2018.model.Model.getPublicObjectiveCard
-        throw new UnsupportedOperationException();
+    public PublicObjectiveCard getPublicObjectiveCard(int n) throws GameException {
+        if(n < 0 || n > publicObjectiveCards.length)
+            throw new GameException("The card number :" + n + "doesn't exists.");
+
+        return this.publicObjectiveCards[n];
     }
 
 
@@ -153,14 +166,13 @@ public class Model implements PlayerStateObservable, RoundTrackObservable, ToolC
 
 
     /**
-     *
-     * @param p
-     * @param die
-     * @param playerId
-     * @throws GameMoveException
-     * @throws NotValidIdException
+     * Place a die in the space p of the window pattern pertaining to a player identified by the player id.
+     * @param p the point in which you want to place the die
+     * @param die the die you want to place
+     * @param playerId the id of the player
+     * @throws GameException if the die placement fails.
      */
-    public void placeDie(Point p, Die die, String playerId) throws GameMoveException, NotValidIdException {
+    public void placeDie(Point p, Die die, String playerId) throws GameException {
 
         for(Player player : this.players){
             if(player.getId().equals(playerId)){
@@ -173,16 +185,34 @@ public class Model implements PlayerStateObservable, RoundTrackObservable, ToolC
     }
 
 
-    public void placeDie(Point p, Die die, Player player) {
+    /**
+     * Place a die in the space p of the window pattern pertaining to a player.
+     * @param p the point in which you want to place the die
+     * @param die the die you want to place
+     * @param player the player who wants to place the die
+     * @throws GameException if the die placement fails.
+     */
+    public void placeDie(Point p, Die die, Player player) throws GameException {
+        for(Player tempPlayer : this.players){
+            if(tempPlayer.equalsPlayer(player)){
+                tempPlayer.placeDie(p, die);
+                return;
+            }
+        }
+        throw new NotValidPlayerException("The player :" + player.getId() +  "is not present.");
     }
 
     /**
-     *
-     * @param playerId
+     * get the number of favor tokens of the player identified  by a playerId.
+     * @param playerId the unique id of the player
+     * @throws GameException if the id is not valid.
      */
-    public int getPlayerTokens(String playerId) {
-        // TODO - implement it.polimi.se2018.model.Model.getPlayerTokens
-        throw new UnsupportedOperationException();
+    public int getPlayerTokens(String playerId) throws GameException {
+       Optional<Player> p = this.players.stream().filter(player -> player.getId().equals(playerId)).findAny();
+       if(p.isPresent())
+           return p.get().getTokens();
+
+       throw new NotValidIdException("The id: " + playerId + " is not valid.");
     }
 
     /**
@@ -190,8 +220,8 @@ public class Model implements PlayerStateObservable, RoundTrackObservable, ToolC
      * @param die
      */
     public void removeDieFromDraftPool(Die die) {
-        // TODO - implement it.polimi.se2018.model.Model.removeDieFromDraftPool
-        throw new UnsupportedOperationException();
+        //TODO - dire a gao di modificare draftPool
+        draftPool.removeDie(die);
     }
 
 
@@ -207,5 +237,19 @@ public class Model implements PlayerStateObservable, RoundTrackObservable, ToolC
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addObserver(ViewUpdaterObserver observer) {
 
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void notify(ViewUpdaterInterface updater) {
+
+    }
 }

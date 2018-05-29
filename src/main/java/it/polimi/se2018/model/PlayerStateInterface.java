@@ -11,8 +11,16 @@ import it.polimi.se2018.exceptions.PlacementException;
 
 public interface PlayerStateInterface {
 
+	/**
+	 * returns true if you have already placed a die in this turn
+	 * @return true if you have already placed a die in this turn
+	 */
 	boolean canPlaceDie();
 
+	/**
+	 * returns true if you have already activated a tool card in this turn
+	 * @return true if you have already activated a tool card in this turn
+	 */
 	boolean canUseTool();
 
 	boolean canEndTurn();

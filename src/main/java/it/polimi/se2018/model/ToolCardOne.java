@@ -40,4 +40,10 @@ public class ToolCardOne extends ToolCard {
 		return isActive();
 	}
 
+	@Override
+	public ToolCard cloneToolCard() {
+		//TODO - implementare clone
+		return null;
+	}
+
 }

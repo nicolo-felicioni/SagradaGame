@@ -256,4 +256,10 @@ public abstract class ToolCard implements Card, Cloneable, ToolCardEffect{
 		return false;
 	}
 
+	/**
+	 * TODO
+	 * @return
+	 */
+	public abstract ToolCard cloneToolCard();
+
 }

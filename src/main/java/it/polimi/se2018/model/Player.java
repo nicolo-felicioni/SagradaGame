@@ -15,12 +15,35 @@ public class Player {
 	private PrivateObjectiveCard privateObjectiveCard;
 	private WindowPattern[] patterns; //the initial four patterns
 	private WindowPattern chosenPattern; //the chosen one
+	private boolean isWindowPatternChosen;
 	private PlayerState state;
 	private ToolCard activeToolCard;
 
 
 	public Player(String id){
 		this.id = id;
+		this.activeToolCard=null;
+		this.state=null;
+		this.privateObjectiveCard=null;
+		this.isWindowPatternChosen =false;
+	}
+
+
+	/**
+	 * copy constructor.
+	 * @param copy
+	 */
+	//TODO - da rivedere
+
+	public Player(Player copy){
+		this.id = copy.getId();
+		this.patterns = Arrays.copyOf(copy.patterns, copy.patterns.length);
+		if(copy.isWindowPatternChosen)
+			this.chosenPattern=copy.chosenPattern.cloneWindowPattern();
+		this.privateObjectiveCard=copy.privateObjectiveCard;
+		this.state=copy.state;
+		this.activeToolCard=copy.activeToolCard;
+
 	}
 
 	/**
@@ -42,8 +65,7 @@ public class Player {
 		if(patterns.length != 4)
 			throw new NotValidPatternVectorException("vector length:" + patterns.length);
 
-		//TODO - forse viola il rep
-		this.patterns = patterns;
+		this.patterns = Arrays.copyOf(patterns, patterns.length);
 	}
 
 	/**
@@ -109,6 +131,8 @@ public class Player {
 		if(Arrays.stream(this.patterns).noneMatch(p -> p.equalsWindowPattern(pattern))){
 			throw new NotValidPatterException("the pattern "+ pattern + "is not present in the four possible patterns");
 		}
+
+		isWindowPatternChosen=true;
 		this.chosenPattern = pattern;
 		this.favorTokens = pattern.getDifficulty();
 
@@ -124,27 +148,50 @@ public class Player {
 	}
 
 
-	public void placeDie(Point p, Die die) throws PlacementException {
+	public void placeDie(Point p, Die die) throws PlacementException, IllegalMoveTurnException {
 
-		//state.placeDie(chosenPattern, p, die);
+	    //TODO - Non so
+
+		if(this.state.canPlaceDie()){
+            this.chosenPattern.placeDie(die, p);
+        }
+
+        this.state.diePlaced();
+
 	}
 
-	public void placeDie(int x, int y, Die die) throws PlacementException, NotValidPointException {
+	public void placeDie(int x, int y, Die die) throws GameMoveException, NotValidPointException {
 
 		Point p = new Point(x, y);
-		//TODO- PROVVISORIO
-		this.chosenPattern.placeDie(die, p);
+
+        //TODO - Non so
+
+        if(this.state.canPlaceDie()){
+            this.chosenPattern.placeDie(die, p);
+        }
+
+        this.state.diePlaced(); //if it can't be placed, throws exception
 
 	}
 
 
 
 	public void useTool(ToolCard card) throws GameMoveException {
-		state.useTool(card);
+		if(this.state.canUseTool()){
+		    this.useTool(card);
+		    this.setActiveToolCard(card);
+        }
+
+        this.state.useTool(card); //if it can't be used, throws exception
+
 	}
 
-	public void endTurn(){
-		//state.endTurn();
+	public void endTurn() throws GameMoveException{
+		if(this.state.canEndTurn())
+		    this.endTurn();
+		else throw new IllegalMoveTurnException("You can't end turn");
+
+
 	}
 
 	public boolean equalsPlayer(Player player){
@@ -154,7 +201,6 @@ public class Player {
 	public String toString(){
 		return ("Player id: "+ this.getId());
 	}
-
 
 
 }

@@ -1,9 +1,11 @@
 package it.polimi.se2018.network.client;
 
 import it.polimi.se2018.controller.CommandInterface;
+import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.network.server.SessionControllerInterface;
 import it.polimi.se2018.network.utils.NetworkCommandObserver;
+import it.polimi.se2018.network.utils.NetworkViewUpdaterObserver;
 
 import java.rmi.RemoteException;
 
@@ -35,5 +37,20 @@ public class ClientSessionController implements SessionControllerInterface {
 	@Override
 	public void handle(CommandInterface command) throws RemoteException, NetworkException {
 		this.notify(command);
+	}
+
+	@Override
+	public void addViewUpdaterObserverver(NetworkViewUpdaterObserver observer) throws RemoteException, NetworkException {
+
+	}
+
+	@Override
+	public void notify(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
+
+	}
+
+	@Override
+	public void handle(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
+
 	}
 }
