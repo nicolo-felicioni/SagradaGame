@@ -37,10 +37,16 @@ public class Model implements ModelInterface{
      * Adds a player to the current player's set.
      * @param player the player to be added
      * @throws TooManyPlayersException if there are already the maximum number of players.
+     * @throws NotValidIdException if there is already a player with the same id of the player who should be added
+     *
      */
-    public void addPlayer(Player player) throws TooManyPlayersException {
+    public void addPlayer(Player player) throws TooManyPlayersException, NotValidIdException {
         if(this.players.size()==MAX_NUMBER_OF_PLAYERS)
             throw new TooManyPlayersException("Too many players present in this game.");
+
+        if(this.players.stream().anyMatch(presentPlayer -> presentPlayer.equalsPlayer(player)))
+            throw new NotValidIdException("there is already a player with the id: " + player.getId());
+
 
         this.players.add(player);
     }
@@ -141,9 +147,14 @@ public class Model implements ModelInterface{
      * @return a list of players which are in the game.
      */
     public List<Player> getPlayers() {
-        List<Player> copy = new ArrayList<>(players.size());
-        Collections.copy(copy, players);
-        return copy;
+        List<Player> copyList = new ArrayList<>(this.players.size());
+
+        for(Player player : this.players){
+            Player copiedPlayer = new Player(player);
+            copyList.add(copiedPlayer);
+        }
+
+        return copyList;
     }
 
     /**

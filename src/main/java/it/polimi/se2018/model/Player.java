@@ -16,6 +16,7 @@ public class Player {
 	private WindowPattern[] patterns; //the initial four patterns
 	private WindowPattern chosenPattern; //the chosen one
 	private boolean isWindowPatternChosen;
+	private boolean areWindowPatternInitialized;
 	private PlayerState state;
 	private ToolCard activeToolCard;
 
@@ -26,6 +27,7 @@ public class Player {
 		this.state=null;
 		this.privateObjectiveCard=null;
 		this.isWindowPatternChosen =false;
+		this.areWindowPatternInitialized=false;
 	}
 
 
@@ -37,7 +39,9 @@ public class Player {
 
 	public Player(Player copy){
 		this.id = copy.getId();
-		this.patterns = Arrays.copyOf(copy.patterns, copy.patterns.length);
+		if(areWindowPatternInitialized)
+			this.patterns = Arrays.copyOf(copy.patterns, copy.patterns.length);
+
 		if(copy.isWindowPatternChosen)
 			this.chosenPattern=copy.chosenPattern.cloneWindowPattern();
 		this.privateObjectiveCard=copy.privateObjectiveCard;
