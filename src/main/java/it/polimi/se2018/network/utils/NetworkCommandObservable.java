@@ -28,4 +28,13 @@ public interface NetworkCommandObservable {
 	 */
 	void notify(CommandInterface command) throws RemoteException, NetworkException;
 
+	/**
+	 * Remove a network command observer.
+	 * @param observer the network command observer.
+	 *
+	 * @throws RemoteException if RMI errors occur during the connection.
+	 * @throws NetworkException if any connection error occurs during the connection.
+	 */
+	void removeCommandObserver(NetworkCommandObserver observer) throws RemoteException, NetworkException;
+
 }

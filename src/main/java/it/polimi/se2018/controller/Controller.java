@@ -16,7 +16,14 @@ public class Controller implements CommandObserver{
 	 */
 	@Override
 	public void handle(CommandInterface command) {
-		command.executeCommand(model);
+		command.executeCommand(this, model);
+	}
+
+	/**
+	 * Start the game.
+	 */
+	public void startGame(){
+
 	}
 
 }

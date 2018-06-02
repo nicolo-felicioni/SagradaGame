@@ -24,4 +24,11 @@ public interface ClientInterface extends NetworkCommandObserver, NetworkViewUpda
 	 */
 	void login (String uid) throws LoginException;
 
+	/**
+	 * Getter of the unique identifier.
+	 *
+	 * @return the unique identifier.
+	 */
+	String getUid ();
+
 }

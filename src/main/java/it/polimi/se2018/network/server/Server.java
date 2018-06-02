@@ -68,7 +68,6 @@ public class Server {
 		try {
 			//Look for a game room where a client has already logged in.
 			GameRoom room = getGameRoom(uid);
-			ServerSessionController controller = new ServerSessionController(session);
 			if(room == null) {
 				//Look for a game room that has not started yet.
 				room = getNotStartedGameRoom();
@@ -78,9 +77,8 @@ public class Server {
 					roomList.add(room);
 				}
 			}
-			room.addPlayerSession(controller);
-			session.addCommandObserver(controller);
-			controller.addCommandObserver(room);
+			room.addPlayerSession(session);
+			session.addCommandObserver(room);
 		}catch(NetworkException | RemoteException e) {
 			throw new LoginException("Login failed");
 		}

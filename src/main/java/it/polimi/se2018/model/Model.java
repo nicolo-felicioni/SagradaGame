@@ -203,6 +203,17 @@ public class Model implements ModelInterface{
     }
 
     /**
+     * Return if a die can be placed in a space of the chosen window pattern respecting all restrictions.
+     * @param p the position of the space in the window pattern.
+     * @param die the die.
+     * @param id the player identifier.
+     * @return true if a die can be placed in a space of the chosen window pattern respecting all restrictions.
+     */
+    public boolean isPlaceable(Point p, Die die, String id) {
+        return getPlayerById(id).isPlaceable(p, die);
+    }
+
+    /**
      * get the number of favor tokens of the player identified  by a playerId.
      * @param playerId the unique id of the player
      * @throws GameException if the id is not valid.
@@ -234,6 +245,44 @@ public class Model implements ModelInterface{
 
     public List<Die> drawDiceFromDiceBag() throws DiceBagException {
         return diceBag.drawDice(players.size() * 2 + 1);
+    }
+
+    /**
+     * Activate the tool card in position n.
+     * @param n the position of the tool card.
+     * @throws ToolCardStateException if the tool card is already activated or it can not be activated.
+     */
+
+    public void activateToolCard(int n) throws ToolCardStateException {
+        this.toolCards[n].activate();
+    }
+
+    /**
+     * Spend player's favor tokens.
+     * @param amount the amount that have to be spent.
+     * @param id the player identifier.
+     * @throws NotEnoughTokenException if player has not enough favor tokens.
+     */
+    public void spendToken(int amount, String id) throws NotEnoughTokenException {
+        getPlayerById(id).spendToken(amount);
+    }
+
+    private Player   getPlayerById(String id) {
+        for(Player player : this.players) {
+            if (player.getId().equals(id)) {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    private boolean hasPlayerById(String id) {
+        for(Player player : this.players) {
+            if (player.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

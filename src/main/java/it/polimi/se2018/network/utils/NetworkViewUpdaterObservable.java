@@ -27,4 +27,13 @@ public interface NetworkViewUpdaterObservable {
 	 * @throws NetworkException if any connection error occurs during the connection.
 	 */
 	void notify(ViewUpdaterInterface updater) throws RemoteException, NetworkException;
+
+	/**
+	 * Remove a network view updater observer.
+	 * @param observer the network view updater observer.
+	 *
+	 * @throws RemoteException if RMI errors occur during the connection.
+	 * @throws NetworkException if any connection error occurs during the connection.
+	 */
+	void removeViewUpdaterObserver(NetworkViewUpdaterObserver observer) throws RemoteException, NetworkException;
 }

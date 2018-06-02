@@ -43,7 +43,7 @@ public abstract class ToolCard implements Card, Cloneable, ToolCardEffect{
 	public static final int USED_TOKEN_COST = 2;
 
 	/**
-	 * Constructor with name, info and used attributes.
+	 * Constructor with name and info.
 	 *
 	 * @param name the name of the card.
 	 * @param info the info of the card.
@@ -52,7 +52,25 @@ public abstract class ToolCard implements Card, Cloneable, ToolCardEffect{
 		this.name = name;
 		this.info = info;
 		this.used = false;
+		this.active = false;
 		this.favorTokensSpent = 0;
+	}
+
+	/**
+	 * Constructor with name, info, used, active and tokens spent.
+	 *
+	 * @param name the name of the card.
+	 * @param info the info of the card.
+	 * @param used if the card has been used.
+	 * @param active if the card is active.
+	 * @param favorTokensSpent the amount of favor tokens spent on this card.
+	 */
+	public ToolCard(String name, String info, boolean used, boolean active, int favorTokensSpent) {
+		this.name = name;
+		this.info = info;
+		this.used = used;
+		this.active = active;
+		this.favorTokensSpent = favorTokensSpent;
 	}
 
 	/**
@@ -257,8 +275,8 @@ public abstract class ToolCard implements Card, Cloneable, ToolCardEffect{
 	}
 
 	/**
-	 * TODO
-	 * @return
+	 * Clone this tool card.
+	 * @return a clone of this tool card.
 	 */
 	public abstract ToolCard cloneToolCard();
 

@@ -14,11 +14,9 @@ import java.rmi.RemoteException;
  */
 public class SocketClient extends AbstractClient {
 
-
-
 	private Socket socket;
-	private DataInputStream inStream;
-	private BufferedOutputStream outStream;
+	private ObjectInputStream inStream;
+	private ObjectOutputStream outStream;
 	private NetworkListener listener;
 
 	/**
@@ -30,12 +28,13 @@ public class SocketClient extends AbstractClient {
 	 */
 	public void connect(String address, int port) {
 		try {
-			socket = new Socket(address, port);
-			inStream = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-			outStream = new BufferedOutputStream(socket.getOutputStream());
-			listener = new NetworkListener();
+			this.socket = new Socket(address, port);
+			this.login(getUid());
+			this.inStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+			this.outStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+			this.listener = new NetworkListener();
 			new Thread(listener).start();
-		} catch (IOException e) {
+		} catch (IOException|LoginException e) {
 		}
 	}
 
@@ -46,7 +45,11 @@ public class SocketClient extends AbstractClient {
 	 */
 	@Override
 	public void login(String uid) throws LoginException {
-
+		try {
+			this.send(new LoginMessage(this.getUid()).toJsonString());
+		}catch (IOException e){
+			new LoginException("Login failed");
+		}
 	}
 
 	/**
@@ -62,6 +65,16 @@ public class SocketClient extends AbstractClient {
 
 	}
 
+	/**
+	 * Send a message to the server.
+	 *
+	 * @param text the message to send to the server session.
+	 */
+	private void send(String text) throws IOException{
+		this.outStream.writeUTF(text);
+		this.outStream.flush();
+	}
+
 	private class NetworkListener implements Runnable {
 		private boolean run = true;
 
@@ -74,6 +87,5 @@ public class SocketClient extends AbstractClient {
 				}
 			}
 		}
-
 	}
 }
