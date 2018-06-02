@@ -4,9 +4,7 @@ package it.polimi.se2018.model;
  * @author Nicolò Felicioni
  */
 
-import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.controller.ViewUpdaterObservable;
-import it.polimi.se2018.controller.ViewUpdaterObserver;
+
 import it.polimi.se2018.exceptions.*;
 
 import java.util.*;
@@ -15,7 +13,7 @@ import java.util.*;
 public class Model implements ModelInterface{
 
     private ArrayList<Player> players;
-    private DiceBag diceBag; //no
+    private DiceBag diceBag;
     private DraftPool draftPool;
     private PublicObjectiveCard[] publicObjectiveCards;
     private ToolCard[] toolCards;
