@@ -113,6 +113,7 @@ public class GameRoom implements GameRoomInterface {
 		this.notify(updater);
 	}
 
+	//TODO javadoc
 	public void startGame() {
 		if(playerSessions.size() >= MIN_PLAYER){
 			controller.handle(new StartGameCommand());

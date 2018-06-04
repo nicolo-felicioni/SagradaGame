@@ -2,6 +2,7 @@ package it.polimi.se2018.model;
 
 
 
+import it.polimi.se2018.controller.WindowPatternFactory;
 import it.polimi.se2018.exceptions.*;
 import org.junit.After;
 import org.junit.Before;
@@ -13,15 +14,15 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
- /**
-  @author Nicolò Felicioni
+/**
+ @author Nicolò Felicioni
  */
 
 
 public class WindowPatternTest {
 
-   private WindowPattern window;
-   private WindowPattern blankWindow;
+    private WindowPattern window;
+    private WindowPattern blankWindow;
 
 
     private int randomDiff;
@@ -672,7 +673,6 @@ public class WindowPatternTest {
                 }
             }
         }
-
         assertEquals(count, window.getNumberOfDice());
 
 
@@ -687,4 +687,16 @@ public class WindowPatternTest {
                 assertTrue(clone.getSpace(i, j).equalsSpace(window.getSpace(i, j)));
 
     }
+
+    //@Test
+    //public void jsonTest() {
+    //   WindowPattern window1 = new WindowPatternFactory().getWindowPattern();
+    //    window = new WindowPatternFactory().getWindowPattern();
+    //    String s = new WindowPatternFactory().toJson(window);
+    //    System.out.println(s);
+    //    s = new WindowPatternFactory().toJson(window1);
+    //   System.out.println(s);
+    //    WindowPattern temp = new WindowPatternFactory().fromJson(s);
+    //    assertTrue(window.equalsWindowPattern(window1));
+    //}
 }
