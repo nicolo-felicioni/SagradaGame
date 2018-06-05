@@ -103,7 +103,7 @@ public class WindowPattern {
 	 * otherwise it will check if there is any adjacent die to the point p.
 	 * @param p a point
 	 */
-	private boolean isPlaceable(Die die, Point p) {
+	public boolean isPlaceable(Die die, Point p) {
 		if(this.getNumberOfDice() == 0)
 			return p.isEdgyPoint();
 		else

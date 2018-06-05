@@ -8,22 +8,25 @@ import it.polimi.se2018.network.utils.NetworkCommandObserver;
 import it.polimi.se2018.network.utils.NetworkViewUpdaterObservable;
 import it.polimi.se2018.network.utils.NetworkViewUpdaterObserver;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author davide yi xian hu
  */
-public class RMIServerSession implements SessionInterface, NetworkViewUpdaterObservable {
+public class RMIServerSession implements Remote, SessionInterface, NetworkViewUpdaterObservable {
 
 	/**
 	 * RMI Client
 	 */
-	private NetworkViewUpdaterObserver client;
+	private List<NetworkViewUpdaterObserver> viewUpdaterObservers;
 
 	/**
 	 * Server session controller.
 	 */
-	private NetworkCommandObserver controller;
+	private List<NetworkCommandObserver> commandObservers;
 
 	/**
 	 * Unique identifier of the client.
@@ -36,8 +39,8 @@ public class RMIServerSession implements SessionInterface, NetworkViewUpdaterObs
 	 * @param client the client, a network view updater observer.
 	 */
 	public RMIServerSession(NetworkViewUpdaterObserver client) {
-		this.client = client;
-		this.controller = null;
+		this.viewUpdaterObservers = new ArrayList<>();
+		this.commandObservers = new ArrayList<>();
 	}
 
 	/**
@@ -46,16 +49,7 @@ public class RMIServerSession implements SessionInterface, NetworkViewUpdaterObs
 	 */
 	@Override
 	public void addCommandObserver(NetworkCommandObserver observer) throws RemoteException, NetworkException {
-		this.controller = observer;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * Add a client observer.
-	 */
-	@Override
-	public void addViewUpdaterObserver(NetworkViewUpdaterObserver observer) throws RemoteException, NetworkException {
-		this.client = observer;
+		this.commandObservers.add(observer);
 	}
 
 	/**
@@ -64,7 +58,31 @@ public class RMIServerSession implements SessionInterface, NetworkViewUpdaterObs
 	 */
 	@Override
 	public void notify(CommandInterface command) throws RemoteException, NetworkException{
-		this.controller.handle(command);
+		for(NetworkCommandObserver obs : commandObservers) {
+			obs.handle(command);
+		}
+	}
+
+	/**
+	 * Remove a network command observer.
+	 *
+	 * @param observer the network command observer.
+	 * @throws RemoteException  if RMI errors occur during the connection.
+	 * @throws NetworkException if any connection error occurs during the connection.
+	 */
+	@Override
+	public void removeCommandObserver(NetworkCommandObserver observer) throws RemoteException, NetworkException {
+		this.commandObservers.remove(observer);
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 * Add a client observer.
+	 */
+	@Override
+	public void addViewUpdaterObserver(NetworkViewUpdaterObserver observer) throws RemoteException, NetworkException {
+		this.viewUpdaterObservers.add(observer);
 	}
 
 	/**
@@ -73,7 +91,21 @@ public class RMIServerSession implements SessionInterface, NetworkViewUpdaterObs
 	 */
 	@Override
 	public void notify(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
-		this.client.handle(updater);
+		for(NetworkViewUpdaterObserver obs : viewUpdaterObservers) {
+			obs.handle(updater);
+		}
+	}
+
+	/**
+	 * Remove a network view updater observer.
+	 *
+	 * @param observer the network view updater observer.
+	 * @throws RemoteException  if RMI errors occur during the connection.
+	 * @throws NetworkException if any connection error occurs during the connection.
+	 */
+	@Override
+	public void removeViewUpdaterObserver(NetworkViewUpdaterObserver observer) throws RemoteException, NetworkException {
+		this.viewUpdaterObservers.add(observer);
 	}
 
 	/**

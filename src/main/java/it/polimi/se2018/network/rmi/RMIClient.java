@@ -14,6 +14,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 /**
  * @author davide yi xian hu
@@ -24,8 +25,7 @@ public class RMIClient extends AbstractClient implements Remote, NetworkCommandO
 	/**
 	 * Server session. It handle the requests to the server.
 	 */
-	private NetworkCommandObserver serverSession;
-
+	private List<NetworkCommandObserver> observers;
 
 	/**
 	 * RMI server.
@@ -52,7 +52,7 @@ public class RMIClient extends AbstractClient implements Remote, NetworkCommandO
 	 *
 	 * @param uid the unique identifier of the user.
 	 *
-	 * @throws RemoteException if the connection with thr RMI server fails.
+	 * @throws LoginException if the connection with thr RMI server fails.
 	 */
 	@Override
 	public void login(String uid) throws LoginException {
@@ -69,7 +69,16 @@ public class RMIClient extends AbstractClient implements Remote, NetworkCommandO
 	 */
 	@Override
 	public void addCommandObserver(NetworkCommandObserver observer) throws RemoteException, NetworkException {
-		this.serverSession = observer;
+		this.observers.add(observer);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * Add a server session.
+	 */
+	@Override
+	public void removeCommandObserver(NetworkCommandObserver observer) throws RemoteException, NetworkException {
+		this.observers.remove(observer);
 	}
 
 	/**
@@ -78,7 +87,9 @@ public class RMIClient extends AbstractClient implements Remote, NetworkCommandO
 	 */
 	@Override
 	public void notify(CommandInterface command) throws RemoteException, NetworkException {
-		this.serverSession.handle(command);
+		for(NetworkCommandObserver obs : observers) {
+			obs.handle(command);
+		}
 	}
 
 	/**

@@ -9,7 +9,8 @@ public interface CommandInterface { // = ModelUpdater
 
 	/**
 	 * Execute this command.
+	 * @param controller the object that have to be modified by this command.
 	 * @param model the object that have to be modified by this command.
 	 */
-	void executeCommand (Model model);
+	void executeCommand (Controller controller, Model model);
 }

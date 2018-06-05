@@ -13,13 +13,20 @@ import java.net.ServerSocket;
  */
 public class SocketServer {
 
+	/**
+	 * Socket server port number.
+	 */
 	private final int port = 66666;
+
+	/**
+	 * Server socket
+	 */
+	private ServerSocket serverSocket;
 
 	/**
 	 * Default constructor.
 	 */
 	public SocketServer(){
-		ServerSocket serverSocket = null;
 		try {
 			serverSocket = new ServerSocket(port);
 		} catch(IOException ex) {
@@ -39,9 +46,21 @@ public class SocketServer {
 	 * @return the session between the client and the server.
 	 */
 	public SessionInterface login(String uid, ClientInterface client) throws LoginException {
-		SessionInterface session =new SocketServerSession();
-		Server.getInstance().login(uid, session);
-		return session;
+		return null;
+	}
+
+	private class Listener implements Runnable {
+		private boolean run = true;
+
+		@Override
+		public void run() {
+			while (this.run) {
+				try {
+					new SocketServerSession(serverSocket.accept());
+				} catch (IOException e) {
+				}
+			}
+		}
 	}
 
 }

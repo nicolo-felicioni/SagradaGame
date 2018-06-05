@@ -172,7 +172,28 @@ public class Player {
 
 	}
 
+	/**
+	 * Return if a die can be placed in a space of the chosen window pattern respecting all restrictions.
+	 * @param p the position of the space in the window pattern.
+	 * @param die the die.
+	 * @return true if a die can be placed in a space of the chosen window pattern respecting all restrictions.
+	 */
+	public boolean isPlaceable(Point p, Die die){
+		return this.chosenPattern.isPlaceable(die, p);
+	}
 
+	/**
+	 * Spend player's favor tokens.
+	 * @param amount the amount that have to be spent.
+	 * @throws NotEnoughTokenException if player has not enough favor tokens.
+	 */
+	public void spendToken(int amount) throws NotEnoughTokenException{
+		if(this.favorTokens >= amount) {
+			this.favorTokens = this.favorTokens - amount;
+		}else{
+
+		}
+	}
 
 	public void useTool(ToolCard card) throws GameMoveException {
 		if(this.state.canUseTool()){

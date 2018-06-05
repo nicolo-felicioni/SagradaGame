@@ -23,6 +23,13 @@ public class ToolCardSeven extends ToolCard {
 	}
 
 	/**
+	 * Copy constructor.
+	 */
+	public ToolCardSeven(boolean used, boolean active, int favorTokensSpent) {
+		super(NAME, INFO, used, active, favorTokensSpent);
+	}
+
+	/**
 	 * @inheritDoc
 	 * If the card is active, it returns true.
 	 */
@@ -31,10 +38,12 @@ public class ToolCardSeven extends ToolCard {
 		return isActive();
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	@Override
 	public ToolCard cloneToolCard() {
-		//TODO - implementare clone
-		return null;
+		return new ToolCardSeven(this.isUsed(), this.isActive(), this.getFavorTokensSpent());
 	}
 
 }

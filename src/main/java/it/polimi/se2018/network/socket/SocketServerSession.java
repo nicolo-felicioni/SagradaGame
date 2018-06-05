@@ -2,16 +2,18 @@ package it.polimi.se2018.network.socket;
 
 import it.polimi.se2018.controller.CommandInterface;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
+import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.exceptions.SessionException;
+import it.polimi.se2018.network.server.Server;
 import it.polimi.se2018.network.server.SessionInterface;
 import it.polimi.se2018.network.utils.NetworkCommandObserver;
+import it.polimi.se2018.network.utils.NetworkViewUpdaterObserver;
 
-import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.rmi.RemoteException;
+import java.util.List;
 
 /**
  * @author davide yi xian hu
@@ -19,14 +21,38 @@ import java.rmi.RemoteException;
 public class SocketServerSession implements SessionInterface {
 
 	private Socket socket;
-	private DataInputStream inStream;
-	private BufferedOutputStream outStream;
+	private ObjectInputStream inStream;
+	private ObjectOutputStream outStream;
 	private NetworkListener listener;
 
 	/**
 	 * Server session controller.
 	 */
-	private NetworkCommandObserver controller;
+	private List<NetworkCommandObserver> observers;
+
+	public SocketServerSession(Socket socket) {
+		this.socket = socket;
+		try {
+			this.inStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+			this.outStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		init();
+	}
+
+	/**
+	 * Initialize the connection.
+	 * It has 2 steps. It wait for a login message, then it log the client to the Server.
+	 */
+	public void init() {
+		try {
+			String login = this.inStream.readUTF();
+			Server.getInstance().login(new LoginMessage(login, true).getUid(), this);
+		} catch (IOException | LoginException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void logout(String uid) throws SessionException {
@@ -47,7 +73,7 @@ public class SocketServerSession implements SessionInterface {
 	 */
 	@Override
 	public void addCommandObserver(NetworkCommandObserver observer) throws RemoteException, NetworkException {
-		this.controller = observer;
+		this.observers.add(observer);
 	}
 
 	/**
@@ -59,7 +85,21 @@ public class SocketServerSession implements SessionInterface {
 	 */
 	@Override
 	public void notify(CommandInterface command) throws RemoteException, NetworkException {
-		this.controller.handle(command);
+		for(NetworkCommandObserver obs : observers) {
+			obs.handle(command);
+		}
+	}
+
+	/**
+	 * Remove a network command observer.
+	 *
+	 * @param observer the network command observer.
+	 * @throws RemoteException  if RMI errors occur during the connection.
+	 * @throws NetworkException if any connection error occurs during the connection.
+	 */
+	@Override
+	public void removeCommandObserver(NetworkCommandObserver observer) throws RemoteException, NetworkException {
+		this.observers.remove(observer);
 	}
 
 	/**
