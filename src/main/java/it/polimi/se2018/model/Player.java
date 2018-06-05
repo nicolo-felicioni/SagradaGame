@@ -15,7 +15,6 @@ public class Player {
 	private PrivateObjectiveCard privateObjectiveCard;
 	private WindowPattern[] patterns; //the initial four patterns
 	private WindowPattern chosenPattern; //the chosen one
-	private boolean isWindowPatternChosen;
 	private PlayerState state;
 	private ToolCard activeToolCard;
 
@@ -25,7 +24,7 @@ public class Player {
 		this.activeToolCard=null;
 		this.state=null;
 		this.privateObjectiveCard=null;
-		this.isWindowPatternChosen =false;
+		this.patterns = null;
 	}
 
 
@@ -37,8 +36,9 @@ public class Player {
 
 	public Player(Player copy){
 		this.id = copy.getId();
-		this.patterns = Arrays.copyOf(copy.patterns, copy.patterns.length);
-		if(copy.isWindowPatternChosen)
+		if(copy.patterns != null)
+			this.patterns = Arrays.copyOf(copy.patterns, copy.patterns.length);
+		if(copy.chosenPattern != null)
 			this.chosenPattern=copy.chosenPattern.cloneWindowPattern();
 		this.privateObjectiveCard=copy.privateObjectiveCard;
 		this.state=copy.state;
@@ -131,8 +131,6 @@ public class Player {
 		if(Arrays.stream(this.patterns).noneMatch(p -> p.equalsWindowPattern(pattern))){
 			throw new NotValidPatterException("the pattern "+ pattern + "is not present in the four possible patterns");
 		}
-
-		isWindowPatternChosen=true;
 		this.chosenPattern = pattern;
 		this.favorTokens = pattern.getDifficulty();
 

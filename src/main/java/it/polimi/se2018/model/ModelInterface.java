@@ -11,7 +11,7 @@ public interface ModelInterface {
      * @param player the player to be added
      * @throws TooManyPlayersException if there are already the maximum number of players.
      */
-    public void addPlayer(Player player) throws TooManyPlayersException ;
+    public void addPlayer(Player player) throws TooManyPlayersException, NotValidIdException;
 
     /**
      *Removes a player from the current player's set.

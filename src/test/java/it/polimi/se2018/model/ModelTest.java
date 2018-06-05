@@ -4,6 +4,9 @@ import it.polimi.se2018.exceptions.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 import static org.junit.Assert.*;
 
 public class ModelTest {
@@ -42,11 +45,104 @@ public class ModelTest {
 
     @Test
     public void addPlayer() {
+        WindowPattern window0 = createBlankWindow();
+        WindowPattern window1 = createBlankWindow();
+        WindowPattern window2 = createBlankWindow();
+        WindowPattern window3 = createBlankWindow();
+        WindowPattern[] patterns = new WindowPattern[4];
+        patterns[0] = window0;
+        patterns[1] = window1;
+        patterns[2] = window2;
+        patterns[3] = window3;
+
+        Player nico = new Player("Nico");
+        try {
+            nico.setPatterns(patterns);
+        } catch (NotValidPatternVectorException e) {
+            fail();
+        }
+
+
+        try {
+            model.addPlayer(nico);
+        } catch (TooManyPlayersException e) {
+            fail();
+        } catch (NotValidIdException e) {
+            fail();
+        }
+
+        try {
+            assertTrue(model.getPlayer("Nico").getId().equals("Nico"));
+            assertTrue(model.getPlayer(nico.getId()).getId().equals("Nico"));
+        } catch (NotValidIdException e) {
+            fail();
+        }
+
+        assertTrue(model.getPlayers().stream().findAny()
+                .filter(player -> player.equalsPlayer(nico)).isPresent());
+
+
     }
 
     @Test
-    public void removePlayer() {
+    public void addTooManyPlayers(){
+        try {
+            model.addPlayer(new Player("1"));
+            model.addPlayer(new Player("2"));
+            model.addPlayer(new Player("3"));
+            model.addPlayer(new Player("4"));
+        } catch (TooManyPlayersException e) {
+            fail();
+        } catch (NotValidIdException e) {
+            fail();
+        }
+
+        try {
+            model.addPlayer(new Player("Player in excess"));
+            fail();
+        } catch (TooManyPlayersException e) {
+            //ok
+        } catch (NotValidIdException e) {
+            fail();
+        }
     }
+
+    @Test
+    public void addTwoPlayersWithSameId(){
+        try {
+            model.addPlayer(new Player("id"));
+        } catch (TooManyPlayersException e) {
+            fail();
+        } catch (NotValidIdException e) {
+            fail();
+        }
+        try {
+            model.addPlayer(new Player("id"));
+        } catch (TooManyPlayersException e) {
+            fail();
+        } catch (NotValidIdException e) {
+            //ok
+        }
+
+    }
+
+    @Test
+    public void removePlayer() throws NotValidIdException, TooManyPlayersException {
+        Player player = new Player("id");
+        model.addPlayer(player);
+        assertFalse(model.getPlayers().isEmpty());
+
+        try {
+            model.removePlayer(player);
+        } catch (NotPresentPlayerException e) {
+            fail();
+        }
+
+        assertTrue(model.getPlayers().isEmpty());
+
+
+    }
+
 
     @Test
     public void getPlayer() throws NotValidPatternVectorException, NotValidPatterException, NotValidIdException {
@@ -84,23 +180,21 @@ public class ModelTest {
 
     @Test
     public void getDiceBag() {
+        DiceBag diceBag = model.getDiceBag();
+        assertTrue(diceBag.size() == 90);
     }
 
     @Test
     public void getRoundTrack() {
+        try {
+            model.getRoundTrack().getAllDice();
+            fail();
+        } catch (RoundTrackEmptyException e) {
+            //ok
+        }
+
     }
 
-    @Test
-    public void getDraftPool() {
-    }
-
-    @Test
-    public void getToolCard() {
-    }
-
-    @Test
-    public void getPublicObjectiveCard() {
-    }
 
     @Test
     public void getPlayers() {
