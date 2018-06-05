@@ -1,13 +1,9 @@
 package it.polimi.se2018.network.server;
 
-import it.polimi.se2018.controller.CommandInterface;
-import it.polimi.se2018.controller.CommandObserver;
+import it.polimi.se2018.event.Event;
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.controller.command.StartGameCommand;
 import it.polimi.se2018.exceptions.NetworkException;
-import it.polimi.se2018.network.utils.NetworkCommandObserver;
-import it.polimi.se2018.network.utils.NetworkViewUpdaterObserver;
 
 import java.rmi.RemoteException;
 import java.util.List;
@@ -15,7 +11,7 @@ import java.util.List;
 /**
  * @author davide yi xian hu
  */
-public class GameRoom implements GameRoomInterface {
+public class GameRoom{
 
 	/**
 	 * If the game is already started, it's true. False otherwise.
@@ -101,34 +97,4 @@ public class GameRoom implements GameRoomInterface {
 		}
 	}
 
-	/**
-	 * Handle a view update from the network.
-	 *
-	 * @param updater the view updater.
-	 * @throws RemoteException  if RMI errors occur during the connection.
-	 * @throws NetworkException if any connection error occurs during the connection.
-	 */
-	@Override
-	public void handle(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
-		this.notify(updater);
-	}
-
-	//TODO javadoc
-	public void startGame() {
-		if(playerSessions.size() >= MIN_PLAYER){
-			controller.handle(new StartGameCommand());
-		}
-	}
-
-	/**
-	 * Handle a command from the network.
-	 *
-	 * @param command the command to be executed.
-	 * @throws RemoteException  if RMI errors occur during the connection.
-	 * @throws NetworkException if any connection error occurs during the connection.
-	 */
-	@Override
-	public void handle(CommandInterface command) throws RemoteException, NetworkException {
-		controller.handle(command);
-	}
 }

@@ -1,6 +1,6 @@
 package it.polimi.se2018.network.socket;
 
-import it.polimi.se2018.controller.CommandInterface;
+import it.polimi.se2018.event.Event;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.exceptions.NetworkException;
@@ -8,7 +8,6 @@ import it.polimi.se2018.exceptions.SessionException;
 import it.polimi.se2018.network.server.Server;
 import it.polimi.se2018.network.server.SessionInterface;
 import it.polimi.se2018.network.utils.NetworkCommandObserver;
-import it.polimi.se2018.network.utils.NetworkViewUpdaterObserver;
 
 import java.io.*;
 import java.net.Socket;
@@ -84,7 +83,7 @@ public class SocketServerSession implements SessionInterface {
 	 * @throws NetworkException if any connection error occurs during the connection.
 	 */
 	@Override
-	public void notify(CommandInterface command) throws RemoteException, NetworkException {
+	public void notify(Event command) throws RemoteException, NetworkException {
 		for(NetworkCommandObserver obs : observers) {
 			obs.handle(command);
 		}
@@ -110,7 +109,7 @@ public class SocketServerSession implements SessionInterface {
 	 * @throws NetworkException if any connection error occurs during the connection.
 	 */
 	@Override
-	public void handle(CommandInterface command) throws RemoteException, NetworkException {
+	public void handle(Event command) throws RemoteException, NetworkException {
 		this.notify(command);
 	}
 

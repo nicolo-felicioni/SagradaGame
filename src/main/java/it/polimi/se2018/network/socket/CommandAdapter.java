@@ -1,14 +1,14 @@
 package it.polimi.se2018.network.socket;
 
 import com.google.gson.*;
-import it.polimi.se2018.controller.CommandInterface;
+import it.polimi.se2018.event.Event;
 
 import java.lang.reflect.Type;
 
 /**
  * @author davide yi xian hu
  */
-public class CommandAdapter implements JsonSerializer<CommandInterface>, JsonDeserializer<CommandInterface> {
+public class CommandAdapter implements JsonSerializer<Event>, JsonDeserializer<Event> {
 
 	/**
 	 * ClassName
@@ -26,7 +26,7 @@ public class CommandAdapter implements JsonSerializer<CommandInterface>, JsonDes
 	 * @return a Command.
 	 */
 	@Override
-	public CommandInterface deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+	public Event deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
 		JsonObject jsonObject = jsonElement.getAsJsonObject();
 		JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);
 		String className = prim.getAsString();
@@ -46,7 +46,7 @@ public class CommandAdapter implements JsonSerializer<CommandInterface>, JsonDes
 	 * @return a JsonElement.
 	 */
 	@Override
-	public JsonElement serialize(CommandInterface command, Type type, JsonSerializationContext jsonSerializationContext) {
+	public JsonElement serialize(Event command, Type type, JsonSerializationContext jsonSerializationContext) {
 		JsonObject retValue = new JsonObject();
 		String className = command.getClass().getName();
 		retValue.addProperty(CLASSNAME, className);

@@ -1,6 +1,6 @@
 package it.polimi.se2018.network.rmi;
 
-import it.polimi.se2018.controller.CommandInterface;
+import it.polimi.se2018.event.Event;
 import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.network.client.AbstractClient;
@@ -86,7 +86,7 @@ public class RMIClient extends AbstractClient implements Remote, NetworkCommandO
 	 * Notify a command to the server session.
 	 */
 	@Override
-	public void notify(CommandInterface command) throws RemoteException, NetworkException {
+	public void notify(Event command) throws RemoteException, NetworkException {
 		for(NetworkCommandObserver obs : observers) {
 			obs.handle(command);
 		}
@@ -96,7 +96,7 @@ public class RMIClient extends AbstractClient implements Remote, NetworkCommandO
 	 * {@inheritDoc}
 	 * Forward the command to the server session.
 	 */
-	public void handle(CommandInterface command) throws RemoteException, NetworkException {
+	public void handle(Event command) throws RemoteException, NetworkException {
 		this.notify(command);
 	}
 

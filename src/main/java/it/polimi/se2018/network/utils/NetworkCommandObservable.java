@@ -1,6 +1,6 @@
 package it.polimi.se2018.network.utils;
 
-import it.polimi.se2018.controller.CommandInterface;
+import it.polimi.se2018.event.Event;
 import it.polimi.se2018.exceptions.NetworkException;
 
 import java.rmi.RemoteException;
@@ -26,7 +26,7 @@ public interface NetworkCommandObservable {
 	 * @throws RemoteException if RMI errors occur during the connection.
 	 * @throws NetworkException if any connection error occurs during the connection.
 	 */
-	void notify(CommandInterface command) throws RemoteException, NetworkException;
+	void notify(Event command) throws RemoteException, NetworkException;
 
 	/**
 	 * Remove a network command observer.

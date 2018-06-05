@@ -1,6 +1,6 @@
 package it.polimi.se2018.network.socket;
 
-import it.polimi.se2018.controller.CommandInterface;
+import it.polimi.se2018.event.Event;
 import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.network.client.AbstractClient;
@@ -60,7 +60,7 @@ public class SocketClient extends AbstractClient {
 	 * @throws NetworkException if any connection error occurs during the connection.
 	 */
 	@Override
-	public void handle(CommandInterface command) throws RemoteException, NetworkException {
+	public void handle(Event command) throws RemoteException, NetworkException {
 		String message = command.toString();
 
 	}

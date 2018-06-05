@@ -1,6 +1,5 @@
 package it.polimi.se2018.network.utils;
 
-import it.polimi.se2018.controller.CommandInterface;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.exceptions.NetworkException;
 
