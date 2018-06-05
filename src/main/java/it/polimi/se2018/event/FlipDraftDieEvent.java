@@ -5,7 +5,7 @@ import it.polimi.se2018.model.Die;
 /**
  * @author davide yi xian hu
  */
-public class FlipDrafDieEvent extends AbstractPlayerEvent{
+public class FlipDraftDieEvent extends AbstractPlayerEvent{
 
 	/**
 	 * The die of the draft pool.
@@ -17,7 +17,7 @@ public class FlipDrafDieEvent extends AbstractPlayerEvent{
 	 * @param draftedDie the die of the draft pool.
 	 * @param playerId the player identifier.
 	 */
-	public FlipDrafDieEvent(Die draftedDie, String playerId) {
+	public FlipDraftDieEvent(Die draftedDie, String playerId) {
 		super(playerId);
 		this.draftedDie = draftedDie;
 	}
