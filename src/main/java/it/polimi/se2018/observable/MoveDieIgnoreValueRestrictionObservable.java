@@ -8,7 +8,6 @@ import it.polimi.se2018.observer.MoveDieIgnoreValueRestrictionObserver;
  */
 public interface MoveDieIgnoreValueRestrictionObservable {
 
-
 	/**
 	 * Add a MoveDieIgnoreValueRestrictionObserver.
 	 * @param observer the MoveDieIgnoreValueRestrictionObserver.

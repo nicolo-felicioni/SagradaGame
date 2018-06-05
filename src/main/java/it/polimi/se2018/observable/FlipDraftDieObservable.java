@@ -8,7 +8,6 @@ import it.polimi.se2018.observer.FlipDraftDieObserver;
  */
 public interface FlipDraftDieObservable {
 
-
 	/**
 	 * Add a FlipDraftDieObserver.
 	 * @param observer the FlipDraftDieObserver.

@@ -8,7 +8,6 @@ import it.polimi.se2018.observer.MoveDieRespectAllRestrictionsObserver;
  */
 public interface MoveDieRespectAllRestrictionsObservable {
 
-
 	/**
 	 * Add a MoveDieRespectAllRestrictionObserver.
 	 * @param observer the MoveDieRespectAllRestrictionObserver.

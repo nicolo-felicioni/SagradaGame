@@ -8,7 +8,6 @@ import it.polimi.se2018.observer.MoveDieIgnoreColorRestrictionObserver;
  */
 public interface MoveDieIgnoreColorRestrictionObservable {
 
-
 	/**
 	 * Add a MoveDieIgnoreColorRestrictionObserver.
 	 * @param observer the MoveDieIgnoreColorRestrictionObserver.

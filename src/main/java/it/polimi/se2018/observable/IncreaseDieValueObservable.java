@@ -8,7 +8,6 @@ import it.polimi.se2018.observer.IncreaseDieValueObserver;
  */
 public interface IncreaseDieValueObservable {
 
-
 	/**
 	 * Add a IncreaseDieValueObserver.
 	 * @param observer the IncreaseDieValueObserver.

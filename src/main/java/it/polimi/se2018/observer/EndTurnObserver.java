@@ -1,6 +1,5 @@
 package it.polimi.se2018.observer;
 
-import it.polimi.se2018.event.DraftAndPlaceNoAdjacentEvent;
 import it.polimi.se2018.event.EndTurnEvent;
 
 /**

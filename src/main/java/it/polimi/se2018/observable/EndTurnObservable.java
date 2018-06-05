@@ -8,7 +8,6 @@ import it.polimi.se2018.observer.EndTurnObserver;
  */
 public interface EndTurnObservable {
 
-
 	/**
 	 * Add a EndTurnObserver.
 	 * @param observer the EndTurnObserver.

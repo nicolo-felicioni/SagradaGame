@@ -8,7 +8,6 @@ import it.polimi.se2018.observer.DraftAndPlaceNoAdjacentObserver;
  */
 public interface DraftAndPlaceNoAdjacentObservable {
 
-
 	/**
 	 * Add a DraftAndPlaceNoAdjacentObserver.
 	 * @param observer the DraftAndPlaceNoAdjacentObserver.
