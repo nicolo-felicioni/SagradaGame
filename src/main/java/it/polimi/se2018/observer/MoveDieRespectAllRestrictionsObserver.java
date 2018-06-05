@@ -5,7 +5,7 @@ import it.polimi.se2018.event.MoveDieRespectAllRestrictionsEvent;
 /**
  * @author davide yi xian hu
  */
-public interface MoveDieRespectAllRestrictionObserver {
+public interface MoveDieRespectAllRestrictionsObserver {
 
 	/**
 	 * Handle a MoveDieRespectAllRestrictionsEvent.
