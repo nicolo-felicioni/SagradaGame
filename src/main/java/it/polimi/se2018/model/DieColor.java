@@ -1,5 +1,9 @@
 package it.polimi.se2018.model;
 
+import org.fusesource.jansi.Ansi;
+
+import static org.fusesource.jansi.Ansi.ansi;
+
 /**
  *@author PeiQing Gao
  */
@@ -26,6 +30,16 @@ public enum DieColor {
      */
     public int toInt(){
 	    return this.value;
+    }
+
+    public Ansi.Color toAnsiColor(){
+
+
+        if(this == PURPLE)  //can't invoke valueOf for Purple
+            return Ansi.Color.MAGENTA;
+
+        return Ansi.Color.valueOf(this.name());
+
     }
 
     /**

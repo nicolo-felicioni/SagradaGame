@@ -1,6 +1,6 @@
 package it.polimi.se2018.model;
 
-import it.polimi.se2018.exceptions.DraftPoolException;
+import it.polimi.se2018.exceptions.DraftPoolEmptyException;
 
 import java.util.ArrayList;
 
@@ -78,12 +78,12 @@ public class DraftPool {
     /**
      * Method for get all the dice in the draft pool as an ArrayList
      * @return ArrayList<Die> containing all the dice in the draft pool
-     * @throws DraftPoolException
+     * @throws DraftPoolEmptyException
      */
-    public ArrayList<Die> getAllDice() throws DraftPoolException {
+    public ArrayList<Die> getAllDice() throws DraftPoolEmptyException {
         ArrayList<Die> tempDraftPool= new ArrayList<>();
         if (isEmpty())
-            throw new DraftPoolException("Draft pool is empty");
+            throw new DraftPoolEmptyException("Draft pool is empty");
         else
             for (Die die:draftPool)
                 tempDraftPool.add(new Die(die));

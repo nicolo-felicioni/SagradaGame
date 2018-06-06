@@ -1,6 +1,11 @@
 package it.polimi.se2018.model;
 
+import org.fusesource.jansi.Ansi;
+import org.fusesource.jansi.AnsiConsole;
+
 import java.util.Comparator;
+
+import static org.fusesource.jansi.Ansi.ansi;
 
 /**
  * The Class of Die
@@ -28,6 +33,30 @@ public class Die{
 	public Die(Die die) {
 		this.color = die.getColor();
 		this.value = die.getValue();
+	}
+
+	public String getValueUnicode(){
+		switch (this.getValue().toInt()) {
+			case 1:
+				return "\u2680";
+
+			case 2:
+				return "\u2681" ;
+
+			case 3:
+				return "\u2682";
+
+			case 4:
+				return "\u2683";
+
+			case 5:
+				return "\u2684";
+
+			case 6:
+				return "\u2685";
+
+		}
+		return null;
 	}
 
 	public DieColor getColor() {
