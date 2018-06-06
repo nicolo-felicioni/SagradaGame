@@ -1,6 +1,7 @@
 package it.polimi.se2018.network.server;
 
 import it.polimi.se2018.exceptions.LoginException;
+import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.network.client.ClientInterface;
 
 import java.rmi.RemoteException;
@@ -16,6 +17,6 @@ public interface ServerInterface{
 	 * @param uid the unique identifier of the client.
 	 * @param client the client.
 	 */
-	SessionInterface login (String uid, ClientInterface client) throws RemoteException, LoginException;
+	SessionInterface login (String uid, ClientInterface client) throws RemoteException, NetworkException;
 
 }

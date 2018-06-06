@@ -1,12 +1,13 @@
 package it.polimi.se2018.network.rmi;
 
-import it.polimi.se2018.event.Event;
+import it.polimi.se2018.event.*;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.network.server.SessionInterface;
-import it.polimi.se2018.network.utils.NetworkCommandObserver;
 import it.polimi.se2018.network.utils.NetworkViewUpdaterObservable;
 import it.polimi.se2018.network.utils.NetworkViewUpdaterObserver;
+import it.polimi.se2018.observable.GameEventObservableImpl;
+import it.polimi.se2018.observer.GameEventObserver;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -16,17 +17,13 @@ import java.util.List;
 /**
  * @author davide yi xian hu
  */
-public class RMIServerSession implements Remote, SessionInterface, NetworkViewUpdaterObservable {
+public class RMIServerSession extends GameEventObservableImpl implements Remote, SessionInterface {
 
 	/**
 	 * RMI Client
 	 */
 	private List<NetworkViewUpdaterObserver> viewUpdaterObservers;
 
-	/**
-	 * Server session controller.
-	 */
-	private List<NetworkCommandObserver> commandObservers;
 
 	/**
 	 * Unique identifier of the client.
@@ -34,47 +31,11 @@ public class RMIServerSession implements Remote, SessionInterface, NetworkViewUp
 	private String uid;
 
 	/**
-	 * Default constructor. Create a RMI session between the client and the server.
-	 *
-	 * @param client the client, a network view updater observer.
+	 * Default constructor.
 	 */
-	public RMIServerSession(NetworkViewUpdaterObserver client) {
+	public RMIServerSession() {
 		this.viewUpdaterObservers = new ArrayList<>();
-		this.commandObservers = new ArrayList<>();
 	}
-
-	/**
-	 * {@inheritDoc}
-	 * Add a server session controller.
-	 */
-	@Override
-	public void addCommandObserver(NetworkCommandObserver observer) throws RemoteException, NetworkException {
-		this.commandObservers.add(observer);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 * Notify the server session controller.
-	 */
-	@Override
-	public void notify(Event command) throws RemoteException, NetworkException{
-		for(NetworkCommandObserver obs : commandObservers) {
-			obs.handle(command);
-		}
-	}
-
-	/**
-	 * Remove a network command observer.
-	 *
-	 * @param observer the network command observer.
-	 * @throws RemoteException  if RMI errors occur during the connection.
-	 * @throws NetworkException if any connection error occurs during the connection.
-	 */
-	@Override
-	public void removeCommandObserver(NetworkCommandObserver observer) throws RemoteException, NetworkException {
-		this.commandObservers.remove(observer);
-	}
-
 
 	/**
 	 * {@inheritDoc}
@@ -110,24 +71,10 @@ public class RMIServerSession implements Remote, SessionInterface, NetworkViewUp
 
 	/**
 	 * {@inheritDoc}
-	 * Forward the request to the server controller.
-	 */
-	@Override
-	public void handle(Event command) throws RemoteException, NetworkException {
-		this.notify(command);
-	}
-
-	/**
-	 * {@inheritDoc}
 	 * Forward the view updater to the client.
 	 */
 	public void handle(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
 		this.notify(updater);
-	}
-
-	@Override
-	public void logout(String uid) {
-
 	}
 
 	@Override
@@ -136,4 +83,183 @@ public class RMIServerSession implements Remote, SessionInterface, NetworkViewUp
 	}
 
 
+	/**
+	 * Handle a ChooseDraftDieValueEvent.
+	 *
+	 * @param event the ChooseDraftDieValueEvent.
+	 */
+	@Override
+	public void handle(ChooseDraftDieValueEvent event) {
+
+	}
+
+	/**
+	 * Handle a DecreaseDieValueEvent.
+	 *
+	 * @param event the DecreaseDieValueEvent.
+	 */
+	@Override
+	public void handle(DecreaseDieValueEvent event) {
+
+	}
+
+	/**
+	 * Handle a DraftAndPlaceAgainEvent.
+	 *
+	 * @param event the DraftAndPlaceAgainEvent.
+	 */
+	@Override
+	public void handle(DraftAndPlaceAgainEvent event) {
+
+	}
+
+	/**
+	 * Handle a DraftAndPlaceNoAdjacentEvent.
+	 *
+	 * @param event the DraftAndPlaceNoAdjacentEvent.
+	 */
+	@Override
+	public void handle(DraftAndPlaceNoAdjacentEvent event) {
+
+	}
+
+	/**
+	 * Handle a DraftAndPlaceEvent.
+	 *
+	 * @param event the DraftAndPlaceEvent.
+	 */
+	@Override
+	public void handle(DraftAndPlaceEvent event) {
+
+	}
+
+	/**
+	 * Handle a EndTurnEvent.
+	 *
+	 * @param event the EndTurnEvent.
+	 */
+	@Override
+	public void handle(EndTurnEvent event) {
+
+	}
+
+	/**
+	 * Handle a FlipDraftDieEvent.
+	 *
+	 * @param event the FlipDraftDieEvent.
+	 */
+	@Override
+	public void handle(FlipDraftDieEvent event) {
+
+	}
+
+	/**
+	 * Handle a IncreaseDieValueEvent.
+	 *
+	 * @param event the IncreaseDieValueEvent.
+	 */
+	@Override
+	public void handle(IncreaseDieValueEvent event) {
+
+	}
+
+	/**
+	 * Handle a MoveDieIgnoreColorRestrictionEvent.
+	 *
+	 * @param event the MoveDieIgnoreColorRestrictionEvent.
+	 */
+	@Override
+	public void handle(MoveDieIgnoreColorRestrictionEvent event) {
+
+	}
+
+	/**
+	 * Handle a MoveDieIgnoreValueRestrictionEvent.
+	 *
+	 * @param event the MoveDieIgnoreValueRestrictionEvent.
+	 */
+	@Override
+	public void handle(MoveDieIgnoreValueRestrictionEvent event) {
+
+	}
+
+	/**
+	 * Handle a MoveDieMatchColorRoundTrackEvent.
+	 *
+	 * @param event the MoveDieMatchColorRoundTrackEvent.
+	 */
+	@Override
+	public void handle(MoveDieMatchColorRoundTrackEvent event) {
+
+	}
+
+	/**
+	 * Handle a MoveDieRespectAllRestrictionsEvent.
+	 *
+	 * @param event the MoveDieRespectAllRestrictionsEvent.
+	 */
+	@Override
+	public void handle(MoveDieRespectAllRestrictionsEvent event) {
+
+	}
+
+	/**
+	 * Handle a RerollAllDraftDiceEvent.
+	 *
+	 * @param event the RerollAllDraftDiceEvent.
+	 */
+	@Override
+	public void handle(RerollAllDraftDiceEvent event) {
+
+	}
+
+	/**
+	 * Handle a RerollDraftDieEvent.
+	 *
+	 * @param event the RerollDraftDieEvent.
+	 */
+	@Override
+	public void handle(RerollDraftDieEvent event) {
+
+	}
+
+	/**
+	 * Handle a SwapDraftDieWithDiceBagDieEvent.
+	 *
+	 * @param event the SwapDraftDieWithDiceBagDieEvent.
+	 */
+	@Override
+	public void handle(SwapDraftDieWithDiceBagDieEvent event) {
+
+	}
+
+	/**
+	 * Handle a SwapDraftDieWithRoundTrackDieEvent.
+	 *
+	 * @param event the SwapDraftDieWithRoundTrackDieEvent.
+	 */
+	@Override
+	public void handle(SwapDraftDieWithRoundTrackDieEvent event) {
+
+	}
+
+	/**
+	 * Handle a UseToolCardEvent.
+	 *
+	 * @param event the UseToolCardEvent.
+	 */
+	@Override
+	public void handle(UseToolCardEvent event) {
+
+	}
+
+	/**
+	 * Handle a WindowPatternChosenEvent.
+	 *
+	 * @param event the WindowPatternChosenEvent.
+	 */
+	@Override
+	public void handle(WindowPatternChosenEvent event) {
+
+	}
 }
