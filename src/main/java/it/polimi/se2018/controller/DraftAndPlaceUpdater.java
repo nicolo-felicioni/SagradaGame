@@ -18,6 +18,6 @@ public class DraftAndPlaceUpdater implements ViewUpdaterInterface {
 
     @Override
     public void update(View view) {
-        view.moveDieFromDraftToWindow(point, draftedDie, playerId);
+        view.updateMoveDieFromDraftToWindow(point, draftedDie, playerId);
     }
 }
