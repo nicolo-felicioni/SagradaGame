@@ -1,6 +1,6 @@
 package it.polimi.se2018.observable;
 
-import it.polimi.se2018.event.DraftAndPlaceEvent;
+import it.polimi.se2018.event.DraftAndPlaceGameEvent;
 import it.polimi.se2018.observer.DraftAndPlaceObserver;
 
 /**
@@ -24,7 +24,7 @@ public interface DraftAndPlaceObservable {
 	 * Notify the DraftAndPlaceObservers an DraftAndPlaceEvent.
 	 * @param event the DraftAndPlaceEvent.
 	 */
-	void notifyObservers(DraftAndPlaceEvent event);
+	void notifyObservers(DraftAndPlaceGameEvent event);
 
 
 }

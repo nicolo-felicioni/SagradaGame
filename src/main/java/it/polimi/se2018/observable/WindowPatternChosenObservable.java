@@ -1,6 +1,6 @@
 package it.polimi.se2018.observable;
 
-import it.polimi.se2018.event.WindowPatternChosenEvent;
+import it.polimi.se2018.event.WindowPatternChosenGameEvent;
 import it.polimi.se2018.observer.WindowPatternChosenObserver;
 
 /**
@@ -24,6 +24,6 @@ public interface WindowPatternChosenObservable {
 	 * Notify the WindowPatternChosenObservers an WindowPatternChosenEvent.
 	 * @param event the WindowPatternChosenEvent.
 	 */
-	void notifyObservers(WindowPatternChosenEvent event);
+	void notifyObservers(WindowPatternChosenGameEvent event);
 
 }

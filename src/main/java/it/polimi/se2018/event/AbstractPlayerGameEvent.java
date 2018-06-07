@@ -1,12 +1,9 @@
 package it.polimi.se2018.event;
 
-import it.polimi.se2018.model.Die;
-import it.polimi.se2018.model.Point;
-
 /**
  * @author davide yi xian hu
  */
-public abstract class AbstractPlayerEvent implements Event {
+public abstract class AbstractPlayerGameEvent implements GameEvent {
 
 	/**
 	 * The identifier of the player.
@@ -17,7 +14,7 @@ public abstract class AbstractPlayerEvent implements Event {
 	 * Constructor.
 	 * @param id the identifier of the player.
 	 */
-	public AbstractPlayerEvent(String id) {
+	public AbstractPlayerGameEvent(String id) {
 		this.playerId = id;
 	}
 

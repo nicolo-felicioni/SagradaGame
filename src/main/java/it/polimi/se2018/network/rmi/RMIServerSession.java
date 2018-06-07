@@ -4,10 +4,8 @@ import it.polimi.se2018.event.*;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.network.server.SessionInterface;
-import it.polimi.se2018.network.utils.NetworkViewUpdaterObservable;
 import it.polimi.se2018.network.utils.NetworkViewUpdaterObserver;
 import it.polimi.se2018.observable.GameEventObservableImpl;
-import it.polimi.se2018.observer.GameEventObserver;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -89,8 +87,8 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the ChooseDraftDieValueEvent.
 	 */
 	@Override
-	public void handle(ChooseDraftDieValueEvent event) {
-
+	public void handle(ChooseDraftDieValueGameEvent event) {
+		this.notifyObservers(event);
 	}
 
 	/**
@@ -99,8 +97,8 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the DecreaseDieValueEvent.
 	 */
 	@Override
-	public void handle(DecreaseDieValueEvent event) {
-
+	public void handle(DecreaseDieValueGameEvent event) {
+		this.notifyObservers(event);
 	}
 
 	/**
@@ -109,8 +107,8 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the DraftAndPlaceAgainEvent.
 	 */
 	@Override
-	public void handle(DraftAndPlaceAgainEvent event) {
-
+	public void handle(DraftAndPlaceAgainGameEvent event) {
+		this.notifyObservers(event);
 	}
 
 	/**
@@ -119,8 +117,8 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the DraftAndPlaceNoAdjacentEvent.
 	 */
 	@Override
-	public void handle(DraftAndPlaceNoAdjacentEvent event) {
-
+	public void handle(DraftAndPlaceNoAdjacentGameEvent event) {
+		this.notifyObservers(event);
 	}
 
 	/**
@@ -129,8 +127,8 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the DraftAndPlaceEvent.
 	 */
 	@Override
-	public void handle(DraftAndPlaceEvent event) {
-
+	public void handle(DraftAndPlaceGameEvent event) {
+		this.notifyObservers(event);
 	}
 
 	/**
@@ -139,8 +137,8 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the EndTurnEvent.
 	 */
 	@Override
-	public void handle(EndTurnEvent event) {
-
+	public void handle(EndTurnGameEvent event) {
+		this.notifyObservers(event);
 	}
 
 	/**
@@ -149,8 +147,8 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the FlipDraftDieEvent.
 	 */
 	@Override
-	public void handle(FlipDraftDieEvent event) {
-
+	public void handle(FlipDraftDieGameEvent event) {
+		this.notifyObservers(event);
 	}
 
 	/**
@@ -159,8 +157,8 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the IncreaseDieValueEvent.
 	 */
 	@Override
-	public void handle(IncreaseDieValueEvent event) {
-
+	public void handle(IncreaseDieValueGameEvent event) {
+		this.notifyObservers(event);
 	}
 
 	/**
@@ -169,8 +167,8 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the MoveDieIgnoreColorRestrictionEvent.
 	 */
 	@Override
-	public void handle(MoveDieIgnoreColorRestrictionEvent event) {
-
+	public void handle(MoveDieIgnoreColorRestrictionGameEvent event) {
+		this.notifyObservers(event);
 	}
 
 	/**
@@ -179,8 +177,8 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the MoveDieIgnoreValueRestrictionEvent.
 	 */
 	@Override
-	public void handle(MoveDieIgnoreValueRestrictionEvent event) {
-
+	public void handle(MoveDieIgnoreValueRestrictionGameEvent event) {
+		this.notifyObservers(event);
 	}
 
 	/**
@@ -189,8 +187,8 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the MoveDieMatchColorRoundTrackEvent.
 	 */
 	@Override
-	public void handle(MoveDieMatchColorRoundTrackEvent event) {
-
+	public void handle(MoveDieMatchColorRoundTrackGameEvent event) {
+		this.notifyObservers(event);
 	}
 
 	/**
@@ -199,8 +197,8 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the MoveDieRespectAllRestrictionsEvent.
 	 */
 	@Override
-	public void handle(MoveDieRespectAllRestrictionsEvent event) {
-
+	public void handle(MoveDieRespectAllRestrictionsGameEvent event) {
+		this.notifyObservers(event);
 	}
 
 	/**
@@ -209,8 +207,8 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the RerollAllDraftDiceEvent.
 	 */
 	@Override
-	public void handle(RerollAllDraftDiceEvent event) {
-
+	public void handle(RerollAllDraftDiceGameEvent event) {
+		this.notifyObservers(event);
 	}
 
 	/**
@@ -219,8 +217,8 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the RerollDraftDieEvent.
 	 */
 	@Override
-	public void handle(RerollDraftDieEvent event) {
-
+	public void handle(RerollDraftDieGameEvent event) {
+		this.notifyObservers(event);
 	}
 
 	/**
@@ -229,8 +227,8 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the SwapDraftDieWithDiceBagDieEvent.
 	 */
 	@Override
-	public void handle(SwapDraftDieWithDiceBagDieEvent event) {
-
+	public void handle(SwapDraftDieWithDiceBagDieGameEvent event) {
+		this.notifyObservers(event);
 	}
 
 	/**
@@ -239,8 +237,8 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the SwapDraftDieWithRoundTrackDieEvent.
 	 */
 	@Override
-	public void handle(SwapDraftDieWithRoundTrackDieEvent event) {
-
+	public void handle(SwapDraftDieWithRoundTrackDieGameEvent event) {
+		this.notifyObservers(event);
 	}
 
 	/**
@@ -249,8 +247,8 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the UseToolCardEvent.
 	 */
 	@Override
-	public void handle(UseToolCardEvent event) {
-
+	public void handle(UseToolCardGameEvent event) {
+		this.notifyObservers(event);
 	}
 
 	/**
@@ -259,7 +257,8 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the WindowPatternChosenEvent.
 	 */
 	@Override
-	public void handle(WindowPatternChosenEvent event) {
-
+	public void handle(WindowPatternChosenGameEvent event) {
+		this.notifyObservers(event);
 	}
+
 }

@@ -1,6 +1,6 @@
 package it.polimi.se2018.observable;
 
-import it.polimi.se2018.event.MoveDieIgnoreColorRestrictionEvent;
+import it.polimi.se2018.event.MoveDieIgnoreColorRestrictionGameEvent;
 import it.polimi.se2018.observer.MoveDieIgnoreColorRestrictionObserver;
 
 /**
@@ -24,7 +24,7 @@ public interface MoveDieIgnoreColorRestrictionObservable {
 	 * Notify the MoveDieIgnoreColorRestrictionObservers an MoveDieIgnoreColorRestrictionEvent.
 	 * @param event the MoveDieIgnoreColorRestrictionEvent.
 	 */
-	void notifyObservers(MoveDieIgnoreColorRestrictionEvent event);
+	void notifyObservers(MoveDieIgnoreColorRestrictionGameEvent event);
 
 
 }

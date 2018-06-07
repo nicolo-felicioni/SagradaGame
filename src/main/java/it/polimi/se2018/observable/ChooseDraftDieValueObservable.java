@@ -1,6 +1,6 @@
 package it.polimi.se2018.observable;
 
-import it.polimi.se2018.event.ChooseDraftDieValueEvent;
+import it.polimi.se2018.event.ChooseDraftDieValueGameEvent;
 import it.polimi.se2018.observer.ChooseDraftDieValueObserver;
 
 /**
@@ -24,6 +24,6 @@ public interface ChooseDraftDieValueObservable {
 	 * Notify the ChooseDraftDieValueObservers an ChooseDraftDieValueEvent.
 	 * @param event the ChooseDraftDieValueEvent.
 	 */
-	void notifyObservers(ChooseDraftDieValueEvent event);
+	void notifyObservers(ChooseDraftDieValueGameEvent event);
 
 }

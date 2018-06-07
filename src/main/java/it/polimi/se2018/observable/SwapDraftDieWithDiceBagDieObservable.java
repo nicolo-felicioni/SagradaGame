@@ -1,6 +1,6 @@
 package it.polimi.se2018.observable;
 
-import it.polimi.se2018.event.SwapDraftDieWithDiceBagDieEvent;
+import it.polimi.se2018.event.SwapDraftDieWithDiceBagDieGameEvent;
 import it.polimi.se2018.observer.SwapDraftDieWithDiceBagDieObserver;
 
 /**
@@ -24,6 +24,6 @@ public interface SwapDraftDieWithDiceBagDieObservable {
 	 * Notify the SwapDraftDieWithDiceBagDieObservers an SwapDraftDieWithDiceBagDieEvent.
 	 * @param event the SwapDraftDieWithDiceBagDieEvent.
 	 */
-	void notifyObservers(SwapDraftDieWithDiceBagDieEvent event);
+	void notifyObservers(SwapDraftDieWithDiceBagDieGameEvent event);
 
 }

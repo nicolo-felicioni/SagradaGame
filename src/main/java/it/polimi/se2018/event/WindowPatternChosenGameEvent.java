@@ -1,11 +1,12 @@
 package it.polimi.se2018.event;
 
 import it.polimi.se2018.model.WindowPattern;
+import it.polimi.se2018.observer.GameEventObserver;
 
 /**
  * @author davide yi xian hu
  */
-public class WindowPatternChosenEvent extends AbstractPlayerEvent{
+public class WindowPatternChosenGameEvent extends AbstractPlayerGameEvent {
 
 	/**
 	 * The window pattern chosen by the player.
@@ -17,7 +18,7 @@ public class WindowPatternChosenEvent extends AbstractPlayerEvent{
 	 * @param window the window pattern chosen by the player.
 	 * @param playerId the player identifier.
 	 */
-	public WindowPatternChosenEvent(WindowPattern window, String playerId) {
+	public WindowPatternChosenGameEvent(WindowPattern window, String playerId) {
 		super(playerId);
 		this.window = window;
 	}
@@ -30,5 +31,14 @@ public class WindowPatternChosenEvent extends AbstractPlayerEvent{
 		return window;
 	}
 
+	/**
+	 * Accept an observer. Visitor pattern.
+	 *
+	 * @param observer the observer to be called.
+	 */
+	@Override
+	public void accept(GameEventObserver observer) {
+		observer.handle(this);
+	}
 
 }

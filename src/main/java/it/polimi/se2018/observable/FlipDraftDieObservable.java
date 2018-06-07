@@ -1,6 +1,6 @@
 package it.polimi.se2018.observable;
 
-import it.polimi.se2018.event.FlipDraftDieEvent;
+import it.polimi.se2018.event.FlipDraftDieGameEvent;
 import it.polimi.se2018.observer.FlipDraftDieObserver;
 
 /**
@@ -24,6 +24,6 @@ public interface FlipDraftDieObservable {
 	 * Notify the FlipDraftDieObservers an FlipDraftDieEvent.
 	 * @param event the FlipDraftDieEvent.
 	 */
-	void notifyObservers(FlipDraftDieEvent event);
+	void notifyObservers(FlipDraftDieGameEvent event);
 
 }

@@ -1,6 +1,6 @@
 package it.polimi.se2018.observable;
 
-import it.polimi.se2018.event.MoveDieMatchColorRoundTrackEvent;
+import it.polimi.se2018.event.MoveDieMatchColorRoundTrackGameEvent;
 import it.polimi.se2018.observer.MoveDieMatchColorRoundTrackObserver;
 
 /**
@@ -24,6 +24,6 @@ public interface MoveDieMatchColorRoundTrackObservable {
 	 * Notify the MoveDieMatchColorRoundTrackObservers an MoveDieMatchColorRoundTrackEvent.
 	 * @param event the MoveDieMatchColorRoundTrackEvent.
 	 */
-	void notifyObservers(MoveDieMatchColorRoundTrackEvent event);
+	void notifyObservers(MoveDieMatchColorRoundTrackGameEvent event);
 
 }

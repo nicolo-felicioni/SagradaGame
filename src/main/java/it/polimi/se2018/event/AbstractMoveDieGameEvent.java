@@ -5,7 +5,7 @@ import it.polimi.se2018.model.Point;
 /**
  * @author davide yi xian hu
  */
-public abstract class AbstractMoveDieEvent extends AbstractPlayerEvent{
+public abstract class AbstractMoveDieGameEvent extends AbstractPlayerGameEvent {
 
 	/**
 	 * Initial position.
@@ -23,7 +23,7 @@ public abstract class AbstractMoveDieEvent extends AbstractPlayerEvent{
 	 * @param finalPosition the final position;
 	 * @param playerId the player identifier.
 	 */
-	public AbstractMoveDieEvent(Point initialPosition, Point finalPosition, String playerId) {
+	public AbstractMoveDieGameEvent(Point initialPosition, Point finalPosition, String playerId) {
 		super(playerId);
 		this.initialPosition = initialPosition;
 		this.finalPosition = finalPosition;
@@ -44,4 +44,5 @@ public abstract class AbstractMoveDieEvent extends AbstractPlayerEvent{
 	public Point getFinalPosition() {
 		return finalPosition;
 	}
+
 }

@@ -1,9 +1,11 @@
 package it.polimi.se2018.event;
 
+import it.polimi.se2018.observer.GameEventObserver;
+
 /**
  * @author davide yi xian hu
  */
-public class UseToolCardEvent extends AbstractPlayerEvent {
+public class UseToolCardGameEvent extends AbstractPlayerGameEvent {
 
 	/**
 	 * The position of the tool card.
@@ -15,7 +17,7 @@ public class UseToolCardEvent extends AbstractPlayerEvent {
 	 * @param position the position of the tool card.
 	 * @param playerId the player identifier.
 	 */
-	public UseToolCardEvent(int position, String playerId) {
+	public UseToolCardGameEvent(int position, String playerId) {
 		super(playerId);
 		this.positionOfToolCard = position;
 	}
@@ -28,4 +30,15 @@ public class UseToolCardEvent extends AbstractPlayerEvent {
 	public int getPositionOfToolCard() {
 		return positionOfToolCard;
 	}
+
+	/**
+	 * Accept an observer. Visitor pattern.
+	 *
+	 * @param observer the observer to be called.
+	 */
+	@Override
+	public void accept(GameEventObserver observer) {
+		observer.handle(this);
+	}
+
 }

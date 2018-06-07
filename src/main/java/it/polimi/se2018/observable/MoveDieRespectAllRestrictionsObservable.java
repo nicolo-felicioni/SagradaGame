@@ -1,6 +1,6 @@
 package it.polimi.se2018.observable;
 
-import it.polimi.se2018.event.MoveDieRespectAllRestrictionsEvent;
+import it.polimi.se2018.event.MoveDieRespectAllRestrictionsGameEvent;
 import it.polimi.se2018.observer.MoveDieRespectAllRestrictionsObserver;
 
 /**
@@ -24,6 +24,6 @@ public interface MoveDieRespectAllRestrictionsObservable {
 	 * Notify the MoveDieRespectAllRestrictionObservers an MoveDieRespectAllRestrictionEvent.
 	 * @param event the MoveDieRespectAllRestrictionEvent.
 	 */
-	void notifyObservers(MoveDieRespectAllRestrictionsEvent event);
+	void notifyObservers(MoveDieRespectAllRestrictionsGameEvent event);
 
 }

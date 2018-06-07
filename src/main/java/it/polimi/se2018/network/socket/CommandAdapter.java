@@ -1,14 +1,14 @@
 package it.polimi.se2018.network.socket;
 
 import com.google.gson.*;
-import it.polimi.se2018.event.Event;
+import it.polimi.se2018.event.GameEvent;
 
 import java.lang.reflect.Type;
 
 /**
  * @author davide yi xian hu
  */
-public class CommandAdapter implements JsonSerializer<Event>, JsonDeserializer<Event> {
+public class CommandAdapter implements JsonSerializer<GameEvent>, JsonDeserializer<GameEvent> {
 
 	/**
 	 * ClassName
@@ -26,7 +26,7 @@ public class CommandAdapter implements JsonSerializer<Event>, JsonDeserializer<E
 	 * @return a Command.
 	 */
 	@Override
-	public Event deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+	public GameEvent deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
 		JsonObject jsonObject = jsonElement.getAsJsonObject();
 		JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);
 		String className = prim.getAsString();
@@ -46,7 +46,7 @@ public class CommandAdapter implements JsonSerializer<Event>, JsonDeserializer<E
 	 * @return a JsonElement.
 	 */
 	@Override
-	public JsonElement serialize(Event command, Type type, JsonSerializationContext jsonSerializationContext) {
+	public JsonElement serialize(GameEvent command, Type type, JsonSerializationContext jsonSerializationContext) {
 		JsonObject retValue = new JsonObject();
 		String className = command.getClass().getName();
 		retValue.addProperty(CLASSNAME, className);

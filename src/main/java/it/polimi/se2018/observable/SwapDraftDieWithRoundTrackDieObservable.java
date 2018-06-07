@@ -1,6 +1,6 @@
 package it.polimi.se2018.observable;
 
-import it.polimi.se2018.event.SwapDraftDieWithRoundTrackDieEvent;
+import it.polimi.se2018.event.SwapDraftDieWithRoundTrackDieGameEvent;
 import it.polimi.se2018.observer.SwapDraftDieWithRoundTrackDieObserver;
 
 /**
@@ -24,6 +24,6 @@ public interface SwapDraftDieWithRoundTrackDieObservable {
 	 * Notify the SwapDrafDieWithRoundTrackDieObservers an SwapDrafDieWithRoundTrackDieEvent.
 	 * @param event the SwapDrafDieWithRoundTrackDieEvent.
 	 */
-	void notifyObservers(SwapDraftDieWithRoundTrackDieEvent event);
+	void notifyObservers(SwapDraftDieWithRoundTrackDieGameEvent event);
 
 }

@@ -1,193 +1,139 @@
-package it.polimi.se2018.controller;
+package it.polimi.se2018.observer;
 
 import it.polimi.se2018.event.*;
-import it.polimi.se2018.model.Model;
-import it.polimi.se2018.observer.GameEventObserver;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  * @author davide yi xian hu
  */
-public class Controller implements GameEventObserver {
-
-	private Model model;
+public interface NetworkGameEventObserver {
 
 	/**
 	 * Handle a ChooseDraftDieValueEvent.
 	 *
 	 * @param event the ChooseDraftDieValueEvent.
 	 */
-	@Override
-	public void handle(ChooseDraftDieValueGameEvent event) {
-
-	}
+	void handle(ChooseDraftDieValueGameEvent event) throws RemoteException;
 
 	/**
 	 * Handle a DecreaseDieValueEvent.
 	 *
 	 * @param event the DecreaseDieValueEvent.
 	 */
-	@Override
-	public void handle(DecreaseDieValueGameEvent event) {
-
-	}
+	void handle(DecreaseDieValueGameEvent event) throws RemoteException;
 
 	/**
 	 * Handle a DraftAndPlaceAgainEvent.
 	 *
 	 * @param event the DraftAndPlaceAgainEvent.
 	 */
-	@Override
-	public void handle(DraftAndPlaceAgainGameEvent event) {
-
-	}
+	void handle(DraftAndPlaceAgainGameEvent event) throws RemoteException;
 
 	/**
 	 * Handle a DraftAndPlaceNoAdjacentEvent.
 	 *
 	 * @param event the DraftAndPlaceNoAdjacentEvent.
 	 */
-	@Override
-	public void handle(DraftAndPlaceNoAdjacentGameEvent event) {
-
-	}
+	void handle(DraftAndPlaceNoAdjacentGameEvent event) throws RemoteException;
 
 	/**
 	 * Handle a DraftAndPlaceEvent.
 	 *
 	 * @param event the DraftAndPlaceEvent.
 	 */
-	@Override
-	public void handle(DraftAndPlaceGameEvent event) {
-
-	}
+	void handle(DraftAndPlaceGameEvent event) throws RemoteException;
 
 	/**
 	 * Handle a EndTurnEvent.
 	 *
 	 * @param event the EndTurnEvent.
 	 */
-	@Override
-	public void handle(EndTurnGameEvent event) {
-
-	}
+	void handle(EndTurnGameEvent event) throws RemoteException;
 
 	/**
 	 * Handle a FlipDraftDieEvent.
 	 *
 	 * @param event the FlipDraftDieEvent.
 	 */
-	@Override
-	public void handle(FlipDraftDieGameEvent event) {
-
-	}
+	void handle(FlipDraftDieGameEvent event) throws RemoteException;
 
 	/**
 	 * Handle a IncreaseDieValueEvent.
 	 *
 	 * @param event the IncreaseDieValueEvent.
 	 */
-	@Override
-	public void handle(IncreaseDieValueGameEvent event) {
-
-	}
+	void handle(IncreaseDieValueGameEvent event) throws RemoteException;
 
 	/**
 	 * Handle a MoveDieIgnoreColorRestrictionEvent.
 	 *
 	 * @param event the MoveDieIgnoreColorRestrictionEvent.
 	 */
-	@Override
-	public void handle(MoveDieIgnoreColorRestrictionGameEvent event) {
-
-	}
+	void handle(MoveDieIgnoreColorRestrictionGameEvent event) throws RemoteException;
 
 	/**
 	 * Handle a MoveDieIgnoreValueRestrictionEvent.
 	 *
 	 * @param event the MoveDieIgnoreValueRestrictionEvent.
 	 */
-	@Override
-	public void handle(MoveDieIgnoreValueRestrictionGameEvent event) {
-
-	}
+	void handle(MoveDieIgnoreValueRestrictionGameEvent event) throws RemoteException;
 
 	/**
 	 * Handle a MoveDieMatchColorRoundTrackEvent.
 	 *
 	 * @param event the MoveDieMatchColorRoundTrackEvent.
 	 */
-	@Override
-	public void handle(MoveDieMatchColorRoundTrackGameEvent event) {
-
-	}
+	void handle(MoveDieMatchColorRoundTrackGameEvent event) throws RemoteException;
 
 	/**
 	 * Handle a MoveDieRespectAllRestrictionsEvent.
 	 *
 	 * @param event the MoveDieRespectAllRestrictionsEvent.
 	 */
-	@Override
-	public void handle(MoveDieRespectAllRestrictionsGameEvent event) {
-
-	}
+	void handle(MoveDieRespectAllRestrictionsGameEvent event) throws RemoteException;
 
 	/**
 	 * Handle a RerollAllDraftDiceEvent.
 	 *
 	 * @param event the RerollAllDraftDiceEvent.
 	 */
-	@Override
-	public void handle(RerollAllDraftDiceGameEvent event) {
-
-	}
+	void handle(RerollAllDraftDiceGameEvent event) throws RemoteException;
 
 	/**
 	 * Handle a RerollDraftDieEvent.
 	 *
 	 * @param event the RerollDraftDieEvent.
 	 */
-	@Override
-	public void handle(RerollDraftDieGameEvent event) {
-
-	}
+	void handle(RerollDraftDieGameEvent event) throws RemoteException;
 
 	/**
 	 * Handle a SwapDraftDieWithDiceBagDieEvent.
 	 *
 	 * @param event the SwapDraftDieWithDiceBagDieEvent.
 	 */
-	@Override
-	public void handle(SwapDraftDieWithDiceBagDieGameEvent event) {
-
-	}
+	void handle(SwapDraftDieWithDiceBagDieGameEvent event) throws RemoteException;
 
 	/**
 	 * Handle a SwapDraftDieWithRoundTrackDieEvent.
 	 *
 	 * @param event the SwapDraftDieWithRoundTrackDieEvent.
 	 */
-	@Override
-	public void handle(SwapDraftDieWithRoundTrackDieGameEvent event) {
-
-	}
+	void handle(SwapDraftDieWithRoundTrackDieGameEvent event) throws RemoteException;
 
 	/**
 	 * Handle a UseToolCardEvent.
 	 *
 	 * @param event the UseToolCardEvent.
 	 */
-	@Override
-	public void handle(UseToolCardGameEvent event) {
-
-	}
+	void handle(UseToolCardGameEvent event) throws RemoteException;
 
 	/**
 	 * Handle a WindowPatternChosenEvent.
 	 *
 	 * @param event the WindowPatternChosenEvent.
 	 */
-	@Override
-	public void handle(WindowPatternChosenGameEvent event) {
+	void handle(WindowPatternChosenGameEvent event) throws RemoteException;
 
-	}
 }

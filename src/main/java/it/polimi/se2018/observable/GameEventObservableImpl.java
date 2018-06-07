@@ -129,7 +129,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	 * @param event the ChooseDraftDieValueEvent.
 	 */
 	@Override
-	public void notifyObservers(ChooseDraftDieValueEvent event) {
+	public void notifyObservers(ChooseDraftDieValueGameEvent event) {
 		this.chooseDraftDieValueObservers.forEach(chooseDraftDieValueObserver -> chooseDraftDieValueObserver.handle(event));
 	}
 
@@ -159,7 +159,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	 * @param event the DecreaseDieValueEvent.
 	 */
 	@Override
-	public void notifyObservers(DecreaseDieValueEvent event) {
+	public void notifyObservers(DecreaseDieValueGameEvent event) {
 		this.decreaseDieValueObservers.forEach(decreaseDieValueObserver -> decreaseDieValueObserver.handle(event));
 	}
 
@@ -189,7 +189,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	 * @param event the DraftAndPlaceAgainEvent.
 	 */
 	@Override
-	public void notifyObservers(DraftAndPlaceAgainEvent event) {
+	public void notifyObservers(DraftAndPlaceAgainGameEvent event) {
 		this.draftAndPlaceAgainObservers.forEach(draftAndPlaceAgainObserver -> draftAndPlaceAgainObserver.handle(event));
 	}
 
@@ -219,7 +219,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	 * @param event the DraftAndPlaceNoAdjacentEvent.
 	 */
 	@Override
-	public void notifyObservers(DraftAndPlaceNoAdjacentEvent event) {
+	public void notifyObservers(DraftAndPlaceNoAdjacentGameEvent event) {
 		this.draftAndPlaceNoAdjacentObservers.forEach(draftAndPlaceNoAdjacentObserver -> draftAndPlaceNoAdjacentObserver.handle(event));
 	}
 
@@ -249,7 +249,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	 * @param event the DraftAndPlaceEvent.
 	 */
 	@Override
-	public void notifyObservers(DraftAndPlaceEvent event) {
+	public void notifyObservers(DraftAndPlaceGameEvent event) {
 		this.draftAndPlaceObservers.forEach(draftAndPlaceObserver -> draftAndPlaceObserver.handle(event));
 	}
 
@@ -279,7 +279,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	 * @param event the EndTurnEvent.
 	 */
 	@Override
-	public void notifyObservers(EndTurnEvent event) {
+	public void notifyObservers(EndTurnGameEvent event) {
 		this.endTurnObservers.forEach(endTurnObserver -> endTurnObserver.handle(event));
 	}
 
@@ -309,7 +309,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	 * @param event the FlipDraftDieEvent.
 	 */
 	@Override
-	public void notifyObservers(FlipDraftDieEvent event) {
+	public void notifyObservers(FlipDraftDieGameEvent event) {
 		this.flipDraftDieObservers.forEach(flipDraftDieObserver -> flipDraftDieObserver.handle(event));
 	}
 
@@ -339,7 +339,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	 * @param event the IncreaseDieValueEvent.
 	 */
 	@Override
-	public void notifyObservers(IncreaseDieValueEvent event) {
+	public void notifyObservers(IncreaseDieValueGameEvent event) {
 		this.increaseDieValueObservers.forEach(increaseDieValueObserver -> increaseDieValueObserver.handle(event));
 	}
 
@@ -369,7 +369,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	 * @param event the MoveDieIgnoreColorRestrictionEvent.
 	 */
 	@Override
-	public void notifyObservers(MoveDieIgnoreColorRestrictionEvent event) {
+	public void notifyObservers(MoveDieIgnoreColorRestrictionGameEvent event) {
 		this.moveDieIgnoreColorRestrictionObservers.forEach(moveDieIgnoreColorRestrictionObserver -> moveDieIgnoreColorRestrictionObserver.handle(event));
 	}
 
@@ -399,7 +399,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	 * @param event the MoveDieIgnoreValueRestrictionEvent.
 	 */
 	@Override
-	public void notifyObservers(MoveDieIgnoreValueRestrictionEvent event) {
+	public void notifyObservers(MoveDieIgnoreValueRestrictionGameEvent event) {
 		this.moveDieIgnoreValueRestrictionObservers.forEach(moveDieIgnoreValueRestrictionObserver -> moveDieIgnoreValueRestrictionObserver.handle(event));
 	}
 
@@ -429,7 +429,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	 * @param event the MoveDieMatchColorRoundTrackEvent.
 	 */
 	@Override
-	public void notifyObservers(MoveDieMatchColorRoundTrackEvent event) {
+	public void notifyObservers(MoveDieMatchColorRoundTrackGameEvent event) {
 		this.moveDieMatchColorRoundTrackObservers.forEach(moveDieMatchColorRoundTrackObserver -> moveDieMatchColorRoundTrackObserver.handle(event));
 	}
 
@@ -459,7 +459,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	 * @param event the MoveDieRespectAllRestrictionEvent.
 	 */
 	@Override
-	public void notifyObservers(MoveDieRespectAllRestrictionsEvent event) {
+	public void notifyObservers(MoveDieRespectAllRestrictionsGameEvent event) {
 		this.moveDieRespectAllRestrictionsObservers.forEach(moveDieRespectAllRestrictionsObserver -> moveDieRespectAllRestrictionsObserver.handle(event));
 	}
 
@@ -489,7 +489,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	 * @param event the RerollAllDraftDiceEvent.
 	 */
 	@Override
-	public void notifyObservers(RerollAllDraftDiceEvent event) {
+	public void notifyObservers(RerollAllDraftDiceGameEvent event) {
 		this.rerollAllDraftDiceObservers.forEach(rerollAllDraftDiceObserver -> rerollAllDraftDiceObserver.handle(event));
 	}
 
@@ -519,7 +519,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	 * @param event the RerollDraftDieEvent.
 	 */
 	@Override
-	public void notifyObservers(RerollDraftDieEvent event) {
+	public void notifyObservers(RerollDraftDieGameEvent event) {
 		this.rerollDraftDieObservers.forEach(rerollDraftDieObserver -> rerollDraftDieObserver.handle(event));
 	}
 
@@ -549,7 +549,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	 * @param event the SwapDraftDieWithDiceBagDieEvent.
 	 */
 	@Override
-	public void notifyObservers(SwapDraftDieWithDiceBagDieEvent event) {
+	public void notifyObservers(SwapDraftDieWithDiceBagDieGameEvent event) {
 		this.swapDraftDieWithDiceBagDieObservers.forEach(swapDraftDieWithDiceBagDieObserver -> swapDraftDieWithDiceBagDieObserver.handle(event));
 	}
 
@@ -579,7 +579,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	 * @param event the SwapDrafDieWithRoundTrackDieEvent.
 	 */
 	@Override
-	public void notifyObservers(SwapDraftDieWithRoundTrackDieEvent event) {
+	public void notifyObservers(SwapDraftDieWithRoundTrackDieGameEvent event) {
 		this.swapDraftDieWithRoundTrackDieObservers.forEach(swapDraftDieWithRoundTrackDieObserver -> swapDraftDieWithRoundTrackDieObserver.handle(event));
 	}
 
@@ -609,7 +609,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	 * @param event the UseToolCardEvent.
 	 */
 	@Override
-	public void notifyObservers(UseToolCardEvent event) {
+	public void notifyObservers(UseToolCardGameEvent event) {
 		this.useToolCardObservers.forEach(useToolCardObserver -> useToolCardObserver.handle(event));
 	}
 
@@ -639,7 +639,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	 * @param event the WindowPatternChosenEvent.
 	 */
 	@Override
-	public void notifyObservers(WindowPatternChosenEvent event) {
+	public void notifyObservers(WindowPatternChosenGameEvent event) {
 		this.windowPatternChosenObservers.forEach(windowPatternChosenObserver -> windowPatternChosenObserver.handle(event));
 	}
 }

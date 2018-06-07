@@ -1,6 +1,6 @@
 package it.polimi.se2018.observer;
 
-import it.polimi.se2018.event.MoveDieIgnoreValueRestrictionEvent;
+import it.polimi.se2018.event.MoveDieIgnoreValueRestrictionGameEvent;
 
 /**
  * @author davide yi xian hu
@@ -11,6 +11,6 @@ public interface MoveDieIgnoreValueRestrictionObserver {
 	 * Handle a MoveDieIgnoreValueRestrictionEvent.
 	 * @param event the MoveDieIgnoreValueRestrictionEvent.
 	 */
-	void handle(MoveDieIgnoreValueRestrictionEvent event);
+	void handle(MoveDieIgnoreValueRestrictionGameEvent event);
 
 }

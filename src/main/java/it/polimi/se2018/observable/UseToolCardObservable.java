@@ -1,6 +1,6 @@
 package it.polimi.se2018.observable;
 
-import it.polimi.se2018.event.UseToolCardEvent;
+import it.polimi.se2018.event.UseToolCardGameEvent;
 import it.polimi.se2018.observer.UseToolCardObserver;
 
 /**
@@ -24,6 +24,6 @@ public interface UseToolCardObservable {
 	 * Notify the UseToolCardObservers an UseToolCardEvent.
 	 * @param event the UseToolCardEvent.
 	 */
-	void notifyObservers(UseToolCardEvent event);
+	void notifyObservers(UseToolCardGameEvent event);
 
 }

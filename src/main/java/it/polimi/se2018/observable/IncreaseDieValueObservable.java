@@ -1,6 +1,6 @@
 package it.polimi.se2018.observable;
 
-import it.polimi.se2018.event.IncreaseDieValueEvent;
+import it.polimi.se2018.event.IncreaseDieValueGameEvent;
 import it.polimi.se2018.observer.IncreaseDieValueObserver;
 
 /**
@@ -24,7 +24,7 @@ public interface IncreaseDieValueObservable {
 	 * Notify the IncreaseDieValueObservers an IncreaseDieValueEvent.
 	 * @param event the IncreaseDieValueEvent.
 	 */
-	void notifyObservers(IncreaseDieValueEvent event);
+	void notifyObservers(IncreaseDieValueGameEvent event);
 
 
 }

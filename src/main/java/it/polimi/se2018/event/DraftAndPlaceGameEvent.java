@@ -2,11 +2,12 @@ package it.polimi.se2018.event;
 
 import it.polimi.se2018.model.Die;
 import it.polimi.se2018.model.Point;
+import it.polimi.se2018.observer.GameEventObserver;
 
 /**
  * @author davide yi xian hu
  */
-public class DraftAndPlaceEvent extends AbstractPlayerEvent {
+public class DraftAndPlaceGameEvent extends AbstractPlayerGameEvent {
 
 	/**
 	 * The die of the draft pool.
@@ -24,7 +25,7 @@ public class DraftAndPlaceEvent extends AbstractPlayerEvent {
 	 * @param point the position of the space in a window pattern.
 	 * @param id the identifier of the player.
 	 */
-	public DraftAndPlaceEvent(Die draftedDie, Point point, String id) {
+	public DraftAndPlaceGameEvent(Die draftedDie, Point point, String id) {
 		super(id);
 		this.draftedDie = draftedDie;
 		this.point = point;
@@ -46,4 +47,13 @@ public class DraftAndPlaceEvent extends AbstractPlayerEvent {
 		return point;
 	}
 
+	/**
+	 * Accept an observer. Visitor pattern.
+	 *
+	 * @param observer the observer to be called.
+	 */
+	@Override
+	public void accept(GameEventObserver observer) {
+		observer.handle(this);
+	}
 }

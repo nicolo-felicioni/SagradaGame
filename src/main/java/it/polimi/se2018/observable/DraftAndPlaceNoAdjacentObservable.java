@@ -1,6 +1,6 @@
 package it.polimi.se2018.observable;
 
-import it.polimi.se2018.event.DraftAndPlaceNoAdjacentEvent;
+import it.polimi.se2018.event.DraftAndPlaceNoAdjacentGameEvent;
 import it.polimi.se2018.observer.DraftAndPlaceNoAdjacentObserver;
 
 /**
@@ -24,6 +24,6 @@ public interface DraftAndPlaceNoAdjacentObservable {
 	 * Notify the DraftAndPlaceNoAdjacentObservers an DraftAndPlaceNoAdjacentEvent.
 	 * @param event the DraftAndPlaceNoAdjacentEvent.
 	 */
-	void notifyObservers(DraftAndPlaceNoAdjacentEvent event);
+	void notifyObservers(DraftAndPlaceNoAdjacentGameEvent event);
 
 }

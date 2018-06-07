@@ -1,6 +1,6 @@
 package it.polimi.se2018.observable;
 
-import it.polimi.se2018.event.EndTurnEvent;
+import it.polimi.se2018.event.EndTurnGameEvent;
 import it.polimi.se2018.observer.EndTurnObserver;
 
 /**
@@ -24,6 +24,6 @@ public interface EndTurnObservable {
 	 * Notify the EndTurnObservers an EndTurnEvent.
 	 * @param event the EndTurnEvent.
 	 */
-	void notifyObservers(EndTurnEvent event);
+	void notifyObservers(EndTurnGameEvent event);
 
 }

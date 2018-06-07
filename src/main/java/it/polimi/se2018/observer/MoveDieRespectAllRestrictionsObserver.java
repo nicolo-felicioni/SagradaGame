@@ -1,6 +1,6 @@
 package it.polimi.se2018.observer;
 
-import it.polimi.se2018.event.MoveDieRespectAllRestrictionsEvent;
+import it.polimi.se2018.event.MoveDieRespectAllRestrictionsGameEvent;
 
 /**
  * @author davide yi xian hu
@@ -11,6 +11,6 @@ public interface MoveDieRespectAllRestrictionsObserver {
 	 * Handle a MoveDieRespectAllRestrictionsEvent.
 	 * @param event the MoveDieRespectAllRestrictionsEvent.
 	 */
-	void handle(MoveDieRespectAllRestrictionsEvent event);
+	void handle(MoveDieRespectAllRestrictionsGameEvent event);
 
 }

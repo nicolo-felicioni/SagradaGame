@@ -1,6 +1,6 @@
 package it.polimi.se2018.observable;
 
-import it.polimi.se2018.event.DecreaseDieValueEvent;
+import it.polimi.se2018.event.DecreaseDieValueGameEvent;
 import it.polimi.se2018.observer.DecreaseDieValueObserver;
 
 /**
@@ -24,6 +24,6 @@ public interface DecreaseDieValueObservable {
 	 * Notify the DecreaseDieValueObservers an DecreaseDieValueEvent.
 	 * @param event the DecreaseDieValueEvent.
 	 */
-	void notifyObservers(DecreaseDieValueEvent event);
+	void notifyObservers(DecreaseDieValueGameEvent event);
 
 }

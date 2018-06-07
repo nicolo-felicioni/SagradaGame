@@ -1,11 +1,12 @@
 package it.polimi.se2018.event;
 
 import it.polimi.se2018.model.Die;
+import it.polimi.se2018.observer.GameEventObserver;
 
 /**
  * @author davide yi xian hu
  */
-public class SwapDraftDieWithRoundTrackDieEvent extends AbstractPlayerEvent{
+public class SwapDraftDieWithRoundTrackDieGameEvent extends AbstractPlayerGameEvent {
 
 	/**
 	 * The die in the draft pool.
@@ -23,7 +24,7 @@ public class SwapDraftDieWithRoundTrackDieEvent extends AbstractPlayerEvent{
 	 * @param roundTrackDie the die in the round track.
 	 * @param playerId the player identifier.
 	 */
-	public SwapDraftDieWithRoundTrackDieEvent(Die draftDie, Die roundTrackDie, String playerId) {
+	public SwapDraftDieWithRoundTrackDieGameEvent(Die draftDie, Die roundTrackDie, String playerId) {
 		super(playerId);
 		this.draftDie = draftDie;
 		this.roundTrackDie = roundTrackDie;
@@ -44,4 +45,15 @@ public class SwapDraftDieWithRoundTrackDieEvent extends AbstractPlayerEvent{
 	public Die getRoundTrackDie() {
 		return roundTrackDie;
 	}
+
+	/**
+	 * Accept an observer. Visitor pattern.
+	 *
+	 * @param observer the observer to be called.
+	 */
+	@Override
+	public void accept(GameEventObserver observer) {
+		observer.handle(this);
+	}
+
 }

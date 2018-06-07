@@ -1,6 +1,6 @@
 package it.polimi.se2018.observable;
 
-import it.polimi.se2018.event.MoveDieIgnoreValueRestrictionEvent;
+import it.polimi.se2018.event.MoveDieIgnoreValueRestrictionGameEvent;
 import it.polimi.se2018.observer.MoveDieIgnoreValueRestrictionObserver;
 
 /**
@@ -24,7 +24,7 @@ public interface MoveDieIgnoreValueRestrictionObservable {
 	 * Notify the MoveDieIgnoreValueRestrictionObservers an MoveDieIgnoreValueRestrictionEvent.
 	 * @param event the MoveDieIgnoreValueRestrictionEvent.
 	 */
-	void notifyObservers(MoveDieIgnoreValueRestrictionEvent event);
+	void notifyObservers(MoveDieIgnoreValueRestrictionGameEvent event);
 
 
 }

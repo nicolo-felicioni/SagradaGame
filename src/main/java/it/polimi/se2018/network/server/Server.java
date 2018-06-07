@@ -65,23 +65,19 @@ public class Server {
 	 * @throws LoginException if the login fails.
 	 */
 	public void login(String uid, SessionInterface session) throws LoginException {
-		try {
-			//Look for a game room where a client has already logged in.
-			GameRoom room = getGameRoom(uid);
+		//Look for a game room where a client has already logged in.
+		GameRoom room = getGameRoom(uid);
+		if(room == null) {
+			//Look for a game room that has not started yet.
+			room = getNotStartedGameRoom();
 			if(room == null) {
-				//Look for a game room that has not started yet.
-				room = getNotStartedGameRoom();
-				if(room == null) {
-					//Create a new game room.
-					room = new GameRoom();
-					roomList.add(room);
-				}
+				//Create a new game room.
+				room = new GameRoom();
+				roomList.add(room);
 			}
-			room.addPlayerSession(session);
-			session.addCommandObserver(room);
-		}catch(NetworkException | RemoteException e) {
-			throw new LoginException("Login failed");
 		}
+		room.addPlayerSession(session);
+		session.addGameObserver(room);
 	}
 
 	/**

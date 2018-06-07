@@ -1,6 +1,6 @@
 package it.polimi.se2018.observable;
 
-import it.polimi.se2018.event.RerollAllDraftDiceEvent;
+import it.polimi.se2018.event.RerollAllDraftDiceGameEvent;
 import it.polimi.se2018.observer.RerollAllDraftDiceObserver;
 
 /**
@@ -24,6 +24,6 @@ public interface RerollAllDraftDiceObservable {
 	 * Notify the RerollAllDraftDiceObservers an RerollAllDraftDiceEvent.
 	 * @param event the RerollAllDraftDiceEvent.
 	 */
-	void notifyObservers(RerollAllDraftDiceEvent event);
+	void notifyObservers(RerollAllDraftDiceGameEvent event);
 
 }
