@@ -25,6 +25,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 	private List<MoveDieRespectAllRestrictionsObserver> moveDieRespectAllRestrictionsObservers;
 	private List<RerollAllDraftDiceObserver> rerollAllDraftDiceObservers;
 	private List<RerollDraftDieObserver> rerollDraftDieObservers;
+	private List<StartGameObserver> startGameObservers;
 	private List<SwapDraftDieWithDiceBagDieObserver> swapDraftDieWithDiceBagDieObservers;
 	private List<SwapDraftDieWithRoundTrackDieObserver> swapDraftDieWithRoundTrackDieObservers;
 	private List<UseToolCardObserver> useToolCardObservers;
@@ -45,6 +46,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 		this.moveDieRespectAllRestrictionsObservers = new ArrayList<>();
 		this.rerollAllDraftDiceObservers = new ArrayList<>();
 		this.rerollDraftDieObservers = new ArrayList<>();
+		this.startGameObservers = new ArrayList<>();
 		this.swapDraftDieWithDiceBagDieObservers = new ArrayList<>();
 		this.swapDraftDieWithRoundTrackDieObservers = new ArrayList<>();
 		this.useToolCardObservers = new ArrayList<>();
@@ -71,6 +73,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 		this.moveDieRespectAllRestrictionsObservers.add(observer);
 		this.rerollAllDraftDiceObservers.add(observer);
 		this.rerollDraftDieObservers.add(observer);
+		this.startGameObservers.add(observer);
 		this.swapDraftDieWithDiceBagDieObservers.add(observer);
 		this.swapDraftDieWithRoundTrackDieObservers.add(observer);
 		this.useToolCardObservers.add(observer);
@@ -97,6 +100,7 @@ public class GameEventObservableImpl implements GameEventObservable {
 		this.moveDieRespectAllRestrictionsObservers.remove(observer);
 		this.rerollAllDraftDiceObservers.remove(observer);
 		this.rerollDraftDieObservers.remove(observer);
+		this.startGameObservers.remove(observer);
 		this.swapDraftDieWithDiceBagDieObservers.remove(observer);
 		this.swapDraftDieWithRoundTrackDieObservers.remove(observer);
 		this.useToolCardObservers.remove(observer);
@@ -641,5 +645,35 @@ public class GameEventObservableImpl implements GameEventObservable {
 	@Override
 	public void notifyObservers(WindowPatternChosenGameEvent event) {
 		this.windowPatternChosenObservers.forEach(windowPatternChosenObserver -> windowPatternChosenObserver.handle(event));
+	}
+
+	/**
+	 * Add a StartGameObserver.
+	 *
+	 * @param observer the StartGameObserver.
+	 */
+	@Override
+	public void addObserver(StartGameObserver observer) {
+		this.startGameObservers.add(observer);
+	}
+
+	/**
+	 * Remove a StartGameObserver.
+	 *
+	 * @param observer the StartGameObserver.
+	 */
+	@Override
+	public void removeObserver(StartGameObserver observer) {
+		this.startGameObservers.remove(observer);
+	}
+
+	/**
+	 * Notify the StartGameObserver an StartGameEvent.
+	 *
+	 * @param event the StartGameEvent.
+	 */
+	@Override
+	public void notifyObservers(StartGameEvent event) {
+		this.startGameObservers.forEach(o -> o.handle(event));
 	}
 }

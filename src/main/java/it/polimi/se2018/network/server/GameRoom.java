@@ -7,6 +7,7 @@ import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.observable.GameEventObservableImpl;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +31,11 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	private Controller controller;
 
 	/**
+	 * Timer.
+	 */
+	private Timer timer;
+
+	/**
 	 * Minimum amount of player.
 	 */
 	public final static int MIN_PLAYER = 2;
@@ -38,6 +44,11 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	 * Maximum amount of player.
 	 */
 	public static int MAX_PLAYER = 4;
+
+	/**
+	 * Interval of time to wait before to start a game.
+	 */
+	public static int TIMER_WAIT_START_GAME = 60000;
 
 	/**
 	 * Getter of started.
@@ -57,6 +68,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 			this.removePlayerSession(session.getUID());
 		}
 		playerSessions.add(session);
+		this.refreshTimer(TIMER_WAIT_START_GAME);
 	}
 
 	/**
@@ -83,6 +95,20 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 				playerSessions.remove(playerSession);
 			}
 		}
+		this.refreshTimer(TIMER_WAIT_START_GAME);
+	}
+
+	/**
+	 * Refresh the timer.
+	 */
+	private void refreshTimer(int time) {
+		if(timer != null) {
+			this.timer.disable();
+		}
+		if(this.playerSessions.size() >= MIN_PLAYER) {
+			this.timer = new Timer(time);
+		}
+		new Thread(timer).start();
 	}
 
 	/**
@@ -276,5 +302,61 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	@Override
 	public void handle(WindowPatternChosenGameEvent event) {
 		this.notifyObservers(event);
+	}
+
+	/**
+	 * Handle a StartGameEvent.
+	 *
+	 * @param event the StartGameEvent.
+	 */
+	@Override
+	public void handle(StartGameEvent event) {
+		this.notifyObservers(event);
+	}
+
+	private class Timer implements Runnable {
+
+		/**
+		 * The countdown.
+		 */
+		private final int time;
+
+		/**
+		 * If the timer is still active.
+		 */
+		private boolean active;
+
+		/**
+		 * Constructor
+		 * @param time the countdown time.
+		 */
+		Timer(int time) {
+			this.time = time;
+			this.active = true;
+		}
+
+		@Override
+		public void run() {
+			try {
+				if (this.time > 0) {
+					Thread.sleep(this.time);
+				}
+				if(isActive()) {
+					List<String> playerIds = new ArrayList<>();
+					playerSessions.stream().forEach(s -> playerIds.add(s.getUID()));
+					notifyObservers(new StartGameEvent(playerIds));
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		public synchronized boolean isActive() {
+			return active;
+		}
+
+		public synchronized void disable() {
+			this.active = false;
+		}
 	}
 }

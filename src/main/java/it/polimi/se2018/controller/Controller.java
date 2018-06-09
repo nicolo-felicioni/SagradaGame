@@ -1,8 +1,13 @@
 package it.polimi.se2018.controller;
 
 import it.polimi.se2018.event.*;
+import it.polimi.se2018.exceptions.NotValidIdException;
+import it.polimi.se2018.exceptions.TooManyPlayersException;
 import it.polimi.se2018.model.Model;
+import it.polimi.se2018.model.Player;
 import it.polimi.se2018.observer.GameEventObserver;
+
+import java.util.List;
 
 /**
  * @author davide yi xian hu
@@ -189,5 +194,32 @@ public class Controller implements GameEventObserver {
 	@Override
 	public void handle(WindowPatternChosenGameEvent event) {
 
+	}
+
+	/**
+	 * Handle a StartGameEvent.
+	 *
+	 * @param event the StartGameEvent.
+	 */
+	@Override
+	public void handle(StartGameEvent event) {
+		this.startGame(event.getPlayerIds());
+	}
+
+	/**
+	 * Start the game. Initialize the model with the players.
+	 * @param ids a list of player identifiers.
+	 */
+	private void startGame(List<String> ids) {
+		this.model = new Model();
+		ids.stream().forEach(id -> {
+			try {
+				this.model.addPlayer(new Player(id));
+			} catch (TooManyPlayersException e) {
+				e.printStackTrace();
+			} catch (NotValidIdException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 }

@@ -9,4 +9,5 @@ import it.polimi.se2018.observer.GameEventObserver;
  * @author davide yi xian hu
  */
 public interface GameRoomInterface extends GameEventObserver, GameEventObservable {
+
 }
