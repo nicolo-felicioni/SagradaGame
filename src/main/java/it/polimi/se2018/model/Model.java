@@ -228,11 +228,11 @@ public class Model implements ModelInterface{
      * @throws GameException if the id is not valid.
      */
     public int getPlayerTokens(String playerId) throws GameException {
-       Optional<Player> p = this.players.stream().filter(player -> player.getId().equals(playerId)).findAny();
-       if(p.isPresent())
-           return p.get().getTokens();
+        Optional<Player> p = this.players.stream().filter(player -> player.getId().equals(playerId)).findAny();
+        if(p.isPresent())
+            return p.get().getTokens();
 
-       throw new NotValidIdException("The id: " + playerId + " is not valid.");
+        throw new NotValidIdException("The id: " + playerId + " is not valid.");
     }
 
     /**
@@ -276,7 +276,12 @@ public class Model implements ModelInterface{
         getPlayerById(id).spendToken(amount);
     }
 
-    private Player   getPlayerById(String id) {
+    /**
+     * Get a player by his identifier
+     * @param id the player identifier.
+     * @return the player.
+     */
+    private Player getPlayerById(String id) {
         for(Player player : this.players) {
             if (player.getId().equals(id)) {
                 return player;
@@ -285,6 +290,11 @@ public class Model implements ModelInterface{
         return null;
     }
 
+    /**
+     * Check if this class has a player with a certain id.
+     * @param id the player id.
+     * @return true if this class has a player with a certain id.
+     */
     private boolean hasPlayerById(String id) {
         for(Player player : this.players) {
             if (player.getId().equals(id)) {
@@ -294,4 +304,21 @@ public class Model implements ModelInterface{
         return false;
     }
 
+    /**
+     * Set a private objective card to a player.
+     * @param id the player identifier.
+     * @param card the private objective card to be set.
+     */
+    public void setPrivateObjectiveCardToPlayer (String id, PrivateObjectiveCard card) {
+        this.getPlayerById(id).setPrivateObjective(card);
+    }
+
+    /**
+     * This is a setter for the 4 patterns a player can choose before starting the game.
+     * @param patterns a vector formed of four window pattern
+     * @param id the player identifier.
+     */
+    public void setPatternsToPlayer(String id, WindowPattern[] patterns) throws NotValidPatternVectorException {
+        this.getPlayerById(id).setPatterns(patterns);
+    }
 }

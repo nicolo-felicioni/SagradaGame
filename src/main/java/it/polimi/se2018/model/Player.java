@@ -3,6 +3,7 @@ package it.polimi.se2018.model;
 import it.polimi.se2018.exceptions.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Nicolò Felicioni
@@ -17,6 +18,8 @@ public class Player {
 	private WindowPattern chosenPattern; //the chosen one
 	private PlayerState state;
 	private ToolCard activeToolCard;
+
+	public static final int N_WINDOW_PATTERNS = 4;
 
 
 	public Player(String id){

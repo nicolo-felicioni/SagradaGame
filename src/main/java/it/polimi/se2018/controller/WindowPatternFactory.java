@@ -31,7 +31,15 @@ public class WindowPatternFactory {
 	}
 
 	public WindowPattern getWindowPattern() {
-		return windows.get(0);
+		return windows.get((int) Math.random() * windows.size());
+	}
+
+	public WindowPattern[] getWindowPattern(int n) {
+		WindowPattern [] patterns = new WindowPattern[n];
+		for(int i = 0 ; i < n; i++) {
+			patterns[i] = this.getWindowPattern();
+		}
+		return patterns;
 	}
 
 	private void loadWindowPattern(String path) throws FileNotFoundException{

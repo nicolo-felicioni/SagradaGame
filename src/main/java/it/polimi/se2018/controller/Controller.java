@@ -2,6 +2,7 @@ package it.polimi.se2018.controller;
 
 import it.polimi.se2018.event.*;
 import it.polimi.se2018.exceptions.NotValidIdException;
+import it.polimi.se2018.exceptions.NotValidPatternVectorException;
 import it.polimi.se2018.exceptions.TooManyPlayersException;
 import it.polimi.se2018.model.Model;
 import it.polimi.se2018.model.Player;
@@ -218,6 +219,39 @@ public class Controller implements GameEventObserver {
 			} catch (TooManyPlayersException e) {
 				e.printStackTrace();
 			} catch (NotValidIdException e) {
+				e.printStackTrace();
+			}
+		});
+		this.initGame();
+	}
+
+	/**
+	 * Initialize the game
+	 */
+	private void initGame() {
+		initPrivateObjectiveCards();
+		initWindowPatterns();
+	}
+
+	/**
+	 * Initialize private objective cards.
+	 * Give a private objective card to each player.
+	 */
+	private void initPrivateObjectiveCards() {
+		PrivateObjectiveCardsFactory privateCardFactory = new PrivateObjectiveCardsFactory();
+		model.getPlayers().stream().forEach(player -> model.setPrivateObjectiveCardToPlayer(player.getId(), privateCardFactory.drawCard()));
+	}
+
+	/**
+	 * Initialize window patterns.
+	 * Give to each player a set of window patterns.
+	 */
+	private void initWindowPatterns() {
+		WindowPatternFactory windowPatternFactory = new WindowPatternFactory();
+		model.getPlayers().stream().forEach(player -> {
+			try {
+				model.setPatternsToPlayer(player.getId(), windowPatternFactory.getWindowPattern(Player.N_WINDOW_PATTERNS));
+			} catch (NotValidPatternVectorException e) {
 				e.printStackTrace();
 			}
 		});
