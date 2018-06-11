@@ -6,38 +6,94 @@ import it.polimi.se2018.exceptions.NotValidRoundException;
 import it.polimi.se2018.exceptions.RoundTrackEmptyException;
 import it.polimi.se2018.model.*;
 import org.fusesource.jansi.Ansi;
-import org.fusesource.jansi.AnsiConsole;
+
 
 import static org.fusesource.jansi.Ansi.ansi;
 
-public class Printer {
 
+/**
+ * @author Nicolò Felicioni
+ */
+
+
+class Printer {
     static final String SQUARE_SYMBOL = "\u25A0";
     static final String OPEN_BRACKET = "[";
     static final String CLOSED_BRACKET = "]";
     static final String FULL_CIRCLE = "\u25CF";
 
 
+    private Printer(){
+        //TODO - FORSE DEVE LANCIARE ECCEZIONE
+    }
+
+
+    /**
+     * Print a string.
+     * @param s the string to be printed
+     */
     public static void print(String s){
        System.out.print(Ansi.ansi().fg(Ansi.Color.DEFAULT).a(s));
        Ansi.ansi().fgBright(Ansi.Color.DEFAULT);
     }
 
+    /**
+     * Print a string with a new line character in the end.
+     * @param s the string to be printed
+     */
+    public static void println(String s){
+        print(s);
+        newLine();
+        Ansi.ansi().fgBright(Ansi.Color.DEFAULT);
+    }
+
+    /**
+     * print a colored string.
+     * @param s the string to be printed
+     * @param color the color of the string
+     */
     public static void printColor(String s, DieColor color){
         System.out.print(Ansi.ansi().fg(color.toAnsiColor()).a(s));
         Ansi.ansi().fgBright(Ansi.Color.DEFAULT);
     }
 
+
+    /**
+     * print a string in bold
+     * @param s the string to be printed
+     */
     public static void printBold(String s){
         System.out.print(Ansi.ansi().eraseScreen().fgBright(Ansi.Color.DEFAULT).a(s).bold());
     }
 
+    /**
+     * print a string in bold with a new line character in the end.
+     * @param s the string to be printed
+     */
+    public static void printlnBold(String s){
+        printBold(s);
+        newLine();
+    }
 
+
+    /**
+     * print a die.
+     * the die will be printed with his value and his color.
+     * @param die the die to be printed
+     */
     public static void print(Die die) {
         System.out.print(ansi().eraseScreen().fg(die.getColor().toAnsiColor()).a(die.getValueUnicode()));
         Ansi.ansi().fgBright(Ansi.Color.DEFAULT);
     }
 
+    /**
+     * print a space.
+     * it will have either a color restriction, a value restriction or no restriction.
+     * if it has a color restriction it will be printed colored.
+     * if it has a value restriction it will be printed with a grey die.
+     * if it hasn't any restriction it will be printed like a blank square.
+     * @param space
+     */
     public static void print(Space space){
         if(space.hasDie())
             Printer.print(space.getDie());
@@ -49,6 +105,11 @@ public class Printer {
             Printer.printBlankSpace();
     }
 
+
+    /**
+     * print the window pattern.
+     * @param windowPattern the window pattern to be printed
+     */
     public static void print(WindowPattern windowPattern){
 
         print("Difficulty : " + windowPattern.getDifficulty() + "\n");
@@ -67,7 +128,17 @@ public class Printer {
 
     }
 
+
+
     //TODO - IN ATTESA DELLE MODIFICHE AL ROUNDTRACK
+    /**
+     * print the round track.
+     * if a box is with no die it will be printed with its number.
+     * if it is filled with dice it will be printed like a series of dice.
+     * @param roundTrack the round track to be printed
+     * @throws RoundTrackEmptyException //todo
+     * @throws NotValidRoundException //todo
+     */
     public static void print(RoundTrack roundTrack) throws RoundTrackEmptyException, NotValidRoundException {
         for (int i = 1; i <= 10; i++) {
             print("[");
@@ -82,6 +153,11 @@ public class Printer {
         newLine();
     }
 
+
+    /**
+     * print the dice present in the draft pool.
+     * @param draftPool the draft pool from which we print the dice
+     */
     public static void print(DraftPool draftPool){
 
         print(OPEN_BRACKET);
@@ -98,10 +174,20 @@ public class Printer {
 
     }
 
+    /**
+     * print a number.
+     * @param n the number that will be printed
+     */
     public static void print(int n) {
         System.out.print(n);
     }
 
+
+    /**
+     * print the favor tokens.
+     * this method will print a numberOfTokens tokens, printed like full white circles.
+     * @param numberOfTokens the number of tokens that will be printed
+     */
     public static void printFavorTokens(int numberOfTokens){
         for(int i=0; i< numberOfTokens; i++)
             print(FULL_CIRCLE);
@@ -109,6 +195,12 @@ public class Printer {
         newLine();
     }
 
+    /**
+     * print the tool card.
+     * this method will print the name and the info of the tool card.
+     *
+     * @param toolCard the tool card that will be printed
+     */
     public static void print(ToolCard toolCard){
         printCard(toolCard);
         if(toolCard.isUsed()){
@@ -122,10 +214,16 @@ public class Printer {
         printCard(publicObjectiveCard);
     }
 
-    //TODO - NOME E DESCRIZIONE DA SISTEMARE
-    public static void print(PrivateObjectiveCard card){
+    //TODO - NOME E DESCRIZIONE DELLA CARTA DA SISTEMARE
+    /**
+     * print the private objective card.
+     * this method will print the name and the info of the tool card.
+     *
+     * @param privateObjectiveCard the card that will be printed
+     */
+    public static void print(PrivateObjectiveCard privateObjectiveCard){
         print("Your private objective card is: ");
-        printColor(card.getInfo(), card.getColor());
+        printColor(privateObjectiveCard.getInfo(), privateObjectiveCard.getColor());
         newLine();
     }
 
@@ -134,6 +232,9 @@ public class Printer {
 
 
 
+
+
+    //-----PRIVATE METHODS----------------------------------------------------------------------------------
 
     private static void newLine(){
         print("\n");
@@ -160,5 +261,6 @@ public class Printer {
         print("Info : "+ card.getInfo());
         newLine();
     }
+
 
 }

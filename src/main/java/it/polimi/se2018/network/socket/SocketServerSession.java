@@ -29,6 +29,7 @@ public class SocketServerSession implements SessionInterface {
 	 */
 	private List<NetworkCommandObserver> observers;
 
+
 	public SocketServerSession(Socket socket) {
 		this.socket = socket;
 		try {
@@ -44,6 +45,7 @@ public class SocketServerSession implements SessionInterface {
 	 * Initialize the connection.
 	 * It has 2 steps. It wait for a login message, then it log the client to the Server.
 	 */
+
 	public void init() {
 		try {
 			String login = this.inStream.readUTF();
