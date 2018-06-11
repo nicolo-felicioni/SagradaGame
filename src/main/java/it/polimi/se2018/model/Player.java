@@ -212,8 +212,6 @@ public class Player {
 		if(this.state.canEndTurn())
 		    this.endTurn();
 		else throw new IllegalMoveTurnException("You can't end turn");
-
-
 	}
 
 	public boolean equalsPlayer(Player player){
@@ -222,6 +220,13 @@ public class Player {
 
 	public String toString(){
 		return ("Player id: "+ this.getId());
+	}
+
+	/**
+	 * Change the player state to YourTurn.
+	 */
+	public void startTurn() {
+		this.changePlayerStateTo(new YourTurn());
 	}
 
 

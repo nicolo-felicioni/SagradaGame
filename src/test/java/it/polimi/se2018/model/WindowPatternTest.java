@@ -2,7 +2,6 @@ package it.polimi.se2018.model;
 
 
 
-import it.polimi.se2018.controller.WindowPatternFactory;
 import it.polimi.se2018.exceptions.*;
 import org.junit.After;
 import org.junit.Before;

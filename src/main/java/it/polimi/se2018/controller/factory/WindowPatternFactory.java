@@ -1,4 +1,4 @@
-package it.polimi.se2018.controller;
+package it.polimi.se2018.controller.factory;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
