@@ -1,19 +1,17 @@
 package it.polimi.se2018.model;
 
-/**
- * @author Nicolò Felicioni
- */
+
 
 import it.polimi.se2018.exceptions.GameMoveException;
 import it.polimi.se2018.exceptions.IllegalMoveTurnException;
 import it.polimi.se2018.exceptions.NotValidPointException;
 import it.polimi.se2018.exceptions.PlacementException;
 
-public class YourTurn extends PlayerState {
+/**
+ * @author Nicolò Felicioni
+ */
 
-    public YourTurn(){
-        super();
-    }
+public class NotYourTurnState extends PlayerState {
 
 
     /**
@@ -21,7 +19,7 @@ public class YourTurn extends PlayerState {
      */
     @Override
     public boolean canPlaceDie() {
-        return !isDiePlaced();
+        return false;
     }
 
     /**
@@ -29,7 +27,7 @@ public class YourTurn extends PlayerState {
      */
     @Override
     public boolean canUseTool() {
-        return !isToolActivated();
+        return false;
     }
 
     /**
@@ -37,6 +35,11 @@ public class YourTurn extends PlayerState {
      */
     @Override
     public boolean canEndTurn() {
+        return false;
+    }
+
+    @Override
+    public boolean hasChosenWindowPattern() {
         return true;
     }
 
@@ -45,10 +48,7 @@ public class YourTurn extends PlayerState {
      */
     @Override
     public void diePlaced() throws IllegalMoveTurnException {
-        if(canPlaceDie())
-            this.setDiePlaced();
-        else throw new IllegalMoveTurnException("There is already a die placed");
-
+        throw new IllegalMoveTurnException("impossible to place a die, it's not your turn");
     }
 
     /**
@@ -56,11 +56,6 @@ public class YourTurn extends PlayerState {
      */
     @Override
     public void useTool(ToolCard card) throws IllegalMoveTurnException {
-        if(canUseTool())
-            this.setToolActivated(card);
-        else throw new IllegalMoveTurnException("there's a toolcard activated already");
+        throw new IllegalMoveTurnException("impossible to use a tool, it's not your turn");
     }
-
-
-
 }

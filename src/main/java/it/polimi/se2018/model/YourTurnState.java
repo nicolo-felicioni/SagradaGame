@@ -1,17 +1,19 @@
 package it.polimi.se2018.model;
 
-
+/**
+ * @author Nicolò Felicioni
+ */
 
 import it.polimi.se2018.exceptions.GameMoveException;
 import it.polimi.se2018.exceptions.IllegalMoveTurnException;
 import it.polimi.se2018.exceptions.NotValidPointException;
 import it.polimi.se2018.exceptions.PlacementException;
 
-/**
- * @author Nicolò Felicioni
- */
+public class YourTurnState extends PlayerState {
 
-public class NotYourTurn extends PlayerState {
+    public YourTurnState(){
+        super();
+    }
 
 
     /**
@@ -19,7 +21,7 @@ public class NotYourTurn extends PlayerState {
      */
     @Override
     public boolean canPlaceDie() {
-        return false;
+        return !isDiePlaced();
     }
 
     /**
@@ -27,7 +29,7 @@ public class NotYourTurn extends PlayerState {
      */
     @Override
     public boolean canUseTool() {
-        return false;
+        return !isToolActivated();
     }
 
     /**
@@ -35,7 +37,12 @@ public class NotYourTurn extends PlayerState {
      */
     @Override
     public boolean canEndTurn() {
-        return false;
+        return true;
+    }
+
+    @Override
+    public boolean hasChosenWindowPattern() {
+        return true;
     }
 
     /**
@@ -43,7 +50,9 @@ public class NotYourTurn extends PlayerState {
      */
     @Override
     public void diePlaced() throws IllegalMoveTurnException {
-        throw new IllegalMoveTurnException("impossible to place a die, it's not your turn");
+        if(canPlaceDie())
+            this.setDiePlaced();
+        else throw new IllegalMoveTurnException("You have already placed a die in this turn!");
     }
 
     /**
@@ -51,6 +60,11 @@ public class NotYourTurn extends PlayerState {
      */
     @Override
     public void useTool(ToolCard card) throws IllegalMoveTurnException {
-        throw new IllegalMoveTurnException("impossible to use a tool, it's not your turn");
+        if(canUseTool())
+            this.setToolActivated(card);
+        else throw new IllegalMoveTurnException("there's a toolcard activated already");
     }
+
+
+
 }

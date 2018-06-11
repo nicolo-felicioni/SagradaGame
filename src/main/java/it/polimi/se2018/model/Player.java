@@ -140,6 +140,12 @@ public class Player {
 	}
 
 
+	public PlayerState getState(){
+		//TODO - forse c'è bisogno del clone dello state
+		return this.state;
+	}
+
+
 	/**
 	 * 
 	 * @param playerState
@@ -194,7 +200,8 @@ public class Player {
 		if(this.favorTokens >= amount) {
 			this.favorTokens = this.favorTokens - amount;
 		}else{
-
+			throw new NotEnoughTokenException("your favor tokens: "+ this.getTokens() +
+					"\nFavor tokens needed: " + amount);
 		}
 	}
 
@@ -226,7 +233,7 @@ public class Player {
 	 * Change the player state to YourTurn.
 	 */
 	public void startTurn() {
-		this.changePlayerStateTo(new YourTurn());
+		this.changePlayerStateTo(new YourTurnState());
 	}
 
 

@@ -4,9 +4,6 @@ import it.polimi.se2018.exceptions.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.stream.Stream;
-
 import static org.junit.Assert.*;
 
 public class ModelTest {
@@ -230,7 +227,7 @@ public class ModelTest {
 
         player.choosePattern(window0);
 
-        player.changePlayerStateTo(new YourTurn());
+        player.changePlayerStateTo(new YourTurnState());
 
 
         try {

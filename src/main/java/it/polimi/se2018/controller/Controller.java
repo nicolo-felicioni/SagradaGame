@@ -7,10 +7,7 @@ import it.polimi.se2018.controller.factory.WindowPatternFactory;
 import it.polimi.se2018.controller.utils.Scheduler;
 import it.polimi.se2018.event.*;
 import it.polimi.se2018.exceptions.*;
-import it.polimi.se2018.model.Model;
-import it.polimi.se2018.model.NotYourTurn;
-import it.polimi.se2018.model.Player;
-import it.polimi.se2018.model.YourTurn;
+import it.polimi.se2018.model.*;
 import it.polimi.se2018.observer.GameEventObserver;
 
 import java.util.List;
@@ -311,7 +308,7 @@ public class Controller implements GameEventObserver {
 	 * Next turn. Wake up the next turn's player. Other players' state will be NotYourTurn.
 	 */
 	private void firstTurn() {
-		model.getPlayersId().stream().forEach(id -> model.changePlayerStateTo(id, new NotYourTurn()));
+		model.getPlayersId().stream().forEach(id -> model.changePlayerStateTo(id, new NotYourTurnState()));
 		if (this.scheduler.hasNext()) {
 			model.startTurn(this.scheduler.next());
 		}
