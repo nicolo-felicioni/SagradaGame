@@ -47,7 +47,7 @@ public class Model implements ModelInterface{
         players = new ArrayList<>();
         diceBag = new DiceBag();
         draftPool = new DraftPool();
-        toolCards = new ToolCard[3];
+        toolCards = new ToolCard[SET_OF_TOOL_CARDS_SIZE];
         roundTrack = new RoundTrack();
     }
 
@@ -95,7 +95,8 @@ public class Model implements ModelInterface{
      */
     public Player getPlayer(String playerId) throws NotValidIdException {
 
-        Optional<Player> wantedPlayer = this.players.stream().filter(player -> player.getId().equals(playerId)).findAny();
+        Optional<Player> wantedPlayer = this.players.stream()
+                .filter(player -> player.getId().equals(playerId)).findAny();
 
         if(!wantedPlayer.isPresent())
             throw new NotValidIdException("Wanted to get a player with a not valid id.");
@@ -248,7 +249,7 @@ public class Model implements ModelInterface{
      * @param id the player identifier.
      * @return true if a die can be placed in a space of the chosen window pattern respecting all restrictions.
      */
-    public boolean isPlaceable(Point p, Die die, String id) {
+    public boolean isPlaceable(Point p, Die die, String id) throws NotPresentPlayerException {
         return getPlayerById(id).isPlaceable(p, die);
     }
 
@@ -302,7 +303,7 @@ public class Model implements ModelInterface{
      * @param id the player identifier.
      * @throws NotEnoughTokenException if player has not enough favor tokens.
      */
-    public void spendToken(int amount, String id) throws NotEnoughTokenException {
+    public void spendToken(int amount, String id) throws NotEnoughTokenException, NotPresentPlayerException {
         getPlayerById(id).spendToken(amount);
     }
 
@@ -311,13 +312,13 @@ public class Model implements ModelInterface{
      * @param id the player identifier.
      * @return the player.
      */
-    private Player getPlayerById(String id) {
+    private Player getPlayerById(String id) throws NotPresentPlayerException {
         for(Player player : this.players) {
             if (player.getId().equals(id)) {
                 return player;
             }
         }
-        return null;
+        throw new NotPresentPlayerException("The player" + id + " not exists.");
     }
 
     /**
@@ -339,7 +340,7 @@ public class Model implements ModelInterface{
      * @param id the player identifier.
      * @param card the private objective card to be set.
      */
-    public void setPrivateObjectiveCardToPlayer (String id, PrivateObjectiveCard card) {
+    public void setPrivateObjectiveCardToPlayer (String id, PrivateObjectiveCard card) throws NotPresentPlayerException {
         this.getPlayerById(id).setPrivateObjective(card);
     }
 
@@ -348,7 +349,7 @@ public class Model implements ModelInterface{
      * @param patterns a vector formed of four window pattern
      * @param id the player identifier.
      */
-    public void setPatternsToPlayer(String id, WindowPattern[] patterns) throws NotValidPatternVectorException {
+    public void setPatternsToPlayer(String id, WindowPattern[] patterns) throws NotValidPatternVectorException, NotPresentPlayerException {
         this.getPlayerById(id).setPatterns(patterns);
     }
 
@@ -373,7 +374,7 @@ public class Model implements ModelInterface{
      * @param playerId the player identifier.
      * @throws GameMoveException if the player can not end his turn.
      */
-    public void endTurn(String playerId) throws GameMoveException{
+    public void endTurn(String playerId) throws GameMoveException, NotPresentPlayerException {
         this.getPlayerById(playerId).endTurn();
     }
 
@@ -381,7 +382,7 @@ public class Model implements ModelInterface{
      * Start the turn of the player.
      * @param playerId the player identifier.
      */
-    public void startTurn(String playerId) {
+    public void startTurn(String playerId) throws NotPresentPlayerException {
         this.getPlayerById(playerId).startTurn();
     }
 
@@ -389,7 +390,7 @@ public class Model implements ModelInterface{
      * Change the state of a player.
      * @param playerId the player identifier.
      */
-    public void changePlayerStateTo(String playerId, PlayerState state) {
+    public void changePlayerStateTo(String playerId, PlayerState state) throws NotPresentPlayerException {
         this.getPlayerById(playerId).changePlayerStateTo(state);
     }
 
@@ -399,7 +400,7 @@ public class Model implements ModelInterface{
      * @param windowPattern the window pattern the player chose.
      * @throws NotValidPatterException if the window pattern is not valid.
      */
-    public void setChosenWindowPattern(String playerId, WindowPattern windowPattern) throws NotValidPatterException {
+    public void setChosenWindowPattern(String playerId, WindowPattern windowPattern) throws NotValidPatterException, NotPresentPlayerException {
         this.getPlayerById(playerId).choosePattern(windowPattern);
     }
 
