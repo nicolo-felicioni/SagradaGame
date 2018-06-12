@@ -1,6 +1,5 @@
-package it.polimi.se2018.view;
+package it.polimi.se2018.view.CLI;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Menu {

@@ -1,4 +1,4 @@
-package it.polimi.se2018.view;
+package it.polimi.se2018.view.CLI;
 
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
@@ -7,11 +7,13 @@ import it.polimi.se2018.event.UseToolCardGameEvent;
 import it.polimi.se2018.exceptions.*;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.network.client.ClientInterface;
+import it.polimi.se2018.network.rmi.RMIClient;
+import it.polimi.se2018.network.socket.SocketClient;
+import it.polimi.se2018.view.AbstractView;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +21,7 @@ import java.util.Optional;
  * @author Nicolò Felicioni
  */
 
-public class CommandLineInterface extends AbstractView{
+public class CommandLineInterface extends AbstractView {
 
     private ClientInterface client;
 
@@ -37,16 +39,17 @@ public class CommandLineInterface extends AbstractView{
     private static final String ADDRESS_REQUEST_MESSAGE = "Enter the IP address of the server: ";
     private static final String USERNAME_REQUEST_MESSAGE = "Enter your username: ";
     private static final String NOT_YOUR_TURN_MESSAGE = "It's not your turn.";
+    private static final String CHOICE_ERROR_MESSAGE = "Not valid choice.";
+    private static final int RMI_CHOICE = 1;
+    private static final int SOCKET_CHOICE = 2;
+
 
     private MyScanner keyboard;
     private PlayerMenu menu;
 
 
-    public CommandLineInterface(ClientInterface client){
-        this.client=client;
+    public CommandLineInterface(){
         players=new ArrayList<>();
-        roundTrack=new RoundTrack();
-        addGameObserver(this.client);
         keyboard = new MyScanner();
     }
 
@@ -54,11 +57,11 @@ public class CommandLineInterface extends AbstractView{
     public void startInitialRequests(){
         Printer.printlnBold(WELCOME_MESSAGE);
 
+
         typeOfConnectionRequest();
         connection();
         login();
     }
-
 
 
     @Override
@@ -140,11 +143,28 @@ public class CommandLineInterface extends AbstractView{
     //----------------------PRIVATE METHODS--------------------------------------------------------------------
 
     private void typeOfConnectionRequest(){
-        int choose;
+        int choice;
         //TODO - FORSE DA CAMBIARE
         Printer.println(CONNECTION_REQUEST_MESSAGE);
-        choose = keyboard.readInt();
+        choice = keyboard.readInt();
 
+        boolean badChoice=false;
+        do{
+            if(choice == RMI_CHOICE){
+                this.client = new RMIClient();
+            }else if(choice == SOCKET_CHOICE){
+                this.client = new SocketClient();
+            }else{
+                Printer.println(CHOICE_ERROR_MESSAGE);
+                badChoice = true;
+            }
+
+        }while(!badChoice);
+
+
+
+
+        addGameObserver(this.client);
         //TODO - DA FINIRE
     }
 
@@ -205,7 +225,7 @@ public class CommandLineInterface extends AbstractView{
 
     //----------------INNER CLASS PLAYER MENU--------------------------------------------------------------------
 
-    public class PlayerMenu extends Menu{
+    class PlayerMenu extends Menu{
 
         private static final String ERROR_CHOICE = "Impossible choice.";
 
@@ -356,7 +376,7 @@ public class CommandLineInterface extends AbstractView{
 
     //----------------INNER CLASS USE TOOL OPTION--------------------------------------------------------------------
 
-    public class UseToolOption extends Option {
+    class UseToolOption extends Option {
 
         private static final String USE_TOOL_NAME = "Use a tool card";
         private static final String USE_TOOL_MESSAGE = "Select a tool card";
