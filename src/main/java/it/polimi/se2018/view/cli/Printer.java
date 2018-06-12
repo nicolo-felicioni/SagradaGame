@@ -1,4 +1,4 @@
-package it.polimi.se2018.view.CLI;
+package it.polimi.se2018.view.cli;
 
 import it.polimi.se2018.exceptions.DraftPoolEmptyException;
 import it.polimi.se2018.exceptions.NotValidPointException;

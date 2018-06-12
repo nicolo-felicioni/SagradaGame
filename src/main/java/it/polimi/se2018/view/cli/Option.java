@@ -1,4 +1,4 @@
-package it.polimi.se2018.view.CLI;
+package it.polimi.se2018.view.cli;
 
 public abstract class Option {
     String name;
