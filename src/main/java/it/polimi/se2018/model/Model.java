@@ -249,7 +249,7 @@ public class Model implements ModelInterface{
      * @param id the player identifier.
      * @return true if a die can be placed in a space of the chosen window pattern respecting all restrictions.
      */
-    public boolean isPlaceable(Point p, Die die, String id) throws NotPresentPlayerException {
+    public boolean isPlaceable(Point p, Die die, String id) {
         return getPlayerById(id).isPlaceable(p, die);
     }
 
@@ -303,7 +303,7 @@ public class Model implements ModelInterface{
      * @param id the player identifier.
      * @throws NotEnoughTokenException if player has not enough favor tokens.
      */
-    public void spendToken(int amount, String id) throws NotEnoughTokenException, NotPresentPlayerException {
+    public void spendToken(int amount, String id) throws NotEnoughTokenException {
         getPlayerById(id).spendToken(amount);
     }
 
@@ -312,13 +312,13 @@ public class Model implements ModelInterface{
      * @param id the player identifier.
      * @return the player.
      */
-    private Player getPlayerById(String id) throws NotPresentPlayerException {
+    private Player getPlayerById(String id) {
         for(Player player : this.players) {
             if (player.getId().equals(id)) {
                 return player;
             }
         }
-        throw new NotPresentPlayerException("The player" + id + " not exists.");
+        return null;
     }
 
     /**
@@ -340,7 +340,7 @@ public class Model implements ModelInterface{
      * @param id the player identifier.
      * @param card the private objective card to be set.
      */
-    public void setPrivateObjectiveCardToPlayer (String id, PrivateObjectiveCard card) throws NotPresentPlayerException {
+    public void setPrivateObjectiveCardToPlayer (String id, PrivateObjectiveCard card) {
         this.getPlayerById(id).setPrivateObjective(card);
     }
 
@@ -349,7 +349,7 @@ public class Model implements ModelInterface{
      * @param patterns a vector formed of four window pattern
      * @param id the player identifier.
      */
-    public void setPatternsToPlayer(String id, WindowPattern[] patterns) throws NotValidPatternVectorException, NotPresentPlayerException {
+    public void setPatternsToPlayer(String id, WindowPattern[] patterns) throws NotValidPatternVectorException {
         this.getPlayerById(id).setPatterns(patterns);
     }
 
@@ -374,7 +374,7 @@ public class Model implements ModelInterface{
      * @param playerId the player identifier.
      * @throws GameMoveException if the player can not end his turn.
      */
-    public void endTurn(String playerId) throws GameMoveException, NotPresentPlayerException {
+    public void endTurn(String playerId) throws GameMoveException {
         this.getPlayerById(playerId).endTurn();
     }
 
@@ -382,7 +382,7 @@ public class Model implements ModelInterface{
      * Start the turn of the player.
      * @param playerId the player identifier.
      */
-    public void startTurn(String playerId) throws NotPresentPlayerException {
+    public void startTurn(String playerId) {
         this.getPlayerById(playerId).startTurn();
     }
 
@@ -390,7 +390,7 @@ public class Model implements ModelInterface{
      * Change the state of a player.
      * @param playerId the player identifier.
      */
-    public void changePlayerStateTo(String playerId, PlayerState state) throws NotPresentPlayerException {
+    public void changePlayerStateTo(String playerId, PlayerState state) {
         this.getPlayerById(playerId).changePlayerStateTo(state);
     }
 
@@ -400,7 +400,7 @@ public class Model implements ModelInterface{
      * @param windowPattern the window pattern the player chose.
      * @throws NotValidPatterException if the window pattern is not valid.
      */
-    public void setChosenWindowPattern(String playerId, WindowPattern windowPattern) throws NotValidPatterException, NotPresentPlayerException {
+    public void setChosenWindowPattern(String playerId, WindowPattern windowPattern) throws NotValidPatterException {
         this.getPlayerById(playerId).choosePattern(windowPattern);
     }
 

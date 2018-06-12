@@ -16,7 +16,7 @@ import static org.fusesource.jansi.Ansi.ansi;
  */
 
 
-class Printer {
+public class Printer {
     static final String SQUARE_SYMBOL = "\u25A0";
     static final String OPEN_BRACKET = "[";
     static final String CLOSED_BRACKET = "]";

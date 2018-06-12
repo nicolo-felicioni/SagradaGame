@@ -34,7 +34,7 @@ public class CommandLineInterface extends AbstractView {
     private PublicObjectiveCard[] publicObjectiveCards;
 
     private static final String WELCOME_MESSAGE = "------------------WELCOME TO SAGRADA!----------------------";
-    private static final String CONNECTION_REQUEST_MESSAGE = "What connection do you want? \n 1. RMI\n2. Socket";
+    private static final String CONNECTION_REQUEST_MESSAGE = "What connection do you want? \n1. RMI\n2. Socket";
     private static final String PORT_REQUEST_MESSAGE = "Enter the number of the port: ";
     private static final String ADDRESS_REQUEST_MESSAGE = "Enter the IP address of the server: ";
     private static final String USERNAME_REQUEST_MESSAGE = "Enter your username: ";
@@ -144,12 +144,13 @@ public class CommandLineInterface extends AbstractView {
 
     private void typeOfConnectionRequest(){
         int choice;
-        //TODO - FORSE DA CAMBIARE
-        Printer.println(CONNECTION_REQUEST_MESSAGE);
-        choice = keyboard.readInt();
 
         boolean badChoice=false;
+
         do{
+            Printer.println(CONNECTION_REQUEST_MESSAGE);
+            choice = keyboard.readInt();
+
             if(choice == RMI_CHOICE){
                 this.client = new RMIClient();
             }else if(choice == SOCKET_CHOICE){
@@ -158,12 +159,11 @@ public class CommandLineInterface extends AbstractView {
                 Printer.println(CHOICE_ERROR_MESSAGE);
                 badChoice = true;
             }
-
-        }while(!badChoice);
-
+        }while(badChoice);
 
 
 
+        Printer.println("è arrivato alla fine");
         addGameObserver(this.client);
         //TODO - DA FINIRE
     }

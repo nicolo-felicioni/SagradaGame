@@ -27,7 +27,7 @@ public class RMIClient extends AbstractClient implements Remote {
 	/**
 	 * RMI server.
 	 */
-	private ServerInterface server;
+	private RMIServer server;
 
 	/**
 	 * Unique identifier of the client.
@@ -64,7 +64,7 @@ public class RMIClient extends AbstractClient implements Remote {
 	public void connect(String address, int port) throws NotBoundException {
 		try {
 			Registry registry = LocateRegistry.getRegistry(address, port);
-			server = (ServerInterface) registry.lookup("RMIServer");
+			server = (RMIServer) registry.lookup("RMIServer");
 			UnicastRemoteObject.exportObject(this, 0);
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -80,6 +80,7 @@ public class RMIClient extends AbstractClient implements Remote {
 	 */
 	@Override
 	public void login(String uid) throws LoginException {
+
 		try {
 			this.addGameObserver(server.login(uid, this));
 		}catch(RemoteException | NetworkException e) {
