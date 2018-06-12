@@ -1,4 +1,4 @@
-package it.polimi.se2018.controller;
+package it.polimi.se2018.controller.factory;
 
 import it.polimi.se2018.model.DieColor;
 import it.polimi.se2018.model.PrivateObjectiveCard;
@@ -32,6 +32,5 @@ public class PrivateObjectiveCardsFactory {
     public PrivateObjectiveCard drawCard() {
         return cards.remove((int) Math.random() * cards.size());
     }
-
 
 }

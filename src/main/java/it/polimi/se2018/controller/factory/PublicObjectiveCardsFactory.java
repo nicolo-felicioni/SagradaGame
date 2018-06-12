@@ -1,4 +1,4 @@
-package it.polimi.se2018.controller;
+package it.polimi.se2018.controller.factory;
 
 import it.polimi.se2018.model.*;
 
@@ -34,6 +34,20 @@ public class PublicObjectiveCardsFactory {
      */
     public PublicObjectiveCard drawCard() {
         return cards.remove((int) Math.random() * cards.size());
+    }
+
+    /**
+     * Get a set of private objective card. Remove the cards from the factory.
+     * If this method will be called multiple times, it will never return the same cards.
+     * @param n the number of cards to be drawn.
+     * @return an array of private objective cards.
+     */
+    public PublicObjectiveCard[] drawCard(int n) {
+        PublicObjectiveCard [] cards = new PublicObjectiveCard[n];
+        for(int i = 0 ; i < n; i++) {
+            cards[i] = this.cards.remove((int) Math.random() * this.cards.size());
+        }
+        return cards;
     }
 
 }

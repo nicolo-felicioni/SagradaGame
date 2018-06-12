@@ -1,11 +1,13 @@
 package it.polimi.se2018.controller;
 
+import it.polimi.se2018.controller.factory.PrivateObjectiveCardsFactory;
+import it.polimi.se2018.controller.factory.PublicObjectiveCardsFactory;
+import it.polimi.se2018.controller.factory.ToolCardsFactory;
+import it.polimi.se2018.controller.factory.WindowPatternFactory;
+import it.polimi.se2018.controller.utils.Scheduler;
 import it.polimi.se2018.event.*;
-import it.polimi.se2018.exceptions.NotValidIdException;
-import it.polimi.se2018.exceptions.NotValidPatternVectorException;
-import it.polimi.se2018.exceptions.TooManyPlayersException;
-import it.polimi.se2018.model.Model;
-import it.polimi.se2018.model.Player;
+import it.polimi.se2018.exceptions.*;
+import it.polimi.se2018.model.*;
 import it.polimi.se2018.observer.GameEventObserver;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 public class Controller implements GameEventObserver {
 
 	private Model model;
+	private Scheduler scheduler;
 
 	/**
 	 * Handle a ChooseDraftDieValueEvent.
@@ -194,7 +197,15 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(WindowPatternChosenGameEvent event) {
-
+		try {
+			this.model.setChosenWindowPattern(event.getPlayerId(), event.getWindow());
+		} catch (NotValidPatterException e) {
+			e.printStackTrace();
+		}
+		//TODO controllare che tutti abbiano la loro window pattern
+		this.initPublicObjectiveCards();
+		this.initPublicObjectiveCards();
+		this.nextTurn();
 	}
 
 	/**
@@ -205,6 +216,9 @@ public class Controller implements GameEventObserver {
 	@Override
 	public void handle(StartGameEvent event) {
 		this.startGame(event.getPlayerIds());
+		this.initPrivateObjectiveCards();
+		this.initWindowPatterns();
+		//TODO inizializzare anche gli stati
 	}
 
 	/**
@@ -222,15 +236,6 @@ public class Controller implements GameEventObserver {
 				e.printStackTrace();
 			}
 		});
-		this.initGame();
-	}
-
-	/**
-	 * Initialize the game
-	 */
-	private void initGame() {
-		initPrivateObjectiveCards();
-		initWindowPatterns();
 	}
 
 	/**
@@ -255,5 +260,57 @@ public class Controller implements GameEventObserver {
 				e.printStackTrace();
 			}
 		});
+	}
+
+	/**
+	 * Initialize tool cards.
+	 * Draw a set of tool cards.
+	 */
+	private void initToolCards() {
+		ToolCardsFactory factory = new ToolCardsFactory();
+		this.model.setToolCards(factory.drawCard(Model.SET_OF_TOOL_CARDS_SIZE));
+	}
+
+	/**
+	 * Initialize public objective cards.
+	 * Draw a set of public objective cards.
+	 */
+	private void initPublicObjectiveCards() {
+		PublicObjectiveCardsFactory factory = new PublicObjectiveCardsFactory();
+		this.model.setPublicObjectiveCards(factory.drawCard(Model.SET_OF_PUBLIC_OBJECTIVE_CARDS_SIZE));
+	}
+
+	/**
+	 * Initialize the scheduler;
+	 */
+	private void initScheduler() {
+		this.scheduler = new Scheduler(this.model.getPlayersId());
+	}
+
+	/**
+	 * Next turn. Change the state of the current turn's player.
+	 * Wake up the next turn's player.
+	 */
+	private void nextTurn() {
+		if (this.scheduler.getCurrentPlayerId() != null) {
+			try {
+				model.endTurn(this.scheduler.getCurrentPlayerId());
+			} catch (GameMoveException e) {
+				e.printStackTrace();
+			}
+		}
+		if (this.scheduler.hasNext()) {
+			model.startTurn(this.scheduler.next());
+		}
+	}
+
+	/**
+	 * Next turn. Wake up the next turn's player. Other players' state will be NotYourTurn.
+	 */
+	private void firstTurn() {
+		model.getPlayersId().stream().forEach(id -> model.changePlayerStateTo(id, new NotYourTurnState()));
+		if (this.scheduler.hasNext()) {
+			model.startTurn(this.scheduler.next());
+		}
 	}
 }

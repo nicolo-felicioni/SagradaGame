@@ -18,8 +18,26 @@ public class Model implements ModelInterface{
     private PublicObjectiveCard[] publicObjectiveCards;
     private ToolCard[] toolCards;
     private RoundTrack roundTrack;
-    private final static int MAX_NUMBER_OF_PLAYERS = 4;
 
+    /**
+     * Maximum amount of player.
+     */
+    public final static int MAX_NUMBER_OF_PLAYERS = 4;
+
+    /**
+     * The amount of cards in a set of tool cards.
+     */
+    public final static int SET_OF_TOOL_CARDS_SIZE = 3;
+
+    /**
+     * The amount of cards in a set of public objective cards.
+     */
+    public final static int SET_OF_PUBLIC_OBJECTIVE_CARDS_SIZE = 3;
+
+    /**
+     * The max round.
+     */
+    public final static int MAX_ROUND = 10;
 
     /**
      * Constructor of the class.
@@ -154,6 +172,18 @@ public class Model implements ModelInterface{
             copyList.add(copiedPlayer);
         }
 
+        return copyList;
+    }
+
+    /**
+     * Get the player's identifiers.
+     * @return a list of players identifiers.
+     */
+    public List<String> getPlayersId() {
+        List<String> copyList = new ArrayList<>();
+        for(Player player : this.players){
+            copyList.add(player.getId());
+        }
         return copyList;
     }
 
@@ -321,4 +351,56 @@ public class Model implements ModelInterface{
     public void setPatternsToPlayer(String id, WindowPattern[] patterns) throws NotValidPatternVectorException {
         this.getPlayerById(id).setPatterns(patterns);
     }
+
+    /**
+     * Set the public objective cards.
+     * @param cards an array of public objective cards.
+     */
+    public void setPublicObjectiveCards(PublicObjectiveCard[] cards) {
+        this.publicObjectiveCards = cards;
+    }
+
+    /**
+     * Set the tool cards.
+     * @param cards an array of tool cards.
+     */
+    public void setToolCards(ToolCard[] cards) {
+        this.toolCards = cards;
+    }
+
+    /**
+     * End the turn of the player.
+     * @param playerId the player identifier.
+     * @throws GameMoveException if the player can not end his turn.
+     */
+    public void endTurn(String playerId) throws GameMoveException{
+        this.getPlayerById(playerId).endTurn();
+    }
+
+    /**
+     * Start the turn of the player.
+     * @param playerId the player identifier.
+     */
+    public void startTurn(String playerId) {
+        this.getPlayerById(playerId).startTurn();
+    }
+
+    /**
+     * Change the state of a player.
+     * @param playerId the player identifier.
+     */
+    public void changePlayerStateTo(String playerId, PlayerState state) {
+        this.getPlayerById(playerId).changePlayerStateTo(state);
+    }
+
+    /**
+     * Set a window pattern as the player chosen one.
+     * @param playerId the player identifier.
+     * @param windowPattern the window pattern the player chose.
+     * @throws NotValidPatterException if the window pattern is not valid.
+     */
+    public void setChosenWindowPattern(String playerId, WindowPattern windowPattern) throws NotValidPatterException {
+        this.getPlayerById(playerId).choosePattern(windowPattern);
+    }
+
 }
