@@ -5,13 +5,10 @@ import it.polimi.se2018.event.*;
 import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.network.client.AbstractClient;
-import it.polimi.se2018.network.client.ClientInterface;
-import it.polimi.se2018.network.server.ServerInterface;
 import it.polimi.se2018.observer.*;
 import it.polimi.se2018.view.AbstractView;
 
 import java.rmi.NotBoundException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -22,12 +19,12 @@ import java.util.List;
 /**
  * @author davide yi xian hu
  */
-public class RMIClient extends AbstractClient implements Remote {
+public class RMIClient extends AbstractClient implements RMIClientInterface {
 
 	/**
 	 * RMI server.
 	 */
-	private RMIServer server;
+	private RMIServerInterface server;
 
 	/**
 	 * Unique identifier of the client.
@@ -64,7 +61,8 @@ public class RMIClient extends AbstractClient implements Remote {
 	public void connect(String address, int port) throws NotBoundException {
 		try {
 			Registry registry = LocateRegistry.getRegistry(address, port);
-			server = (RMIServer) registry.lookup("RMIServer");
+			server = (RMIServerInterface) registry.lookup("RMIServer") ;
+			System.out.println(server);
 			UnicastRemoteObject.exportObject(this, 0);
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -80,10 +78,11 @@ public class RMIClient extends AbstractClient implements Remote {
 	 */
 	@Override
 	public void login(String uid) throws LoginException {
-
 		try {
-			this.addGameObserver(server.login(uid, this));
+		    NetworkGameEventObserver o = server.login(uid, this);
+			this.addGameObserver(o);
 		}catch(RemoteException | NetworkException e) {
+			e.printStackTrace();
 			throw new LoginException("Login to server failed.");
 		}
 	}

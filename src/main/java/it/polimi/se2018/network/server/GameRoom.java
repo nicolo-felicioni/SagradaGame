@@ -48,7 +48,14 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	/**
 	 * Interval of time to wait before to start a game.
 	 */
-	public static int TIMER_WAIT_START_GAME = 60000;
+	public static int TIMER_WAIT_START_GAME = 6000;
+
+	/**
+	 * Constructor.
+	 */
+	public GameRoom() {
+		this.playerSessions = new ArrayList<>();
+	}
 
 	/**
 	 * Getter of started.
@@ -102,6 +109,8 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	 * Refresh the timer.
 	 */
 	private void refreshTimer(int time) {
+		//TODO DEBUG
+		System.out.println("PLAYER AGGIUNTO");
 		if(timer != null) {
 			this.timer.disable();
 		}

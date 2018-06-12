@@ -7,6 +7,7 @@ import it.polimi.se2018.network.server.SessionInterface;
 import it.polimi.se2018.network.utils.NetworkViewUpdaterObserver;
 import it.polimi.se2018.observable.GameEventObservableImpl;
 
+import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * @author davide yi xian hu
  */
-public class RMIServerSession extends GameEventObservableImpl implements Remote, SessionInterface {
+public class RMIServerSession extends GameEventObservableImpl implements Remote, SessionInterface, Serializable {
 
 	/**
 	 * RMI Client
@@ -30,9 +31,11 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 
 	/**
 	 * Default constructor.
+	 * @param uid the user identifier.
 	 */
-	public RMIServerSession() {
+	public RMIServerSession(String uid) {
 		this.viewUpdaterObservers = new ArrayList<>();
+		this.uid = uid;
 	}
 
 	/**

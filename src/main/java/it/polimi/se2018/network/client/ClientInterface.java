@@ -9,12 +9,13 @@ import it.polimi.se2018.observer.GameEventObserver;
 import it.polimi.se2018.observer.NetworkGameEventObserver;
 
 import java.rmi.NotBoundException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
  * @author davide yi xian hu
  */
-public interface ClientInterface extends GameEventObserver, NetworkViewUpdaterObserver {
+public interface ClientInterface extends GameEventObserver, NetworkViewUpdaterObserver{
 
 	/**
 	 * Connect the client to the server.
@@ -36,7 +37,7 @@ public interface ClientInterface extends GameEventObserver, NetworkViewUpdaterOb
 	 *
 	 * @return the unique identifier.
 	 */
-	String getUid ();
+	String getUid () throws RemoteException;
 
 	/**
 	 * Add a NetworkGameEventObserver.
