@@ -2,6 +2,7 @@ package it.polimi.se2018.controller.factory;
 
 import it.polimi.se2018.model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ToolCardsFactory {
@@ -15,6 +16,7 @@ public class ToolCardsFactory {
      * It initialize the factory.
      */
     public ToolCardsFactory() {
+        cards = new ArrayList<>();
         this.cards.add(new ToolCardOne());
         this.cards.add(new ToolCardTwo());
         this.cards.add(new ToolCardThree());

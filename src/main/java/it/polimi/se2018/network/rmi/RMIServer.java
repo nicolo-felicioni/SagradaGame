@@ -47,8 +47,8 @@ public class RMIServer implements RMIServerInterface {
 	 * @return the session between the client and the server.
 	 */
 	public SessionInterface login(String uid, RMIClientInterface client) throws RemoteException, NetworkException {
-		SessionInterface session = new RMIServerSession(uid);
-		session.addViewUpdaterObserver(client);
+		RMIServerSession session = new RMIServerSession(uid);
+		session.addClientObserver(client);
 		Server.getInstance().login(uid, session);
 		return session;
 	}

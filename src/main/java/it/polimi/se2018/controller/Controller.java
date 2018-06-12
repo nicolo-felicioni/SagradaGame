@@ -20,6 +20,10 @@ public class Controller implements GameEventObserver {
 	private Model model;
 	private Scheduler scheduler;
 
+	public Controller(Model model) {
+		this.model = model;
+	}
+
 	/**
 	 * Handle a ChooseDraftDieValueEvent.
 	 *
@@ -201,11 +205,13 @@ public class Controller implements GameEventObserver {
 			this.model.setChosenWindowPattern(event.getPlayerId(), event.getWindow());
 		} catch (NotValidPatterException e) {
 			e.printStackTrace();
+		} catch (NotValidIdException e) {
+			e.printStackTrace();
 		}
 		//TODO controllare che tutti abbiano la loro window pattern
 		this.initPublicObjectiveCards();
 		this.initPublicObjectiveCards();
-		this.nextTurn();
+		this.firstTurn();
 	}
 
 	/**
@@ -215,10 +221,11 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(StartGameEvent event) {
+		System.out.println(" ===> Game started. Initializing the model..."); //TODO println
 		this.startGame(event.getPlayerIds());
 		this.initPrivateObjectiveCards();
 		this.initWindowPatterns();
-		//TODO inizializzare anche gli stati
+		this.initPlayerState();
 	}
 
 	/**
@@ -226,7 +233,6 @@ public class Controller implements GameEventObserver {
 	 * @param ids a list of player identifiers.
 	 */
 	private void startGame(List<String> ids) {
-		this.model = new Model();
 		ids.stream().forEach(id -> {
 			try {
 				this.model.addPlayer(new Player(id));
@@ -244,7 +250,13 @@ public class Controller implements GameEventObserver {
 	 */
 	private void initPrivateObjectiveCards() {
 		PrivateObjectiveCardsFactory privateCardFactory = new PrivateObjectiveCardsFactory();
-		model.getPlayers().stream().forEach(player -> model.setPrivateObjectiveCardToPlayer(player.getId(), privateCardFactory.drawCard()));
+		model.getPlayers().stream().forEach(player -> {
+			try {
+				model.setPrivateObjectiveCardToPlayer(player.getId(), privateCardFactory.drawCard());
+			} catch (NotValidIdException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -255,7 +267,11 @@ public class Controller implements GameEventObserver {
 		WindowPatternFactory windowPatternFactory = new WindowPatternFactory();
 		model.getPlayers().stream().forEach(player -> {
 			try {
-				model.setPatternsToPlayer(player.getId(), windowPatternFactory.getWindowPattern(Player.N_WINDOW_PATTERNS));
+				try {
+					model.setPatternsToPlayer(player.getId(), windowPatternFactory.getWindowPattern(Player.N_WINDOW_PATTERNS));
+				} catch (NotValidIdException e) {
+					e.printStackTrace();
+				}
 			} catch (NotValidPatternVectorException e) {
 				e.printStackTrace();
 			}
@@ -297,10 +313,16 @@ public class Controller implements GameEventObserver {
 				model.endTurn(this.scheduler.getCurrentPlayerId());
 			} catch (GameMoveException e) {
 				e.printStackTrace();
+			} catch (NotValidIdException e) {
+				e.printStackTrace();
 			}
 		}
 		if (this.scheduler.hasNext()) {
-			model.startTurn(this.scheduler.next());
+			try {
+				model.startTurn(this.scheduler.next());
+			} catch (NotValidIdException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -308,9 +330,29 @@ public class Controller implements GameEventObserver {
 	 * Next turn. Wake up the next turn's player. Other players' state will be NotYourTurn.
 	 */
 	private void firstTurn() {
-		model.getPlayersId().stream().forEach(id -> model.changePlayerStateTo(id, new NotYourTurnState()));
+		model.getPlayersId().stream().forEach(id -> {
+			try {
+				model.changePlayerStateTo(id, new NotYourTurnState());
+			} catch (NotValidIdException e) {
+				e.printStackTrace();
+			}
+		});
 		if (this.scheduler.hasNext()) {
-			model.startTurn(this.scheduler.next());
+			try {
+				model.startTurn(this.scheduler.next());
+			} catch (NotValidIdException e) {
+				e.printStackTrace();
+			}
 		}
+	}
+
+	private void initPlayerState() {
+		model.getPlayersId().stream().forEach(id -> {
+			try {
+				model.changePlayerStateTo(id, new ChooseWindowPatternState());
+			} catch (NotValidIdException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 }

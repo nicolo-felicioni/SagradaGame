@@ -2,6 +2,7 @@ package it.polimi.se2018.model;
 
 import it.polimi.se2018.exceptions.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * @author Nicolò Felicioni
  */
 
-public class WindowPattern {
+public class WindowPattern implements Serializable {
 
 	private Space[][] spaces;
 	private int difficulty;

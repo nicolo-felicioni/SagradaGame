@@ -70,44 +70,8 @@ public class SocketServerSession implements SessionInterface {
 	 * @throws NetworkException if any connection error occurs during the connection.
 	 */
 	@Override
-	public void handle(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
+	public void handle(ViewUpdaterInterface updater) {
 		String message = updater.toString();
-	}
-
-	/**
-	 * Add a network view updater observer.
-	 *
-	 * @param observer the network view updater observer.
-	 * @throws RemoteException  if RMI errors occur during the connection.
-	 * @throws NetworkException if any connection error occurs during the connection.
-	 */
-	@Override
-	public void addViewUpdaterObserver(NetworkViewUpdaterObserver observer) throws RemoteException, NetworkException {
-
-	}
-
-	/**
-	 * Notify a view updater.
-	 *
-	 * @param updater the view updater.
-	 * @throws RemoteException  if RMI errors occur during the connection.
-	 * @throws NetworkException if any connection error occurs during the connection.
-	 */
-	@Override
-	public void notify(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
-
-	}
-
-	/**
-	 * Remove a network view updater observer.
-	 *
-	 * @param observer the network view updater observer.
-	 * @throws RemoteException  if RMI errors occur during the connection.
-	 * @throws NetworkException if any connection error occurs during the connection.
-	 */
-	@Override
-	public void removeViewUpdaterObserver(NetworkViewUpdaterObserver observer) throws RemoteException, NetworkException {
-
 	}
 
 	/**

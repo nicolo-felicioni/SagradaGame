@@ -2,12 +2,14 @@ package it.polimi.se2018.model;
 
 import org.fusesource.jansi.Ansi;
 
+import java.io.Serializable;
+
 import static org.fusesource.jansi.Ansi.ansi;
 
 /**
  *@author PeiQing Gao
  */
-public enum DieColor {
+public enum DieColor implements Serializable {
 	RED(0),
 	BLUE(1),
 	YELLOW(2),

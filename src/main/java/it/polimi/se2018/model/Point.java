@@ -2,12 +2,13 @@ package it.polimi.se2018.model;
 
 import it.polimi.se2018.exceptions.NotValidPointException;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * @author Davide Yi Xian Hu
  */
-public class Point {
+public class Point implements Serializable {
 
 	/**
 	 * X coordinate.

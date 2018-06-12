@@ -288,11 +288,9 @@ public class SocketClient extends AbstractClient {
 	 * Handle a view update from the network.
 	 *
 	 * @param updater the view updater.
-	 * @throws RemoteException  if RMI errors occur during the connection.
-	 * @throws NetworkException if any connection error occurs during the connection.
 	 */
 	@Override
-	public void handle(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
+	public void handle(ViewUpdaterInterface updater) {
 
 	}
 

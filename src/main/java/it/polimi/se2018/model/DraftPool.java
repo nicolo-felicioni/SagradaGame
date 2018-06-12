@@ -2,9 +2,10 @@ package it.polimi.se2018.model;
 
 import it.polimi.se2018.exceptions.DraftPoolEmptyException;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class DraftPool {
+public class DraftPool implements Serializable {
     ArrayList<Die> draftPool;
 
     /**

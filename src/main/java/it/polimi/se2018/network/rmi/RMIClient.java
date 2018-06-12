@@ -7,6 +7,7 @@ import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.network.client.AbstractClient;
 import it.polimi.se2018.observer.*;
 import it.polimi.se2018.view.AbstractView;
+import it.polimi.se2018.view.View;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -34,7 +35,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	/**
 	 * The user interface.
 	 */
-	private AbstractView userInterface;
+	private View view;
 
 	/**
 	 * The network game event observers;
@@ -44,8 +45,9 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	/**
 	 * Constructor.
 	 */
-	public RMIClient() {
+	public RMIClient(View view) {
 		observers = new ArrayList<>();
+		this.view = view;
 	}
 
 	/**
@@ -62,7 +64,6 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 		try {
 			Registry registry = LocateRegistry.getRegistry(address, port);
 			server = (RMIServerInterface) registry.lookup("RMIServer") ;
-			System.out.println(server);
 			UnicastRemoteObject.exportObject(this, 0);
 		} catch (RemoteException e) {
 			e.printStackTrace();
@@ -295,8 +296,8 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 * @throws NetworkException if any connection error occurs during the connection.
 	 */
 	@Override
-	public void handle(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
-		updater.update(this.userInterface);
+	public void handle(ViewUpdaterInterface updater){
+		updater.update(this.view);
 	}
 
 	/**

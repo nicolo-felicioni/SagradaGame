@@ -1,9 +1,11 @@
 package it.polimi.se2018.model;
 
+import java.io.Serializable;
+
 /**
  * @author PeiQing Gao
  */
-public enum DieValue {
+public enum DieValue implements Serializable {
 	ONE(1),
 	TWO(2),
 	THREE(3),

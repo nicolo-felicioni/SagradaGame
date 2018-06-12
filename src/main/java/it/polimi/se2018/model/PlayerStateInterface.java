@@ -5,11 +5,13 @@ import it.polimi.se2018.exceptions.IllegalMoveTurnException;
 import it.polimi.se2018.exceptions.NotValidPointException;
 import it.polimi.se2018.exceptions.PlacementException;
 
+import java.io.Serializable;
+
 /**
  * @author Nicolò Felicioni
  */
 
-public interface PlayerStateInterface {
+public interface PlayerStateInterface extends Serializable {
 
 	/**
 	 * returns true if the player has already placed a die in this turn

@@ -21,8 +21,7 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	/**
 	 * RMI Client
 	 */
-	private List<NetworkViewUpdaterObserver> viewUpdaterObservers;
-
+	private List<RMIClientInterface> clientInterfaces;
 
 	/**
 	 * Unique identifier of the client.
@@ -34,7 +33,7 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param uid the user identifier.
 	 */
 	public RMIServerSession(String uid) {
-		this.viewUpdaterObservers = new ArrayList<>();
+		this.clientInterfaces = new ArrayList<>();
 		this.uid = uid;
 	}
 
@@ -42,39 +41,38 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * {@inheritDoc}
 	 * Add a client observer.
 	 */
-	@Override
-	public void addViewUpdaterObserver(NetworkViewUpdaterObserver observer) throws RemoteException, NetworkException {
-		this.viewUpdaterObservers.add(observer);
+	public void addClientObserver(RMIClientInterface observer) {
+		this.clientInterfaces.add(observer);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 * Notify a view updater to the client;
 	 */
-	@Override
-	public void notify(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
-		for(NetworkViewUpdaterObserver obs : viewUpdaterObservers) {
-			obs.handle(updater);
-		}
+	public void notify(ViewUpdaterInterface updater) {
+		this.clientInterfaces.forEach(observer -> {
+			try {
+				observer.handle(updater);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
 	 * Remove a network view updater observer.
 	 *
 	 * @param observer the network view updater observer.
-	 * @throws RemoteException  if RMI errors occur during the connection.
-	 * @throws NetworkException if any connection error occurs during the connection.
 	 */
-	@Override
-	public void removeViewUpdaterObserver(NetworkViewUpdaterObserver observer) throws RemoteException, NetworkException {
-		this.viewUpdaterObservers.add(observer);
+	public void removeClientObserver(RMIClientInterface observer) {
+		this.clientInterfaces.add(observer);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 * Forward the view updater to the client.
 	 */
-	public void handle(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
+	public void handle(ViewUpdaterInterface updater) {
 		this.notify(updater);
 	}
 

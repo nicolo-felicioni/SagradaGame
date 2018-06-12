@@ -4,9 +4,10 @@ import it.polimi.se2018.exceptions.NotValidDieException;
 import it.polimi.se2018.exceptions.NotValidRoundException;
 import it.polimi.se2018.exceptions.RoundTrackEmptyException;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class RoundTrack {
+public class RoundTrack implements Serializable {
 
     private List<Die>[] track;
 

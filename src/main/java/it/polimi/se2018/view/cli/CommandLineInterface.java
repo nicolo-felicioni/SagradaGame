@@ -152,7 +152,7 @@ public class CommandLineInterface extends AbstractView {
             choice = keyboard.readInt();
 
             if(choice == RMI_CHOICE){
-                this.client = new RMIClient();
+                this.client = new RMIClient(this);
             }else if(choice == SOCKET_CHOICE){
                 this.client = new SocketClient();
             }else{
@@ -181,7 +181,7 @@ public class CommandLineInterface extends AbstractView {
             try {
                 client.connect(address, port);
                 connectError = false;
-            } catch (RemoteException | NetworkException | NotBoundException e) {
+            } catch (NetworkException | NotBoundException e) {
                 Printer.println(e.getMessage());
             }
         }while(connectError);
@@ -198,7 +198,7 @@ public class CommandLineInterface extends AbstractView {
             try {
                 client.login(username);
                 loginError = false;
-            } catch (RemoteException | LoginException e) {
+            } catch (LoginException e) {
                 Printer.println(e.getMessage());
             }
         }while(loginError);

@@ -3,6 +3,7 @@ package it.polimi.se2018.model;
 import org.fusesource.jansi.Ansi;
 import org.fusesource.jansi.AnsiConsole;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 import static org.fusesource.jansi.Ansi.ansi;
@@ -11,7 +12,7 @@ import static org.fusesource.jansi.Ansi.ansi;
  * The Class of Die
  * @author PeiQing Gao
  */
-public class Die{
+public class Die implements Serializable {
 
 	private final DieColor color;
 	private DieValue value;

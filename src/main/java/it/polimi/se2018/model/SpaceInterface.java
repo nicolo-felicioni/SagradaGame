@@ -3,10 +3,12 @@ package it.polimi.se2018.model;
 import it.polimi.se2018.exceptions.PlacementException;
 import it.polimi.se2018.exceptions.SpaceNotOccupiedException;
 
+import java.io.Serializable;
+
 /**
  * @author davide yi xian hu
  */
-public interface SpaceInterface{
+public interface SpaceInterface extends Serializable {
 	/**
 	 * Place a die on this space.
 	 *

@@ -1,9 +1,12 @@
 package it.polimi.se2018.network.server;
 
+import com.sun.glass.ui.View;
+import it.polimi.se2018.controller.ViewUpdaterObserver;
 import it.polimi.se2018.event.*;
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.exceptions.NetworkException;
+import it.polimi.se2018.model.Model;
 import it.polimi.se2018.observable.GameEventObservableImpl;
 
 import java.rmi.RemoteException;
@@ -26,9 +29,9 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	private List<SessionInterface> playerSessions;
 
 	/**
-	 * Controller.
+	 * List of view updater observer.
 	 */
-	private Controller controller;
+	private List<ViewUpdaterObserver> observers;
 
 	/**
 	 * Timer.
@@ -55,6 +58,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	 */
 	public GameRoom() {
 		this.playerSessions = new ArrayList<>();
+		this.observers = new ArrayList<>();
 	}
 
 	/**
@@ -75,6 +79,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 			this.removePlayerSession(session.getUID());
 		}
 		playerSessions.add(session);
+		observers.add(session);
 		this.refreshTimer(TIMER_WAIT_START_GAME);
 	}
 
@@ -96,10 +101,11 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	 * Disconnect a player from this game room.
 	 * @param uid the player identifier.
 	 */
-	public void removePlayerSession(String uid) {
+	private void removePlayerSession(String uid) {
 		for(SessionInterface playerSession : playerSessions) {
 			if(playerSession.getUID().equals(uid)){
 				playerSessions.remove(playerSession);
+				observers.remove(playerSession);
 			}
 		}
 		this.refreshTimer(TIMER_WAIT_START_GAME);
@@ -109,28 +115,43 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	 * Refresh the timer.
 	 */
 	private void refreshTimer(int time) {
-		//TODO DEBUG
-		System.out.println("PLAYER AGGIUNTO");
 		if(timer != null) {
 			this.timer.disable();
 		}
 		if(this.playerSessions.size() >= MIN_PLAYER) {
+			System.out.println(" ==> Timer started. " + TIMER_WAIT_START_GAME/1000 + " seconds countdown."); //TODO println
 			this.timer = new Timer(time);
+			new Thread(timer).start();
 		}
-		new Thread(timer).start();
+	}
+
+	/**
+	 * Add a view updater observer.
+	 *
+	 * @param observer the view updater observer.
+	 */
+	@Override
+	public void addObserver(ViewUpdaterObserver observer) {
+		this.observers.add(observer);
+	}
+
+	/**
+	 * Remove a view updater observer.
+	 *
+	 * @param observer the view updater observer.
+	 */
+	@Override
+	public void removeObserver(ViewUpdaterObserver observer) {
+		this.observers.remove(observer);
 	}
 
 	/**
 	 * Notify a view updater.
 	 *
 	 * @param updater the view updater.
-	 * @throws RemoteException  if RMI errors occur during the connection.
-	 * @throws NetworkException if any connection error occurs during the connection.
 	 */
-	public void notify(ViewUpdaterInterface updater) throws RemoteException, NetworkException {
-		for(SessionInterface playerSession : playerSessions) {
-			playerSession.handle(updater);
-		}
+	public void notify(ViewUpdaterInterface updater) {
+		this.observers.forEach(observer -> observer.handle(updater));
 	}
 
 	/**
@@ -320,7 +341,21 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	 */
 	@Override
 	public void handle(StartGameEvent event) {
+		Model model = new Model();
+		model.addObserver(this);
+		this.addGameObserver(new Controller(model));
 		this.notifyObservers(event);
+	}
+
+	/**
+	 * Handle the view updater.
+	 *
+	 * @param updater the updater that have to be notified to the observer.
+	 */
+	@Override
+	public void handle(ViewUpdaterInterface updater) {
+		System.out.println(" <=== View Updater received"); //TODO println
+		this.notify(updater);
 	}
 
 	private class Timer implements Runnable {
@@ -351,9 +386,10 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 					Thread.sleep(this.time);
 				}
 				if(isActive()) {
+					System.out.println(" ==> Time out. Game is starting..."); //TODO println
 					List<String> playerIds = new ArrayList<>();
 					playerSessions.stream().forEach(s -> playerIds.add(s.getUID()));
-					notifyObservers(new StartGameEvent(playerIds));
+					handle(new StartGameEvent(playerIds));
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();

@@ -3,6 +3,7 @@ package it.polimi.se2018.controller.factory;
 import it.polimi.se2018.model.DieColor;
 import it.polimi.se2018.model.PrivateObjectiveCard;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -18,6 +19,7 @@ public class PrivateObjectiveCardsFactory {
      * It initialize the factory.
      */
     public PrivateObjectiveCardsFactory() {
+        cards = new ArrayList<>();
         cards.add(new PrivateObjectiveCard(DieColor.RED));
         cards.add(new PrivateObjectiveCard(DieColor.BLUE));
         cards.add(new PrivateObjectiveCard(DieColor.YELLOW));
