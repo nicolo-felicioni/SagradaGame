@@ -151,6 +151,13 @@ public interface ClientInterface extends GameEventObserver, NetworkViewUpdaterOb
 	void notifyObservers(RerollDraftDieGameEvent event);
 
 	/**
+	 * Notify the StartGameObservers an StartGameEvent.
+	 *
+	 * @param event the StartGameEvent.
+	 */
+	void notifyObservers(StartGameEvent event);
+
+	/**
 	 * Notify the SwapDraftDieWithDiceBagDieObservers an SwapDraftDieWithDiceBagDieEvent.
 	 *
 	 * @param event the SwapDraftDieWithDiceBagDieEvent.

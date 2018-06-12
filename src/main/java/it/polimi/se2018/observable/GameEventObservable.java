@@ -1,5 +1,6 @@
 package it.polimi.se2018.observable;
 
+import it.polimi.se2018.event.StartGameEvent;
 import it.polimi.se2018.observer.GameEventObserver;
 
 /**

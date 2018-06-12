@@ -238,6 +238,16 @@ public class RMIClient extends AbstractClient implements Remote {
 	}
 
 	/**
+	 * Handle a StartGameEvent.
+	 *
+	 * @param event the StartGameEvent.
+	 */
+	@Override
+	public void handle(StartGameEvent event) {
+		this.notifyObservers(event);
+	}
+
+	/**
 	 * Handle a SwapDraftDieWithDiceBagDieEvent.
 	 *
 	 * @param event the SwapDraftDieWithDiceBagDieEvent.
@@ -524,6 +534,22 @@ public class RMIClient extends AbstractClient implements Remote {
 	 */
 	@Override
 	public void notifyObservers(RerollDraftDieGameEvent event) {
+		this.observers.forEach(observer -> {
+			try {
+				observer.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
+	/**
+	 * Notify the StartGameObservers an StartGameEvent.
+	 *
+	 * @param event the StartGameEvent.
+	 */
+	@Override
+	public void notifyObservers(StartGameEvent event) {
 		this.observers.forEach(observer -> {
 			try {
 				observer.handle(event);

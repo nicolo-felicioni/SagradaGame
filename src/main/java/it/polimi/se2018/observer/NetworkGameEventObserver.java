@@ -109,6 +109,13 @@ public interface NetworkGameEventObserver {
 	void handle(RerollDraftDieGameEvent event) throws RemoteException;
 
 	/**
+	 * Handle a StartGameEvent.
+	 *
+	 * @param event the StartGameEvent.
+	 */
+	void handle(StartGameEvent event) throws RemoteException;
+
+	/**
 	 * Handle a SwapDraftDieWithDiceBagDieEvent.
 	 *
 	 * @param event the SwapDraftDieWithDiceBagDieEvent.

@@ -222,6 +222,16 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	}
 
 	/**
+	 * Handle a StartGameEvent.
+	 *
+	 * @param event the StartGameEvent.
+	 */
+	@Override
+	public void handle(StartGameEvent event) throws RemoteException {
+		this.notifyObservers(event);
+	}
+
+	/**
 	 * Handle a SwapDraftDieWithDiceBagDieEvent.
 	 *
 	 * @param event the SwapDraftDieWithDiceBagDieEvent.

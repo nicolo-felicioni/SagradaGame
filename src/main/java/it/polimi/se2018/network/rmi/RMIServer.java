@@ -31,9 +31,11 @@ public class RMIServer implements Remote, ServerInterface {
 		try {
 			registry = LocateRegistry.createRegistry(RMI_SERVER_PORT);
 		} catch (RemoteException e) {
+			e.printStackTrace();
 			try {
 				registry = LocateRegistry.getRegistry(RMI_SERVER_PORT);
 			} catch (RemoteException ex) {
+				e.printStackTrace();
 			}
 		}
 		if (registry != null) {
@@ -41,6 +43,7 @@ public class RMIServer implements Remote, ServerInterface {
 				registry.rebind("RMIServer", this);
 				UnicastRemoteObject.exportObject(this, RMI_SERVER_PORT);
 			} catch (RemoteException e) {
+				e.printStackTrace();
 			}
 		}
 	}

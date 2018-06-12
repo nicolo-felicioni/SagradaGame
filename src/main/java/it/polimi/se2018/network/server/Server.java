@@ -40,7 +40,7 @@ public class Server {
 	private Server() {
 		roomList = new ArrayList();
 		rmiServer = new RMIServer();
-		socketServer = new SocketServer();
+		//socketServer = new SocketServer();
 	}
 
 
