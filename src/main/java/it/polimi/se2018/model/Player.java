@@ -136,7 +136,6 @@ public class Player {
 		}
 		this.chosenPattern = pattern;
 		this.favorTokens = pattern.getDifficulty();
-
 	}
 
 	//TODO N javadoc

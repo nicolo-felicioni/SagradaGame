@@ -14,12 +14,12 @@ public class ModelTest {
         int randomDiff;
         Space[][] blankSpaces;
 
-        blankSpaces = new Space[WindowPattern.SPACES_HEIGTH][WindowPattern.SPACES_LENGTH];
+        blankSpaces = new Space[WindowPattern.SPACES_HEIGHT][WindowPattern.SPACES_LENGTH];
 
 
         randomDiff = WindowPattern.MIN_DIFFICULTY + (int) (Math.random() * (WindowPattern.MAX_DIFFICULTY - WindowPattern.MIN_DIFFICULTY));
 
-        for(int k=0; k<WindowPattern.SPACES_HEIGTH; k++)
+        for(int k = 0; k<WindowPattern.SPACES_HEIGHT; k++)
             for(int j=0; j<WindowPattern.SPACES_LENGTH; j++)
                 blankSpaces[k][j] = new BlankSpace();
 

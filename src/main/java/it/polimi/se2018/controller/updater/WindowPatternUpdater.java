@@ -51,7 +51,7 @@ public class WindowPatternUpdater implements ViewUpdaterInterface {
      */
     @Override
     public void update(View view) {
-        //TODO aggiungere metodi.
+        view.updateWindowPattern(playerId, windowPattern, position);
     }
 
 }

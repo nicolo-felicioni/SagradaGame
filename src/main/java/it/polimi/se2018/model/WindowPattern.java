@@ -4,7 +4,6 @@ import it.polimi.se2018.exceptions.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,7 +16,7 @@ public class WindowPattern implements Serializable {
 	private int difficulty;
 
 	public static final int SPACES_LENGTH = 5;
-	public static final int SPACES_HEIGTH = 4;
+	public static final int SPACES_HEIGHT = 4;
 	public static final int MIN_DIFFICULTY = 3;
 	public static final int MAX_DIFFICULTY = 6;
 
@@ -32,9 +31,9 @@ public class WindowPattern implements Serializable {
 	 *
 	 */
 	public WindowPattern(Space[][] spaces, int difficulty) throws WindowPatternDimensionException, UnboundDifficultyValueException {
-		if(spaces.length != SPACES_HEIGTH)
+		if(spaces.length != SPACES_HEIGHT)
 			throw new WindowPatternDimensionException("Wrong number of rows");
-		for(int i = 0; i < SPACES_HEIGTH ; i++){
+		for(int i = 0; i < SPACES_HEIGHT; i++){
 			if(spaces[i].length != SPACES_LENGTH)
 				throw new WindowPatternDimensionException("Wrong number of columns");
 		}
@@ -45,9 +44,9 @@ public class WindowPattern implements Serializable {
 
 		this.difficulty = difficulty;
 
-		this.spaces = new Space[SPACES_HEIGTH][SPACES_LENGTH];
+		this.spaces = new Space[SPACES_HEIGHT][SPACES_LENGTH];
 
-		for(int i=0; i < SPACES_HEIGTH; i++)
+		for(int i = 0; i < SPACES_HEIGHT; i++)
 			for(int j=0; j < SPACES_LENGTH; j++)
 				this.spaces[i][j]=spaces[i][j].cloneSpace();
 	}
@@ -90,7 +89,7 @@ public class WindowPattern implements Serializable {
 	public Space[][] getAllSpaces() {
 		Space[][] newMatrix = new Space[4][5];
 
-		for(int i = 0; i < SPACES_HEIGTH; i++){
+		for(int i = 0; i < SPACES_HEIGHT; i++){
 			for(int j = 0; j < SPACES_LENGTH; j++){
 				newMatrix[i][j] = spaces[i][j].cloneSpace();
 			}
@@ -325,8 +324,8 @@ public class WindowPattern implements Serializable {
 	 * @return an array of spaces.
 	 */
 	public Space[] getSpacesColumn (int column) {
-		Space[] columnArray = new Space[SPACES_HEIGTH];
-		for(int i=0; i < SPACES_HEIGTH; i ++) {
+		Space[] columnArray = new Space[SPACES_HEIGHT];
+		for(int i = 0; i < SPACES_HEIGHT; i ++) {
 			columnArray[i] = this.spaces[i][column].cloneSpace();
 		}
 		return columnArray;
@@ -342,7 +341,7 @@ public class WindowPattern implements Serializable {
 		ArrayList<Space> listOfSpaces;
 		listOfSpaces = new ArrayList<>();
 
-		for(int i = 0; i < SPACES_HEIGTH; i++){
+		for(int i = 0; i < SPACES_HEIGHT; i++){
 			for(int j = 0; j < SPACES_LENGTH; j++){
 				listOfSpaces.add(this.spaces[i][j].cloneSpace());
 			}
@@ -384,7 +383,7 @@ public class WindowPattern implements Serializable {
 	 * @return true if the two window pattern are the same
 	 */
 	public boolean equalsWindowPattern(WindowPattern pattern){
-		for(int i=0; i<WindowPattern.SPACES_HEIGTH; i++){
+		for(int i = 0; i<WindowPattern.SPACES_HEIGHT; i++){
 			for(int j=0; j<WindowPattern.SPACES_LENGTH; j++) {
 				try {
 					if(! this.getSpace(i, j).equalsSpace(pattern.getSpace(i, j)))

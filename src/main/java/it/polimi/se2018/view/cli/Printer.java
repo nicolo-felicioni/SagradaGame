@@ -114,7 +114,7 @@ public class Printer {
 
         print("Difficulty : " + windowPattern.getDifficulty() + "\n");
 
-        for(int i=0; i<WindowPattern.SPACES_HEIGTH; i++){
+        for(int i = 0; i<WindowPattern.SPACES_HEIGHT; i++){
             for(int j=0; j<WindowPattern.SPACES_LENGTH; j++){
                 try {
                         print(windowPattern.getSpace(i, j));

@@ -2,8 +2,10 @@ package it.polimi.se2018.view.cli;
 
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
+import it.polimi.se2018.controller.updater.WindowPatternPosition;
 import it.polimi.se2018.event.DraftAndPlaceGameEvent;
 import it.polimi.se2018.event.UseToolCardGameEvent;
+import it.polimi.se2018.event.WindowPatternChosenGameEvent;
 import it.polimi.se2018.exceptions.*;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.network.client.ClientInterface;
@@ -27,6 +29,7 @@ public class CommandLineInterface extends AbstractView {
 
     private List<Player> players;
     private Player player;
+    private WindowPattern[] patterns;
     private RoundTrack roundTrack;
     private DraftPool draftPool;
     private PrivateObjectiveCard privateObjectiveCard;
@@ -51,6 +54,7 @@ public class CommandLineInterface extends AbstractView {
     public CommandLineInterface(){
         players=new ArrayList<>();
         keyboard = new MyScanner();
+        patterns = new WindowPattern[Player.N_WINDOW_PATTERNS];
     }
 
 
@@ -65,11 +69,45 @@ public class CommandLineInterface extends AbstractView {
 
 
     @Override
+    public void updatePlayer(String playerId){
+        Optional<Player> optionalPlayer = this.players.stream()
+                .filter(p -> p.getId().equals(playerId)).findAny();
+
+        if(!optionalPlayer.isPresent())
+            this.players.add(new Player(playerId));
+    }
+
+    @Override
+    public void updatePrivateObjectiveCard(String playerId, PrivateObjectiveCard card) {
+        this.players.stream().filter(p -> p.getId().equals(playerId))
+                .findAny().ifPresent(p -> p.setPrivateObjective(card));
+        //TODO IF NOT PRESENT?
+    }
+
+    @Override
+    public void updateWindowPattern(String playerId, WindowPattern windowPattern, WindowPatternPosition position) {
+
+        //if it is an update of the chosen window pattern
+        if(position == WindowPatternPosition.CHOSEN)
+            this.players.stream().filter(p -> p.getId().equals(playerId))
+                    .findAny().ifPresent(p -> {
+                try {
+                    p.choosePattern(windowPattern);
+                } catch (NotValidPatterException e) {
+                    e.printStackTrace(); //TODO GESTIONE ECCEZIONE
+                }
+            });
+        else //if it is an update of the initial set of windows
+            if(this.player.getId().equals(playerId)) //if it is this player's window
+                patterns[position.toInt()] = windowPattern;
+    }
+
+    @Override
     public void updateMoveDieFromDraftToWindow(Point p, Die draftedDie, String playerId) {
         Player wantedPlayer;
 
-        Optional<Player> optPlayer = this.players.stream().filter(pl -> pl.getId().equals(playerId)).findAny();
-
+        Optional<Player> optPlayer = this.players.stream()
+                .filter(pl -> pl.getId().equals(playerId)).findAny();
 
         if(optPlayer.isPresent()){
             wantedPlayer=optPlayer.get();
@@ -123,6 +161,7 @@ public class CommandLineInterface extends AbstractView {
             wantedPlayer.changePlayerStateTo(state);
 
             if(wantedPlayer.equalsPlayer(player)){
+                player.changePlayerStateTo(state);
                 menu = new PlayerMenu();
                 menu.executeMenu();
             }
@@ -202,23 +241,8 @@ public class CommandLineInterface extends AbstractView {
                 Printer.println(e.getMessage());
             }
         }while(loginError);
-    }
 
-    private void showMenu(Player player){
-        if(!player.getState().hasChosenWindowPattern()){
-            showMenuChooseWindowPattern(player);
-        }else if(player.getState().canEndTurn()){
-            showMenuYourTurn(player);
-        }else
-            Printer.println(NOT_YOUR_TURN_MESSAGE);
-    }
-
-    private void showMenuYourTurn(Player player) {
-
-    }
-
-    private void showMenuChooseWindowPattern(Player player) {
-        //TODO
+        this.player = new Player(username);
     }
 
 
@@ -231,22 +255,27 @@ public class CommandLineInterface extends AbstractView {
 
 
         public PlayerMenu(){
+            super();
+
             PlayerState state = player.getState();
+
             int i = 0;
+
             if(state.hasChosenWindowPattern()){
                 if(state.canEndTurn()){
                     if(state.canPlaceDie()){
-                        this.options.set(i, new PlaceDieOption());
+                        this.options.add(i, new PlaceDieOption());
                         i++;
                     }
                     if(state.canUseTool()){
-                        this.options.set(i, new UseToolOption());
+                        this.options.add(i, new UseToolOption());
                         i++;
                     }
 
-                    //this.options.set(i, new EndTurnOption);
+                    //this.options.add(i, new EndTurnOption);
                 }
-            }
+            }else
+                this.options.add(i, new ChooseWindowOption());
         }
 
         public void executeMenu(){
@@ -420,5 +449,47 @@ public class CommandLineInterface extends AbstractView {
     }
 
 
+    //----------------INNER CLASS CHOOSE WINDOW OPTION--------------------------------------------------------------------
+
+    class ChooseWindowOption extends Option{
+
+        private static final String CHOOSE_WINDOW_NAME = "Choose a window pattern.";
+        private static final String CHOOSE_WINDOW_MESSAGE = "Select a window pattern";
+        private static final String ERROR_CHOOSE_WINDOW = "There isn't any window with that number.";
+
+
+        public ChooseWindowOption(){
+            this.name = CHOOSE_WINDOW_NAME;
+        }
+
+
+        @Override
+        public void executeOption() {
+            int numberOfChosenWindow = selectWindow();
+            notifyObservers(new WindowPatternChosenGameEvent(patterns[numberOfChosenWindow], player.getId()));
+        }
+
+        private int selectWindow() {
+            boolean goodChoice = true;
+            int choice;
+            do{
+
+                Printer.println(CHOOSE_WINDOW_MESSAGE);
+                for(int i =0; i<patterns.length; i++){
+                    int n = i+1;
+                    Printer.print(n);
+                    Printer.println(":");
+                    Printer.print(patterns[i]);
+                }
+                choice = keyboard.readInt();
+                if(choice <=0 || choice > patterns.length){
+                    Printer.println(ERROR_CHOOSE_WINDOW);
+                    goodChoice = false;
+                }
+            }while(!goodChoice);
+
+            return (choice - 1);
+        }
+    }
 
 }

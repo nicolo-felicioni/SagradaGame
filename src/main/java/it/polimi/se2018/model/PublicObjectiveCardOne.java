@@ -36,7 +36,7 @@ public class PublicObjectiveCardOne extends PublicObjectiveCard {
 	@Override
 	public int calculatePoints(WindowPattern windowPattern) {
 		int numberOfRows = 0;
-		for(int i = 0; i < WindowPattern.SPACES_HEIGTH; i++) {
+		for(int i = 0; i < WindowPattern.SPACES_HEIGHT; i++) {
 			if (rowColorVariety(windowPattern.getSpacesRow(i))) {
 				numberOfRows++;
 			}

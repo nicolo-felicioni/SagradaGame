@@ -39,8 +39,8 @@ public class WindowPatternTest {
         int i=0;
 
 
-        spaces = new Space[WindowPattern.SPACES_HEIGTH][WindowPattern.SPACES_LENGTH];
-        blankSpaces = new Space[WindowPattern.SPACES_HEIGTH][WindowPattern.SPACES_LENGTH];
+        spaces = new Space[WindowPattern.SPACES_HEIGHT][WindowPattern.SPACES_LENGTH];
+        blankSpaces = new Space[WindowPattern.SPACES_HEIGHT][WindowPattern.SPACES_LENGTH];
 
         //first row : blank spaces
         for(int j=0; j<WindowPattern.SPACES_LENGTH; j++)
@@ -68,7 +68,7 @@ public class WindowPatternTest {
 
         window = new WindowPattern(spaces, randomDiff);
 
-        for(int k=0; k<WindowPattern.SPACES_HEIGTH; k++)
+        for(int k = 0; k<WindowPattern.SPACES_HEIGHT; k++)
             for(int j=0; j<WindowPattern.SPACES_LENGTH; j++)
                 blankSpaces[k][j] = new BlankSpace();
 
@@ -85,7 +85,7 @@ public class WindowPatternTest {
     @Test
     public void wrongCreationLength(){
         Space[][] wrongMatrix =
-                new Space[WindowPattern.SPACES_HEIGTH][WindowPattern.SPACES_LENGTH + 1];
+                new Space[WindowPattern.SPACES_HEIGHT][WindowPattern.SPACES_LENGTH + 1];
         try {
             new WindowPattern(wrongMatrix, randomDiff);
             fail();
@@ -100,7 +100,7 @@ public class WindowPatternTest {
     @Test
     public void wrongCreationHeight(){
         Space[][] wrongMatrix =
-                new Space[WindowPattern.SPACES_HEIGTH + 1][WindowPattern.SPACES_LENGTH];
+                new Space[WindowPattern.SPACES_HEIGHT + 1][WindowPattern.SPACES_LENGTH];
         try {
             WindowPattern wrongWindow = new WindowPattern(wrongMatrix, randomDiff);
             fail();
@@ -115,7 +115,7 @@ public class WindowPatternTest {
     @Test
     public void wrongCreationDiff(){
         Space[][] okMatrix =
-                new Space[WindowPattern.SPACES_HEIGTH][WindowPattern.SPACES_LENGTH];
+                new Space[WindowPattern.SPACES_HEIGHT][WindowPattern.SPACES_LENGTH];
         try {
             WindowPattern wrongWindow = new WindowPattern(okMatrix, randomDiff + 60);
             fail();
@@ -201,7 +201,7 @@ public class WindowPatternTest {
     @Test
     public void getAllSpaces() {
         Space[][] copy = window.getAllSpaces();
-        for(int i=0; i<WindowPattern.SPACES_HEIGTH; i++)
+        for(int i = 0; i<WindowPattern.SPACES_HEIGHT; i++)
             for(int j=0; j<WindowPattern.SPACES_LENGTH; j++) {
                 try {
                     assertTrue(copy[i][j].equalsSpace(window.getSpace(i, j)));
@@ -214,7 +214,7 @@ public class WindowPatternTest {
     @Test
     public void placeDieRandom() throws NotValidPointException {
 
-        int randX = (int) (Math.random() * WindowPattern.SPACES_HEIGTH);
+        int randX = (int) (Math.random() * WindowPattern.SPACES_HEIGHT);
         int randY = (int) (Math.random() * WindowPattern.SPACES_LENGTH);
         Die die = new Die(DieColor.getRandom(), DieValue.getRandom());
         Point p = new Point(randX, randY);
@@ -264,7 +264,7 @@ public class WindowPatternTest {
 
     @Test
     public void placeDieIgnoreColorRandom() throws NotValidPointException {
-        int randX = (int) (Math.random() * WindowPattern.SPACES_HEIGTH);
+        int randX = (int) (Math.random() * WindowPattern.SPACES_HEIGHT);
         int randY = (int) (Math.random() * WindowPattern.SPACES_LENGTH);
         Die die = new Die(DieColor.getRandom(), DieValue.getRandom());
         Point p = new Point(randX, randY);
@@ -311,7 +311,7 @@ public class WindowPatternTest {
 
     @Test
     public void placeDieIgnoreValueRandom() throws NotValidPointException {
-        int randX = (int) (Math.random() * WindowPattern.SPACES_HEIGTH);
+        int randX = (int) (Math.random() * WindowPattern.SPACES_HEIGHT);
         int randY = (int) (Math.random() * WindowPattern.SPACES_LENGTH);
         Die die = new Die(DieColor.getRandom(), DieValue.getRandom());
         Point p = new Point(randX, randY);
@@ -400,7 +400,7 @@ public class WindowPatternTest {
     }
     @Test
     public void placeDie1() throws NotValidPointException {
-        int randX = (int) (Math.random() * WindowPattern.SPACES_HEIGTH);
+        int randX = (int) (Math.random() * WindowPattern.SPACES_HEIGHT);
         int randY = (int) (Math.random() * WindowPattern.SPACES_LENGTH);
         Die die = new Die(DieColor.getRandom(), DieValue.getRandom());
 
@@ -448,7 +448,7 @@ public class WindowPatternTest {
 
     @Test
     public void placeDieIgnoreColor1() throws NotValidPointException {
-        int randX = (int) (Math.random() * WindowPattern.SPACES_HEIGTH);
+        int randX = (int) (Math.random() * WindowPattern.SPACES_HEIGHT);
         int randY = (int) (Math.random() * WindowPattern.SPACES_LENGTH);
         Die die = new Die(DieColor.getRandom(), DieValue.getRandom());
 
@@ -495,7 +495,7 @@ public class WindowPatternTest {
 
     @Test
     public void placeDieIgnoreValue1() throws NotValidPointException {
-        int randX = (int) (Math.random() * WindowPattern.SPACES_HEIGTH);
+        int randX = (int) (Math.random() * WindowPattern.SPACES_HEIGHT);
         int randY = (int) (Math.random() * WindowPattern.SPACES_LENGTH);
         Die die = new Die(DieColor.getRandom(), DieValue.getRandom());
 
@@ -620,7 +620,7 @@ public class WindowPatternTest {
         Space[] spacesColumnK = window.getSpacesColumn(k);
 
 
-        assertTrue(spacesColumnK.length == WindowPattern.SPACES_HEIGTH);
+        assertTrue(spacesColumnK.length == WindowPattern.SPACES_HEIGHT);
         assertTrue(!spacesColumnK[0].isValueRestricted() && !spacesColumnK[0].isColorRestricted() );
         assertTrue(spacesColumnK[1].isColorRestricted() );
         assertTrue(spacesColumnK[2].isColorRestricted());
@@ -634,7 +634,7 @@ public class WindowPatternTest {
         List<Space> myList = new ArrayList<>();
         Space temp;
 
-        for(int i=0; i<WindowPattern.SPACES_HEIGTH; i++){
+        for(int i = 0; i<WindowPattern.SPACES_HEIGHT; i++){
             for(int j=0; j<WindowPattern.SPACES_LENGTH; j++) {
                 myList.add(window.getSpace(i, j));
             }
@@ -660,7 +660,7 @@ public class WindowPatternTest {
 
         int count=0;
 
-        for(int i=0; i<WindowPattern.SPACES_HEIGTH; i++){
+        for(int i = 0; i<WindowPattern.SPACES_HEIGHT; i++){
             for(int j=0; j<WindowPattern.SPACES_LENGTH; j++) {
                 try {
                     window.placeDie(new Die(DieColor.getRandom(), DieValue.getRandom()), i, j);
@@ -681,7 +681,7 @@ public class WindowPatternTest {
     @Test
     public void cloneWindowPattern() throws NotValidPointException {
         WindowPattern clone = window.cloneWindowPattern();
-        for(int i=0; i<WindowPattern.SPACES_HEIGTH; i++)
+        for(int i = 0; i<WindowPattern.SPACES_HEIGHT; i++)
             for(int j=0; j<WindowPattern.SPACES_LENGTH; j++)
                 assertTrue(clone.getSpace(i, j).equalsSpace(window.getSpace(i, j)));
 

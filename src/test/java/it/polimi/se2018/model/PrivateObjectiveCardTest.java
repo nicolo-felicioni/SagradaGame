@@ -33,8 +33,8 @@ public class PrivateObjectiveCardTest {
 	@Test
 	public void testCalculatePoints2() {
 		try {
-			Space[][] spaces = new Space[WindowPattern.SPACES_HEIGTH][WindowPattern.SPACES_LENGTH];
-			for (int i = 0; i < WindowPattern.SPACES_HEIGTH; i++) {
+			Space[][] spaces = new Space[WindowPattern.SPACES_HEIGHT][WindowPattern.SPACES_LENGTH];
+			for (int i = 0; i < WindowPattern.SPACES_HEIGHT; i++) {
 				for (int j = 0; j < WindowPattern.SPACES_LENGTH; j++) {
 					spaces[i][j] = new BlankSpace();
 				}
@@ -69,8 +69,8 @@ public class PrivateObjectiveCardTest {
 	@Test
 	public void testCalculatePoints3() {
 		try {
-			Space[][] spaces = new Space[WindowPattern.SPACES_HEIGTH][WindowPattern.SPACES_LENGTH];
-			for (int i = 0; i < WindowPattern.SPACES_HEIGTH; i++) {
+			Space[][] spaces = new Space[WindowPattern.SPACES_HEIGHT][WindowPattern.SPACES_LENGTH];
+			for (int i = 0; i < WindowPattern.SPACES_HEIGHT; i++) {
 				for (int j = 0; j < WindowPattern.SPACES_LENGTH; j++) {
 					spaces[i][j] = new BlankSpace();
 				}
@@ -105,8 +105,8 @@ public class PrivateObjectiveCardTest {
 	@Test
 	public void testCalculatePoints4() {
 		try {
-			Space[][] spaces = new Space[WindowPattern.SPACES_HEIGTH][WindowPattern.SPACES_LENGTH];
-			for (int i = 0; i < WindowPattern.SPACES_HEIGTH; i++) {
+			Space[][] spaces = new Space[WindowPattern.SPACES_HEIGHT][WindowPattern.SPACES_LENGTH];
+			for (int i = 0; i < WindowPattern.SPACES_HEIGHT; i++) {
 				for (int j = 0; j < WindowPattern.SPACES_LENGTH; j++) {
 					spaces[i][j] = new BlankSpace();
 				}

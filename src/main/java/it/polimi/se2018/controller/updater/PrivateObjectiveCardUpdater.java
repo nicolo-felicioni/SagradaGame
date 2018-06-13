@@ -33,6 +33,6 @@ public class PrivateObjectiveCardUpdater implements ViewUpdaterInterface {
      */
     @Override
     public void update(View view) {
-        //TODO update view
+        view.updatePrivateObjectiveCard(playerId, card);
     }
 }

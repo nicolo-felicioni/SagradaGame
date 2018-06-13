@@ -56,7 +56,7 @@ public abstract class PublicObjectiveCard implements ObjectiveCard {
 	protected int getAmountOfDiceWith(WindowPattern windowPattern, DieValue value) {
 		Space[][] spaces = windowPattern.getAllSpaces();
 		int numberOfDice = 0;
-		for(int i = 0; i < WindowPattern.SPACES_HEIGTH; i++) {
+		for(int i = 0; i < WindowPattern.SPACES_HEIGHT; i++) {
 			for(int j = 0; j < WindowPattern.SPACES_LENGTH; j++) {
 				if(spaces[i][j].hasDie()) {
 					if (value.equals(spaces[i][j].getDie().getValue())) {
@@ -79,7 +79,7 @@ public abstract class PublicObjectiveCard implements ObjectiveCard {
 	protected int getAmountOfDiceWith(WindowPattern windowPattern, DieColor color) {
 		Space[][] spaces = windowPattern.getAllSpaces();
 		int numberOfDice = 0;
-		for(int i = 0; i < WindowPattern.SPACES_HEIGTH; i++) {
+		for(int i = 0; i < WindowPattern.SPACES_HEIGHT; i++) {
 			for(int j = 0; j < WindowPattern.SPACES_LENGTH; j++) {
 				if(spaces[i][j].hasDie()) {
 					if (color.equals(spaces[i][j].getDie().getColor())) {

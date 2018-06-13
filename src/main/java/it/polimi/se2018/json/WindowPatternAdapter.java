@@ -34,7 +34,7 @@ public class WindowPatternAdapter implements JsonSerializer<WindowPattern>, Json
 		JsonArray colorSpaces = windowPattern.getAsJsonArray(COLOR_SPACES);
 		JsonArray valueSpaces = windowPattern.getAsJsonArray(VALUE_SPACES);
 		int difficulty = windowPattern.getAsJsonPrimitive(DIFFICULTY).getAsInt();
-		Space[][] spaces = new Space[WindowPattern.SPACES_HEIGTH][WindowPattern.SPACES_LENGTH];
+		Space[][] spaces = new Space[WindowPattern.SPACES_HEIGHT][WindowPattern.SPACES_LENGTH];
 		for (int i = 0; i < spaces.length; i++) {
 			for (int j = 0; j < spaces[i].length; j++) {
 				spaces[i][j] = new BlankSpace();

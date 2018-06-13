@@ -2,8 +2,6 @@ package it.polimi.se2018.model;
 
 import it.polimi.se2018.exceptions.NotValidPointException;
 import it.polimi.se2018.exceptions.SpaceNotOccupiedException;
-import it.polimi.se2018.exceptions.UnboundDifficultyValueException;
-import it.polimi.se2018.exceptions.WindowPatternDimensionException;
 
 import java.util.List;
 
@@ -60,7 +58,7 @@ public class PublicObjectiveCardNine extends PublicObjectiveCard {
 	 *
 	 */
 	private Point getPointOfADice(WindowPattern windowPattern) {
-		for(int i = 0; i < WindowPattern.SPACES_HEIGTH; i++) {
+		for(int i = 0; i < WindowPattern.SPACES_HEIGHT; i++) {
 			for (int j = 0; j < WindowPattern.SPACES_LENGTH; j++) {
 				try {
 					Point p = new Point(i, j);
