@@ -392,6 +392,8 @@ public class Model implements ModelInterface, ViewUpdaterObservable {
         this.getPlayer(playerId).choosePattern(windowPattern);
     }
 
+    
+
     /**
      * Add a view updater observer.
      *

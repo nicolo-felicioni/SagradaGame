@@ -139,7 +139,7 @@ public class Player {
 
 	}
 
-
+	//TODO N javadoc
 	public PlayerState getState(){
 		//TODO - forse c'è bisogno del clone dello state
 		return this.state;
@@ -154,7 +154,7 @@ public class Player {
 		this.state = playerState;
 	}
 
-
+	//TODO N javadoc
 	public void placeDie(Point p, Die die) throws PlacementException, IllegalMoveTurnException {
 
 	    //TODO - Non so
@@ -167,6 +167,7 @@ public class Player {
 
 	}
 
+	//TODO N javadoc
 	public void placeDie(int x, int y, Die die) throws GameMoveException, NotValidPointException {
 
 		Point p = new Point(x, y);
@@ -205,6 +206,7 @@ public class Player {
 		}
 	}
 
+	//TODO N javadoc
 	public void useTool(ToolCard card) throws GameMoveException {
 		if(this.state.canUseTool()){
 		    this.useTool(card);
@@ -215,16 +217,19 @@ public class Player {
 
 	}
 
+	//TODO N javadoc
 	public void endTurn() throws GameMoveException{
 		if(this.state.canEndTurn())
 		    this.endTurn();
 		else throw new IllegalMoveTurnException("You can't end turn");
 	}
 
+	//TODO N javadoc
 	public boolean equalsPlayer(Player player){
 		return this.getId().equals(player.getId());
 	}
 
+	//TODO N javadoc
 	public String toString(){
 		return ("Player id: "+ this.getId());
 	}
@@ -236,5 +241,12 @@ public class Player {
 		this.changePlayerStateTo(new YourTurnState());
 	}
 
+	/**
+	 * Return true if the player has chosen a window pattern.
+	 * @return true if the player has chosen a window pattern.
+	 */
+	public boolean hasChosenWindowPattern() {
+		return chosenPattern != null;
+	}
 
 }

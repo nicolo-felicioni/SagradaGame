@@ -201,6 +201,7 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(WindowPatternChosenGameEvent event) {
+		System.out.println(" ===> Window pattern choice received."); //TODO println
 		try {
 			this.model.setChosenWindowPattern(event.getPlayerId(), event.getWindow());
 		} catch (NotValidPatterException e) {
@@ -208,10 +209,13 @@ public class Controller implements GameEventObserver {
 		} catch (NotValidIdException e) {
 			e.printStackTrace();
 		}
-		//TODO controllare che tutti abbiano la loro window pattern
-		this.initPublicObjectiveCards();
-		this.initPublicObjectiveCards();
-		this.firstTurn();
+		if(this.checkAllPlayersHaveChosenWindowPattern()) {
+			System.out.println(" ===> All players have chosen a window pattern..."); //TODO println
+			System.out.println(" ===> Init public objective cards and tool cards..."); //TODO println
+			this.initPublicObjectiveCards();
+			this.initToolCards();
+			this.firstTurn();
+		}
 	}
 
 	/**
@@ -346,6 +350,10 @@ public class Controller implements GameEventObserver {
 		}
 	}
 
+	/**
+	 * Init the players' state.
+	 * The initial state is ChooseWindowPatternState.
+	 */
 	private void initPlayerState() {
 		model.getPlayersId().stream().forEach(id -> {
 			try {
@@ -354,5 +362,18 @@ public class Controller implements GameEventObserver {
 				e.printStackTrace();
 			}
 		});
+	}
+
+	/**
+	 * Check if all players have chosen a window pattern.
+	 * @return true if all players have chosen a window pattern.
+	 */
+	private boolean checkAllPlayersHaveChosenWindowPattern(){
+		for(Player p : model.getPlayers()){
+			if(!p.hasChosenWindowPattern()) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
