@@ -51,7 +51,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	/**
 	 * Interval of time to wait before to start a game.
 	 */
-	public static int TIMER_WAIT_START_GAME = 6000;
+	public static int TIMER_WAIT_START_GAME = 10000;
 
 	/**
 	 * Constructor.
@@ -119,7 +119,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 			this.timer.disable();
 		}
 		if(this.playerSessions.size() >= MIN_PLAYER) {
-			System.out.println(" ==> Timer started. " + TIMER_WAIT_START_GAME/1000 + " seconds countdown."); //TODO println
+			System.out.println(" ==> GameRoom :: Timer started. " + TIMER_WAIT_START_GAME/1000 + " seconds countdown."); //TODO println
 			this.timer = new Timer(time);
 			new Thread(timer).start();
 		}
@@ -354,7 +354,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	 */
 	@Override
 	public void handle(ViewUpdaterInterface updater) {
-		System.out.println(" <=== View Updater received"); //TODO println
+		System.out.println(" <=== GameRoom :: View Updater received. Type : " + updater.getClass().getSimpleName() + "."); //TODO println
 		this.notify(updater);
 	}
 
@@ -386,7 +386,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 					Thread.sleep(this.time);
 				}
 				if(isActive()) {
-					System.out.println(" ==> Time out. Game is starting..."); //TODO println
+					System.out.println(" ==> GameRoom :: Time out. Game is starting..."); //TODO println
 					List<String> playerIds = new ArrayList<>();
 					playerSessions.stream().forEach(s -> playerIds.add(s.getUID()));
 					handle(new StartGameEvent(playerIds));

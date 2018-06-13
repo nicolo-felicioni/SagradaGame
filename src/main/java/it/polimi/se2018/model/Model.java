@@ -9,6 +9,7 @@ import it.polimi.se2018.controller.PlayerStateUpdater;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.controller.ViewUpdaterObservable;
 import it.polimi.se2018.controller.ViewUpdaterObserver;
+import it.polimi.se2018.controller.updater.*;
 import it.polimi.se2018.exceptions.*;
 
 import java.util.*;
@@ -325,6 +326,7 @@ public class Model implements ModelInterface, ViewUpdaterObservable {
      */
     public void setPrivateObjectiveCardToPlayer (String id, PrivateObjectiveCard card) throws NotValidIdException {
         this.getPlayer(id).setPrivateObjective(card);
+        this.notify(new PrivateObjectiveCardUpdater(id, card));
     }
 
     /**
@@ -334,6 +336,10 @@ public class Model implements ModelInterface, ViewUpdaterObservable {
      */
     public void setPatternsToPlayer(String id, WindowPattern[] patterns) throws NotValidPatternVectorException, NotValidIdException {
         this.getPlayer(id).setPatterns(patterns);
+        this.notify(new WindowPatternUpdater(id, patterns[WindowPatternPosition.FIRST.toInt()], WindowPatternPosition.FIRST));
+        this.notify(new WindowPatternUpdater(id, patterns[WindowPatternPosition.SECOND.toInt()], WindowPatternPosition.SECOND));
+        this.notify(new WindowPatternUpdater(id, patterns[WindowPatternPosition.THIRD.toInt()], WindowPatternPosition.THIRD));
+        this.notify(new WindowPatternUpdater(id, patterns[WindowPatternPosition.FOURTH.toInt()], WindowPatternPosition.FOURTH));
     }
 
     /**
@@ -350,6 +356,9 @@ public class Model implements ModelInterface, ViewUpdaterObservable {
      */
     public void setToolCards(ToolCard[] cards) {
         this.toolCards = cards;
+        this.notify(new ToolCardUpdater(cards[CardPosition.LEFT.toInt()], CardPosition.LEFT));
+        this.notify(new ToolCardUpdater(cards[CardPosition.CENTER.toInt()], CardPosition.CENTER));
+        this.notify(new ToolCardUpdater(cards[CardPosition.RIGHT.toInt()], CardPosition.RIGHT));
     }
 
     /**
@@ -390,9 +399,10 @@ public class Model implements ModelInterface, ViewUpdaterObservable {
      */
     public void setChosenWindowPattern(String playerId, WindowPattern windowPattern) throws NotValidPatterException, NotValidIdException {
         this.getPlayer(playerId).choosePattern(windowPattern);
+        this.notify(new WindowPatternUpdater(playerId, windowPattern));
     }
 
-    
+
 
     /**
      * Add a view updater observer.

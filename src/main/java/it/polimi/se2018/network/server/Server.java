@@ -67,7 +67,7 @@ public class Server {
 	 * @throws LoginException if the login fails.
 	 */
 	public void login(String uid, SessionInterface session) throws LoginException {
-		System.out.println(" => Player " + uid + " connected"); //TODO println
+		System.out.println(" => Server :: Player " + uid + " connected"); //TODO println
 		//Look for a game room where a client has already logged in.
 		GameRoom room = getGameRoom(uid);
 		if(room == null) {
@@ -75,7 +75,7 @@ public class Server {
 			room = getNotStartedGameRoom();
 			if(room == null) {
 				//Create a new game room.
-				System.out.println(" => Game room created."); //TODO println
+				System.out.println(" => Server :: Game room created."); //TODO println
 				room = new GameRoom();
 				roomList.add(room);
 			}

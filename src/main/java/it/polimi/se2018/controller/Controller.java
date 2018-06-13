@@ -201,7 +201,7 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(WindowPatternChosenGameEvent event) {
-		System.out.println(" ===> Window pattern choice received."); //TODO println
+		System.out.println(" ===> Controller :: Window pattern choice received."); //TODO println
 		try {
 			this.model.setChosenWindowPattern(event.getPlayerId(), event.getWindow());
 		} catch (NotValidPatterException e) {
@@ -210,8 +210,8 @@ public class Controller implements GameEventObserver {
 			e.printStackTrace();
 		}
 		if(this.checkAllPlayersHaveChosenWindowPattern()) {
-			System.out.println(" ===> All players have chosen a window pattern..."); //TODO println
-			System.out.println(" ===> Init public objective cards and tool cards..."); //TODO println
+			System.out.println(" ===> Controller :: All players have chosen a window pattern..."); //TODO println
+			System.out.println(" ===> Controller :: Init public objective cards and tool cards..."); //TODO println
 			this.initPublicObjectiveCards();
 			this.initToolCards();
 			this.firstTurn();
@@ -225,7 +225,7 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(StartGameEvent event) {
-		System.out.println(" ===> Game started. Initializing the model..."); //TODO println
+		System.out.println(" ===> Controller :: Game started. Initializing the model..."); //TODO println
 		this.startGame(event.getPlayerIds());
 		this.initPrivateObjectiveCards();
 		this.initWindowPatterns();
