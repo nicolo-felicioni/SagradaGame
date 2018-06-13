@@ -2,9 +2,7 @@ package it.polimi.se2018.network.rmi;
 
 import it.polimi.se2018.event.*;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.network.server.SessionInterface;
-import it.polimi.se2018.network.utils.NetworkViewUpdaterObserver;
 import it.polimi.se2018.observable.GameEventObservableImpl;
 
 import java.io.Serializable;
@@ -16,7 +14,7 @@ import java.util.List;
 /**
  * @author davide yi xian hu
  */
-public class RMIServerSession extends GameEventObservableImpl implements Remote, SessionInterface, Serializable {
+public class RMIServerSession extends GameEventObservableImpl implements SessionInterface, RMIServerSessionInterface {
 
 	/**
 	 * RMI Client
@@ -228,7 +226,7 @@ public class RMIServerSession extends GameEventObservableImpl implements Remote,
 	 * @param event the StartGameEvent.
 	 */
 	@Override
-	public void handle(StartGameEvent event) throws RemoteException {
+	public void handle(StartGameEvent event) {
 		this.notifyObservers(event);
 	}
 

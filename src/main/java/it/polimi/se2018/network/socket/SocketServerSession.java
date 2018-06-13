@@ -4,17 +4,13 @@ import it.polimi.se2018.event.*;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.exceptions.NetworkException;
-import it.polimi.se2018.exceptions.SessionException;
 import it.polimi.se2018.network.server.Server;
 import it.polimi.se2018.network.server.SessionInterface;
-import it.polimi.se2018.network.utils.NetworkCommandObserver;
-import it.polimi.se2018.network.utils.NetworkViewUpdaterObserver;
 import it.polimi.se2018.observer.*;
 
 import java.io.*;
 import java.net.Socket;
 import java.rmi.RemoteException;
-import java.util.List;
 
 /**
  * @author davide yi xian hu
@@ -25,11 +21,6 @@ public class SocketServerSession implements SessionInterface {
 	private ObjectInputStream inStream;
 	private ObjectOutputStream outStream;
 	private NetworkListener listener;
-
-	/**
-	 * Server session controller.
-	 */
-	private List<NetworkCommandObserver> observers;
 
 
 	public SocketServerSession(Socket socket) {
@@ -661,196 +652,6 @@ public class SocketServerSession implements SessionInterface {
 	 */
 	@Override
 	public void notifyObservers(WindowPatternChosenGameEvent event) {
-
-	}
-
-	/**
-	 * Handle a ChooseDraftDieValueEvent.
-	 *
-	 * @param event the ChooseDraftDieValueEvent.
-	 */
-	@Override
-	public void handle(ChooseDraftDieValueGameEvent event) throws RemoteException {
-
-	}
-
-	/**
-	 * Handle a DecreaseDieValueEvent.
-	 *
-	 * @param event the DecreaseDieValueEvent.
-	 */
-	@Override
-	public void handle(DecreaseDieValueGameEvent event) throws RemoteException {
-
-	}
-
-	/**
-	 * Handle a DraftAndPlaceAgainEvent.
-	 *
-	 * @param event the DraftAndPlaceAgainEvent.
-	 */
-	@Override
-	public void handle(DraftAndPlaceAgainGameEvent event) throws RemoteException {
-
-	}
-
-	/**
-	 * Handle a DraftAndPlaceNoAdjacentEvent.
-	 *
-	 * @param event the DraftAndPlaceNoAdjacentEvent.
-	 */
-	@Override
-	public void handle(DraftAndPlaceNoAdjacentGameEvent event) throws RemoteException {
-
-	}
-
-	/**
-	 * Handle a DraftAndPlaceEvent.
-	 *
-	 * @param event the DraftAndPlaceEvent.
-	 */
-	@Override
-	public void handle(DraftAndPlaceGameEvent event) throws RemoteException {
-
-	}
-
-	/**
-	 * Handle a EndTurnEvent.
-	 *
-	 * @param event the EndTurnEvent.
-	 */
-	@Override
-	public void handle(EndTurnGameEvent event) throws RemoteException {
-
-	}
-
-	/**
-	 * Handle a FlipDraftDieEvent.
-	 *
-	 * @param event the FlipDraftDieEvent.
-	 */
-	@Override
-	public void handle(FlipDraftDieGameEvent event) throws RemoteException {
-
-	}
-
-	/**
-	 * Handle a IncreaseDieValueEvent.
-	 *
-	 * @param event the IncreaseDieValueEvent.
-	 */
-	@Override
-	public void handle(IncreaseDieValueGameEvent event) throws RemoteException {
-
-	}
-
-	/**
-	 * Handle a MoveDieIgnoreColorRestrictionEvent.
-	 *
-	 * @param event the MoveDieIgnoreColorRestrictionEvent.
-	 */
-	@Override
-	public void handle(MoveDieIgnoreColorRestrictionGameEvent event) throws RemoteException {
-
-	}
-
-	/**
-	 * Handle a MoveDieIgnoreValueRestrictionEvent.
-	 *
-	 * @param event the MoveDieIgnoreValueRestrictionEvent.
-	 */
-	@Override
-	public void handle(MoveDieIgnoreValueRestrictionGameEvent event) throws RemoteException {
-
-	}
-
-	/**
-	 * Handle a MoveDieMatchColorRoundTrackEvent.
-	 *
-	 * @param event the MoveDieMatchColorRoundTrackEvent.
-	 */
-	@Override
-	public void handle(MoveDieMatchColorRoundTrackGameEvent event) throws RemoteException {
-
-	}
-
-	/**
-	 * Handle a MoveDieRespectAllRestrictionsEvent.
-	 *
-	 * @param event the MoveDieRespectAllRestrictionsEvent.
-	 */
-	@Override
-	public void handle(MoveDieRespectAllRestrictionsGameEvent event) throws RemoteException {
-
-	}
-
-	/**
-	 * Handle a RerollAllDraftDiceEvent.
-	 *
-	 * @param event the RerollAllDraftDiceEvent.
-	 */
-	@Override
-	public void handle(RerollAllDraftDiceGameEvent event) throws RemoteException {
-
-	}
-
-	/**
-	 * Handle a RerollDraftDieEvent.
-	 *
-	 * @param event the RerollDraftDieEvent.
-	 */
-	@Override
-	public void handle(RerollDraftDieGameEvent event) throws RemoteException {
-
-	}
-
-	/**
-	 * Handle a StartGameEvent.
-	 *
-	 * @param event the StartGameEvent.
-	 */
-	@Override
-	public void handle(StartGameEvent event) throws RemoteException {
-
-	}
-
-	/**
-	 * Handle a SwapDraftDieWithDiceBagDieEvent.
-	 *
-	 * @param event the SwapDraftDieWithDiceBagDieEvent.
-	 */
-	@Override
-	public void handle(SwapDraftDieWithDiceBagDieGameEvent event) throws RemoteException {
-
-	}
-
-	/**
-	 * Handle a SwapDraftDieWithRoundTrackDieEvent.
-	 *
-	 * @param event the SwapDraftDieWithRoundTrackDieEvent.
-	 */
-	@Override
-	public void handle(SwapDraftDieWithRoundTrackDieGameEvent event) throws RemoteException {
-
-	}
-
-	/**
-	 * Handle a UseToolCardEvent.
-	 *
-	 * @param event the UseToolCardEvent.
-	 */
-	@Override
-	public void handle(UseToolCardGameEvent event) throws RemoteException {
-
-	}
-
-	/**
-	 * Handle a WindowPatternChosenEvent.
-	 *
-	 * @param event the WindowPatternChosenEvent.
-	 */
-	@Override
-	public void handle(WindowPatternChosenGameEvent event) throws RemoteException {
 
 	}
 

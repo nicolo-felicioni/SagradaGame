@@ -5,6 +5,7 @@ import it.polimi.se2018.event.*;
 import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.network.client.AbstractClient;
+import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.observer.*;
 import it.polimi.se2018.view.AbstractView;
 import it.polimi.se2018.view.View;
@@ -20,7 +21,7 @@ import java.util.List;
 /**
  * @author davide yi xian hu
  */
-public class RMIClient extends AbstractClient implements RMIClientInterface {
+public class RMIClient implements RMIClientInterface, ClientInterface {
 
 	/**
 	 * RMI server.
@@ -40,13 +41,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	/**
 	 * The network game event observers;
 	 */
-	private List<NetworkGameEventObserver> observers;
+	private List<RMIServerSessionInterface> sessions;
 
 	/**
 	 * Constructor.
 	 */
 	public RMIClient(View view) {
-		observers = new ArrayList<>();
+		this.sessions = new ArrayList<>();
 		this.view = view;
 	}
 
@@ -80,8 +81,7 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	@Override
 	public void login(String uid) throws LoginException {
 		try {
-		    NetworkGameEventObserver o = server.login(uid, this);
-			this.addGameObserver(o);
+			sessions.add((RMIServerSessionInterface) server.login(uid, this));
 		}catch(RemoteException | NetworkException e) {
 			e.printStackTrace();
 			throw new LoginException("Login to server failed.");
@@ -99,13 +99,30 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	}
 
 	/**
+	 * Handle a view update from the network.
+	 *
+	 * @param updater the view updater.
+	 */
+	@Override
+	public void handle(ViewUpdaterInterface updater){
+		updater.update(this.view);
+	}
+
+
+	/**
 	 * Handle a ChooseDraftDieValueEvent.
 	 *
 	 * @param event the ChooseDraftDieValueEvent.
 	 */
 	@Override
 	public void handle(ChooseDraftDieValueGameEvent event) {
-		this.notifyObservers(event);
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -115,7 +132,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void handle(DecreaseDieValueGameEvent event) {
-		this.notifyObservers(event);
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -125,7 +148,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void handle(DraftAndPlaceAgainGameEvent event) {
-		this.notifyObservers(event);
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -135,7 +164,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void handle(DraftAndPlaceNoAdjacentGameEvent event) {
-		this.notifyObservers(event);
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -145,7 +180,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void handle(DraftAndPlaceGameEvent event) {
-		this.notifyObservers(event);
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -155,7 +196,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void handle(EndTurnGameEvent event) {
-		this.notifyObservers(event);
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -165,7 +212,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void handle(FlipDraftDieGameEvent event) {
-		this.notifyObservers(event);
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -175,7 +228,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void handle(IncreaseDieValueGameEvent event) {
-		this.notifyObservers(event);
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -185,7 +244,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void handle(MoveDieIgnoreColorRestrictionGameEvent event) {
-		this.notifyObservers(event);
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -195,7 +260,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void handle(MoveDieIgnoreValueRestrictionGameEvent event) {
-		this.notifyObservers(event);
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -205,7 +276,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void handle(MoveDieMatchColorRoundTrackGameEvent event) {
-		this.notifyObservers(event);
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -215,7 +292,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void handle(MoveDieRespectAllRestrictionsGameEvent event) {
-		this.notifyObservers(event);
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -225,7 +308,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void handle(RerollAllDraftDiceGameEvent event) {
-		this.notifyObservers(event);
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -235,7 +324,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void handle(RerollDraftDieGameEvent event) {
-		this.notifyObservers(event);
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -245,7 +340,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void handle(StartGameEvent event) {
-		this.notifyObservers(event);
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -255,7 +356,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void handle(SwapDraftDieWithDiceBagDieGameEvent event) {
-		this.notifyObservers(event);
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -265,7 +372,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void handle(SwapDraftDieWithRoundTrackDieGameEvent event) {
-		this.notifyObservers(event);
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -275,7 +388,13 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void handle(UseToolCardGameEvent event) {
-		this.notifyObservers(event);
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
 	}
 
 	/**
@@ -285,343 +404,12 @@ public class RMIClient extends AbstractClient implements RMIClientInterface {
 	 */
 	@Override
 	public void handle(WindowPatternChosenGameEvent event) {
-		this.notifyObservers(event);
-	}
-
-	/**
-	 * Handle a view update from the network.
-	 *
-	 * @param updater the view updater.
-	 * @throws RemoteException  if RMI errors occur during the connection.
-	 * @throws NetworkException if any connection error occurs during the connection.
-	 */
-	@Override
-	public void handle(ViewUpdaterInterface updater){
-		updater.update(this.view);
-	}
-
-	/**
-	 * Add a NetworkGameEventObserver.
-	 *
-	 * @param observer the NetworkGameEventObserver.
-	 */
-	@Override
-	public void addGameObserver(NetworkGameEventObserver observer) {
-		this.observers.add(observer);
-	}
-
-	/**
-	 * Remove a NetworkGameEventObserver.
-	 *
-	 * @param observer the NetworkGameEventObserver.
-	 */
-	@Override
-	public void removeGameObserver(NetworkGameEventObserver observer) {
-		this.observers.remove(observer);
-	}
-
-	/**
-	 * Notify the ChooseDraftDieValueObservers an ChooseDraftDieValueEvent.
-	 *
-	 * @param event the ChooseDraftDieValueEvent.
-	 */
-	@Override
-	public void notifyObservers(ChooseDraftDieValueGameEvent event) {
-		this.observers.forEach(observer -> {
+		this.sessions.forEach(session -> {
 			try {
-				observer.handle(event);
+				session.handle(event);
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
 		});
 	}
-
-	/**
-	 * Notify the DecreaseDieValueObservers an DecreaseDieValueEvent.
-	 *
-	 * @param event the DecreaseDieValueEvent.
-	 */
-	@Override
-	public void notifyObservers(DecreaseDieValueGameEvent event) {
-		this.observers.forEach(observer -> {
-			try {
-				observer.handle(event);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Notify the DraftAndPlaceAgainObservers an DraftAndPlaceAgainEvent.
-	 *
-	 * @param event the DraftAndPlaceAgainEvent.
-	 */
-	@Override
-	public void notifyObservers(DraftAndPlaceAgainGameEvent event) {
-		this.observers.forEach(observer -> {
-			try {
-				observer.handle(event);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Notify the DraftAndPlaceNoAdjacentObservers an DraftAndPlaceNoAdjacentEvent.
-	 *
-	 * @param event the DraftAndPlaceNoAdjacentEvent.
-	 */
-	@Override
-	public void notifyObservers(DraftAndPlaceNoAdjacentGameEvent event) {
-		this.observers.forEach(observer -> {
-			try {
-				observer.handle(event);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Notify the DraftAndPlaceObservers an DraftAndPlaceEvent.
-	 *
-	 * @param event the DraftAndPlaceEvent.
-	 */
-	@Override
-	public void notifyObservers(DraftAndPlaceGameEvent event) {
-		this.observers.forEach(observer -> {
-			try {
-				observer.handle(event);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Notify the EndTurnObservers an EndTurnEvent.
-	 *
-	 * @param event the EndTurnEvent.
-	 */
-	@Override
-	public void notifyObservers(EndTurnGameEvent event) {
-		this.observers.forEach(observer -> {
-			try {
-				observer.handle(event);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Notify the FlipDraftDieObservers an FlipDraftDieEvent.
-	 *
-	 * @param event the FlipDraftDieEvent.
-	 */
-	@Override
-	public void notifyObservers(FlipDraftDieGameEvent event) {
-		this.observers.forEach(observer -> {
-			try {
-				observer.handle(event);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Notify the IncreaseDieValueObservers an IncreaseDieValueEvent.
-	 *
-	 * @param event the IncreaseDieValueEvent.
-	 */
-	@Override
-	public void notifyObservers(IncreaseDieValueGameEvent event) {
-		this.observers.forEach(observer -> {
-			try {
-				observer.handle(event);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Notify the MoveDieIgnoreColorRestrictionObservers an MoveDieIgnoreColorRestrictionEvent.
-	 *
-	 * @param event the MoveDieIgnoreColorRestrictionEvent.
-	 */
-	@Override
-	public void notifyObservers(MoveDieIgnoreColorRestrictionGameEvent event) {
-		this.observers.forEach(observer -> {
-			try {
-				observer.handle(event);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Notify the MoveDieIgnoreValueRestrictionObservers an MoveDieIgnoreValueRestrictionEvent.
-	 *
-	 * @param event the MoveDieIgnoreValueRestrictionEvent.
-	 */
-	@Override
-	public void notifyObservers(MoveDieIgnoreValueRestrictionGameEvent event) {
-		this.observers.forEach(observer -> {
-			try {
-				observer.handle(event);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Notify the MoveDieMatchColorRoundTrackObservers an MoveDieMatchColorRoundTrackEvent.
-	 *
-	 * @param event the MoveDieMatchColorRoundTrackEvent.
-	 */
-	@Override
-	public void notifyObservers(MoveDieMatchColorRoundTrackGameEvent event) {
-		this.observers.forEach(observer -> {
-			try {
-				observer.handle(event);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Notify the MoveDieRespectAllRestrictionObservers an MoveDieRespectAllRestrictionEvent.
-	 *
-	 * @param event the MoveDieRespectAllRestrictionEvent.
-	 */
-	@Override
-	public void notifyObservers(MoveDieRespectAllRestrictionsGameEvent event) {
-		this.observers.forEach(observer -> {
-			try {
-				observer.handle(event);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Notify the RerollAllDraftDiceObservers an RerollAllDraftDiceEvent.
-	 *
-	 * @param event the RerollAllDraftDiceEvent.
-	 */
-	@Override
-	public void notifyObservers(RerollAllDraftDiceGameEvent event) {
-		this.observers.forEach(observer -> {
-			try {
-				observer.handle(event);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Notify the RerollDraftDieObservers an RerollDraftDieEvent.
-	 *
-	 * @param event the RerollDraftDieEvent.
-	 */
-	@Override
-	public void notifyObservers(RerollDraftDieGameEvent event) {
-		this.observers.forEach(observer -> {
-			try {
-				observer.handle(event);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Notify the StartGameObservers an StartGameEvent.
-	 *
-	 * @param event the StartGameEvent.
-	 */
-	@Override
-	public void notifyObservers(StartGameEvent event) {
-		this.observers.forEach(observer -> {
-			try {
-				observer.handle(event);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Notify the SwapDraftDieWithDiceBagDieObservers an SwapDraftDieWithDiceBagDieEvent.
-	 *
-	 * @param event the SwapDraftDieWithDiceBagDieEvent.
-	 */
-	@Override
-	public void notifyObservers(SwapDraftDieWithDiceBagDieGameEvent event) {
-		this.observers.forEach(observer -> {
-			try {
-				observer.handle(event);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Notify the SwapDrafDieWithRoundTrackDieObservers an SwapDrafDieWithRoundTrackDieEvent.
-	 *
-	 * @param event the SwapDrafDieWithRoundTrackDieEvent.
-	 */
-	@Override
-	public void notifyObservers(SwapDraftDieWithRoundTrackDieGameEvent event) {
-		this.observers.forEach(observer -> {
-			try {
-				observer.handle(event);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Notify the UseToolCardObservers an UseToolCardEvent.
-	 *
-	 * @param event the UseToolCardEvent.
-	 */
-	@Override
-	public void notifyObservers(UseToolCardGameEvent event) {
-		this.observers.forEach(observer -> {
-			try {
-				observer.handle(event);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Notify the WindowPatternChosenObservers an WindowPatternChosenEvent.
-	 *
-	 * @param event the WindowPatternChosenEvent.
-	 */
-	@Override
-	public void notifyObservers(WindowPatternChosenGameEvent event) {
-		this.observers.forEach(observer -> {
-			try {
-				observer.handle(event);
-			} catch (RemoteException e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
 }
