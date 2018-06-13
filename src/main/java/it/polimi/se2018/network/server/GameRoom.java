@@ -1,15 +1,12 @@
 package it.polimi.se2018.network.server;
 
-import com.sun.glass.ui.View;
 import it.polimi.se2018.controller.ViewUpdaterObserver;
 import it.polimi.se2018.event.*;
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.model.Model;
 import it.polimi.se2018.observable.GameEventObservableImpl;
 
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
