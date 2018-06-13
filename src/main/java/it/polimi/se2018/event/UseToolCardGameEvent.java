@@ -1,5 +1,6 @@
 package it.polimi.se2018.event;
 
+import it.polimi.se2018.controller.updater.CardPosition;
 import it.polimi.se2018.observer.GameEventObserver;
 
 /**
@@ -10,14 +11,14 @@ public class UseToolCardGameEvent extends AbstractPlayerGameEvent {
 	/**
 	 * The position of the tool card.
 	 */
-	private int positionOfToolCard;
+	private CardPosition positionOfToolCard;
 
 	/**
 	 * Constructor.
 	 * @param position the position of the tool card.
 	 * @param playerId the player identifier.
 	 */
-	public UseToolCardGameEvent(int position, String playerId) {
+	public UseToolCardGameEvent(CardPosition position, String playerId) {
 		super(playerId);
 		this.positionOfToolCard = position;
 	}
@@ -27,7 +28,7 @@ public class UseToolCardGameEvent extends AbstractPlayerGameEvent {
 	 * Getter of the position of the tool card.
 	 * @return the position of the tool card.
 	 */
-	public int getPositionOfToolCard() {
+	public CardPosition getPositionOfToolCard() {
 		return positionOfToolCard;
 	}
 

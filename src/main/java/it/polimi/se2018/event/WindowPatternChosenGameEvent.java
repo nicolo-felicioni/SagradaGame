@@ -20,7 +20,7 @@ public class WindowPatternChosenGameEvent extends AbstractPlayerGameEvent {
 	 */
 	public WindowPatternChosenGameEvent(WindowPattern window, String playerId) {
 		super(playerId);
-		this.window = window;
+		this.window = window.cloneWindowPattern();
 	}
 
 	/**
@@ -28,7 +28,7 @@ public class WindowPatternChosenGameEvent extends AbstractPlayerGameEvent {
 	 * @return window pattern chosen by the player.
 	 */
 	public WindowPattern getWindow() {
-		return window;
+		return window.cloneWindowPattern();
 	}
 
 	/**

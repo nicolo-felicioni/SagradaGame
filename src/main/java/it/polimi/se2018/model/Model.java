@@ -5,11 +5,8 @@ package it.polimi.se2018.model;
  */
 
 
-import it.polimi.se2018.controller.PlayerStateUpdater;
-import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.controller.ViewUpdaterObservable;
-import it.polimi.se2018.controller.ViewUpdaterObserver;
-import it.polimi.se2018.controller.factory.PlayerUpdater;
+import it.polimi.se2018.controller.*;
+import it.polimi.se2018.controller.updater.PlayerUpdater;
 import it.polimi.se2018.controller.updater.*;
 import it.polimi.se2018.exceptions.*;
 
@@ -287,6 +284,7 @@ public class Model implements ModelInterface, ViewUpdaterObservable {
     public void removeDieFromDraftPool(Die die) {
         //TODO - dire a gao di modificare draftPool
         draftPool.removeDie(die);
+        this.notify(new DraftPoolUpdater(draftPool));
     }
 
 

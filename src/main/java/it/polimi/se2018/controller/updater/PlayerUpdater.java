@@ -1,4 +1,4 @@
-package it.polimi.se2018.controller.factory;
+package it.polimi.se2018.controller.updater;
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.view.View;

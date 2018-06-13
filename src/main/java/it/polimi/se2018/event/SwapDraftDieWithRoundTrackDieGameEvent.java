@@ -26,8 +26,8 @@ public class SwapDraftDieWithRoundTrackDieGameEvent extends AbstractPlayerGameEv
 	 */
 	public SwapDraftDieWithRoundTrackDieGameEvent(Die draftDie, Die roundTrackDie, String playerId) {
 		super(playerId);
-		this.draftDie = draftDie;
-		this.roundTrackDie = roundTrackDie;
+		this.draftDie = new Die(draftDie);
+		this.roundTrackDie = roundTrackDie; //TODO manca il clone
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class SwapDraftDieWithRoundTrackDieGameEvent extends AbstractPlayerGameEv
 	 * @return the die in the draft pool.
 	 */
 	public Die getDraftDie() {
-		return draftDie;
+		return new Die(draftDie);
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class SwapDraftDieWithRoundTrackDieGameEvent extends AbstractPlayerGameEv
 	 */
 	public Die getRoundTrackDie() {
 		return roundTrackDie;
-	}
+	} //TODO manca il clone
 
 	/**
 	 * Accept an observer. Visitor pattern.

@@ -32,7 +32,7 @@ public class PrivateObjectiveCardsFactory {
      * If this method will be called multiple times, it will never return the same card.
      */
     public PrivateObjectiveCard drawCard() {
-        return cards.remove((int) Math.random() * cards.size());
+        return cards.remove(new Random().nextInt(cards.size()));
     }
 
 }

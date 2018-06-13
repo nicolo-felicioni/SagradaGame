@@ -71,7 +71,18 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(DraftAndPlaceGameEvent event) {
-
+		try {
+			if (model.getPlayer(event.getPlayerId()).getPattern().isPlaceable(event.getDraftedDie(), event.getPoint()) &&
+					model.getDraftPool().hasDie(event.getDraftedDie())) {
+				model.removeDieFromDraftPool(event.getDraftedDie());
+				model.placeDie(event.getPoint(), event.getDraftedDie(), event.getPlayerId());
+			}
+		} catch (NotValidIdException e) {
+			e.printStackTrace();
+		} catch (GameException e) {
+			e.printStackTrace();
+		}
+		//TODO validare il posizionamento
 	}
 
 	/**

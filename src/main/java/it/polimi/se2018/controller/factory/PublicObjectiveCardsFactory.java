@@ -4,6 +4,7 @@ import it.polimi.se2018.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class PublicObjectiveCardsFactory {
 
@@ -35,7 +36,7 @@ public class PublicObjectiveCardsFactory {
      * If this method will be called multiple times, it will never return the same card.
      */
     public PublicObjectiveCard drawCard() {
-        return cards.remove((int) Math.random() * cards.size());
+        return cards.remove(new Random().nextInt(cards.size()));
     }
 
     /**

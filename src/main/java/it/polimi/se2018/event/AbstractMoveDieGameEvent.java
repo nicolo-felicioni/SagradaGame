@@ -25,8 +25,8 @@ public abstract class AbstractMoveDieGameEvent extends AbstractPlayerGameEvent {
 	 */
 	public AbstractMoveDieGameEvent(Point initialPosition, Point finalPosition, String playerId) {
 		super(playerId);
-		this.initialPosition = initialPosition;
-		this.finalPosition = finalPosition;
+		this.initialPosition = initialPosition.clonePoint();
+		this.finalPosition = finalPosition.clonePoint();
 	}
 
 	/**
@@ -34,7 +34,7 @@ public abstract class AbstractMoveDieGameEvent extends AbstractPlayerGameEvent {
 	 * @return the initial position.
 	 */
 	public Point getInitialPosition() {
-		return initialPosition;
+		return initialPosition.clonePoint();
 	}
 
 	/**
@@ -42,7 +42,7 @@ public abstract class AbstractMoveDieGameEvent extends AbstractPlayerGameEvent {
 	 * @return the final position.
 	 */
 	public Point getFinalPosition() {
-		return finalPosition;
+		return finalPosition.clonePoint();
 	}
 
 }

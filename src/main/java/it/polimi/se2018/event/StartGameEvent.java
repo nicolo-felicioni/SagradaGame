@@ -17,7 +17,8 @@ public class StartGameEvent implements GameEvent {
      * @param playerIds a list of player identifiers.
      */
     public StartGameEvent(List<String> playerIds) {
-        this.playerIds = playerIds;
+        this.playerIds = new ArrayList<>();
+        this.playerIds.addAll(playerIds);
     }
 
     /**

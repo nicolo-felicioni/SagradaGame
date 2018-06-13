@@ -20,7 +20,7 @@ public class ChooseDraftDieValueGameEvent extends AbstractPlayerGameEvent {
 	 */
 	public ChooseDraftDieValueGameEvent(Die draftedDie, String playerId) {
 		super(playerId);
-		this.draftedDie = draftedDie;
+		this.draftedDie = new Die(draftedDie);
 	}
 
 	/**
@@ -28,7 +28,7 @@ public class ChooseDraftDieValueGameEvent extends AbstractPlayerGameEvent {
 	 * @return the drafted die from the draft pool.
 	 */
 	public Die getDraftedDie() {
-		return draftedDie;
+		return new Die(draftedDie);
 	}
 
 	/**

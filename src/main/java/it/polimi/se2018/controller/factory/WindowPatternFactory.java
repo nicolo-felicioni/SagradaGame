@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author davide yi xian hu
@@ -31,7 +32,7 @@ public class WindowPatternFactory {
 	}
 
 	public WindowPattern getWindowPattern() {
-		return windows.get((int) Math.random() * windows.size());
+		return windows.remove(new Random().nextInt(windows.size()));
 	}
 
 	public WindowPattern[] getWindowPattern(int n) {
