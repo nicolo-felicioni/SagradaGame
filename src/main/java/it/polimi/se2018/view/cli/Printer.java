@@ -161,17 +161,9 @@ public class Printer {
     public static void print(DraftPool draftPool){
 
         print(OPEN_BRACKET);
-        try {
-            draftPool.getAllDice().stream().forEach(Printer::print);
-        } catch (DraftPoolEmptyException e) {
-
-        }finally {
-            print(CLOSED_BRACKET);
-            newLine();
-        }
-
-
-
+        draftPool.getAllDice().stream().forEach(Printer::print);
+        print(CLOSED_BRACKET);
+        newLine();
     }
 
     /**

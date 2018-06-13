@@ -36,6 +36,10 @@ public class Die implements Serializable {
 		this.value = die.getValue();
 	}
 
+	public static Die getRandomDie(){
+		return new Die(DieColor.getRandom(), DieValue.getRandom());
+	}
+
 	public String getValueUnicode(){
 		switch (this.getValue().toInt()) {
 			case 1:

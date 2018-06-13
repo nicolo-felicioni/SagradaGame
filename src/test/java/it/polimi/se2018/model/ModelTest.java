@@ -4,13 +4,15 @@ import it.polimi.se2018.exceptions.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class ModelTest {
 
     Model model;
 
-    public WindowPattern createBlankWindow(){
+    WindowPattern createBlankWindow(){
         int randomDiff;
         Space[][] blankSpaces;
 
@@ -77,6 +79,62 @@ public class ModelTest {
 
         assertTrue(model.getPlayers().stream().findAny()
                 .filter(player -> player.equalsPlayer(nico)).isPresent());
+
+
+    }
+
+    @Test
+    public void addPlayerException() {
+        Player nico = new Player("Nico");
+
+        try {
+            model.addPlayer(nico);
+        } catch (TooManyPlayersException e) {
+            fail();
+        } catch (NotValidIdException e) {
+            fail();
+        }
+
+        try {
+            model.addPlayer(nico);
+            fail();
+        } catch (TooManyPlayersException e) {
+            fail();
+        } catch (NotValidIdException e) {
+            //ok
+        }
+
+
+    }
+
+    @Test
+    public void addPlayerException1() {
+        Player one = new Player("one");
+        Player two = new Player("two");
+        Player three = new Player("three");
+        Player four = new Player("four");
+        Player five = new Player("five");
+
+
+        try {
+            model.addPlayer(one);
+            model.addPlayer(two);
+            model.addPlayer(three);
+            model.addPlayer(four);
+        } catch (TooManyPlayersException e) {
+            fail();
+        } catch (NotValidIdException e) {
+            fail();
+        }
+
+        try {
+            model.addPlayer(five);
+            fail();
+        } catch (TooManyPlayersException e) {
+            //ok
+        } catch (NotValidIdException e) {
+            fail();
+        }
 
 
     }
@@ -195,6 +253,21 @@ public class ModelTest {
 
     @Test
     public void getPlayers() {
+
+        assertTrue(model.getPlayers().isEmpty());
+
+        try {
+            model.addPlayer(new Player("Nico"));
+            model.addPlayer(new Player("Davide"));
+        } catch (TooManyPlayersException e) {
+            e.printStackTrace();
+        } catch (NotValidIdException e) {
+            e.printStackTrace();
+        }
+        List<Player> players = model.getPlayers();
+
+        assertTrue(players.stream().anyMatch(player -> player.getId().equals("Nico")));
+        assertTrue(players.stream().anyMatch(player -> player.getId().equals("Davide")));
     }
 
     @Test
@@ -247,18 +320,97 @@ public class ModelTest {
     }
 
     @Test
-    public void placeDie1() {
+    public void placeDie1() throws NotValidPatternVectorException, NotValidPatterException, NotValidIdException, NotValidPointException {
+        WindowPattern window0 = createBlankWindow();
+        WindowPattern window1 = createBlankWindow();
+        WindowPattern window2 = createBlankWindow();
+        WindowPattern window3 = createBlankWindow();
+        Player player = new Player("Nico");
+        Die die = new Die(DieColor.RED, DieValue.ONE);
+
+
+
+        WindowPattern[] patterns = new WindowPattern[4];
+
+        patterns[0] = window0;
+        patterns[1] = window1;
+        patterns[2] = window2;
+        patterns[3] = window3;
+
+        player.setPatterns(patterns);
+
+        player.choosePattern(window0);
+
+        player.changePlayerStateTo(new YourTurnState());
+
+
+        try {
+            model.addPlayer(player);
+        } catch (TooManyPlayersException e) {
+
+        }
+
+        try {
+            model.placeDie(new Point (0, 0), die, player);
+        } catch (GameException e) {
+            System.out.println(e);
+        }
+
+        assertTrue(model.getPlayer("Nico").getPattern().getSpace(0, 0).getDie().equalsDie(die));
+
     }
 
     @Test
-    public void getPlayerTokens() {
+    public void getPlayerTokens() throws GameException, TooManyPlayersException {
+        WindowPattern window0 = createBlankWindow();
+        WindowPattern window1 = createBlankWindow();
+        WindowPattern window2 = createBlankWindow();
+        WindowPattern window3 = createBlankWindow();
+        Player player = new Player("Nico");
+        Die die = new Die(DieColor.RED, DieValue.ONE);
+
+
+
+        WindowPattern[] patterns = new WindowPattern[4];
+
+        patterns[0] = window0;
+        patterns[1] = window1;
+        patterns[2] = window2;
+        patterns[3] = window3;
+
+        player.setPatterns(patterns);
+        player.choosePattern(window0);
+
+        player.changePlayerStateTo(new YourTurnState());
+
+        model.addPlayer(player);
+
+        assertEquals(player.getTokens(), model.getPlayerTokens(player.getId()));
+    }
+
+    @Test
+    public void getPlayersId() throws NotValidIdException, TooManyPlayersException {
+        String nico = "Nico";
+        String davide = "Davide";
+
+        model.addPlayer(new Player(nico));
+        model.addPlayer(new Player(davide));
+
+        assertTrue(model.getPlayersId().stream().anyMatch(s -> s.equals(nico)));
+
+        assertTrue(model.getPlayersId().stream().anyMatch(s -> s.equals(davide)));
     }
 
     @Test
     public void removeDieFromDraftPool() {
+
     }
 
     @Test
-    public void drawDiceFromDiceBag() {
+    public void drawDiceFromDiceBag() throws NotValidIdException, TooManyPlayersException, DiceBagException {
+        model.addPlayer(new Player("Nico"));
+        model.addPlayer(new Player("Davide"));
+
+        assertEquals(5, model.drawDiceFromDiceBag().size());
     }
 }

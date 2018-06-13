@@ -100,7 +100,7 @@ public interface ModelInterface {
      *
      * @param die
      */
-    public void removeDieFromDraftPool(Die die);
+    public void removeDieFromDraftPool(Die die) throws NotValidDieException;
 
 
     /**

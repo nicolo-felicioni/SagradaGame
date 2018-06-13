@@ -372,12 +372,7 @@ public class CommandLineInterface extends AbstractView {
                     number = i+1;
                     Printer.print(number);
                     Printer.print(": ");
-                    try {
-                        Printer.print(draftPool.getAllDice().get(i));
-                    } catch (DraftPoolEmptyException e) {
-                        //TODO - DUBBIA ECCEZIONE
-                        Printer.print("there's no die");
-                    }
+                    Printer.print(draftPool.getAllDice().get(i));
                 }
 
 
@@ -390,14 +385,9 @@ public class CommandLineInterface extends AbstractView {
 
             }while (!goodChoice);
 
-            try {
-                return draftPool.getAllDice().get(choice - 1);
-            } catch (DraftPoolEmptyException e) {
-                //TODO
-            }
 
-            return null; //TODO
-        }
+            return draftPool.getAllDice().get(choice - 1);
+            }
 
 
     }
