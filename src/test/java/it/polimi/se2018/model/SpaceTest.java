@@ -382,4 +382,20 @@ public class SpaceTest {
         assertFalse(newValueSpace.equalsSpace(valueSpace));
 
     }
+
+    @Test
+    public void toStringTest(){
+        System.out.println(blankSpace);
+        System.out.println(colorSpace);
+        System.out.println(valueSpace);
+
+        try {
+            blankSpace.placeDie(new Die(DieColor.BLUE, DieValue.ONE));
+        } catch (PlacementException e) {
+            //impossible
+        }
+
+        System.out.println(blankSpace);
+
+    }
 }

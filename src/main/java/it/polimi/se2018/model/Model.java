@@ -34,22 +34,22 @@ public class Model implements ModelInterface, ViewUpdaterObservable {
     /**
      * Maximum amount of player.
      */
-    public final static int MAX_NUMBER_OF_PLAYERS = 4;
+    public static final int MAX_NUMBER_OF_PLAYERS = 4;
 
     /**
      * The amount of cards in a set of tool cards.
      */
-    public final static int SET_OF_TOOL_CARDS_SIZE = 3;
+    public static final int SET_OF_TOOL_CARDS_SIZE = 3;
 
     /**
      * The amount of cards in a set of public objective cards.
      */
-    public final static int SET_OF_PUBLIC_OBJECTIVE_CARDS_SIZE = 3;
+    public static final int SET_OF_PUBLIC_OBJECTIVE_CARDS_SIZE = 3;
 
     /**
      * The max round.
      */
-    public final static int MAX_ROUND = 10;
+    public static final int MAX_ROUND = 10;
 
     /**
      * Constructor of the class.
@@ -141,8 +141,7 @@ public class Model implements ModelInterface, ViewUpdaterObservable {
      * @return the draft pool.
      */
     public DraftPool getDraftPool() {
-        //TODO - manca il clone della draft pool
-        throw new UnsupportedOperationException();
+        return this.draftPool.cloneDraftPool();
     }
 
 
@@ -284,8 +283,7 @@ public class Model implements ModelInterface, ViewUpdaterObservable {
      *
      * @param die
      */
-    public void removeDieFromDraftPool(Die die) {
-        //TODO - dire a gao di modificare draftPool
+    public void removeDieFromDraftPool(Die die) throws NotValidDieException {
         draftPool.removeDie(die);
     }
 
