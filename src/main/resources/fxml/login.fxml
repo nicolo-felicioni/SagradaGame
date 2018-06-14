@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.collections.FXCollections?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.se2018.view.gui.fxmlController.loginController">
+   <center>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="480.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="223.0" fitWidth="569.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/logo-sagrada.png" />
+               </image>
+            </ImageView>
+            <Label text="Account">
+               <VBox.margin>
+                  <Insets left="20.0" top="5.0" />
+               </VBox.margin>
+            </Label>
+            <TextField>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <ChoiceBox prefWidth="150.0" value="RMI">
+               <VBox.margin>
+                  <Insets left="162.0" top="5.0" />
+               </VBox.margin>
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="RMI" />
+                     <String fx:value="Socket" />
+                  </FXCollections>
+               </items>
+
+            </ChoiceBox>
+            <Button mnemonicParsing="false" text="Log in">
+               <VBox.margin>
+                  <Insets left="190.0" top="5.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </center>
+   <top>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </top>
+   <left>
+      <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
+   </right>
+   <bottom>
+      <Pane prefHeight="96.0" prefWidth="1280.0" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>
