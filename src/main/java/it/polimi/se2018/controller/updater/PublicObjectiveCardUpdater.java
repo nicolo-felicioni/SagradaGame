@@ -2,28 +2,29 @@ package it.polimi.se2018.controller.updater;
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.model.CardPosition;
+import it.polimi.se2018.model.PublicObjectiveCard;
 import it.polimi.se2018.model.ToolCard;
 import it.polimi.se2018.view.View;
 
-public class ToolCardUpdater implements ViewUpdaterInterface {
+public class PublicObjectiveCardUpdater implements ViewUpdaterInterface {
 
     /**
-     * The tool card.
+     * The public objective card.
      */
-    private ToolCard toolCard;
+    private PublicObjectiveCard publicObjectiveCard;
 
     /**
-     * The tool card position.
+     * The public objective card position.
      */
     private CardPosition position;
 
     /**
      * Constructor.
-     * @param toolCard the tool card.
+     * @param publicObjectiveCard the public objective card.
      * @param position the position of the tool card.
      */
-    public ToolCardUpdater(ToolCard toolCard, CardPosition position){
-        this.toolCard = toolCard.cloneToolCard();
+    public PublicObjectiveCardUpdater(PublicObjectiveCard publicObjectiveCard, CardPosition position){
+        this.publicObjectiveCard = publicObjectiveCard;
         this.position = position;
     }
 
@@ -34,6 +35,6 @@ public class ToolCardUpdater implements ViewUpdaterInterface {
      */
     @Override
     public void update(View view) {
-        view.updateToolCard(toolCard, position.toInt());
+        //TODO N update public objective card.
     }
 }

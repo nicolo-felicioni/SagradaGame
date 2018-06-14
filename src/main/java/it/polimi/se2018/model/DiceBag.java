@@ -90,4 +90,12 @@ public class DiceBag implements Serializable {
 		return numberOfPresentDice.stream().noneMatch(integer -> integer > 0);
 	}
 
+	/**
+	 * Clone method. It ruterns a new copy of this dice bag.
+	 * @return a new copy of this dice bag.
+	 */
+	public DiceBag cloneDiceBag() {
+		return new DiceBag(this);
+	}
+
 }

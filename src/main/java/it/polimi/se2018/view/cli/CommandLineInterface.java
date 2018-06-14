@@ -2,8 +2,8 @@ package it.polimi.se2018.view.cli;
 
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.controller.updater.CardPosition;
-import it.polimi.se2018.controller.updater.WindowPatternPosition;
+import it.polimi.se2018.model.CardPosition;
+import it.polimi.se2018.model.WindowPatternPosition;
 import it.polimi.se2018.event.DraftAndPlaceGameEvent;
 import it.polimi.se2018.event.UseToolCardGameEvent;
 import it.polimi.se2018.event.WindowPatternChosenGameEvent;
@@ -15,7 +15,6 @@ import it.polimi.se2018.network.socket.SocketClient;
 import it.polimi.se2018.view.AbstractView;
 
 import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

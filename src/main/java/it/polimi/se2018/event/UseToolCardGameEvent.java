@@ -1,6 +1,6 @@
 package it.polimi.se2018.event;
 
-import it.polimi.se2018.controller.updater.CardPosition;
+import it.polimi.se2018.model.CardPosition;
 import it.polimi.se2018.observer.GameEventObserver;
 
 /**

@@ -1,7 +1,7 @@
 package it.polimi.se2018.controller.updater;
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.controller.updater.WindowPatternPosition;
+import it.polimi.se2018.model.WindowPatternPosition;
 import it.polimi.se2018.model.WindowPattern;
 import it.polimi.se2018.view.View;
 

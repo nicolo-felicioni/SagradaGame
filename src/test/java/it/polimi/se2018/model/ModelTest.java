@@ -278,115 +278,8 @@ public class ModelTest {
     public void getToolCards() {
     }
 
-    @Test
-    public void placeDie() throws NotValidPointException, NotValidPatternVectorException, NotValidPatterException, NotValidIdException {
-        WindowPattern window0 = createBlankWindow();
-        WindowPattern window1 = createBlankWindow();
-        WindowPattern window2 = createBlankWindow();
-        WindowPattern window3 = createBlankWindow();
-        Player player = new Player("Nico");
-        Die die = new Die(DieColor.RED, DieValue.ONE);
 
 
-
-        WindowPattern[] patterns = new WindowPattern[4];
-
-        patterns[0] = window0;
-        patterns[1] = window1;
-        patterns[2] = window2;
-        patterns[3] = window3;
-
-        player.setPatterns(patterns);
-
-        player.choosePattern(window0);
-
-        player.changePlayerStateTo(new YourTurnState());
-
-
-        try {
-            model.addPlayer(player);
-        } catch (TooManyPlayersException e) {
-
-        }
-
-        try {
-            model.placeDie(new Point (0, 0), die, "Nico");
-        } catch (GameException e) {
-            System.out.println(e);
-        }
-
-        assertTrue(model.getPlayer("Nico").getPattern().getSpace(0, 0).getDie().equalsDie(die));
-
-    }
-
-    @Test
-    public void placeDie1() throws NotValidPatternVectorException, NotValidPatterException, NotValidIdException, NotValidPointException {
-        WindowPattern window0 = createBlankWindow();
-        WindowPattern window1 = createBlankWindow();
-        WindowPattern window2 = createBlankWindow();
-        WindowPattern window3 = createBlankWindow();
-        Player player = new Player("Nico");
-        Die die = new Die(DieColor.RED, DieValue.ONE);
-
-
-
-        WindowPattern[] patterns = new WindowPattern[4];
-
-        patterns[0] = window0;
-        patterns[1] = window1;
-        patterns[2] = window2;
-        patterns[3] = window3;
-
-        player.setPatterns(patterns);
-
-        player.choosePattern(window0);
-
-        player.changePlayerStateTo(new YourTurnState());
-
-
-        try {
-            model.addPlayer(player);
-        } catch (TooManyPlayersException e) {
-
-        }
-
-        try {
-            model.placeDie(new Point (0, 0), die, player);
-        } catch (GameException e) {
-            System.out.println(e);
-        }
-
-        assertTrue(model.getPlayer("Nico").getPattern().getSpace(0, 0).getDie().equalsDie(die));
-
-    }
-
-    @Test
-    public void getPlayerTokens() throws GameException, TooManyPlayersException {
-        WindowPattern window0 = createBlankWindow();
-        WindowPattern window1 = createBlankWindow();
-        WindowPattern window2 = createBlankWindow();
-        WindowPattern window3 = createBlankWindow();
-        Player player = new Player("Nico");
-        Die die = new Die(DieColor.RED, DieValue.ONE);
-
-
-
-        WindowPattern[] patterns = new WindowPattern[4];
-
-        patterns[0] = window0;
-        patterns[1] = window1;
-        patterns[2] = window2;
-        patterns[3] = window3;
-
-        player.setPatterns(patterns);
-        player.choosePattern(window0);
-
-        player.changePlayerStateTo(new YourTurnState());
-
-        model.addPlayer(player);
-
-        assertEquals(player.getTokens(), model.getPlayerTokens(player.getId()));
-    }
 
     @Test
     public void getPlayersId() throws NotValidIdException, TooManyPlayersException {
@@ -406,11 +299,5 @@ public class ModelTest {
 
     }
 
-    @Test
-    public void drawDiceFromDiceBag() throws NotValidIdException, TooManyPlayersException, DiceBagException {
-        model.addPlayer(new Player("Nico"));
-        model.addPlayer(new Player("Davide"));
 
-        assertEquals(5, model.drawDiceFromDiceBag().size());
-    }
 }

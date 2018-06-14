@@ -253,4 +253,12 @@ public class Player {
 		return chosenPattern != null;
 	}
 
+	/**
+	 * Return a clone of this player.
+	 * @return a clone of this player.
+	 */
+	public Player clonePlayer() {
+		return new Player(this);
+	}
+
 }

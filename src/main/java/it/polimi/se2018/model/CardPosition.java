@@ -1,4 +1,4 @@
-package it.polimi.se2018.controller.updater;
+package it.polimi.se2018.model;
 
 import java.util.Arrays;
 import java.util.Optional;

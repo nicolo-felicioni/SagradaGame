@@ -1,7 +1,7 @@
 package it.polimi.se2018.view.gui.fxmlController;
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.controller.updater.WindowPatternPosition;
+import it.polimi.se2018.model.WindowPatternPosition;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.view.AbstractView;
