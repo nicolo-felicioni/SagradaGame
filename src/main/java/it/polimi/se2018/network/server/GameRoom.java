@@ -7,13 +7,14 @@ import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.model.Model;
 import it.polimi.se2018.observable.GameEventObservableImpl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author davide yi xian hu
  */
-public class GameRoom extends GameEventObservableImpl implements GameRoomInterface{
+public class GameRoom extends GameEventObservableImpl implements GameRoomInterface {
 
 	/**
 	 * If the game is already started, it's true. False otherwise.
@@ -48,7 +49,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	/**
 	 * Interval of time to wait before to start a game.
 	 */
-	public static int TIMER_WAIT_START_GAME = 10000;
+	public static int TIMER_WAIT_START_GAME = 5000;
 
 	/**
 	 * Constructor.

@@ -16,6 +16,6 @@ public interface RMIServerInterface extends Remote {
      * @return the session between the client and the server.
      * @throws RemoteException if RMI errors occur during the connection.
      */
-    SessionInterface login(String uid, RMIClientInterface client) throws RemoteException, NetworkException;
+    RMIServerSessionInterface login(String uid, RMIClientInterface client) throws RemoteException, NetworkException;
 
 }

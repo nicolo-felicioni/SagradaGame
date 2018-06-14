@@ -1,6 +1,8 @@
 package it.polimi.se2018.controller.updater;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Optional;
 
 public enum WindowPatternPosition implements Serializable {
     FIRST(0),
@@ -30,5 +32,12 @@ public enum WindowPatternPosition implements Serializable {
         return this.value;
     }
 
-
+    /**
+     * Return the position of the window pattern as a value.
+     * @return the position of the window pattern as a value.
+     */
+    public static WindowPatternPosition fromInt(int n){
+        Optional<WindowPatternPosition> returned = Arrays.asList(WindowPatternPosition.values()).stream().filter(o -> o.toInt() == n).findAny();
+        return returned.get();
+    }
 }

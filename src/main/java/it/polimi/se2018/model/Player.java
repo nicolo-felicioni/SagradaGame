@@ -39,9 +39,9 @@ public class Player {
 
 	public Player(Player copy){
 		this.id = copy.getId();
-		if(copy.patterns != null)
-			this.patterns = Arrays.copyOf(copy.patterns, copy.patterns.length);
-		if(copy.chosenPattern != null)
+		if(copy.patterns != null) //TODO a cosa serve questo if???
+			this.patterns = copy.getPatterns();
+		if(copy.chosenPattern != null)  //TODO a cosa serve questo if???
 			this.chosenPattern=copy.chosenPattern.cloneWindowPattern();
 		this.privateObjectiveCard=copy.privateObjectiveCard;
 		this.state=copy.state;
@@ -64,11 +64,12 @@ public class Player {
 	 * @param patterns a vector formed of four window pattern
 	 */
 	public void setPatterns(WindowPattern[] patterns) throws NotValidPatternVectorException {
-
-		if(patterns.length != 4)
+		if(patterns.length != N_WINDOW_PATTERNS)
 			throw new NotValidPatternVectorException("vector length:" + patterns.length);
-
-		this.patterns = Arrays.copyOf(patterns, patterns.length);
+		this.patterns = new WindowPattern[N_WINDOW_PATTERNS];
+		for(int i = 0; i < N_WINDOW_PATTERNS; i++) {
+			this.patterns[i] = patterns[i].cloneWindowPattern();
+		}
 	}
 
 	/**
@@ -76,7 +77,11 @@ public class Player {
 	 * @return an array with the 4 pattern this player can choose before starting the game.
 	 */
 	public WindowPattern[] getPatterns() {
-		return Arrays.copyOf(this.patterns, this.patterns.length);
+		WindowPattern[] patterns = new WindowPattern[N_WINDOW_PATTERNS];
+		for(int i = 0; i < N_WINDOW_PATTERNS; i++) {
+			patterns[i] = this.patterns[i].cloneWindowPattern();
+		}
+		return patterns;
 	}
 
 	/**

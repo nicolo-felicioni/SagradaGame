@@ -1,6 +1,7 @@
 package it.polimi.se2018.network.rmi;
 
 import it.polimi.se2018.exceptions.NetworkException;
+import it.polimi.se2018.network.server.GameRoom;
 import it.polimi.se2018.network.server.SessionInterface;
 import it.polimi.se2018.network.server.Server;
 
@@ -46,10 +47,11 @@ public class RMIServer implements RMIServerInterface {
 	 * @param client the client.
 	 * @return the session between the client and the server.
 	 */
-	public SessionInterface login(String uid, RMIClientInterface client) throws RemoteException, NetworkException {
+	public RMIServerSessionInterface login(String uid, RMIClientInterface client) throws RemoteException, NetworkException {
 		RMIServerSession session = new RMIServerSession(uid);
 		session.addClientObserver(client);
 		Server.getInstance().login(uid, session);
+		UnicastRemoteObject.exportObject(session, RMI_SERVER_PORT);
 		return session;
 	}
 }

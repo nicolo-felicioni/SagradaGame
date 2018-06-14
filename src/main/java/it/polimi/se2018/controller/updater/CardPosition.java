@@ -1,5 +1,8 @@
 package it.polimi.se2018.controller.updater;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 public enum CardPosition {
     LEFT(0),
     CENTER(1),
@@ -24,5 +27,10 @@ public enum CardPosition {
      */
     public int toInt(){
         return this.value;
+    }
+
+    public static CardPosition fromInt(int n){
+        Optional<CardPosition> returned = Arrays.asList(CardPosition.values()).stream().filter(o -> o.toInt() == n).findAny();
+        return returned.get();
     }
 }

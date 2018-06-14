@@ -9,6 +9,7 @@ import it.polimi.se2018.controller.*;
 import it.polimi.se2018.controller.updater.PlayerUpdater;
 import it.polimi.se2018.controller.updater.*;
 import it.polimi.se2018.exceptions.*;
+import it.polimi.se2018.view.cli.Option;
 
 import java.util.*;
 
@@ -260,7 +261,7 @@ public class Model implements ModelInterface, ViewUpdaterObservable {
      * @return true if a die can be placed in a space of the chosen window pattern respecting all restrictions.
      */
     public boolean isPlaceable(Point p, Die die, String id) throws NotValidIdException {
-        return getPlayer(id).isPlaceable(p, die);
+        return getPlayerById(id).isPlaceable(p, die);
     }
 
     /**
@@ -314,7 +315,7 @@ public class Model implements ModelInterface, ViewUpdaterObservable {
      * @throws NotEnoughTokenException if player has not enough favor tokens.
      */
     public void spendToken(int amount, String id) throws NotEnoughTokenException, NotValidIdException {
-        getPlayer(id).spendToken(amount);
+        getPlayerById(id).spendToken(amount);
     }
 
     /**
@@ -323,7 +324,7 @@ public class Model implements ModelInterface, ViewUpdaterObservable {
      * @param card the private objective card to be set.
      */
     public void setPrivateObjectiveCardToPlayer (String id, PrivateObjectiveCard card) throws NotValidIdException {
-        this.getPlayer(id).setPrivateObjective(card);
+        this.getPlayerById(id).setPrivateObjective(card);
         this.notify(new PrivateObjectiveCardUpdater(id, card));
     }
 
@@ -333,7 +334,7 @@ public class Model implements ModelInterface, ViewUpdaterObservable {
      * @param id the player identifier.
      */
     public void setPatternsToPlayer(String id, WindowPattern[] patterns) throws NotValidPatternVectorException, NotValidIdException {
-        this.getPlayer(id).setPatterns(patterns);
+        this.getPlayerById(id).setPatterns(patterns);
         this.notify(new WindowPatternUpdater(id, patterns[WindowPatternPosition.FIRST.toInt()], WindowPatternPosition.FIRST));
         this.notify(new WindowPatternUpdater(id, patterns[WindowPatternPosition.SECOND.toInt()], WindowPatternPosition.SECOND));
         this.notify(new WindowPatternUpdater(id, patterns[WindowPatternPosition.THIRD.toInt()], WindowPatternPosition.THIRD));
@@ -365,7 +366,7 @@ public class Model implements ModelInterface, ViewUpdaterObservable {
      * @throws GameMoveException if the player can not end his turn.
      */
     public void endTurn(String playerId) throws GameMoveException, NotValidIdException {
-        Player player = this.getPlayer(playerId);
+        Player player = this.getPlayerById(playerId);
         player.endTurn();
         this.notify(new PlayerStateUpdater(playerId, player.getState()));
     }
@@ -375,7 +376,7 @@ public class Model implements ModelInterface, ViewUpdaterObservable {
      * @param playerId the player identifier.
      */
     public void startTurn(String playerId) throws NotValidIdException {
-        Player player = this.getPlayer(playerId);
+        Player player = this.getPlayerById(playerId);
         player.startTurn();
         this.notify(new PlayerStateUpdater(playerId, player.getState()));
     }
@@ -385,7 +386,7 @@ public class Model implements ModelInterface, ViewUpdaterObservable {
      * @param playerId the player identifier.
      */
     public void changePlayerStateTo(String playerId, PlayerState state) throws NotValidIdException {
-        this.getPlayer(playerId).changePlayerStateTo(state);
+        this.getPlayerById(playerId).changePlayerStateTo(state);
         this.notify(new PlayerStateUpdater(playerId, state));
     }
 
@@ -396,7 +397,7 @@ public class Model implements ModelInterface, ViewUpdaterObservable {
      * @throws NotValidPatterException if the window pattern is not valid.
      */
     public void setChosenWindowPattern(String playerId, WindowPattern windowPattern) throws NotValidPatterException, NotValidIdException {
-        this.getPlayer(playerId).choosePattern(windowPattern);
+        this.getPlayerById(playerId).choosePattern(windowPattern);
         this.notify(new WindowPatternUpdater(playerId, windowPattern));
     }
 
@@ -430,5 +431,18 @@ public class Model implements ModelInterface, ViewUpdaterObservable {
     @Override
     public void notify(ViewUpdaterInterface updater) {
         this.observers.stream().forEach(observer -> observer.handle(updater));
+    }
+
+    /**
+     * Player getter.
+     * @param id the player identifer;
+     * @return the player.
+     */
+    private Player getPlayerById(String id) throws NotValidIdException{
+        Player returnedPlayer = this.players.stream().filter(p -> p.getId().equals(id)).findAny().get();
+        if(returnedPlayer == null) {
+            throw new NotValidIdException(id);
+        }
+        return returnedPlayer;
     }
 }

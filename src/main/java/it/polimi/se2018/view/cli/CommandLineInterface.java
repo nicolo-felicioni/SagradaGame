@@ -2,6 +2,7 @@ package it.polimi.se2018.view.cli;
 
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
+import it.polimi.se2018.controller.updater.CardPosition;
 import it.polimi.se2018.controller.updater.WindowPatternPosition;
 import it.polimi.se2018.event.DraftAndPlaceGameEvent;
 import it.polimi.se2018.event.UseToolCardGameEvent;
@@ -410,7 +411,7 @@ public class CommandLineInterface extends AbstractView {
         @Override
         public void executeOption() {
             int selectedToolCard = selectToolCard();
-            notifyObservers(new UseToolCardGameEvent(selectedToolCard, player.getId()));
+            notifyObservers(new UseToolCardGameEvent(CardPosition.fromInt(selectedToolCard), player.getId()));
         }
 
         private int selectToolCard() {
