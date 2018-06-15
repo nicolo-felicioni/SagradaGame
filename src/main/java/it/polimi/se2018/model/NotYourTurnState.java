@@ -13,6 +13,20 @@ import it.polimi.se2018.exceptions.PlacementException;
 
 public class NotYourTurnState extends PlayerState {
 
+    /**
+     * Constructor.
+     */
+    public NotYourTurnState() {
+        super();
+    }
+
+    /**
+     * Copy constructor.
+     * @param state the state. It has to be a Choose Window Pattern state.
+     */
+    public NotYourTurnState(NotYourTurnState state) {
+        super(state);
+    }
 
     /**
      * {@inheritDoc}
@@ -55,7 +69,17 @@ public class NotYourTurnState extends PlayerState {
      * {@inheritDoc}
      */
     @Override
-    public void useTool(ToolCard card) throws IllegalMoveTurnException {
+    public void useTool() throws IllegalMoveTurnException {
         throw new IllegalMoveTurnException("impossible to use a tool, it's not your turn");
+    }
+
+    /**
+     * Clone the player state. Return a copy.
+     *
+     * @return a clone of this state.
+     */
+    @Override
+    public PlayerState cloneState() {
+        return new NotYourTurnState(this);
     }
 }

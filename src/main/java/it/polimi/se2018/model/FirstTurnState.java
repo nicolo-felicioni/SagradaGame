@@ -8,6 +8,20 @@ import it.polimi.se2018.exceptions.*;
 
 public class FirstTurnState extends PlayerState {
 
+    /**
+     * Constructor.
+     */
+    public FirstTurnState() {
+        super();
+    }
+
+    /**
+     * Copy constructor.
+     * @param state the state. It has to be a Choose Window Pattern state.
+     */
+    public FirstTurnState(FirstTurnState state) {
+        super(state);
+    }
 
     @Override
     public boolean canPlaceDie() {
@@ -37,9 +51,19 @@ public class FirstTurnState extends PlayerState {
     }
 
     @Override
-    public void useTool(ToolCard card) throws IllegalMoveTurnException {
+    public void useTool() throws IllegalMoveTurnException {
         if(canUseTool())
-            this.setToolActivated(card);
+            this.setToolActivated();
         else throw new IllegalMoveTurnException("there's a toolcard activated already");
+    }
+
+    /**
+     * Clone the player state. Return a copy.
+     *
+     * @return a clone of this state.
+     */
+    @Override
+    public PlayerState cloneState() {
+        return new FirstTurnState(this);
     }
 }

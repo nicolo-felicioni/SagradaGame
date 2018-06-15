@@ -217,7 +217,7 @@ public class Player {
 		    this.setActiveToolCard(card);
         }
 
-        this.state.useTool(card); //if it can't be used, throws exception
+        this.state.useTool(); //if it can't be used, throws exception
 
 	}
 

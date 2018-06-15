@@ -101,4 +101,12 @@ public class Die implements Serializable {
 		return("Die color: " + color + "\nDie value: " + value);
 	}
 
+	/**
+	 * Return a die with the opposite value.
+	 * @return a die with the opposite value.
+	 */
+	public Die flip() {
+		return new Die(this.color, this.value.oppositeValue());
+	}
+
 }

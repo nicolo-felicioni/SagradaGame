@@ -9,16 +9,22 @@ public abstract class PlayerState implements PlayerStateInterface{
 
     private boolean diePlaced ;
     private boolean toolActivated ;
-    private ToolCard activeTool ;
 
 
 
     protected PlayerState(){
         this.diePlaced=false;
         this.toolActivated=false;
-        ToolCard activeTool = null;
     }
 
+    /**
+     * Copy constructor.
+     * @param state the state to be copied.
+     */
+    protected PlayerState(PlayerState state) {
+        this.diePlaced = state.isDiePlaced();
+        this.toolActivated = state.isToolActivated();
+    }
 
     /**
      * returns true if you have already placed a die in this turn
@@ -40,14 +46,8 @@ public abstract class PlayerState implements PlayerStateInterface{
         this.diePlaced = true;
     }
 
-    protected void setToolActivated(ToolCard tool){
-        this.activeTool=tool;
+    protected void setToolActivated(){
         this.toolActivated = true;
-    }
-
-
-    public ToolCard getActiveToolCard(){
-        return this.activeTool;
     }
 
 }

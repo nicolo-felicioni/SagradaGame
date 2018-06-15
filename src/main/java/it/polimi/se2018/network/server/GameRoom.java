@@ -148,8 +148,14 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	 *
 	 * @param updater the view updater.
 	 */
-	public void notify(ViewUpdaterInterface updater) {
-		this.observers.forEach(observer -> observer.handle(updater));
+	public void notifyObservers(ViewUpdaterInterface updater) {
+		this.observers.forEach(observer -> {
+			new Thread(new Runnable() {
+			@Override
+			public void run() {
+				observer.handle(updater);
+			}
+		}).start();});
 	}
 
 	/**
@@ -353,7 +359,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	@Override
 	public void handle(ViewUpdaterInterface updater) {
 		System.out.println(" <=== GameRoom :: View Updater received. Type : " + updater.getClass().getSimpleName() + "."); //TODO println
-		this.notify(updater);
+		this.notifyObservers(updater);
 	}
 
 	private class Timer implements Runnable {

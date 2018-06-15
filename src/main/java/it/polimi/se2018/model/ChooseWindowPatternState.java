@@ -4,6 +4,20 @@ import it.polimi.se2018.exceptions.IllegalMoveTurnException;
 
 public class ChooseWindowPatternState extends PlayerState {
 
+    /**
+     * Constructor.
+     */
+    public ChooseWindowPatternState() {
+        super();
+    }
+
+    /**
+     * Copy constructor.
+     * @param state the state. It has to be a Choose Window Pattern state.
+     */
+    public ChooseWindowPatternState(ChooseWindowPatternState state) {
+        super(state);
+    }
 
     @Override
     public boolean canPlaceDie() {
@@ -31,7 +45,19 @@ public class ChooseWindowPatternState extends PlayerState {
     }
 
     @Override
-    public void useTool(ToolCard card) throws IllegalMoveTurnException {
+    public void useTool() throws IllegalMoveTurnException {
         throw new IllegalMoveTurnException("Haven't chosen a window pattern yet");
     }
+
+    /**
+     * Clone the player state. Return a copy.
+     *
+     * @return a clone of this state.
+     */
+    @Override
+    public PlayerState cloneState() {
+        return new ChooseWindowPatternState(this);
+    }
+
+
 }

@@ -24,6 +24,6 @@ public interface ViewUpdaterObservable {
 	 *
 	 * @param updater the view updater to be executed.
 	 */
-	void notify(ViewUpdaterInterface updater);
+	void notifyObservers(ViewUpdaterInterface updater);
 
 }

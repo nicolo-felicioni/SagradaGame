@@ -22,7 +22,7 @@ public class ModelObservable extends Model implements ViewUpdaterObservable {
     }
 
     @Override
-    public void notify(ViewUpdaterInterface updater) {
+    public void notifyObservers(ViewUpdaterInterface updater) {
         //TODO
         observers.forEach(observer -> observer.handle(updater));
     }

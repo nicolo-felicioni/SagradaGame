@@ -77,7 +77,7 @@ public class Model implements ViewUpdaterObservable {
 
 
         this.players.add(player);
-        this.notify(new PlayerUpdater(player.getId()));
+        this.notifyObservers(new PlayerUpdater(player.getId()));
     }
 
     /**
@@ -129,7 +129,7 @@ public class Model implements ViewUpdaterObservable {
      */
     public void setDiceBag(DiceBag diceBag) {
         this.diceBag = diceBag.cloneDiceBag();
-        this.notify(new DiceBagUpdater(diceBag.cloneDiceBag()));
+        this.notifyObservers(new DiceBagUpdater(diceBag.cloneDiceBag()));
     }
 
     /**
@@ -146,7 +146,7 @@ public class Model implements ViewUpdaterObservable {
      */
     public void setRoundTrack(RoundTrack roundTrack) {
         this.roundTrack = roundTrack.cloneRoundTrack();
-        this.notify(new RoundTrackUpdater(roundTrack.cloneRoundTrack()));
+        this.notifyObservers(new RoundTrackUpdater(roundTrack.cloneRoundTrack()));
     }
 
     /**
@@ -163,7 +163,7 @@ public class Model implements ViewUpdaterObservable {
      */
     public void setDraftPool(DraftPool draftPool) {
         this.draftPool = draftPool.cloneDraftPool();
-        this.notify(new DraftPoolUpdater(draftPool.cloneDraftPool()));
+        this.notifyObservers(new DraftPoolUpdater(draftPool.cloneDraftPool()));
     }
 
     /**
@@ -189,7 +189,7 @@ public class Model implements ViewUpdaterObservable {
         if(toolCards != null) {
             this.toolCards[p.toInt()] = card.cloneToolCard();
         }
-        this.notify(new ToolCardUpdater(card.cloneToolCard(), p));
+        this.notifyObservers(new ToolCardUpdater(card.cloneToolCard(), p));
     }
 
     /**
@@ -215,7 +215,7 @@ public class Model implements ViewUpdaterObservable {
         if(publicObjectiveCards != null) {
             this.publicObjectiveCards[p.toInt()] = card;
         }
-        this.notify(new PublicObjectiveCardUpdater(card, p));
+        this.notifyObservers(new PublicObjectiveCardUpdater(card, p));
     }
 
     /**
@@ -246,13 +246,12 @@ public class Model implements ViewUpdaterObservable {
     }
 
     /**
-     *
-     * @param playerId
-     * @param windowPatterns
-     * @throws NotValidIdException
-     * @throws NotValidPatternVectorException
+     * Set the window patterns to be choosen to a player.
+     * @param playerId the player identifier.
+     * @param windowPatterns the window patterns.
+     * @throws NotValidIdException if there's no player with such a player identifer.
+     * @throws NotValidPatternVectorException if the array of window pattern is not valid.
      */
-    //TODO javadoc
     public void setWindowPatterns(String playerId, WindowPattern[] windowPatterns) throws NotValidIdException, NotValidPatternVectorException {
         Optional<Player> wantedPlayer = this.players.stream()
                 .filter(player -> player.getId().equals(playerId)).findAny();
@@ -261,20 +260,19 @@ public class Model implements ViewUpdaterObservable {
             throw new NotValidIdException("Wanted to get a player with a not valid id.");
 
         wantedPlayer.get().setPatterns(windowPatterns);
-        notify(new WindowPatternUpdater(playerId, windowPatterns[WindowPatternPosition.FIRST.toInt()].cloneWindowPattern(), WindowPatternPosition.FIRST));
-        notify(new WindowPatternUpdater(playerId, windowPatterns[WindowPatternPosition.SECOND.toInt()].cloneWindowPattern(), WindowPatternPosition.SECOND));
-        notify(new WindowPatternUpdater(playerId, windowPatterns[WindowPatternPosition.THIRD.toInt()].cloneWindowPattern(), WindowPatternPosition.THIRD));
-        notify(new WindowPatternUpdater(playerId, windowPatterns[WindowPatternPosition.FOURTH.toInt()].cloneWindowPattern(), WindowPatternPosition.FOURTH));
+        notifyObservers(new WindowPatternUpdater(playerId, windowPatterns[WindowPatternPosition.FIRST.toInt()].cloneWindowPattern(), WindowPatternPosition.FIRST));
+        notifyObservers(new WindowPatternUpdater(playerId, windowPatterns[WindowPatternPosition.SECOND.toInt()].cloneWindowPattern(), WindowPatternPosition.SECOND));
+        notifyObservers(new WindowPatternUpdater(playerId, windowPatterns[WindowPatternPosition.THIRD.toInt()].cloneWindowPattern(), WindowPatternPosition.THIRD));
+        notifyObservers(new WindowPatternUpdater(playerId, windowPatterns[WindowPatternPosition.FOURTH.toInt()].cloneWindowPattern(), WindowPatternPosition.FOURTH));
     }
 
     /**
-     *
-     * @param playerId
-     * @param windowPattern
-     * @throws NotValidIdException
-     * @throws NotValidPatterException
+     * Set the chosen window pattern to a player.
+     * @param playerId the player identifier.
+     * @param windowPattern the window pattern.
+     * @throws NotValidIdException if there's no player with such a player identifer.
+     * @throws NotValidPatterException if the window pattern is not valid.
      */
-    //TODO javadoc
     public void setChosenWindowPattern(String playerId, WindowPattern windowPattern) throws NotValidIdException, NotValidPatterException {
         Optional<Player> wantedPlayer = this.players.stream()
                 .filter(player -> player.getId().equals(playerId)).findAny();
@@ -284,16 +282,15 @@ public class Model implements ViewUpdaterObservable {
 
         wantedPlayer.get().choosePattern(windowPattern);
 
-        notify(new WindowPatternUpdater(playerId,windowPattern.cloneWindowPattern(), WindowPatternPosition.FOURTH));
+        notifyObservers(new WindowPatternUpdater(playerId,windowPattern.cloneWindowPattern(), WindowPatternPosition.FOURTH));
     }
 
     /**
-     *
-     * @param playerId
-     * @param privateObjectiveCard
-     * @throws NotValidIdException
+     * Set the private objective card to a player.
+     * @param playerId the player identifier.
+     * @param privateObjectiveCard the private objective card.
+     * @throws NotValidIdException if there's no player with such a player identifer.
      */
-    //TODO javadoc
     public void setPrivateObjectiveCard(String playerId, PrivateObjectiveCard privateObjectiveCard) throws NotValidIdException {
         Optional<Player> wantedPlayer = this.players.stream()
                 .filter(player -> player.getId().equals(playerId)).findAny();
@@ -302,16 +299,15 @@ public class Model implements ViewUpdaterObservable {
             throw new NotValidIdException("Wanted to get a player with a not valid id.");
 
         wantedPlayer.get().setPrivateObjective(privateObjectiveCard);
-        notify(new PrivateObjectiveCardUpdater(playerId, privateObjectiveCard));
+        notifyObservers(new PrivateObjectiveCardUpdater(playerId, privateObjectiveCard));
     }
 
     /**
-     *
-     * @param playerId
-     * @param playerState
-     * @throws NotValidIdException
+     * Change a player state to another player state.
+     * @param playerId the player identifier.
+     * @param playerState the player state.
+     * @throws NotValidIdException if there's no player with such a player identifer.
      */
-    //TODO javadoc
     public void changePlayerStateTo(String playerId, PlayerState playerState) throws NotValidIdException {
         Optional<Player> wantedPlayer = this.players.stream()
                 .filter(player -> player.getId().equals(playerId)).findAny();
@@ -320,7 +316,7 @@ public class Model implements ViewUpdaterObservable {
             throw new NotValidIdException("Wanted to get a player with a not valid id.");
 
         wantedPlayer.get().changePlayerStateTo(playerState);
-        this.notify(new PlayerStateUpdater(playerId, playerState));
+        this.notifyObservers(new PlayerStateUpdater(playerId, playerState));
     }
 
     /**
@@ -357,9 +353,9 @@ public class Model implements ViewUpdaterObservable {
             publicObjectiveCards[i] = cards[i];
         }
         this.publicObjectiveCards = publicObjectiveCards;
-        this.notify(new PublicObjectiveCardUpdater(cards[CardPosition.LEFT.toInt()], CardPosition.LEFT));
-        this.notify(new PublicObjectiveCardUpdater(cards[CardPosition.CENTER.toInt()], CardPosition.CENTER));
-        this.notify(new PublicObjectiveCardUpdater(cards[CardPosition.RIGHT.toInt()], CardPosition.RIGHT));
+        this.notifyObservers(new PublicObjectiveCardUpdater(cards[CardPosition.LEFT.toInt()], CardPosition.LEFT));
+        this.notifyObservers(new PublicObjectiveCardUpdater(cards[CardPosition.CENTER.toInt()], CardPosition.CENTER));
+        this.notifyObservers(new PublicObjectiveCardUpdater(cards[CardPosition.RIGHT.toInt()], CardPosition.RIGHT));
     }
 
     /**
@@ -372,9 +368,17 @@ public class Model implements ViewUpdaterObservable {
             toolCards[i] = cards[i];
         }
         this.toolCards = toolCards;
-        this.notify(new ToolCardUpdater(cards[CardPosition.LEFT.toInt()].cloneToolCard(), CardPosition.LEFT));
-        this.notify(new ToolCardUpdater(cards[CardPosition.CENTER.toInt()].cloneToolCard(), CardPosition.CENTER));
-        this.notify(new ToolCardUpdater(cards[CardPosition.RIGHT.toInt()].cloneToolCard(), CardPosition.RIGHT));
+        this.notifyObservers(new ToolCardUpdater(cards[CardPosition.LEFT.toInt()].cloneToolCard(), CardPosition.LEFT));
+        this.notifyObservers(new ToolCardUpdater(cards[CardPosition.CENTER.toInt()].cloneToolCard(), CardPosition.CENTER));
+        this.notifyObservers(new ToolCardUpdater(cards[CardPosition.RIGHT.toInt()].cloneToolCard(), CardPosition.RIGHT));
+    }
+
+    /**
+     * Get active tool card if any is active.
+     * @return the active tool card if there's one active.
+     */
+    public ToolCard getActiveToolCard() {
+        return Arrays.asList(toolCards).stream().filter(ToolCard::isActive).findAny().get().cloneToolCard();
     }
 
     /**
@@ -403,7 +407,7 @@ public class Model implements ViewUpdaterObservable {
      * @param updater the view updater to be executed.
      */
     @Override
-    public void notify(ViewUpdaterInterface updater) {
+    public void notifyObservers(ViewUpdaterInterface updater) {
         this.observers.stream().forEach(observer -> observer.handle(updater));
     }
 

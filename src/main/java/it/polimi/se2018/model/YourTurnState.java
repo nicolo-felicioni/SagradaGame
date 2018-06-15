@@ -11,10 +11,20 @@ import it.polimi.se2018.exceptions.PlacementException;
 
 public class YourTurnState extends PlayerState {
 
-    public YourTurnState(){
+    /**
+     * Constructor.
+     */
+    public YourTurnState() {
         super();
     }
 
+    /**
+     * Copy constructor.
+     * @param state the state. It has to be a Choose Window Pattern state.
+     */
+    public YourTurnState(YourTurnState state) {
+        super(state);
+    }
 
     /**
      * {@inheritDoc}
@@ -59,12 +69,21 @@ public class YourTurnState extends PlayerState {
      * {@inheritDoc}
      */
     @Override
-    public void useTool(ToolCard card) throws IllegalMoveTurnException {
+    public void useTool() throws IllegalMoveTurnException {
         if(canUseTool())
-            this.setToolActivated(card);
+            this.setToolActivated();
         else throw new IllegalMoveTurnException("there's a toolcard activated already");
     }
 
+    /**
+     * Clone the player state. Return a copy.
+     *
+     * @return a clone of this state.
+     */
+    @Override
+    public PlayerState cloneState() {
+        return  new YourTurnState(this);
+    }
 
 
 }

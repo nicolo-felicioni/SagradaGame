@@ -9,7 +9,6 @@ import it.polimi.se2018.event.*;
 import it.polimi.se2018.exceptions.*;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.observer.GameEventObserver;
-
 import java.util.List;
 
 /**
@@ -41,7 +40,16 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(DecreaseDieValueGameEvent event) {
-
+		DraftPool draftPool;
+		try {
+			//TODO controllare se si puo' usare l'effetto.
+			draftPool = model.getDraftPool();
+			draftPool.removeDie(event.getDraftedDie());
+			draftPool.addDie(new Die(event.getDraftedDie().getColor(), event.getDraftedDie().getValue().decreaseValue()));
+			model.setDraftPool(draftPool.cloneDraftPool());
+		} catch (NotValidDieException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	/**
@@ -72,19 +80,20 @@ public class Controller implements GameEventObserver {
 	@Override
 	public void handle(DraftAndPlaceGameEvent event) {
 		try {
-			if (model.getPlayer(event.getPlayerId()).getPattern().isPlaceable(event.getDraftedDie(), event.getPoint()) &&
-					model.getDraftPool().hasDie(event.getDraftedDie())) {
+			Player player = model.getPlayer(event.getPlayerId());
+			if (player.getState().canPlaceDie()) {
 				DraftPool draftPool = model.getDraftPool();
 				draftPool.removeDie(event.getDraftedDie());
-				model.setDraftPool(draftPool);
-				//TODO work in progress
+				WindowPattern windowPattern = model.getPlayer(event.getPlayerId()).getPattern();
+				windowPattern.placeDie(event.getDraftedDie(), event.getPoint());
+				player.getState().diePlaced();
+				model.changePlayerStateTo(player.getId(), player.getState().cloneState());
+				model.setDraftPool(draftPool.cloneDraftPool());
+				model.setChosenWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
 			}
-		} catch (NotValidIdException e) {
-			e.printStackTrace();
 		} catch (GameException e) {
 			e.printStackTrace();
 		}
-		//TODO validare il posizionamento
 	}
 
 	/**
@@ -98,6 +107,7 @@ public class Controller implements GameEventObserver {
 			if(model.getPlayer(event.getPlayerId()).getState().canEndTurn()) {
 				model.changePlayerStateTo(event.getPlayerId(), new NotYourTurnState());
 			}
+			this.nextTurn();
 		} catch (NotValidIdException e) {
 			e.printStackTrace();
 		}
@@ -110,7 +120,17 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(FlipDraftDieGameEvent event) {
+		DraftPool draftPool;
+		try {
 
+			//TODO controllare se si puo' usare l'effetto.
+			draftPool = model.getDraftPool();
+			draftPool.removeDie(event.getDraftedDie());
+			draftPool.addDie(event.getDraftedDie().flip());
+			model.setDraftPool(draftPool.cloneDraftPool());
+		} catch (NotValidDieException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	/**
@@ -120,7 +140,17 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(IncreaseDieValueGameEvent event) {
+		DraftPool draftPool;
+		try {
 
+			//TODO controllare se si puo' usare l'effetto.
+			draftPool = model.getDraftPool();
+			draftPool.removeDie(event.getDraftedDie());
+			draftPool.addDie(new Die(event.getDraftedDie().getColor(), event.getDraftedDie().getValue().increaseValue()));
+			model.setDraftPool(draftPool.cloneDraftPool());
+		} catch (NotValidDieException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	/**
@@ -210,7 +240,18 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(UseToolCardGameEvent event) {
-
+		try {
+			Player player = model.getPlayer(event.getPlayerId());
+			if(player.getState().canUseTool()) {
+				ToolCard toolCard = model.getToolCard(event.getPositionOfToolCard());
+				toolCard.activate();
+				player.getState().useTool();
+				model.changePlayerStateTo(player.getId(), player.getState().cloneState());
+				model.setToolCard(toolCard, event.getPositionOfToolCard());
+			}
+		} catch (NotValidIdException | GameMoveException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	/**
@@ -246,6 +287,7 @@ public class Controller implements GameEventObserver {
 	public void handle(StartGameEvent event) {
 		System.out.println(" ===> Controller :: Game started. Initializing the model..."); //TODO println
 		this.startGame(event.getPlayerIds());
+		this.initScheduler();
 		this.initPrivateObjectiveCards();
 		this.initWindowPatterns();
 		this.initPlayerState();
@@ -265,6 +307,13 @@ public class Controller implements GameEventObserver {
 				e.printStackTrace();
 			}
 		});
+	}
+
+	/**
+	 * End the game.
+	 */
+	private void endGame() {
+
 	}
 
 	/**
@@ -344,6 +393,8 @@ public class Controller implements GameEventObserver {
 			} catch (NotValidIdException e) {
 				e.printStackTrace();
 			}
+		}else{
+			endGame();
 		}
 	}
 

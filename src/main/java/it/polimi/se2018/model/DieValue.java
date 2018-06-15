@@ -12,6 +12,17 @@ public enum DieValue implements Serializable {
 	FOUR(4),
 	FIVE(5),
 	SIX(6);
+
+	/**
+	 * The highest value.
+	 */
+	private static DieValue MAX_VALUE;
+
+	/**
+	 * The lowest value.
+	 */
+	private static DieValue MIN_VALUE;
+
 	private int dieNumber;
 
 	/**
@@ -76,5 +87,36 @@ public enum DieValue implements Serializable {
 		return values()[(int) (Math.random() * values().length)];
 	}
 
+	/**
+	 * Return the opposite value of this value.
+	 * @return the opposite value of this value.
+	 */
+	public DieValue oppositeValue() {
+		return DieValue.fromInt(DieValue.MAX_VALUE.toInt() + DieValue.MIN_VALUE.toInt() - this.toInt());
+	}
+
+	/**
+	 * Return the increased value of this value.
+	 * @return the increased value of this value.
+	 */
+	public DieValue increaseValue() {
+		if(this == DieValue.MAX_VALUE) {
+			return this;
+		} else {
+			return DieValue.fromInt(this.toInt() + 1);
+		}
+	}
+
+	/**
+	 * Return the decreased value of this value.
+	 * @return the decreased value of this value.
+	 */
+	public DieValue decreaseValue() {
+		if(this == DieValue.MIN_VALUE) {
+			return this;
+		} else {
+			return DieValue.fromInt(this.toInt() - 1);
+		}
+	}
 
 }

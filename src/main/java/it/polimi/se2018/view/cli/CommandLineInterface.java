@@ -2,6 +2,7 @@ package it.polimi.se2018.view.cli;
 
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
+import it.polimi.se2018.controller.factory.ToolCardsFactory;
 import it.polimi.se2018.model.CardPosition;
 import it.polimi.se2018.model.WindowPatternPosition;
 import it.polimi.se2018.event.DraftAndPlaceGameEvent;
@@ -55,6 +56,7 @@ public class CommandLineInterface extends AbstractView {
         players=new ArrayList<>();
         keyboard = new MyScanner();
         patterns = new WindowPattern[Player.N_WINDOW_PATTERNS];
+        toolCards = new ToolCard[Model.SET_OF_TOOL_CARDS_SIZE];
     }
 
 

@@ -37,10 +37,6 @@ public interface PlayerStateInterface extends Serializable {
 	 */
 	boolean hasChosenWindowPattern();
 
-
-
-
-
 	/**
 	 * method to be called after a placement of a die
 	 */
@@ -48,16 +44,14 @@ public interface PlayerStateInterface extends Serializable {
 
 	/**
 	 * method that activates the tool card
-	 * @param card the tool card to be activated
 	 * @throws IllegalMoveTurnException if the player can't activate the tool card
 	 */
-	void useTool(ToolCard card) throws IllegalMoveTurnException;
-
+	void useTool() throws IllegalMoveTurnException;
 
 	/**
-	 * returns the tool card activated in this turn
-	 * @return the tool card activated in this turn
+	 * Clone the player state. Return a copy.
+	 * @return a clone of this state.
 	 */
-	ToolCard getActiveToolCard();
+	PlayerState cloneState();
 
 }
