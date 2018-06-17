@@ -1,5 +1,8 @@
 package it.polimi.se2018.view.cli;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 /**
@@ -7,12 +10,12 @@ import java.util.Scanner;
  */
 
 class MyScanner {
-    private Scanner scanner;
+    private BufferedReader in;
 
 
 
     public MyScanner(){
-        this.scanner = new Scanner(System.in);
+        this.in = new BufferedReader(new InputStreamReader(System.in));
     }
 
 
@@ -20,8 +23,13 @@ class MyScanner {
      * this method returns the line read from standard input.
      * @return a string with the line read from standard input.
      */
-    public String readLine(){
-        return scanner.nextLine();
+    public String readLine() {
+        try {
+            return in.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();//TODO- DUBBIO
+            return null;
+        }
     }
 
 
@@ -29,10 +37,13 @@ class MyScanner {
      * this method returns the int read from standard input and ignores the '\n' character.
      * @return the int read from standard input.
      */
-    public int readInt(){
-        int n = scanner.nextInt();
-        scanner.nextLine(); //this consumes the '\n' character
-        return n;
+    public int readInt() {
+        try {
+            return Integer.parseInt(in.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();//TODO - DUBBIO
+            return -1;
+        }
     }
 
 }

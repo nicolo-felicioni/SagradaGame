@@ -8,6 +8,8 @@ import it.polimi.se2018.model.*;
 import org.fusesource.jansi.Ansi;
 
 
+import java.util.List;
+
 import static org.fusesource.jansi.Ansi.ansi;
 
 
@@ -36,6 +38,9 @@ public class Printer {
        System.out.print(Ansi.ansi().fg(Ansi.Color.DEFAULT).a(s));
        Ansi.ansi().fgBright(Ansi.Color.DEFAULT);
     }
+
+
+
 
     /**
      * Print a string with a new line character in the end.
@@ -215,11 +220,18 @@ public class Printer {
      */
     public static void print(PrivateObjectiveCard privateObjectiveCard){
         print("Your private objective card is: ");
-        printColor(privateObjectiveCard.getInfo(), privateObjectiveCard.getColor());
+        printColor(privateObjectiveCard.getName(), privateObjectiveCard.getColor());
         newLine();
     }
 
 
+    public static void print(List<Option> options){
+        for(int i = 0; i<options.size(); i++){
+            print(i+1);
+            print(". ");
+            println(options.get(i).getName());
+        }
+    }
 
 
 
@@ -253,6 +265,7 @@ public class Printer {
         print("Info : "+ card.getInfo());
         newLine();
     }
+
 
 
 }

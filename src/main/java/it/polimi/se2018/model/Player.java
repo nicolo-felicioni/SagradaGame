@@ -143,6 +143,18 @@ public class Player {
 		this.favorTokens = pattern.getDifficulty();
 	}
 
+	/**
+	 * Setter of the chosen window pattern.
+	 * @param pattern the chosen pattern
+	 */
+	public void setChosenPattern(WindowPattern pattern) {
+		this.chosenPattern = pattern;
+		this.favorTokens = pattern.getDifficulty();
+	}
+
+
+
+
 	//TODO N javadoc
 	public PlayerState getState(){
 		//TODO - forse c'è bisogno del clone dello state

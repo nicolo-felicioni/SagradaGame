@@ -2,12 +2,9 @@ package it.polimi.se2018.view.cli;
 
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.controller.factory.ToolCardsFactory;
-import it.polimi.se2018.model.CardPosition;
+import it.polimi.se2018.event.WindowPatternChosenGameEvent;
 import it.polimi.se2018.model.WindowPatternPosition;
 import it.polimi.se2018.event.DraftAndPlaceGameEvent;
-import it.polimi.se2018.event.UseToolCardGameEvent;
-import it.polimi.se2018.event.WindowPatternChosenGameEvent;
 import it.polimi.se2018.exceptions.*;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.network.client.ClientInterface;
@@ -28,6 +25,38 @@ public class CommandLineInterface extends AbstractView {
 
     private ClientInterface client;
 
+    private synchronized List<Player> getPlayers() {
+        return players;
+    }
+
+    private synchronized Player getPlayer() {
+        return player;
+    }
+
+    private synchronized WindowPattern[] getPatterns() {
+        return patterns;
+    }
+
+    private synchronized RoundTrack getRoundTrack() {
+        return roundTrack;
+    }
+
+    private synchronized DraftPool getDraftPool() {
+        return draftPool;
+    }
+
+    private synchronized PrivateObjectiveCard getPrivateObjectiveCard() {
+        return privateObjectiveCard;
+    }
+
+    private synchronized ToolCard[] getToolCards() {
+        return toolCards;
+    }
+
+    private synchronized PublicObjectiveCard[] getPublicObjectiveCards() {
+        return publicObjectiveCards;
+    }
+
     private List<Player> players;
     private Player player;
     private WindowPattern[] patterns;
@@ -36,6 +65,7 @@ public class CommandLineInterface extends AbstractView {
     private PrivateObjectiveCard privateObjectiveCard;
     private ToolCard[] toolCards;
     private PublicObjectiveCard[] publicObjectiveCards;
+    private int numberOfPatternsReceived;
 
     private static final String WELCOME_MESSAGE = "------------------WELCOME TO SAGRADA!----------------------";
     private static final String CONNECTION_REQUEST_MESSAGE = "What connection do you want? \n1. RMI\n2. Socket";
@@ -46,73 +76,112 @@ public class CommandLineInterface extends AbstractView {
     private static final String CHOICE_ERROR_MESSAGE = "Not valid choice.";
     private static final int RMI_CHOICE = 1;
     private static final int SOCKET_CHOICE = 2;
+    private static final String LOADING_MESSAGE = "Loading...";
+
 
 
     private MyScanner keyboard;
-    private PlayerMenu menu;
 
 
-    public CommandLineInterface(){
-        players=new ArrayList<>();
+    public CommandLineInterface() {
+        players = new ArrayList<>();
         keyboard = new MyScanner();
         patterns = new WindowPattern[Player.N_WINDOW_PATTERNS];
         toolCards = new ToolCard[Model.SET_OF_TOOL_CARDS_SIZE];
+        numberOfPatternsReceived = 0;
     }
 
 
-    public void startInitialRequests(){
+    public void start() {
         Printer.printlnBold(WELCOME_MESSAGE);
-
 
         typeOfConnectionRequest();
         connection();
         login();
+        Printer.println(LOADING_MESSAGE);
+        while(!areInitialOptionsInitialized()){
+            try {
+                synchronized (this){
+                    wait();
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        startGame();
+
+
+    }
+
+
+    private void startGame() {
+        boolean exit = false;
+
+        Menu menu = new PlayerMenu();
+
+        while(!exit){
+            menu.executeMenu();
+        }
     }
 
 
     @Override
-    public void updatePlayer(String playerId){
+    public synchronized void updatePlayer(String playerId) {
         Optional<Player> optionalPlayer = this.players.stream()
                 .filter(p -> p.getId().equals(playerId)).findAny();
 
-        if(!optionalPlayer.isPresent())
+        if (!optionalPlayer.isPresent()) {
             this.players.add(new Player(playerId));
+
+            //TODO - PROVA
+            if (!playerId.equals(this.player.getId())) {
+                Printer.print("Player '");
+                Printer.printColor(playerId, DieColor.BLUE);
+                Printer.println("' joined the game.");
+            }
+        }
+
     }
 
     @Override
-    public void updatePrivateObjectiveCard(String playerId, PrivateObjectiveCard card) {
-        this.players.stream().filter(p -> p.getId().equals(playerId))
-                .findAny().ifPresent(p -> p.setPrivateObjective(card));
-        //TODO IF NOT PRESENT?
+    public synchronized void updatePrivateObjectiveCard(String playerId, PrivateObjectiveCard card) {
+        if (this.player.getId().equals(playerId)) {
+            this.player.setPrivateObjective(card);
+            this.privateObjectiveCard = card;
+            Printer.print(card); //todo
+            notify();//to wake up the thread
+        }
+
+
     }
 
     @Override
-    public void updateWindowPattern(String playerId, WindowPattern windowPattern, WindowPatternPosition position) {
+    public synchronized void updateWindowPattern(String playerId, WindowPattern windowPattern, WindowPatternPosition position) {
 
         //if it is an update of the chosen window pattern
-        if(position == WindowPatternPosition.CHOSEN)
+        if (position == WindowPatternPosition.CHOSEN)
             this.players.stream().filter(p -> p.getId().equals(playerId))
-                    .findAny().ifPresent(p -> {
-                try {
-                    p.choosePattern(windowPattern);
-                } catch (NotValidPatterException e) {
-                    e.printStackTrace(); //TODO GESTIONE ECCEZIONE
-                }
-            });
+                    .findAny().ifPresent(p -> p.setChosenPattern(windowPattern));
         else //if it is an update of the initial set of windows
-            if(this.player.getId().equals(playerId)) //if it is this player's window
+            if (this.player.getId().equals(playerId)) {//if it is this player's window
                 patterns[position.toInt()] = windowPattern;
+                numberOfPatternsReceived++;
+                notify();//to wake up the thread
+                Printer.println("Debug: you received a window pattern in position:" + position.name());
+            }
+
     }
 
     @Override
-    public void updateMoveDieFromDraftToWindow(Point p, Die draftedDie, String playerId) {
+    public synchronized void updateMoveDieFromDraftToWindow(Point p, Die draftedDie, String playerId) {
         Player wantedPlayer;
 
         Optional<Player> optPlayer = this.players.stream()
                 .filter(pl -> pl.getId().equals(playerId)).findAny();
 
-        if(optPlayer.isPresent()){
-            wantedPlayer=optPlayer.get();
+        if (optPlayer.isPresent()) {
+            wantedPlayer = optPlayer.get();
 
             //TODO- DUBBIA GESTIONE DELLE ECCEZIONI
             try {
@@ -122,54 +191,46 @@ public class CommandLineInterface extends AbstractView {
             } catch (IllegalMoveTurnException e) {
                 e.printStackTrace();
             }
-        }
-
-        else{
+        } else {
             //TODO - DUBBIA GESTIONE NEL CASO IN CUI NON SI TROVI UN GIOCATORE CON L'ID GIUSTO
             Printer.println("No such player!");
         }
 
 
-
     }
 
     @Override
-    public void updateToolCard(ToolCard toolCard, int number) {
+    public synchronized void updateToolCard(ToolCard toolCard, int number) {
         this.toolCards[number] = toolCard;
     }
 
     @Override
-    public void updateRoundTrack(RoundTrack roundTrack) {
+    public synchronized void updateRoundTrack(RoundTrack roundTrack) {
         this.roundTrack = roundTrack;
     }
 
     @Override
-    public void updateDraftPool(DraftPool draftPool) {
+    public synchronized void updateDraftPool(DraftPool draftPool) {
         this.draftPool = draftPool;
     }
 
     @Override
-    public void updateStatePlayer(String playerId, PlayerState state) {
-
-        //TODO - DI QUALI GIOCATORI ARRIVA QUESTO UPDATE?
-        //TODO -Può arrivare di qualsiasi giocatore o solo di quello del client?
-
+    public synchronized void updateStatePlayer(String playerId, PlayerState state) {
         Player wantedPlayer;
 
         Optional<Player> optPlayer = this.players.stream().filter(p -> p.getId().equals(playerId)).findAny();
 
-        if(optPlayer.isPresent()){
-            wantedPlayer=optPlayer.get();
+        if (optPlayer.isPresent()) {
+            wantedPlayer = optPlayer.get();
             wantedPlayer.changePlayerStateTo(state);
 
-            if(wantedPlayer.equalsPlayer(player)){
+            if (wantedPlayer.equalsPlayer(player)) {
                 player.changePlayerStateTo(state);
-                menu = new PlayerMenu();
-                menu.executeMenu();
+                notify();//to wake up the thread
             }
 
 
-        } else{
+        } else {
             //TODO - DUBBIA GESTIONE NEL CASO IN CUI NON SI TROVI UN GIOCATORE CON L'ID GIUSTO
             Printer.println("No such player!");
         }
@@ -183,38 +244,40 @@ public class CommandLineInterface extends AbstractView {
 
     //----------------------PRIVATE METHODS--------------------------------------------------------------------
 
-    private void typeOfConnectionRequest(){
+    private synchronized boolean areInitialOptionsInitialized() {
+        return player.getState() != null && privateObjectiveCard != null && numberOfPatternsReceived == 4;
+    }
+
+    private void typeOfConnectionRequest() {
         int choice;
 
-        boolean badChoice=false;
+        boolean badChoice = false;
 
-        do{
+        do {
             Printer.println(CONNECTION_REQUEST_MESSAGE);
             choice = keyboard.readInt();
 
-            if(choice == RMI_CHOICE){
+            if (choice == RMI_CHOICE) {
                 this.client = new RMIClient(this);
-            }else if(choice == SOCKET_CHOICE){
+            } else if (choice == SOCKET_CHOICE) {
                 this.client = new SocketClient();
-            }else{
+            } else {
                 Printer.println(CHOICE_ERROR_MESSAGE);
                 badChoice = true;
             }
-        }while(badChoice);
+        } while (badChoice);
 
 
-
-        Printer.println("è arrivato alla fine");
         addGameObserver(this.client);
         //TODO - DA FINIRE
     }
 
-    private void connection(){
+    private void connection() {
         int port;
         String address;
         boolean connectError = true;
 
-        do{
+        do {
             Printer.println(PORT_REQUEST_MESSAGE);
             port = keyboard.readInt();
             Printer.println(ADDRESS_REQUEST_MESSAGE);
@@ -225,15 +288,15 @@ public class CommandLineInterface extends AbstractView {
             } catch (NetworkException | NotBoundException e) {
                 Printer.println(e.getMessage());
             }
-        }while(connectError);
+        } while (connectError);
 
     }
 
-    private void login(){
+    private void login() {
         String username;
         boolean loginError = true;
 
-        do{
+        do {
             Printer.println(USERNAME_REQUEST_MESSAGE);
             username = keyboard.readLine();
             try {
@@ -242,71 +305,82 @@ public class CommandLineInterface extends AbstractView {
             } catch (LoginException e) {
                 Printer.println(e.getMessage());
             }
-        }while(loginError);
+        } while (loginError);
 
         this.player = new Player(username);
     }
 
 
-
     //----------------INNER CLASS PLAYER MENU--------------------------------------------------------------------
 
-    class PlayerMenu extends Menu{
+    class PlayerMenu extends Menu {
 
         private static final String ERROR_CHOICE = "Impossible choice.";
+        private static final String FIRST_MESSAGE = "Press 'm' for menu.";
+        private static final String SELECT_MESSAGE = "Select an option.";
+        private static final String MENU_CHOICE = "m";
 
 
-        public PlayerMenu(){
-            super();
+        @Override
+        void executeMenu() {
 
-            PlayerState state = player.getState();
-
-            int i = 0;
-
-            if(state.hasChosenWindowPattern()){
-                if(state.canEndTurn()){
-                    if(state.canPlaceDie()){
-                        this.options.add(i, new PlaceDieOption());
-                        i++;
-                    }
-                    if(state.canUseTool()){
-                        this.options.add(i, new UseToolOption());
-                        i++;
-                    }
-
-                    //this.options.add(i, new EndTurnOption);
-                }
-            }else
-                this.options.add(i, new ChooseWindowOption());
-        }
-
-        public void executeMenu(){
-            boolean goodChoice = true;
+            boolean validChoice = true;
             int choice;
+            String firstInput;
 
-            do{
-                showMenu();
-                choice = keyboard.readInt();
-                if(choice <=0 || choice > options.size()) {
-                    Printer.println(ERROR_CHOICE);
-                    goodChoice = false;
-                }
-            }while(!goodChoice);
+            Printer.println(FIRST_MESSAGE);
+            firstInput = keyboard.readLine();
+            if (!firstInput.equals(MENU_CHOICE)) {
+                Printer.println(ERROR_CHOICE);
+            } else {
+                do{ //if it was pressed the right key
 
-            executeOption(choice);
-        }
+                    this.options = buildOptions(CommandLineInterface.this.player.getState());
+                    Printer.println(SELECT_MESSAGE);
+                    Printer.print(options);
+                    choice = keyboard.readInt();
 
-        public void showMenu(){
-            for(int i=0; i<options.size(); i++){
-                Printer.print(i+1);
-                Printer.println(": " + options.get(i).getName());
+                    if (choice == Option.EXIT_CODE)
+                        return;
+                    if(choice<=0 || choice >options.size()){
+                        validChoice=false;
+                        Printer.print(ERROR_CHOICE);
+                    }else{
+                        options.get(choice-1).executeOption();
+                    }
+                }while(!validChoice);
             }
-        }
 
 
-        public void executeOption(int choice){
-            options.get(choice-1).executeOption();
         }
+
+        private List<Option> buildOptions(PlayerState state) {
+            List<Option> options = new ArrayList<>();
+            int i = 0;
+            if (state.hasChosenWindowPattern()) { //if the player already chose a window pattern
+                if (state.canEndTurn()) {//if it's this player's turn
+                    if (state.canPlaceDie()) {
+                        options.add(i, new PlaceDieOption());
+                        i++;
+                    }
+                    if (state.canUseTool()) {
+                        options.add(i, new UseToolOption());
+                        i++;
+                    }
+                    //can end turn
+                    options.add(i, new EndTurnOption());
+                } else {
+                    //if it's not this player's turn
+                    return options; //return an empty list of options
+                }
+            } else {
+                //if the player hasn't chosen a window yet he has to choose one
+                options.add(i, new ChooseWindowOption());
+            }
+
+            return options;
+        }
+
 
     }
 
@@ -314,125 +388,100 @@ public class CommandLineInterface extends AbstractView {
     //----------------INNER CLASS PLACE DIE OPTION--------------------------------------------------------------------
 
 
-    class PlaceDieOption extends Option {
+    class PlaceDieOption extends ComplexOption {
 
-        private static final String SELECT_DIE_MESSAGE = "Select a die from the draftpool: ";
-        private static final String ERROR_SELECT_DIE_MESSAGE = "There isn't any die with that number.";
-        private static final String SELECT_SPACE_MESSAGE = "Select a space in your window.";
-        private static final String SELECT_SPACE_INFO_MESSAGE = "Enter the first coordinate, then press enter, enter the second coordinate and finally press enter.\nCoordinates starts from 0.";
-        private static final String ERROR_SELECT_SPACE_MESSAGE = "There isn't any space with that coordinates.";
+        private static final String PLACE_DIE_NAME = "Place a die.";
+        private static final int N_OF_CHOICES = 3;
+        private int[] choiceVector;
 
 
-        public PlaceDieOption(){
-            this.name="Place a die";
+        public PlaceDieOption() {
+            this.name = PLACE_DIE_NAME;
+            subOptions = buildPlaceDieOptions();
         }
 
+
+        private List<Option> buildPlaceDieOptions() {
+            List<Option> options = new ArrayList<>();
+            options.add(0, new ReadDieOption());
+            options.add(1, new ReadXOption());
+            options.add(2, new ReadYOption());
+            return options;
+        }
 
         @Override
-        public void executeOption() {
-            Die selectedDie = selectDie();
-            Point p = selectSpace();
-            notifyObservers(new DraftAndPlaceGameEvent(selectedDie, p, player.getId()));
-        }
-
-        private Point selectSpace() {
-
-            int x, y;
-            boolean goodChoice;
-
-
-            do{
-                Printer.print(player.getPattern());
-                Printer.println(SELECT_SPACE_MESSAGE);
-                Printer.println(SELECT_SPACE_INFO_MESSAGE);
-                x = keyboard.readInt();
-                y = keyboard.readInt();
-
-                try {
-                    return new Point(x, y);
-                } catch (NotValidPointException e) {
-                    Printer.println(ERROR_SELECT_SPACE_MESSAGE);
-                    goodChoice = false;
-                }
-
-            }while(!goodChoice);
-
-            return null; //TODO STRANO
-        }
-
-        private Die selectDie(){
+        public int executeOption() {
+            int choice;
             Die selectedDie;
-            int number, choice;
-            boolean goodChoice = true;
+            Point selectedPoint;
+            int[] choiceVector = new int[3]; //this vector contains the choice of the die and of the two coord.
 
 
-            do{
-
-                Printer.println(SELECT_DIE_MESSAGE);
-
-                for(int i = 0; i<draftPool.size(); i++){
-                    number = i+1;
-                    Printer.print(number);
-                    Printer.print(": ");
-                    Printer.print(draftPool.getAllDice().get(i));
+            int i = 0;
+            while (i >= 0 && i < subOptions.size()) {
+                choice = subOptions.get(i).executeOption();
+                if (choice == EXIT_CODE) //go back
+                    i--;
+                else {
+                    choiceVector[i] = choice;
+                    i++;
                 }
-
-
-                choice = keyboard.readInt();
-                if(choice < 1 || choice > draftPool.size()){
-                    Printer.println(ERROR_SELECT_DIE_MESSAGE);
-                    goodChoice = false;
-                }
-
-
-            }while (!goodChoice);
-
-
-            return draftPool.getAllDice().get(choice - 1);
+            }
+            selectedDie = draftPool.getAllDice().get(choiceVector[0]);
+            try {
+                selectedPoint = new Point(choiceVector[1], choiceVector[2]);
+            } catch (NotValidPointException e) {
+                return ERROR_CODE;
             }
 
 
+            CommandLineInterface.
+                    this.notifyObservers(new DraftAndPlaceGameEvent(selectedDie, selectedPoint, player.getId()));
+
+            return 0;
+
+        }
     }
 
 
     //----------------INNER CLASS USE TOOL OPTION--------------------------------------------------------------------
 
-    class UseToolOption extends Option {
+    class UseToolOption extends ComplexOption {
 
+        //TODO - TUTTA LA CLASSE ANCORA DA RIFARE
         private static final String USE_TOOL_NAME = "Use a tool card";
         private static final String USE_TOOL_MESSAGE = "Select a tool card";
         private static final String ERROR_USE_TOOL = "There isn't any tool card with that number.";
 
 
-        public UseToolOption(){
+        public UseToolOption() {
             this.name = USE_TOOL_NAME;
         }
 
 
         @Override
-        public void executeOption() {
-            int selectedToolCard = selectToolCard();
-            notifyObservers(new UseToolCardGameEvent(CardPosition.fromInt(selectedToolCard), player.getId()));
+        public int executeOption() {
+            return 0;
         }
 
         private int selectToolCard() {
             boolean goodChoice = true;
             int choice;
-            do{
+            do {
 
                 Printer.println(USE_TOOL_MESSAGE);
-                for(int i =0; i<toolCards.length; i++){
-                    int n = i+1;
+                for (int i = 0; i < toolCards.length; i++) {
+                    int n = i + 1;
                     Printer.print(n);
                     Printer.println(":");
                     Printer.print(toolCards[i]);
                 }
                 choice = keyboard.readInt();
-                if(choice <=0 || choice > toolCards.length){
+                if (choice <= 0 || choice > toolCards.length) {
                     Printer.println(ERROR_USE_TOOL);
                     goodChoice = false;
                 }
-            }while(!goodChoice);
+            } while (!goodChoice);
 
             return (choice - 1);
         }
@@ -443,45 +492,145 @@ public class CommandLineInterface extends AbstractView {
 
     //----------------INNER CLASS CHOOSE WINDOW OPTION--------------------------------------------------------------------
 
-    class ChooseWindowOption extends Option{
+    class ChooseWindowOption extends SimpleOption {
 
         private static final String CHOOSE_WINDOW_NAME = "Choose a window pattern.";
         private static final String CHOOSE_WINDOW_MESSAGE = "Select a window pattern";
-        private static final String ERROR_CHOOSE_WINDOW = "There isn't any window with that number.";
+        private static final String WRONG_CHOICE_MESSAGE = "There isn't any window with that number.";
 
-
-        public ChooseWindowOption(){
+        public ChooseWindowOption() {
             this.name = CHOOSE_WINDOW_NAME;
         }
 
-
         @Override
-        public void executeOption() {
-            int numberOfChosenWindow = selectWindow();
-            notifyObservers(new WindowPatternChosenGameEvent(patterns[numberOfChosenWindow], player.getId()));
-        }
-
-        private int selectWindow() {
-            boolean goodChoice = true;
+        public int executeOption() {
             int choice;
-            do{
+            int n = 0;
+            boolean validChoice;
+            WindowPattern patternChosen;
 
+            do {
                 Printer.println(CHOOSE_WINDOW_MESSAGE);
-                for(int i =0; i<patterns.length; i++){
-                    int n = i+1;
-                    Printer.print(n);
-                    Printer.println(":");
+                for (int i = 0; i < patterns.length; i++) {
+                    n = i + 1;
+                    Printer.println(n + ":");
                     Printer.print(patterns[i]);
                 }
-                choice = keyboard.readInt();
-                if(choice <=0 || choice > patterns.length){
-                    Printer.println(ERROR_CHOOSE_WINDOW);
-                    goodChoice = false;
-                }
-            }while(!goodChoice);
+                Printer.print("\n");
+                Printer.println(EXIT_CODE + GO_BACK_MESSAGE);
 
-            return (choice - 1);
+                choice = keyboard.readInt();
+                if ((choice <= 0 && choice != EXIT_CODE) || choice > n) { //if the choice isn't in the range
+                    Printer.println(WRONG_CHOICE_MESSAGE);
+                    validChoice = false;
+                } else{
+                    validChoice = true;
+                    if(choice!=EXIT_CODE){//if the choice is valid and it's not the exit code
+                        patternChosen = patterns[choice-1];
+
+                        //throw the event
+                        CommandLineInterface.this.notifyObservers(new WindowPatternChosenGameEvent(patternChosen, player.getId()));
+                    }
+
+                }
+
+
+            } while (!validChoice);
+
+            return choice;
         }
     }
 
+
+    class EndTurnOption extends SimpleOption {
+
+        @Override
+        public int executeOption() {
+            return 0;
+        }
+    }
+
+
+    class ReadDieOption extends SimpleOption {
+        final static String WRONG_CHOICE_MESSAGE = "This die doesn't exists.";
+
+        @Override
+        public int executeOption() {
+            int choice;
+            int n = 0;
+            boolean validChoice;
+
+            do {
+                for (int i = 0; i < draftPool.size(); i++) {
+                    n = i + 1;
+                    Printer.print(n + ": " + draftPool.getAllDice().get(i) + " ");
+                }
+                Printer.print("\n");
+                Printer.println(EXIT_CODE + GO_BACK_MESSAGE);
+
+
+                choice = keyboard.readInt();
+                if ((choice <= 0 && choice != EXIT_CODE) || choice > n) { //if the choice isn't in the range
+                    Printer.println(WRONG_CHOICE_MESSAGE);
+                    validChoice = false;
+                } else
+                    validChoice = true;
+
+            } while (!validChoice);
+
+            return choice;
+        }
+
+    }
+
+    class ReadXOption extends SimpleOption {
+        final static String READ_X_MESSAGE = "Enter the first coordinate of the space in which you want to place the die."
+                + "\nEnter " + EXIT_CODE + "for go back.";
+        final static String INFO = "Coordinates starts from 0.";
+        final static String WRONG_CHOICE_MESSAGE = "Wrong coordinate.";
+
+        @Override
+        public int executeOption() {
+            int choice;
+
+            boolean validChoice;
+            do {
+                Printer.print(player.getPattern());
+                Printer.println(READ_X_MESSAGE);
+                Printer.println(INFO);
+                choice = keyboard.readInt();
+                if ((choice < 0 && choice != EXIT_CODE) || choice >= WindowPattern.SPACES_HEIGHT) { //if the choice isn't in the range
+                    Printer.println(WRONG_CHOICE_MESSAGE);
+                    validChoice = false;
+                } else
+                    validChoice = true;
+            } while (!validChoice);
+
+            return choice;
+        }
+    }
+
+    class ReadYOption extends SimpleOption {
+        final static String READ_Y_MESSAGE = "Enter the second coordinate."
+                + "\nEnter " + EXIT_CODE + "for go back.";
+        final static String WRONG_CHOICE_MESSAGE = "Wrong coordinate.";
+
+        @Override
+        public int executeOption() {
+            int choice;
+
+            boolean validChoice;
+            do {
+                Printer.println(READ_Y_MESSAGE);
+                choice = keyboard.readInt();
+                if ((choice < 0 && choice != EXIT_CODE) || choice >= WindowPattern.SPACES_LENGTH) { //if the choice isn't in the range
+                    Printer.println(WRONG_CHOICE_MESSAGE);
+                    validChoice = false;
+                } else
+                    validChoice = true;
+            } while (!validChoice);
+
+            return choice;
+        }
+    }
 }

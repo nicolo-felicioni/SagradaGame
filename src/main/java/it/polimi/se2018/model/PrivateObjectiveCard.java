@@ -5,6 +5,8 @@ package it.polimi.se2018.model;
  */
 public class PrivateObjectiveCard implements ObjectiveCard {
 
+	private static final String SHADES_OF = "Shades of ";
+
 	/**
 	 * Card name.
 	 */
@@ -32,7 +34,7 @@ public class PrivateObjectiveCard implements ObjectiveCard {
 	 *
 	 */
 	public PrivateObjectiveCard(DieColor color) {
-		this.name = null;
+		this.name = SHADES_OF + color.name();
 		this.info = null;
 		this.color = color;
 	}

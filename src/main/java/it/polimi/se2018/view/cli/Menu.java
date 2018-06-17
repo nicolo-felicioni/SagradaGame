@@ -6,12 +6,11 @@ import java.util.List;
 public abstract class Menu {
 
     List<Option> options;
-    private static final String FIRST_MESSAGE = "Select an option.";
+    static final String FIRST_MESSAGE = "Select an option.";
 
-    Menu(){
-        options = new ArrayList<>();
-    }
 
+
+    abstract void executeMenu();
 
 
 
