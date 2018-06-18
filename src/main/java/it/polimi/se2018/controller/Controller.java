@@ -389,7 +389,11 @@ public class Controller implements GameEventObserver {
 		});
 		if (this.scheduler.hasNext()) {
 			try {
-				model.changePlayerStateTo(scheduler.next(), new FirstTurnState());
+				if(scheduler.isFirstTurnOfRound()) {
+					model.changePlayerStateTo(scheduler.next(), new FirstTurnState());
+				}else {
+					model.changePlayerStateTo(scheduler.next(), new YourTurnState());
+				}
 			} catch (NotValidIdException e) {
 				e.printStackTrace();
 			}

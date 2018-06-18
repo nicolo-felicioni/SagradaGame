@@ -260,7 +260,7 @@ public class CommandLineInterface extends AbstractView {
             if (choice == RMI_CHOICE) {
                 this.client = new RMIClient(this);
             } else if (choice == SOCKET_CHOICE) {
-                this.client = new SocketClient();
+                this.client = new SocketClient(this);
             } else {
                 Printer.println(CHOICE_ERROR_MESSAGE);
                 badChoice = true;

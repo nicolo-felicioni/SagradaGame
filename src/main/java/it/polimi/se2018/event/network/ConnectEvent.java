@@ -5,12 +5,12 @@ public abstract class ConnectEvent {
     /**
      * The server address;
      */
-    public String address;
+    private String address;
 
     /**
      * The port number of the server.
      */
-    public int port;
+    private int port;
 
     /**
      * Constructor

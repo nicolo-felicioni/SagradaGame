@@ -11,11 +11,18 @@ public class PlayerUpdater implements ViewUpdaterInterface {
     private String playerId;
 
     /**
+     * The amount of favor tokens.
+     */
+    private int favorTokens;
+
+    /**
      * Constructor.
      * @param playerId the player identifier.
+     * @param favorTokens the amount of favor tokens.
      */
-    public PlayerUpdater(String playerId) {
+    public PlayerUpdater(String playerId, int favorTokens) {
         this.playerId = playerId;
+        this.favorTokens = favorTokens;
     }
 
     /**

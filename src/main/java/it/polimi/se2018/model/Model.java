@@ -77,7 +77,7 @@ public class Model implements ViewUpdaterObservable {
 
 
         this.players.add(player);
-        this.notifyObservers(new PlayerUpdater(player.getId()));
+        this.notifyObservers(new PlayerUpdater(player.getId(), player.getTokens()));
     }
 
     /**
@@ -282,7 +282,7 @@ public class Model implements ViewUpdaterObservable {
 
         wantedPlayer.get().choosePattern(windowPattern);
 
-        notifyObservers(new WindowPatternUpdater(playerId,windowPattern.cloneWindowPattern(), WindowPatternPosition.FOURTH));
+        notifyObservers(new WindowPatternUpdater(playerId,windowPattern.cloneWindowPattern(), WindowPatternPosition.CHOSEN));
     }
 
     /**

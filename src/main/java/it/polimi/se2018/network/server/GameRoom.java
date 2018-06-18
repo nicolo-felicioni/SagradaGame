@@ -1,6 +1,7 @@
 package it.polimi.se2018.network.server;
 
 import it.polimi.se2018.controller.ViewUpdaterObserver;
+import it.polimi.se2018.controller.updater.PlayerUpdater;
 import it.polimi.se2018.event.*;
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
@@ -39,7 +40,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	/**
 	 * Minimum amount of player.
 	 */
-	public final static int MIN_PLAYER = 2;
+	public static final int MIN_PLAYER = 2;
 
 	/**
 	 * Maximum amount of player.
@@ -57,6 +58,9 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	public GameRoom() {
 		this.playerSessions = new ArrayList<>();
 		this.observers = new ArrayList<>();
+		Model model = new Model();
+		model.addObserver(this);
+		this.addGameObserver(new Controller(model));
 	}
 
 	/**
@@ -72,12 +76,13 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	 * Connect a player session to this game room.
 	 * @param session the player session.
 	 */
-	public void addPlayerSession(SessionInterface session) {
+	public synchronized void addPlayerSession(SessionInterface session) {
 		if(this.isIn(session.getUID())){
 			this.removePlayerSession(session.getUID());
 		}
 		playerSessions.add(session);
 		observers.add(session);
+		playerSessions.forEach(s -> this.notifyObservers(new PlayerUpdater(session.getUID(), 0)));
 		this.refreshTimer(TIMER_WAIT_START_GAME);
 	}
 
@@ -86,41 +91,35 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	 * @param uid the user identifier.
 	 * @return true if the player is in this room.
 	 */
-	public boolean isIn(String uid) {
-		for(SessionInterface playerSession : playerSessions) {
-			if(playerSession.getUID().equals(uid)){
-				return true;
-			}
-		}
-		return false;
+	public synchronized boolean isIn(String uid) {
+		return playerSessions.stream().anyMatch(s -> s.getUID().equals(uid));
 	}
 
 	/**
 	 * Disconnect a player from this game room.
 	 * @param uid the player identifier.
 	 */
-	private void removePlayerSession(String uid) {
-		for(SessionInterface playerSession : playerSessions) {
-			if(playerSession.getUID().equals(uid)){
-				playerSessions.remove(playerSession);
-				observers.remove(playerSession);
-			}
-		}
+	private synchronized void removePlayerSession(String uid) {
+		playerSessions.stream().filter(s -> s.getUID().equals(uid)).forEach(s -> observers.remove(s));
 		this.refreshTimer(TIMER_WAIT_START_GAME);
 	}
 
 	/**
 	 * Refresh the timer.
 	 */
-	private void refreshTimer(int time) {
+	private synchronized void refreshTimer(int time) {
 		if(timer != null) {
 			this.timer.disable();
 		}
-		if(this.playerSessions.size() >= MIN_PLAYER) {
+		if(this.countUniqueIdentifier() >= MIN_PLAYER) {
 			System.out.println(" ==> GameRoom :: Timer started. " + TIMER_WAIT_START_GAME/1000 + " seconds countdown."); //TODO println
 			this.timer = new Timer(time);
 			new Thread(timer).start();
 		}
+	}
+
+	private synchronized long countUniqueIdentifier() {
+		return playerSessions.stream().map(SessionInterface::getUID).distinct().count();
 	}
 
 	/**
@@ -151,11 +150,11 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	public void notifyObservers(ViewUpdaterInterface updater) {
 		this.observers.forEach(observer -> {
 			new Thread(new Runnable() {
-			@Override
-			public void run() {
-				observer.handle(updater);
-			}
-		}).start();});
+				@Override
+				public void run() {
+					observer.handle(updater);
+				}
+			}).start();});
 	}
 
 	/**
@@ -345,9 +344,6 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	 */
 	@Override
 	public void handle(StartGameEvent event) {
-		Model model = new Model();
-		model.addObserver(this);
-		this.addGameObserver(new Controller(model));
 		this.notifyObservers(event);
 	}
 
@@ -392,7 +388,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 				if(isActive()) {
 					System.out.println(" ==> GameRoom :: Time out. Game is starting..."); //TODO println
 					List<String> playerIds = new ArrayList<>();
-					playerSessions.stream().forEach(s -> playerIds.add(s.getUID()));
+					playerSessions.stream().map(s -> s.getUID()).distinct().forEach(id -> playerIds.add(id));
 					handle(new StartGameEvent(playerIds));
 				}
 			} catch (InterruptedException e) {
@@ -408,4 +404,5 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 			this.active = false;
 		}
 	}
+
 }

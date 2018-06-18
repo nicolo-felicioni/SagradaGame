@@ -1,9 +1,17 @@
 package it.polimi.se2018.network.socket;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.event.*;
 import it.polimi.se2018.exceptions.LoginException;
-import it.polimi.se2018.network.client.AbstractClient;
+import it.polimi.se2018.json.PlayerStateAdapter;
+import it.polimi.se2018.json.ViewUpdaterAdapter;
+import it.polimi.se2018.json.WindowPatternAdapter;
+import it.polimi.se2018.model.PlayerState;
+import it.polimi.se2018.model.WindowPattern;
+import it.polimi.se2018.network.client.ClientInterface;
+import it.polimi.se2018.view.View;
 
 import java.io.*;
 import java.net.Socket;
@@ -11,12 +19,24 @@ import java.net.Socket;
 /**
  * @author davide yi xian hu
  */
-public class SocketClient extends AbstractClient {
+public class SocketClient implements ClientInterface {
 
 	private Socket socket;
 	private ObjectInputStream inStream;
 	private ObjectOutputStream outStream;
 	private NetworkListener listener;
+
+	/**
+	 * The user interface.
+	 */
+	private View view;
+
+	/**
+	 * Constructor.
+	 */
+	public SocketClient(View view) {
+		this.view = view;
+	}
 
 	/**
 	 * Connect to the socket server.
@@ -28,12 +48,13 @@ public class SocketClient extends AbstractClient {
 	public void connect(String address, int port) {
 		try {
 			this.socket = new Socket(address, port);
-			this.login(getUid());
-			this.inStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 			this.outStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+			this.outStream.flush();
 			this.listener = new NetworkListener();
+			this.inStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 			new Thread(listener).start();
-		} catch (IOException|LoginException e) {
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -45,7 +66,8 @@ public class SocketClient extends AbstractClient {
 	@Override
 	public void login(String uid) throws LoginException {
 		try {
-			this.send(new LoginMessage(this.getUid()).toJsonString());
+			String loginMessage = new LoginMessage(uid).toJsonString();
+			this.send(loginMessage);
 		}catch (IOException e){
 			new LoginException("Login failed");
 		}
@@ -78,7 +100,7 @@ public class SocketClient extends AbstractClient {
 	 */
 	@Override
 	public void handle(ViewUpdaterInterface updater) {
-
+		this.view.handle(updater);
 	}
 
 	/**
@@ -279,6 +301,12 @@ public class SocketClient extends AbstractClient {
 			while(this.run) {
 				try {
 					String request = inStream.readUTF();
+					GsonBuilder gsonBuilder = new GsonBuilder();
+					gsonBuilder.registerTypeAdapter(ViewUpdaterInterface.class, new ViewUpdaterAdapter());
+					gsonBuilder.registerTypeAdapter(WindowPattern.class, new WindowPatternAdapter());
+					gsonBuilder.registerTypeAdapter(PlayerState.class, new PlayerStateAdapter());
+					Gson gson = gsonBuilder.create();
+					handle(gson.fromJson(request, ViewUpdaterInterface.class));
 				} catch (IOException e) {
 				}
 			}

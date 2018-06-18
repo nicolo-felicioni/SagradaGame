@@ -40,7 +40,7 @@ public class RMIServerSession extends GameEventObservableImpl implements Session
 	 * {@inheritDoc}
 	 * Add a client observer.
 	 */
-	public void addClientObserver(RMIClientInterface observer) {
+	public synchronized void addClientObserver(RMIClientInterface observer) {
 		this.clientInterfaces.add(observer);
 	}
 
@@ -48,7 +48,7 @@ public class RMIServerSession extends GameEventObservableImpl implements Session
 	 * {@inheritDoc}
 	 * Notify a view updater to the client;
 	 */
-	public void notify(ViewUpdaterInterface updater) {
+	public synchronized void notify(ViewUpdaterInterface updater) {
 		this.clientInterfaces.forEach(observer -> {
 			try {
 				observer.handle(updater);
@@ -63,7 +63,7 @@ public class RMIServerSession extends GameEventObservableImpl implements Session
 	 *
 	 * @param observer the network view updater observer.
 	 */
-	public void removeClientObserver(RMIClientInterface observer) {
+	public synchronized void removeClientObserver(RMIClientInterface observer) {
 		this.clientInterfaces.add(observer);
 	}
 

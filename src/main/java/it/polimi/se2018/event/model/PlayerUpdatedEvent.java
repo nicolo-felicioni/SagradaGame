@@ -3,23 +3,38 @@ package it.polimi.se2018.event.model;
 public class PlayerUpdatedEvent {
 
     /**
-     * Player identifier.
+     * The player identifier.
      */
-    private String id;
+    private String playerId;
 
     /**
-     * Constructor
-     * @param id the player identifier.
+     * The amount of favor tokens.
      */
-    public PlayerUpdatedEvent(String id) {
-        this.id = id;
+    private int favorTokens;
+
+    /**
+     * Constructor.
+     * @param playerId the player identifier.
+     * @param favorTokens the amount of favor tokens.
+     */
+    public PlayerUpdatedEvent(String playerId, int favorTokens) {
+        this.playerId = playerId;
+        this.favorTokens = favorTokens;
     }
 
     /**
-     * Player identifier getter
+     * Player identifier getter.
      * @return the player identifier.
      */
-    public String getId() {
-        return id;
+    public String getPlayerId() {
+        return playerId;
+    }
+
+    /**
+     * Favor tokens getter.
+     * @return the amount of favor tokens.
+     */
+    public int getFavorTokens() {
+        return favorTokens;
     }
 }

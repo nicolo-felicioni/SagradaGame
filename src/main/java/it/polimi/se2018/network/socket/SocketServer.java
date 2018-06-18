@@ -16,7 +16,7 @@ public class SocketServer {
 	/**
 	 * Socket server port number.
 	 */
-	private final int port = 66666;
+	private final int port = 55555;
 
 	/**
 	 * Server socket
@@ -29,11 +29,11 @@ public class SocketServer {
 	public SocketServer(){
 		try {
 			serverSocket = new ServerSocket(port);
+			new Thread(new Listener()).start();
 		} catch(IOException ex) {
-		} finally {
 			try {
 				serverSocket.close();
-			} catch (IOException ex) {
+			} catch (IOException e) {
 			}
 		}
 	}

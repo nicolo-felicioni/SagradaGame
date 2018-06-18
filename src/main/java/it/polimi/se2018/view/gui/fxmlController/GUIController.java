@@ -332,7 +332,7 @@ public class GUIController extends AbstractView implements GUIInterface{
      */
     @Override
     public void handle(ConnectSocketEvent event) {
-        this.client=new SocketClient();
+        this.client=new SocketClient(this);
         addGameObserver(this.client);
         try {
             client.connect(event.getAddress(),event.getPort());

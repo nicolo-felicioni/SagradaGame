@@ -42,6 +42,9 @@ public class Server {
 		System.out.println("Starting RMI Server..."); //TODO println
 		rmiServer = new RMIServer();
 		System.out.println("RMI Server started. Ready to accept connections."); //TODO println
+		System.out.println("Starting Socket Server..."); //TODO println
+		socketServer = new SocketServer();
+		System.out.println("Socket Server started. Ready to accept connections."); //TODO println
 		//socketServer = new SocketServer();
 	}
 
