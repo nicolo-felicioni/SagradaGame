@@ -1,11 +1,10 @@
 package it.polimi.se2018.network.rmi;
 
-import it.polimi.se2018.event.*;
+import it.polimi.se2018.event.game.*;
 
 import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 
 public interface RMIServerSessionInterface extends Remote, Serializable {
     /**

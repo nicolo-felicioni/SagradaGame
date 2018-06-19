@@ -3,8 +3,7 @@ package it.polimi.se2018.network.client;
 import it.polimi.se2018.controller.ViewUpdaterObserver;
 import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.exceptions.NetworkException;
-import it.polimi.se2018.observable.GameEventObservable;
-import it.polimi.se2018.observer.GameEventObserver;
+import it.polimi.se2018.observer.game.GameEventObserver;
 
 import java.rmi.NotBoundException;
 

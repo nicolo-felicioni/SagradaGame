@@ -1,6 +1,6 @@
 package it.polimi.se2018.view;
 
-import it.polimi.se2018.observable.GameEventObservableImpl;
+import it.polimi.se2018.observable.game.GameEventObservableImpl;
 
 /**
  * @author davide yi xian hu

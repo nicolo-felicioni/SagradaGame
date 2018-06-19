@@ -10,7 +10,7 @@ import java.lang.reflect.Type;
 /**
  * @author davide yi xian hu
  */
-public class WindowPatternAdapter implements JsonSerializer<WindowPattern>, JsonDeserializer<WindowPattern> {
+class WindowPatternAdapter implements JsonSerializer<WindowPattern>, JsonDeserializer<WindowPattern> {
 
 	private final static String X = "x";
 	private final static String Y = "y";
@@ -20,7 +20,6 @@ public class WindowPatternAdapter implements JsonSerializer<WindowPattern>, Json
 	private final static String VALUE_SPACES = "valueSpaces";
 	private final static String DIFFICULTY = "difficulty";
 	private final static String WINDOW = "window";
-
 
 	/**
 	 * {@inheritDoc}

@@ -1,7 +1,7 @@
 package it.polimi.se2018.network.socket;
 
 import com.google.gson.*;
-import it.polimi.se2018.event.GameEvent;
+import it.polimi.se2018.event.game.GameEvent;
 
 import java.lang.reflect.Type;
 

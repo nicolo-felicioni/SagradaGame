@@ -2,13 +2,12 @@ package it.polimi.se2018.network.server;
 
 import it.polimi.se2018.controller.ViewUpdaterObserver;
 import it.polimi.se2018.controller.updater.PlayerUpdater;
-import it.polimi.se2018.event.*;
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
+import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.model.Model;
-import it.polimi.se2018.observable.GameEventObservableImpl;
+import it.polimi.se2018.observable.game.GameEventObservableImpl;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

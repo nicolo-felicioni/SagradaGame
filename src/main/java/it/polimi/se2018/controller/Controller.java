@@ -5,10 +5,10 @@ import it.polimi.se2018.controller.factory.PublicObjectiveCardsFactory;
 import it.polimi.se2018.controller.factory.ToolCardsFactory;
 import it.polimi.se2018.controller.factory.WindowPatternFactory;
 import it.polimi.se2018.controller.utils.Scheduler;
-import it.polimi.se2018.event.*;
+import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.exceptions.*;
 import it.polimi.se2018.model.*;
-import it.polimi.se2018.observer.GameEventObserver;
+import it.polimi.se2018.observer.game.GameEventObserver;
 import java.util.List;
 
 /**

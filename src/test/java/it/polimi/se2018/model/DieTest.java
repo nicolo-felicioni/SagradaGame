@@ -4,11 +4,6 @@ package it.polimi.se2018.model;
  * @author Nicolò Felicioni
  */
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import it.polimi.se2018.event.IncreaseDieValueGameEvent;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 /**
  * @author Nicolò Felicioni

@@ -8,17 +8,22 @@ import java.lang.reflect.Type;
 /**
  * @author davide yi xian hu
  */
-public class ViewUpdaterAdapter implements JsonSerializer<ViewUpdaterInterface>, JsonDeserializer<ViewUpdaterInterface> {
+class ViewUpdaterAdapter implements JsonSerializer<ViewUpdaterInterface>, JsonDeserializer<ViewUpdaterInterface> {
 
 	/**
 	 * ClassName
 	 */
-	private static final String CLASSNAME = "CLASSNAME";
+	private static final String CLASSNAME = "View updater";
 
 	/**
 	 * Instance
 	 */
-	private static final String INSTANCE  = "INSTANCE";
+	private static final String INSTANCE = "Values";
+
+	/**
+	 * Package of view updaters.
+	 */
+	private static final String PACKAGE = "it.polimi.se2018.controller.updater.";
 
 	/**
 	 * {@inheritDoc}
@@ -29,7 +34,7 @@ public class ViewUpdaterAdapter implements JsonSerializer<ViewUpdaterInterface>,
 	public ViewUpdaterInterface deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
 		JsonObject jsonObject = jsonElement.getAsJsonObject();
 		JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);
-		String className = prim.getAsString();
+		String className = PACKAGE + prim.getAsString();
 		Class<?> klass = null;
 		try {
 			klass = Class.forName(className);
@@ -48,7 +53,7 @@ public class ViewUpdaterAdapter implements JsonSerializer<ViewUpdaterInterface>,
 	@Override
 	public JsonElement serialize(ViewUpdaterInterface updater, Type type, JsonSerializationContext jsonSerializationContext) {
 		JsonObject retValue = new JsonObject();
-		String className = updater.getClass().getName();
+		String className = updater.getClass().getSimpleName();
 		retValue.addProperty(CLASSNAME, className);
 		JsonElement elem = jsonSerializationContext.serialize(updater);
 		retValue.add(INSTANCE, elem);

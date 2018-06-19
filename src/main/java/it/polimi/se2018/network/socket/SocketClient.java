@@ -1,15 +1,9 @@
 package it.polimi.se2018.network.socket;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.event.*;
+import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.exceptions.LoginException;
-import it.polimi.se2018.json.PlayerStateAdapter;
-import it.polimi.se2018.json.ViewUpdaterAdapter;
-import it.polimi.se2018.json.WindowPatternAdapter;
-import it.polimi.se2018.model.PlayerState;
-import it.polimi.se2018.model.WindowPattern;
+import it.polimi.se2018.json.Json;
 import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.view.View;
 
@@ -65,12 +59,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void login(String uid) throws LoginException {
-		try {
-			String loginMessage = new LoginMessage(uid).toJsonString();
-			this.send(loginMessage);
-		}catch (IOException e){
-			new LoginException("Login failed");
-		}
+		this.send(new LoginMessage(uid).toJsonString());
 	}
 
 	/**
@@ -88,9 +77,13 @@ public class SocketClient implements ClientInterface {
 	 *
 	 * @param text the message to send to the server session.
 	 */
-	private void send(String text) throws IOException{
-		this.outStream.writeUTF(text);
-		this.outStream.flush();
+	private void send(String text){
+		try {
+			this.outStream.writeUTF(text);
+			this.outStream.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -110,7 +103,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(ChooseDraftDieValueGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
 	/**
@@ -120,7 +113,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(DecreaseDieValueGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
 	/**
@@ -130,7 +123,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(DraftAndPlaceAgainGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
 	/**
@@ -140,7 +133,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(DraftAndPlaceNoAdjacentGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
 	/**
@@ -150,7 +143,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(DraftAndPlaceGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
 	/**
@@ -160,7 +153,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(EndTurnGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
 	/**
@@ -170,7 +163,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(FlipDraftDieGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
 	/**
@@ -180,7 +173,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(IncreaseDieValueGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
 	/**
@@ -190,7 +183,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(MoveDieIgnoreColorRestrictionGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
 	/**
@@ -200,7 +193,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(MoveDieIgnoreValueRestrictionGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
 	/**
@@ -220,7 +213,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(MoveDieRespectAllRestrictionsGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
 	/**
@@ -230,7 +223,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(RerollAllDraftDiceGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
 	/**
@@ -240,7 +233,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(RerollDraftDieGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
 	/**
@@ -250,7 +243,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(StartGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
 	/**
@@ -260,7 +253,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(SwapDraftDieWithDiceBagDieGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
 	/**
@@ -270,7 +263,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(SwapDraftDieWithRoundTrackDieGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
 	/**
@@ -280,7 +273,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(UseToolCardGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
 	/**
@@ -290,8 +283,9 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(WindowPatternChosenGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
+
 
 	private class NetworkListener implements Runnable {
 		private boolean run = true;
@@ -300,13 +294,7 @@ public class SocketClient implements ClientInterface {
 		public void run() {
 			while(this.run) {
 				try {
-					String request = inStream.readUTF();
-					GsonBuilder gsonBuilder = new GsonBuilder();
-					gsonBuilder.registerTypeAdapter(ViewUpdaterInterface.class, new ViewUpdaterAdapter());
-					gsonBuilder.registerTypeAdapter(WindowPattern.class, new WindowPatternAdapter());
-					gsonBuilder.registerTypeAdapter(PlayerState.class, new PlayerStateAdapter());
-					Gson gson = gsonBuilder.create();
-					handle(gson.fromJson(request, ViewUpdaterInterface.class));
+					handle(Json.getGson().fromJson(inStream.readUTF(), ViewUpdaterInterface.class));
 				} catch (IOException e) {
 				}
 			}
