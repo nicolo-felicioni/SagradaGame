@@ -1,11 +1,9 @@
 package it.polimi.se2018.controller.factory;
 
-import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-import it.polimi.se2018.json.WindowPatternAdapter;
+import it.polimi.se2018.json.Json;
 import it.polimi.se2018.model.*;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -45,12 +43,8 @@ public class WindowPatternFactory {
 
 	private void loadWindowPattern(String path) throws FileNotFoundException{
 		JsonReader reader = new JsonReader(new FileReader(path));
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(WindowPattern.class, new WindowPatternAdapter());
-		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
 		Type listType = new TypeToken<ArrayList<WindowPattern>>(){}.getType();
-		List<WindowPattern> list = gson.fromJson(reader, listType);
+		List<WindowPattern> list = Json.getGson().fromJson(reader, listType);
 		this.windows.addAll(list);
 		try {
 			reader.close();
@@ -60,19 +54,11 @@ public class WindowPatternFactory {
 	}
 
 	public String toJson(WindowPattern window) {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(WindowPattern.class, new WindowPatternAdapter());
-		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
-		return gson.toJson(window);
+		return Json.getGson().toJson(window);
 	}
 
 	public WindowPattern fromJson(String s){
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(WindowPattern.class, new WindowPatternAdapter());
-		gsonBuilder.setPrettyPrinting();
-		Gson gson = gsonBuilder.create();
-		return gson.fromJson(s, WindowPattern.class);
+		return Json.getGson().fromJson(s, WindowPattern.class);
 	}
 
 }

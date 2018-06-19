@@ -1,13 +1,10 @@
 package it.polimi.se2018.network.rmi;
 
-import it.polimi.se2018.event.*;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.network.server.GameRoom;
+import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.network.server.SessionInterface;
-import it.polimi.se2018.observable.GameEventObservableImpl;
+import it.polimi.se2018.observable.game.GameEventObservableImpl;
 
-import java.io.Serializable;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;

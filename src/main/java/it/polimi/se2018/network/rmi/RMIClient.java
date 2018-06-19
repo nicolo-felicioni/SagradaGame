@@ -1,13 +1,10 @@
 package it.polimi.se2018.network.rmi;
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.event.*;
+import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.exceptions.NetworkException;
-import it.polimi.se2018.network.client.AbstractClient;
 import it.polimi.se2018.network.client.ClientInterface;
-import it.polimi.se2018.observer.*;
-import it.polimi.se2018.view.AbstractView;
 import it.polimi.se2018.view.View;
 
 import java.rmi.NotBoundException;

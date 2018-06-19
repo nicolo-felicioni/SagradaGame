@@ -1,15 +1,13 @@
 package it.polimi.se2018.network.server;
 
 import it.polimi.se2018.controller.ViewUpdaterObserver;
-import it.polimi.se2018.observable.GameEventObservable;
-import it.polimi.se2018.observer.GameEventObserver;
-
-import java.rmi.Remote;
+import it.polimi.se2018.observable.game.GameEventObservable;
+import it.polimi.se2018.observer.game.GameEventObserver;
 
 /**
  * @author davide yi xian hu
  */
-public interface SessionInterface extends ViewUpdaterObserver, GameEventObservable {
+public interface SessionInterface extends ViewUpdaterObserver, GameEventObservable, GameEventObserver {
 
 	String getUID();
 }

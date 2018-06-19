@@ -2,9 +2,9 @@ package it.polimi.se2018.view.cli;
 
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.event.WindowPatternChosenGameEvent;
+import it.polimi.se2018.event.game.WindowPatternChosenGameEvent;
 import it.polimi.se2018.model.WindowPatternPosition;
-import it.polimi.se2018.event.DraftAndPlaceGameEvent;
+import it.polimi.se2018.event.game.DraftAndPlaceGameEvent;
 import it.polimi.se2018.exceptions.*;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.network.client.ClientInterface;

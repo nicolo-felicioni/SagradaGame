@@ -5,17 +5,22 @@ import it.polimi.se2018.model.PlayerState;
 
 import java.lang.reflect.Type;
 
-public class PlayerStateAdapter implements JsonSerializer<PlayerState>, JsonDeserializer<PlayerState> {
+class PlayerStateAdapter implements JsonSerializer<PlayerState>, JsonDeserializer<PlayerState> {
 
     /**
      * ClassName
      */
-    private static final String CLASSNAME = "CLASSNAME";
+    private static final String CLASSNAME = "Player state type";
 
     /**
      * Instance
      */
-    private static final String INSTANCE = "INSTANCE";
+    private static final String INSTANCE = "Values";
+
+    /**
+     * Package of player states.
+     */
+    private static final String PACKAGE = "it.polimi.se2018.model.";
 
     /**
      * {@inheritDoc}
@@ -27,7 +32,7 @@ public class PlayerStateAdapter implements JsonSerializer<PlayerState>, JsonDese
     public PlayerState deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);
-        String className = prim.getAsString();
+        String className = PACKAGE + prim.getAsString();
         Class<?> klass = null;
         try {
             klass = Class.forName(className);
@@ -47,7 +52,7 @@ public class PlayerStateAdapter implements JsonSerializer<PlayerState>, JsonDese
     @Override
     public JsonElement serialize(PlayerState updater, Type type, JsonSerializationContext jsonSerializationContext) {
         JsonObject retValue = new JsonObject();
-        String className = updater.getClass().getName();
+        String className = updater.getClass().getSimpleName();
         retValue.addProperty(CLASSNAME, className);
         JsonElement elem = jsonSerializationContext.serialize(updater);
         retValue.add(INSTANCE, elem);

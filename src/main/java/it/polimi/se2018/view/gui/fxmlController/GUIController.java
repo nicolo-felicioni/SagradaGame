@@ -1,7 +1,7 @@
 package it.polimi.se2018.view.gui.fxmlController;
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.event.*;
+import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.event.network.ConnectRMIEvent;
 import it.polimi.se2018.event.network.ConnectSocketEvent;
 import it.polimi.se2018.event.network.LoginEvent;
@@ -11,8 +11,6 @@ import it.polimi.se2018.model.*;
 import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.network.rmi.RMIClient;
 import it.polimi.se2018.network.socket.SocketClient;
-import it.polimi.se2018.observer.GameEventObserver;
-import it.polimi.se2018.observer.network.LoginObserver;
 import it.polimi.se2018.view.AbstractView;
 import it.polimi.se2018.view.gui.MainGUI;
 import javafx.fxml.FXML;
