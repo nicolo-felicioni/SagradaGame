@@ -8,7 +8,6 @@ import it.polimi.se2018.json.Json;
 import it.polimi.se2018.network.server.Server;
 import it.polimi.se2018.network.server.SessionInterface;
 import it.polimi.se2018.observable.game.GameEventObservableImpl;
-import it.polimi.se2018.observer.game.GameEventObserver;
 
 import java.io.*;
 import java.net.Socket;
@@ -51,6 +50,19 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 	}
 
 	/**
+	 * Send a message to the client.
+	 * @param text the message to be sent.
+	 */
+	private void send(String text) {
+		try {
+			this.outStream.writeUTF(text);
+			this.outStream.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * Handle a view update from the network.
 	 *
 	 * @param updater the view updater.
@@ -59,12 +71,7 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 	 */
 	@Override
 	public synchronized void handle(ViewUpdaterInterface updater) {
-		try {
-			this.outStream.writeUTF(Json.getGson().toJson(updater, ViewUpdaterInterface.class));
-			this.outStream.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		send(Json.getGson().toJson(updater, ViewUpdaterInterface.class));
 	}
 
 	/**
@@ -282,12 +289,13 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 			try {
 				uid = new LoginMessage(inStream.readUTF(), true).getUid();
 				Server.getInstance().login(uid, session);
+				send(new LoginResponse(true, LoginResponse.LOGIN_SUCCESS_MESSAGE).toJson());
 				while(this.run) {
 					Json.getGson().fromJson(inStream.readUTF(), GameEvent.class).accept(session);
 				}
 			} catch (IOException e) {
 			} catch (LoginException e) {
-				e.printStackTrace();
+				send(new LoginResponse(false, LoginResponse.LOGIN_FAIL_MESSAGE).toJson());
 			}
 		}
 

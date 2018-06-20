@@ -299,15 +299,17 @@ public class CommandLineInterface extends AbstractView {
         do {
             Printer.println(USERNAME_REQUEST_MESSAGE);
             username = keyboard.readLine();
+
+            this.player = new Player(username);
             try {
                 client.login(username);
                 loginError = false;
             } catch (LoginException e) {
                 Printer.println(e.getMessage());
+                this.player = null;
             }
         } while (loginError);
 
-        this.player = new Player(username);
     }
 
 

@@ -44,9 +44,7 @@ public class SocketClient implements ClientInterface {
 			this.socket = new Socket(address, port);
 			this.outStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 			this.outStream.flush();
-			this.listener = new NetworkListener();
 			this.inStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
-			new Thread(listener).start();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -60,6 +58,18 @@ public class SocketClient implements ClientInterface {
 	@Override
 	public void login(String uid) throws LoginException {
 		this.send(new LoginMessage(uid).toJsonString());
+		LoginResponse response = null;
+		try {
+			String text = inStream.readUTF();
+			response = new LoginResponse(text);
+			if(!response.isLoginResult()){
+				throw new LoginException(response.getMessage());
+			}
+			this.listener = new NetworkListener();
+			new Thread(listener).start();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

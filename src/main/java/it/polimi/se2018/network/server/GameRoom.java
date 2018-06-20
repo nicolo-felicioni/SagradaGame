@@ -49,7 +49,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	/**
 	 * Interval of time to wait before to start a game.
 	 */
-	public static int TIMER_WAIT_START_GAME = 5000;
+	public static int TIMER_WAIT_START_GAME = 20000;
 
 	/**
 	 * Constructor.
@@ -60,6 +60,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 		Model model = new Model();
 		model.addObserver(this);
 		this.addGameObserver(new Controller(model));
+		this.started = false;
 	}
 
 	/**
@@ -76,13 +77,12 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	 * @param session the player session.
 	 */
 	public synchronized void addPlayerSession(SessionInterface session) {
-		if(this.isIn(session.getUID())){
-			this.removePlayerSession(session.getUID());
+		if(!this.isIn(session.getUID())){
+			playerSessions.add(session);
+			observers.add(session);
+			//playerSessions.forEach(s -> this.notifyObservers(new PlayerUpdater(session.getUID(), 0)));
+			this.refreshTimer(TIMER_WAIT_START_GAME);
 		}
-		playerSessions.add(session);
-		observers.add(session);
-		playerSessions.forEach(s -> this.notifyObservers(new PlayerUpdater(session.getUID(), 0)));
-		this.refreshTimer(TIMER_WAIT_START_GAME);
 	}
 
 	/**
@@ -344,6 +344,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	@Override
 	public void handle(StartGameEvent event) {
 		this.notifyObservers(event);
+		this.started = true;
 	}
 
 	/**

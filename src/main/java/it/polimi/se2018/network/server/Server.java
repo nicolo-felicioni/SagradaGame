@@ -8,6 +8,7 @@ import it.polimi.se2018.network.socket.SocketServer;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author davide yi xian hu
@@ -82,9 +83,11 @@ public class Server {
 				room = new GameRoom();
 				roomList.add(room);
 			}
+			room.addPlayerSession(session);
+			session.addGameObserver(room);
+		}else{
+			throw new LoginException(LoginException.DEFAULT_LOGIN_ERROR_MESSAGE);
 		}
-		room.addPlayerSession(session);
-		session.addGameObserver(room);
 	}
 
 	/**
@@ -93,21 +96,27 @@ public class Server {
 	 * @return a game room that has not started, null if all rooms have already started.
 	 */
 	private GameRoom getNotStartedGameRoom(){
-		for(GameRoom room : roomList) {
-			if (!room.isStarted()) {
-				return room;
-			}
+		Optional<GameRoom> gameRoom = roomList.stream().filter(room -> !room.isStarted()).findAny();
+		if (gameRoom.isPresent()) {
+			return gameRoom.get();
+		} else {
+			return null;
 		}
-		return null;
 	}
 
-	private GameRoom getGameRoom(String uid){
-		for(GameRoom room : roomList) {
-			if (!room.isIn(uid)) {
-				return room;
-			}
+	/**
+	 * Look for a game room that contain a player with an uid. Return null if no room has that player.
+	 *
+	 * @param uid the player unique identifier.
+	 * @return a game room that contains the player, null if no room has that player.
+	 */
+	private GameRoom getGameRoom(String uid) {
+		Optional<GameRoom> gameRoom = roomList.stream().filter(room -> room.isIn(uid)).findAny();
+		if (gameRoom.isPresent()) {
+			return gameRoom.get();
+		} else {
+			return null;
 		}
-		return null;
 	}
 
 }

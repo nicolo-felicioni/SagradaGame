@@ -6,6 +6,11 @@ package it.polimi.se2018.exceptions;
 public class LoginException extends NetworkException{
 
 	/**
+	 * Login error message.
+	 */
+	public static final String DEFAULT_LOGIN_ERROR_MESSAGE = "Login error";
+
+	/**
 	 * @inheritDoc
 	 */
 	public LoginException(String message) {
