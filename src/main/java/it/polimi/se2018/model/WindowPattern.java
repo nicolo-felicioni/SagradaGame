@@ -228,7 +228,15 @@ public class WindowPattern implements Serializable {
 
 	}
 
-
+	/**
+	 * Place a die in the window pattern. Ignore all restriction.
+	 * @param die the die that has to be placed.
+	 * @param p the position where to place the die.
+	 * @throws PlacementException if the space in the position p has already a die.
+	 */
+	public void placeDieIgnoreAll(Die die, Point p) throws PlacementException {
+		spaces[p.getX()][p.getY()].placeDie(die);
+	}
 
 
 

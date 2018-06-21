@@ -99,4 +99,12 @@ public class DraftPool implements Serializable {
     public DraftPool cloneDraftPool(){
         return new DraftPool(this);
     }
+
+    /**
+     * Roll every dice in the draft pool.
+     */
+    public void rollAllDice() {
+        this.draftPool.forEach(d -> d.roll());
+    }
+
 }

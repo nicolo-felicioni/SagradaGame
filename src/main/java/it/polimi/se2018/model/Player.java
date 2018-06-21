@@ -17,14 +17,12 @@ public class Player {
 	private WindowPattern[] patterns; //the initial four patterns
 	private WindowPattern chosenPattern; //the chosen one
 	private PlayerState state;
-	private ToolCard activeToolCard;
 
 	public static final int N_WINDOW_PATTERNS = 4;
 
 
 	public Player(String id){
 		this.id = id;
-		this.activeToolCard=null;
 		this.state=null;
 		this.privateObjectiveCard=null;
 		this.patterns = null;
@@ -45,7 +43,6 @@ public class Player {
 			this.chosenPattern=copy.chosenPattern.cloneWindowPattern();
 		this.privateObjectiveCard=copy.privateObjectiveCard;
 		this.state=copy.state;
-		this.activeToolCard=copy.activeToolCard;
 
 	}
 
@@ -116,16 +113,6 @@ public class Player {
 	 */
 	public void setPrivateObjective(PrivateObjectiveCard card) {
 		this.privateObjectiveCard = card;
-	}
-
-
-	//TODO - DUBBIA GESTIONE DELLE TOOL CARD
-	public ToolCard getActiveToolCard() {
-		return activeToolCard;
-	}
-
-	public void setActiveToolCard(ToolCard activeToolCard) {
-		this.activeToolCard = activeToolCard;
 	}
 
 
@@ -223,13 +210,8 @@ public class Player {
 	}
 
 	//TODO N javadoc
-	public void useTool(ToolCard card) throws GameMoveException {
-		if(this.state.canUseTool()){
-		    this.useTool(card);
-		    this.setActiveToolCard(card);
-        }
-
-        this.state.useTool(); //if it can't be used, throws exception
+	public void useTool() throws GameMoveException {
+		this.state.useTool();
 
 	}
 

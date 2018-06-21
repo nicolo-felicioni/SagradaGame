@@ -9,6 +9,8 @@ import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.exceptions.*;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.observer.game.GameEventObserver;
+
+import java.awt.*;
 import java.util.List;
 
 /**
@@ -40,14 +42,17 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(DecreaseDieValueGameEvent event) {
-		DraftPool draftPool;
 		try {
-			//TODO controllare se si puo' usare l'effetto.
-			draftPool = model.getDraftPool();
-			draftPool.removeDie(event.getDraftedDie());
-			draftPool.addDie(new Die(event.getDraftedDie().getColor(), event.getDraftedDie().getValue().decreaseValue()));
-			model.setDraftPool(draftPool.cloneDraftPool());
-		} catch (NotValidDieException e1) {
+			ToolCard toolCard = model.getActiveToolCard();
+			DraftPool draftPool = model.getDraftPool();
+			if(toolCard.decreaseDieValue()) {
+				toolCard.consumeEffect();
+				draftPool.removeDie(event.getDraftedDie());
+				draftPool.addDie(new Die(event.getDraftedDie().getColor(), event.getDraftedDie().getValue().decreaseValue()));
+				model.setDraftPool(draftPool.cloneDraftPool());
+				model.setToolCard(toolCard.cloneToolCard());
+			}
+		} catch (NotValidDieException | ToolCardStateException e1) {
 			e1.printStackTrace();
 		}
 	}
@@ -120,16 +125,18 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(FlipDraftDieGameEvent event) {
-		DraftPool draftPool;
 		try {
-
-			//TODO controllare se si puo' usare l'effetto.
-			draftPool = model.getDraftPool();
-			draftPool.removeDie(event.getDraftedDie());
-			draftPool.addDie(event.getDraftedDie().flip());
-			model.setDraftPool(draftPool.cloneDraftPool());
-		} catch (NotValidDieException e1) {
-			e1.printStackTrace();
+			ToolCard toolCard = model.getActiveToolCard();
+			DraftPool draftPool = model.getDraftPool();
+			if(toolCard.flipDraftedDie()) {
+				draftPool.removeDie(event.getDraftedDie());
+				draftPool.addDie(event.getDraftedDie().flip());
+				toolCard.consumeEffect();
+				model.setToolCard(toolCard.cloneToolCard());
+				model.setDraftPool(draftPool.cloneDraftPool());
+			}
+		} catch (NotValidDieException | ToolCardStateException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -140,16 +147,18 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(IncreaseDieValueGameEvent event) {
-		DraftPool draftPool;
 		try {
-
-			//TODO controllare se si puo' usare l'effetto.
-			draftPool = model.getDraftPool();
-			draftPool.removeDie(event.getDraftedDie());
-			draftPool.addDie(new Die(event.getDraftedDie().getColor(), event.getDraftedDie().getValue().increaseValue()));
-			model.setDraftPool(draftPool.cloneDraftPool());
-		} catch (NotValidDieException e1) {
-			e1.printStackTrace();
+			ToolCard toolCard = model.getActiveToolCard();
+			DraftPool draftPool = model.getDraftPool();
+			if(toolCard.decreaseDieValue()) {
+				toolCard.consumeEffect();
+				draftPool.removeDie(event.getDraftedDie());
+				draftPool.addDie(new Die(event.getDraftedDie().getColor(), event.getDraftedDie().getValue().increaseValue()));
+				model.setDraftPool(draftPool.cloneDraftPool());
+				model.setToolCard(toolCard);
+			}
+		} catch (NotValidDieException | ToolCardStateException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -160,7 +169,20 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(MoveDieIgnoreColorRestrictionGameEvent event) {
-
+		try {
+			ToolCard toolCard = model.getActiveToolCard();
+			WindowPattern window = model.getPlayer(event.getPlayerId()).getPattern();
+			if(toolCard.moveDieIgnoreColor()) {
+				toolCard.consumeEffect();
+				Die die = window.getSpace(event.getInitialPosition()).getDie();
+				window.removeDie(event.getInitialPosition());
+				window.placeDieIgnoreColor(die, event.getFinalPosition());
+				model.setToolCard(toolCard);
+				model.setChosenWindowPattern(event.getPlayerId(), window);
+			}
+		} catch (GameException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -170,7 +192,20 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(MoveDieIgnoreValueRestrictionGameEvent event) {
-
+		try {
+			ToolCard toolCard = model.getActiveToolCard();
+			WindowPattern window = model.getPlayer(event.getPlayerId()).getPattern();
+			if(toolCard.moveDieIgnoreValue()) {
+				toolCard.consumeEffect();
+				Die die = window.getSpace(event.getInitialPosition()).getDie();
+				window.removeDie(event.getInitialPosition());
+				window.placeDieIgnoreValue(die, event.getFinalPosition());
+				model.setToolCard(toolCard);
+				model.setChosenWindowPattern(event.getPlayerId(), window);
+			}
+		} catch (GameException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -180,7 +215,22 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(MoveDieMatchColorRoundTrackGameEvent event) {
-
+		try {
+			ToolCard toolCard = model.getActiveToolCard();
+			WindowPattern window = model.getPlayer(event.getPlayerId()).getPattern();
+			if(toolCard.moveTwoDiceMatchColorOnRoundTrack()) {
+				toolCard.consumeEffect();
+				Die die = window.getSpace(event.getInitialPosition()).getDie();
+				if(model.getRoundTrack().getAllDice().stream().anyMatch(d -> d.getColor().equals(die.getColor()))) {
+					window.removeDie(event.getInitialPosition());
+					window.placeDie(die, event.getFinalPosition());
+					model.setToolCard(toolCard);
+					model.setChosenWindowPattern(event.getPlayerId(), window);
+				}
+			}
+		} catch (GameException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -190,7 +240,20 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(MoveDieRespectAllRestrictionsGameEvent event) {
-
+		try {
+			ToolCard toolCard = model.getActiveToolCard();
+			WindowPattern window = model.getPlayer(event.getPlayerId()).getPattern();
+			if(toolCard.moveADie()) {
+				toolCard.consumeEffect();
+				Die die = window.getSpace(event.getInitialPosition()).getDie();
+				window.removeDie(event.getInitialPosition());
+				window.placeDie(die, event.getFinalPosition());
+				model.setToolCard(toolCard);
+				model.setChosenWindowPattern(event.getPlayerId(), window);
+			}
+		} catch (GameException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -200,7 +263,18 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(RerollAllDraftDiceGameEvent event) {
-
+		try {
+			ToolCard toolCard = model.getActiveToolCard();
+			DraftPool draftPool = model.getDraftPool();
+			if(toolCard.rerollAllDraftPoolDice()) {
+				toolCard.consumeEffect();
+				draftPool.rollAllDice();
+				model.setToolCard(toolCard);
+				model.setDraftPool(draftPool);
+			}
+		} catch (GameException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -210,7 +284,21 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(RerollDraftDieGameEvent event) {
-
+		try {
+			ToolCard toolCard = model.getActiveToolCard();
+			DraftPool draftPool = model.getDraftPool();
+			Die die = event.getDraftedDie();
+			if(toolCard.rerollAllDraftPoolDice()) {
+				toolCard.consumeEffect();
+				draftPool.removeDie(new Die(die));
+				die.roll();
+				draftPool.addDie(new Die(die));
+				model.setToolCard(toolCard.cloneToolCard());
+				model.setDraftPool(draftPool.cloneDraftPool());
+			}
+		} catch (GameException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -242,10 +330,11 @@ public class Controller implements GameEventObserver {
 	public void handle(UseToolCardGameEvent event) {
 		try {
 			Player player = model.getPlayer(event.getPlayerId());
-			if(player.getState().canUseTool()) {
-				ToolCard toolCard = model.getToolCard(event.getPositionOfToolCard());
+			ToolCard toolCard = model.getToolCard(event.getPositionOfToolCard());
+			if(player.getState().canUseTool() && player.getTokens() >= toolCard.cost()) {
 				toolCard.activate();
 				player.getState().useTool();
+				player.spendToken(toolCard.cost());
 				model.changePlayerStateTo(player.getId(), player.getState().cloneState());
 				model.setToolCard(toolCard, event.getPositionOfToolCard());
 			}
@@ -301,9 +390,7 @@ public class Controller implements GameEventObserver {
 		ids.stream().forEach(id -> {
 			try {
 				this.model.addPlayer(new Player(id));
-			} catch (TooManyPlayersException e) {
-				e.printStackTrace();
-			} catch (NotValidIdException e) {
+			} catch (TooManyPlayersException | NotValidIdException e) {
 				e.printStackTrace();
 			}
 		});

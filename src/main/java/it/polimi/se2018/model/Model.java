@@ -183,13 +183,25 @@ public class Model implements ViewUpdaterObservable {
      * Tool card setter.
      * @param card the tool card.
      * @param p the position of the tool card.
-     * @return the tool card number in the position p.
      */
     public void setToolCard(ToolCard card, CardPosition p){
         if(toolCards != null) {
             this.toolCards[p.toInt()] = card.cloneToolCard();
         }
         this.notifyObservers(new ToolCardUpdater(card.cloneToolCard(), p));
+    }
+
+    /**
+     * Tool card setter.
+     * @param card the tool card.
+     */
+    public void setToolCard(ToolCard card){
+        for(int i = 0; i < toolCards.length; i++) {
+            if( toolCards[i].getName().equals(card.getName()) ) {
+                toolCards[i] = card.cloneToolCard();
+                this.notifyObservers(new ToolCardUpdater(card.cloneToolCard(), CardPosition.fromInt(i)));
+            }
+        }
     }
 
     /**
@@ -375,10 +387,15 @@ public class Model implements ViewUpdaterObservable {
 
     /**
      * Get active tool card if any is active.
-     * @return the active tool card if there's one active.
+     * @return the active tool card if there's one active. Otherwise return null;
      */
     public ToolCard getActiveToolCard() {
-        return Arrays.asList(toolCards).stream().filter(ToolCard::isActive).findAny().get().cloneToolCard();
+        Optional<ToolCard> toolCard = Arrays.asList(toolCards).stream().filter(ToolCard::isActive).findAny();
+        if(toolCard.isPresent()) {
+            return toolCard.get().cloneToolCard();
+        } else {
+            return null;
+        }
     }
 
     /**

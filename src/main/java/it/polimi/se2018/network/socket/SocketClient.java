@@ -26,6 +26,11 @@ public class SocketClient implements ClientInterface {
 	private View view;
 
 	/**
+	 * The user identifier.
+	 */
+	private String uid;
+
+	/**
 	 * Constructor.
 	 */
 	public SocketClient(View view) {
@@ -67,6 +72,7 @@ public class SocketClient implements ClientInterface {
 			}
 			this.listener = new NetworkListener();
 			new Thread(listener).start();
+			this.uid = uid;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -79,7 +85,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public String getUid() {
-		return null;
+		return uid;
 	}
 
 	/**
