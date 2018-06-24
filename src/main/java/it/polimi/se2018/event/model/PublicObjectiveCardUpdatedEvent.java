@@ -3,6 +3,9 @@ package it.polimi.se2018.event.model;
 import it.polimi.se2018.model.CardPosition;
 import it.polimi.se2018.model.PublicObjectiveCard;
 
+/**
+ * @author Davide Yi Xian Hu
+ */
 public class PublicObjectiveCardUpdatedEvent {
 
     /**

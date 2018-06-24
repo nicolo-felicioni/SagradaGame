@@ -1,5 +1,8 @@
 package it.polimi.se2018.event.network;
 
+/**
+ * @author Davide Yi Xian Hu
+ */
 public class ConnectRMIEvent extends ConnectEvent{
     /**
      * Constructor

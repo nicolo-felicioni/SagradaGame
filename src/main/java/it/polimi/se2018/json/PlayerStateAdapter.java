@@ -5,6 +5,9 @@ import it.polimi.se2018.model.PlayerState;
 
 import java.lang.reflect.Type;
 
+/**
+ * @author Davide Yi Xian Hu
+ */
 class PlayerStateAdapter implements JsonSerializer<PlayerState>, JsonDeserializer<PlayerState> {
 
     /**

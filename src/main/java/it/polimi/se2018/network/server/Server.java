@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @author davide yi xian hu
+ * @author Davide Yi Xian Hu
  */
 public class Server {
 

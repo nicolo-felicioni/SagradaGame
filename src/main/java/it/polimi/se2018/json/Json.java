@@ -9,6 +9,9 @@ import it.polimi.se2018.model.PublicObjectiveCard;
 import it.polimi.se2018.model.ToolCard;
 import it.polimi.se2018.model.WindowPattern;
 
+/**
+ * @author Davide Yi Xian Hu
+ */
 public class Json {
 
     /**

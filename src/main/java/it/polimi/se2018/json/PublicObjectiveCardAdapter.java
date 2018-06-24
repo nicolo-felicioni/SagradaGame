@@ -6,6 +6,9 @@ import it.polimi.se2018.model.ToolCard;
 
 import java.lang.reflect.Type;
 
+/**
+ * @author Davide Yi Xian Hu
+ */
 class PublicObjectiveCardAdapter implements JsonSerializer<PublicObjectiveCard>, JsonDeserializer<PublicObjectiveCard> {
 
     /**

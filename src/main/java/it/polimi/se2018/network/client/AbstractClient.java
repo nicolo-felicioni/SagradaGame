@@ -1,7 +1,7 @@
 package it.polimi.se2018.network.client;
 
 /**
- * @author davide yi xian hu
+ * @author Davide Yi Xian Hu
  */
 public abstract class AbstractClient implements ClientInterface{
 

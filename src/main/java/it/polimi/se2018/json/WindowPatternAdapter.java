@@ -8,7 +8,7 @@ import it.polimi.se2018.model.*;
 import java.lang.reflect.Type;
 
 /**
- * @author davide yi xian hu
+ * @author Davide Yi Xian Hu
  */
 class WindowPatternAdapter implements JsonSerializer<WindowPattern>, JsonDeserializer<WindowPattern> {
 

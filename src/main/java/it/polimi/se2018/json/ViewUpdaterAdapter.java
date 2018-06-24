@@ -6,7 +6,7 @@ import it.polimi.se2018.controller.ViewUpdaterInterface;
 import java.lang.reflect.Type;
 
 /**
- * @author davide yi xian hu
+ * @author Davide Yi Xian Hu
  */
 class ViewUpdaterAdapter implements JsonSerializer<ViewUpdaterInterface>, JsonDeserializer<ViewUpdaterInterface> {
 

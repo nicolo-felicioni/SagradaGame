@@ -2,6 +2,9 @@ package it.polimi.se2018.event.model;
 
 import it.polimi.se2018.model.PrivateObjectiveCard;
 
+/**
+ * @author Davide Yi Xian Hu
+ */
 public class PrivateObjectiveCardUpdatedEvent {
 
     /**

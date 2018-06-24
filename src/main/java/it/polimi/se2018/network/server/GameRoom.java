@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author davide yi xian hu
+ * @author Davide Yi Xian Hu
  */
 public class GameRoom extends GameEventObservableImpl implements GameRoomInterface {
 

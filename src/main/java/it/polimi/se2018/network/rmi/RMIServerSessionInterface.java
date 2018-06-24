@@ -6,6 +6,9 @@ import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+/**
+ * @author Davide Yi Xian Hu
+ */
 public interface RMIServerSessionInterface extends Remote, Serializable {
     /**
      * Handle a ChooseDraftDieValueEvent.

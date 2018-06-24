@@ -3,6 +3,9 @@ package it.polimi.se2018.event.model;
 import it.polimi.se2018.model.WindowPattern;
 import it.polimi.se2018.model.WindowPatternPosition;
 
+/**
+ * @author Davide Yi Xian Hu
+ */
 public class WindowPatternUpdatedEvent {
 
     /**

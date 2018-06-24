@@ -3,7 +3,7 @@ package it.polimi.se2018.event.game;
 import it.polimi.se2018.model.Point;
 
 /**
- * @author davide yi xian hu
+ * @author Davide Yi Xian Hu
  */
 public abstract class AbstractMoveDieGameEvent extends AbstractPlayerGameEvent {
 

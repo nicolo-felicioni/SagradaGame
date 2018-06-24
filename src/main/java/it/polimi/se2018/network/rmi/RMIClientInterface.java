@@ -6,6 +6,9 @@ import it.polimi.se2018.exceptions.LoginException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+/**
+ * @author Davide Yi Xian Hu
+ */
 public interface RMIClientInterface extends Remote {
 
     /**

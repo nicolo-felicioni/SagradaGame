@@ -5,7 +5,7 @@ import it.polimi.se2018.observable.game.GameEventObservable;
 import it.polimi.se2018.observer.game.GameEventObserver;
 
 /**
- * @author davide yi xian hu
+ * @author Davide Yi Xian Hu
  */
 public interface SessionInterface extends ViewUpdaterObserver, GameEventObservable, GameEventObserver {
 

@@ -2,6 +2,9 @@ package it.polimi.se2018.event.model;
 
 import it.polimi.se2018.model.RoundTrack;
 
+/**
+ * @author Davide Yi Xian Hu
+ */
 public class RoundTrackUpdatedEvent {
 
     /**

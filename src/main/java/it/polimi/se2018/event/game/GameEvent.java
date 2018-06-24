@@ -5,7 +5,7 @@ import it.polimi.se2018.observer.game.GameEventObserver;
 import java.io.Serializable;
 
 /**
- * @author davide yi xian hu
+ * @author Davide Yi Xian Hu
  */
 public interface GameEvent extends Serializable { // = ModelUpdater
 

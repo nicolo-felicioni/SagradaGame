@@ -5,6 +5,9 @@ import it.polimi.se2018.event.game.GameEvent;
 
 import java.lang.reflect.Type;
 
+/**
+ * @author Davide Yi Xian Hu
+ */
 class GameEventAdapter implements JsonSerializer<GameEvent>, JsonDeserializer<GameEvent> {
 
     /**

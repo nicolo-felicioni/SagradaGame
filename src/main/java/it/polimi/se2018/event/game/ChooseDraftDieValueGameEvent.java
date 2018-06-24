@@ -5,7 +5,7 @@ import it.polimi.se2018.model.DieValue;
 import it.polimi.se2018.observer.game.GameEventObserver;
 
 /**
- * @author davide yi xian hu
+ * @author Davide Yi Xian Hu
  */
 public class ChooseDraftDieValueGameEvent extends AbstractPlayerGameEvent {
 

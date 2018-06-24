@@ -8,7 +8,7 @@ import it.polimi.se2018.observer.game.GameEventObserver;
 import java.rmi.NotBoundException;
 
 /**
- * @author davide yi xian hu
+ * @author Davide Yi Xian Hu
  */
 public interface ClientInterface extends GameEventObserver, ViewUpdaterObserver {
 

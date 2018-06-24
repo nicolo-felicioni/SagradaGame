@@ -1,5 +1,8 @@
 package it.polimi.se2018.event.model;
 
+/**
+ * @author Davide Yi Xian Hu
+ */
 public class PlayerUpdatedEvent {
 
     /**

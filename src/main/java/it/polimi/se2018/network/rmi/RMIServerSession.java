@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author davide yi xian hu
+ * @author Davide Yi Xian Hu
  */
 public class RMIServerSession extends GameEventObservableImpl implements SessionInterface, RMIServerSessionInterface {
 

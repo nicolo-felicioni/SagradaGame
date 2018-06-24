@@ -5,6 +5,9 @@ import it.polimi.se2018.model.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Davide Yi Xian Hu
+ */
 public class Scheduler {
 
     /**

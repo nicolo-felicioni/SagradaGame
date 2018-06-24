@@ -14,21 +14,34 @@ import java.awt.*;
 import java.util.List;
 
 /**
- * @author davide yi xian hu
+ * @author Davide Yi Xian Hu
  */
 public class Controller implements GameEventObserver {
 
+	/**
+	 * The game model. It contains all the information about the game.
+	 */
 	private Model model;
+
+	/**
+	 * The game scheduler. It manages player's turns.
+	 */
 	private Scheduler scheduler;
 
+	/**
+	 * Public constructor.
+	 * @param model the game model.
+	 */
 	public Controller(Model model) {
 		this.model = model;
 	}
 
 	/**
-	 * Handle a ChooseDraftDieValueEvent.
+	 * Handle a choose draft die value game event.
+	 * Check if the tool card let the player play this effect.
+	 * After checking all conditions it change the value of a draft die with the a new value.
 	 *
-	 * @param event the ChooseDraftDieValueEvent.
+	 * @param event the choose draft die value game event.
 	 */
 	@Override
 	public void handle(ChooseDraftDieValueGameEvent event) {
@@ -48,9 +61,11 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Handle a DecreaseDieValueEvent.
+	 * Handle a decrease die value game event.
+	 * Check if the tool card let the player play this effect.
+	 * After checking all conditions it decrease the value of the die.
 	 *
-	 * @param event the DecreaseDieValueEvent.
+	 * @param event the decrease die value game event.
 	 */
 	@Override
 	public void handle(DecreaseDieValueGameEvent event) {
@@ -70,9 +85,12 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Handle a DraftAndPlaceAgainEvent.
+	 * Handle a draft and place again game event.
+	 * Check if the tool card let the player play this effect and check if it is the first turn of the round.
+	 * After checking all conditions, let the player draft and place again after his first turn.
+	 * Remove the next occurrence of the player in the scheduler queue.
 	 *
-	 * @param event the DraftAndPlaceAgainEvent.
+	 * @param event the draft and place again game event.
 	 */
 	@Override
 	public void handle(DraftAndPlaceAgainGameEvent event) {
@@ -94,9 +112,11 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Handle a DraftAndPlaceNoAdjacentEvent.
+	 * Handle a draft and place no adjacent game event.
+	 * Check if the tool card let the player play this effect and the placement is legal.
+	 * After checking all conditions, let the player draft and place a die in a space that has no adjacent spaces with dice.
 	 *
-	 * @param event the DraftAndPlaceNoAdjacentEvent.
+	 * @param event the draft and place no adjacent game event.
 	 */
 	@Override
 	public void handle(DraftAndPlaceNoAdjacentGameEvent event) {
@@ -122,9 +142,11 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Handle a DraftAndPlaceEvent.
+	 * Handle a draft and place game event.
+	 * Check if the player can draft and place.
+	 * After checking all conditions, let the player draft and place a die in a space, respecting all restrictions.
 	 *
-	 * @param event the DraftAndPlaceEvent.
+	 * @param event the draft and place game event.
 	 */
 	@Override
 	public void handle(DraftAndPlaceGameEvent event) {
@@ -149,9 +171,11 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Handle a EndTurnEvent.
+	 * Handle an end turn event.
+	 * Check if the player can end the turn.
+	 * After checking all conditions, let the player and go to next turn.
 	 *
-	 * @param event the EndTurnEvent.
+	 * @param event the end turn event.
 	 */
 	@Override
 	public void handle(EndTurnGameEvent event) {
@@ -166,9 +190,11 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Handle a FlipDraftDieEvent.
+	 * Handle a flip drafted die game event.
+	 * Check if the tool card let the player play this effect.
+	 * After checking all conditions, let the player flip a die in the draft pool.
 	 *
-	 * @param event the FlipDraftDieEvent.
+	 * @param event the flip drafted die game event.
 	 */
 	@Override
 	public void handle(FlipDraftDieGameEvent event) {
@@ -188,9 +214,11 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Handle a IncreaseDieValueEvent.
+	 * Handle a decrease die value game event.
+	 * Check if the tool card let the player play this effect.
+	 * After checking all conditions it increase the value of the die.
 	 *
-	 * @param event the IncreaseDieValueEvent.
+	 * @param event the increase die value game event.
 	 */
 	@Override
 	public void handle(IncreaseDieValueGameEvent event) {
@@ -210,9 +238,11 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Handle a MoveDieIgnoreColorRestrictionEvent.
+	 * Handle a move die ignore color restriction event.
+	 * Check if the tool card let the player play this effect and check if the move is legal.
+	 * After checking all conditions move the die ignoring the space color restriction.
 	 *
-	 * @param event the MoveDieIgnoreColorRestrictionEvent.
+	 * @param event the move die ignore color restriction event.
 	 */
 	@Override
 	public void handle(MoveDieIgnoreColorRestrictionGameEvent event) {
@@ -233,9 +263,11 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Handle a MoveDieIgnoreValueRestrictionEvent.
+	 * Handle a move die ignore value restriction event.
+	 * Check if the tool card let the player play this effect and check if the move is legal.
+	 * After checking all conditions move the die ignoring the space value restriction.
 	 *
-	 * @param event the MoveDieIgnoreValueRestrictionEvent.
+	 * @param event the move die ignore value restriction event.
 	 */
 	@Override
 	public void handle(MoveDieIgnoreValueRestrictionGameEvent event) {
@@ -256,9 +288,11 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Handle a MoveDieMatchColorRoundTrackEvent.
+	 * Handle a move die that match the color of a die in the round track event.
+	 * Check if the tool card let the player play this effect, check if the move is legal and check if the selected die match the color of a die in the round track.
+	 * After checking all conditions move the die.
 	 *
-	 * @param event the MoveDieMatchColorRoundTrackEvent.
+	 * @param event the move die that match the color of a die in the round track event.
 	 */
 	@Override
 	public void handle(MoveDieMatchColorRoundTrackGameEvent event) {
@@ -281,9 +315,11 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Handle a MoveDieRespectAllRestrictionsEvent.
+	 * Handle a move die respect all restriction event.
+	 * Check if the tool card let the player play this effect.
+	 * After checking all conditions move the die.
 	 *
-	 * @param event the MoveDieRespectAllRestrictionsEvent.
+	 * @param event the move die respect all restriction event.
 	 */
 	@Override
 	public void handle(MoveDieRespectAllRestrictionsGameEvent event) {
@@ -304,9 +340,11 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Handle a RerollAllDraftDiceEvent.
+	 * Handle a reroll all draft pool dice game event.
+	 * Check if the tool card let the player play this effect.
+	 * After checking all conditions reroll every dice im the draft pool.
 	 *
-	 * @param event the RerollAllDraftDiceEvent.
+	 * @param event the reroll all draft pool dice game event.
 	 */
 	@Override
 	public void handle(RerollAllDraftDiceGameEvent event) {
@@ -325,9 +363,11 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Handle a RerollDraftDieEvent.
+	 * Handle a reroll draft die game event.
+	 * Check if the tool card let the player play this effect.
+	 * After checking all conditions reroll the die in the draft pool.
 	 *
-	 * @param event the RerollDraftDieEvent.
+	 * @param event the reroll draft die game event.
 	 */
 	@Override
 	public void handle(RerollDraftDieGameEvent event) {
@@ -349,9 +389,11 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Handle a SwapDraftDieWithDiceBagDieEvent.
+	 * Handle a swap draft pool die with a dice bag die game event.
+	 * Check if the tool card let the player play this effect.
+	 * After checking all conditions swap the dice.
 	 *
-	 * @param event the SwapDraftDieWithDiceBagDieEvent.
+	 * @param event the swap draft pool die with a dice bag die game event.
 	 */
 	@Override
 	public void handle(SwapDraftDieWithDiceBagDieGameEvent event) {
@@ -374,9 +416,11 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Handle a SwapDraftDieWithRoundTrackDieEvent.
+	 * Handle a swap draft pool die with a round track die game event.
+	 * Check if the tool card let the player play this effect.
+	 * After checking all conditions swap the dice.
 	 *
-	 * @param event the SwapDraftDieWithRoundTrackDieEvent.
+	 * @param event the swap draft pool die with a round track die game event.
 	 */
 	@Override
 	public void handle(SwapDraftDieWithRoundTrackDieGameEvent event) {
@@ -400,9 +444,11 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Handle a UseToolCardEvent.
+	 * Handle a use tool card event.
+	 * Check if the player can use a tool card and check if he has enough favor tokens.
+	 * After checking all conditions, activate the tool card and spend player's favor tokens.
 	 *
-	 * @param event the UseToolCardEvent.
+	 * @param event the use tool card event.
 	 */
 	@Override
 	public void handle(UseToolCardGameEvent event) {
@@ -422,15 +468,19 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Handle a WindowPatternChosenEvent.
+	 * Handle a window pattern chosen game event.
+	 * Check if the player is in the choosing window pattern state.
+	 * After checking all conditions, set the pattern as the chosen one.
 	 *
-	 * @param event the WindowPatternChosenEvent.
+	 * @param event the window pattern chosen game event.
 	 */
 	@Override
 	public void handle(WindowPatternChosenGameEvent event) {
 		System.out.println(" ===> Controller :: Window pattern choice received."); //TODO println
 		try {
-			model.setChosenWindowPattern(event.getPlayerId(), event.getWindow());
+			if( !model.getPlayer(event.getPlayerId()).getState().hasChosenWindowPattern() ) {
+				model.setChosenWindowPattern(event.getPlayerId(), event.getWindow());
+			}
 		} catch (NotValidPatterException e) {
 			e.printStackTrace();
 		} catch (NotValidIdException e) {
@@ -446,9 +496,9 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Handle a StartGameEvent.
+	 * Handle a start game event.
 	 *
-	 * @param event the StartGameEvent.
+	 * @param event the start game event.
 	 */
 	@Override
 	public void handle(StartGameEvent event) {

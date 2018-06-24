@@ -4,7 +4,7 @@ import it.polimi.se2018.model.Point;
 import it.polimi.se2018.observer.game.GameEventObserver;
 
 /**
- * @author davide yi xian hu
+ * @author Davide Yi Xian Hu
  */
 public class MoveDieIgnoreColorRestrictionGameEvent extends AbstractMoveDieGameEvent {
 
