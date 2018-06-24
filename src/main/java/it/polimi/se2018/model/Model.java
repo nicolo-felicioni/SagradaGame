@@ -327,8 +327,8 @@ public class Model implements ViewUpdaterObservable {
         if(!wantedPlayer.isPresent())
             throw new NotValidIdException("Wanted to get a player with a not valid id.");
 
-        wantedPlayer.get().changePlayerStateTo(playerState);
-        this.notifyObservers(new PlayerStateUpdater(playerId, playerState));
+        wantedPlayer.get().changePlayerStateTo(playerState.cloneState());
+        this.notifyObservers(new PlayerStateUpdater(playerId, playerState.cloneState()));
     }
 
     /**

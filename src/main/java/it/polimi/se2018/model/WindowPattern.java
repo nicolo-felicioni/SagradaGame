@@ -229,13 +229,17 @@ public class WindowPattern implements Serializable {
 	}
 
 	/**
-	 * Place a die in the window pattern. Ignore all restriction.
-	 * @param die the die that has to be placed.
-	 * @param p the position where to place the die.
-	 * @throws PlacementException if the space in the position p has already a die.
+	 * Places a die on a space of the window pattern. The spaces adjacent to the space where the die will be placed must not have a die.
+	 * @param die the die that have to be placed.
+	 * @param p the coordinates of the space.
+	 * @throws PlacementException if the die can not be placed.
 	 */
-	public void placeDieIgnoreAll(Die die, Point p) throws PlacementException {
-		spaces[p.getX()][p.getY()].placeDie(die);
+	public void plaaceDieIgnoreAdjacent(Die die, Point p) throws PlacementException {
+		if(!isThereSomeDieAdjacent(p)) {
+			spaces[p.getX()][p.getY()].placeDie(die);
+		} else {
+			throw new PlacementException("Die not placeable because there's a die in adjacent position.");
+		}
 	}
 
 
@@ -247,7 +251,6 @@ public class WindowPattern implements Serializable {
 	 * @return true if there is a die adjacent to the point p, otherwise false
 	 */
 	private boolean isThereSomeDieAdjacent(Point p){
-
 		return p.getAdjacentSpaces().stream().map(this::getSpace).anyMatch(Space::hasDie);
 
 	}

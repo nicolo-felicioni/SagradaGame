@@ -109,4 +109,12 @@ public class Die implements Serializable {
 		return new Die(this.color, this.value.oppositeValue());
 	}
 
+	/**
+	 * Return a clone of this die.
+	 * @return a clone of this die.
+	 */
+	public Die cloneDie() {
+		return new Die(this);
+	}
+
 }

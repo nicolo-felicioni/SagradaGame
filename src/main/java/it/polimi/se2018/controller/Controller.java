@@ -32,7 +32,19 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(ChooseDraftDieValueGameEvent event) {
-
+		try {
+			ToolCard toolCard = model.getActiveToolCard();
+			DraftPool draftPool = model.getDraftPool();
+			if(toolCard.chooseNewDieValue()) {
+				toolCard.consumeEffect();
+				draftPool.removeDie(event.getDraftedDie());
+				draftPool.addDie(event.getDraftedDie().cloneDie());
+				model.setDraftPool(draftPool.cloneDraftPool());
+				model.setToolCard(toolCard.cloneToolCard());
+			}
+		} catch (NotValidDieException | ToolCardStateException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -52,8 +64,8 @@ public class Controller implements GameEventObserver {
 				model.setDraftPool(draftPool.cloneDraftPool());
 				model.setToolCard(toolCard.cloneToolCard());
 			}
-		} catch (NotValidDieException | ToolCardStateException e1) {
-			e1.printStackTrace();
+		} catch (NotValidDieException | ToolCardStateException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -64,7 +76,21 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(DraftAndPlaceAgainGameEvent event) {
-
+		try {
+			ToolCard toolCard = model.getActiveToolCard();
+			DraftPool draftPool = model.getDraftPool();
+			WindowPattern pattern = model.getPlayer(event.getPlayerId()).getPattern();
+			if(toolCard.placeDieAfterFirstTurn() && scheduler.isFirstTurnOfRound() && scheduler.removeFirstOccurenceOf(event.getPlayerId())) {
+				toolCard.consumeEffect();
+				draftPool.removeDie(event.getDraftedDie());
+				pattern.placeDie(event.getDraftedDie(), event.getPoint());
+				model.setDraftPool(draftPool.cloneDraftPool());
+				model.setToolCard(toolCard.cloneToolCard());
+				model.setChosenWindowPattern(event.getPlayerId(), pattern.cloneWindowPattern());
+			}
+		} catch (NotValidDieException | NotValidIdException | ToolCardStateException | PlacementException | NotValidPatterException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -74,7 +100,25 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(DraftAndPlaceNoAdjacentGameEvent event) {
-
+		try {
+			Player player = model.getPlayer(event.getPlayerId());
+			ToolCard toolCard = model.getActiveToolCard();
+			DraftPool draftPool = model.getDraftPool();
+			WindowPattern pattern = model.getPlayer(event.getPlayerId()).getPattern();
+			PlayerState state = model.getPlayer(event.getPlayerId()).getState();
+			if(toolCard.placeDraftedDieNoAdjacent() && player.getState().canPlaceDie()) {
+				toolCard.consumeEffect();
+				draftPool.removeDie(event.getDraftedDie());
+				pattern.plaaceDieIgnoreAdjacent(event.getDraftedDie(), event.getPoint());
+				state.diePlaced();
+				model.setDraftPool(draftPool.cloneDraftPool());
+				model.setToolCard(toolCard.cloneToolCard());
+				model.setChosenWindowPattern(event.getPlayerId(), pattern.cloneWindowPattern());
+				model.changePlayerStateTo(event.getPlayerId(), state.cloneState());
+			}
+		} catch (NotValidDieException | NotValidIdException | ToolCardStateException | PlacementException | NotValidPatterException | IllegalMoveTurnException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -86,15 +130,18 @@ public class Controller implements GameEventObserver {
 	public void handle(DraftAndPlaceGameEvent event) {
 		try {
 			Player player = model.getPlayer(event.getPlayerId());
+			DraftPool draftPool = model.getDraftPool();
+			WindowPattern windowPattern = model.getPlayer(event.getPlayerId()).getPattern();
+			PlayerState state = model.getPlayer(event.getPlayerId()).getState();
 			if (player.getState().canPlaceDie()) {
-				DraftPool draftPool = model.getDraftPool();
 				draftPool.removeDie(event.getDraftedDie());
-				WindowPattern windowPattern = model.getPlayer(event.getPlayerId()).getPattern();
 				windowPattern.placeDie(event.getDraftedDie(), event.getPoint());
 				player.getState().diePlaced();
+				state.diePlaced();
 				model.changePlayerStateTo(player.getId(), player.getState().cloneState());
 				model.setDraftPool(draftPool.cloneDraftPool());
 				model.setChosenWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
+				model.changePlayerStateTo(event.getPlayerId(), state.cloneState());
 			}
 		} catch (GameException e) {
 			e.printStackTrace();
@@ -290,9 +337,9 @@ public class Controller implements GameEventObserver {
 			Die die = event.getDraftedDie();
 			if(toolCard.rerollAllDraftPoolDice()) {
 				toolCard.consumeEffect();
-				draftPool.removeDie(new Die(die));
+				draftPool.removeDie(die.cloneDie());
 				die.roll();
-				draftPool.addDie(new Die(die));
+				draftPool.addDie(die.cloneDie());
 				model.setToolCard(toolCard.cloneToolCard());
 				model.setDraftPool(draftPool.cloneDraftPool());
 			}
@@ -308,7 +355,22 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(SwapDraftDieWithDiceBagDieGameEvent event) {
-
+		try {
+			ToolCard toolCard = model.getActiveToolCard();
+			DraftPool draftPool = model.getDraftPool();
+			DiceBag diceBag = model.getDiceBag();
+			if(toolCard.returnDieAndGetNewFromDiceBag()) {
+				toolCard.consumeEffect();
+				draftPool.removeDie(event.getDraftedDie());
+				diceBag.addDie((event.getDraftedDie().cloneDie()));
+				draftPool.addDie(diceBag.drawDie().cloneDie());
+				model.setToolCard(toolCard.cloneToolCard());
+				model.setDraftPool(draftPool.cloneDraftPool());
+				model.setDiceBag(diceBag.cloneDiceBag());
+			}
+		} catch (GameException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -318,7 +380,23 @@ public class Controller implements GameEventObserver {
 	 */
 	@Override
 	public void handle(SwapDraftDieWithRoundTrackDieGameEvent event) {
-
+		try {
+			ToolCard toolCard = model.getActiveToolCard();
+			DraftPool draftPool = model.getDraftPool();
+			RoundTrack roundTrack = model.getRoundTrack();
+			if(toolCard.swapDraftDieWithRoundTrackDie()) {
+				toolCard.consumeEffect();
+				draftPool.removeDie(event.getDraftedDie());
+				roundTrack.remove(event.getRoundTrackDie(), event.getRound());
+				draftPool.addDie(event.getDraftedDie());
+				roundTrack.addDie(event.getDraftedDie(), event.getRound());
+				model.setToolCard(toolCard.cloneToolCard());
+				model.setDraftPool(draftPool.cloneDraftPool());
+				model.setRoundTrack(roundTrack.cloneRoundTrack());
+			}
+		} catch (GameException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -467,19 +545,14 @@ public class Controller implements GameEventObserver {
 	 * Wake up the next turn's player.
 	 */
 	private void nextTurn() {
-		model.getPlayersId().stream().forEach(id -> {
-			try {
-				model.changePlayerStateTo(id, new NotYourTurnState());
-			} catch (NotValidIdException e) {
-				e.printStackTrace();
-			}
-		});
 		if (this.scheduler.hasNext()) {
 			try {
-				if(scheduler.isFirstTurnOfRound()) {
-					model.changePlayerStateTo(scheduler.next(), new FirstTurnState());
+				model.changePlayerStateTo(scheduler.getCurrentPlayerId(), new NotYourTurnState());
+				String playerId = scheduler.next();
+				if(scheduler.isFirstTurnOfGame()) {
+					model.changePlayerStateTo(playerId, new FirstTurnState());
 				}else {
-					model.changePlayerStateTo(scheduler.next(), new YourTurnState());
+					model.changePlayerStateTo(playerId, new YourTurnState());
 				}
 			} catch (NotValidIdException e) {
 				e.printStackTrace();
@@ -490,22 +563,29 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Next turn. Wake up the next turn's player. Other players' state will be NotYourTurn.
+	 * First turn. Wake up the next turn's player. Other players' state will be NotYourTurn.
 	 */
 	private void firstTurn() {
-		model.getPlayersId().stream().forEach(id -> {
-			try {
-				model.changePlayerStateTo(id, new NotYourTurnState());
-			} catch (NotValidIdException e) {
-				e.printStackTrace();
-			}
-		});
 		if (this.scheduler.hasNext()) {
 			try {
-				model.changePlayerStateTo(scheduler.next(), new FirstTurnState());
+				model.getPlayers().stream().map(p -> p.getId()).forEach(id -> {
+					try {
+						model.changePlayerStateTo(id, new NotYourTurnState());
+					} catch (NotValidIdException e) {
+						e.printStackTrace();
+					}
+				});
+				String playerId = scheduler.next();
+				if(scheduler.isFirstTurnOfGame()) {
+					model.changePlayerStateTo(playerId, new FirstTurnState());
+				}else {
+					model.changePlayerStateTo(playerId, new YourTurnState());
+				}
 			} catch (NotValidIdException e) {
 				e.printStackTrace();
 			}
+		}else{
+			endGame();
 		}
 	}
 

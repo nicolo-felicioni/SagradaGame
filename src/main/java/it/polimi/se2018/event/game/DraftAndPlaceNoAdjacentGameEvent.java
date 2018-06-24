@@ -28,7 +28,7 @@ public class DraftAndPlaceNoAdjacentGameEvent extends AbstractPlayerGameEvent {
 	 */
 	public DraftAndPlaceNoAdjacentGameEvent(Die draftedDie, Point point, String id) {
 		super(id);
-		this.draftedDie = new Die(draftedDie);
+		this.draftedDie = draftedDie.cloneDie();
 		this.point = point.clonePoint();
 	}
 
@@ -37,7 +37,7 @@ public class DraftAndPlaceNoAdjacentGameEvent extends AbstractPlayerGameEvent {
 	 * @return the drafted die from the draft pool.
 	 */
 	public Die getDraftedDie() {
-		return new Die(draftedDie);
+		return draftedDie.cloneDie();
 	}
 
 	/**

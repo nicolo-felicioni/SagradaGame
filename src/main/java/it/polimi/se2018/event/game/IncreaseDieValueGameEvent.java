@@ -20,7 +20,7 @@ public class IncreaseDieValueGameEvent extends AbstractPlayerGameEvent {
 	 */
 	public IncreaseDieValueGameEvent(Die draftedDie, String playerId) {
 		super(playerId);
-		this.draftedDie = new Die(draftedDie);
+		this.draftedDie = draftedDie.cloneDie();
 	}
 
 	/**
@@ -28,7 +28,7 @@ public class IncreaseDieValueGameEvent extends AbstractPlayerGameEvent {
 	 * @return the drafted die from the draft pool.
 	 */
 	public Die getDraftedDie() {
-		return new Die(draftedDie);
+		return draftedDie.cloneDie();
 	}
 
 

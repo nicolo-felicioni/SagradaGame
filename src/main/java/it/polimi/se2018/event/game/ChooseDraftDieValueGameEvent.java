@@ -1,6 +1,7 @@
 package it.polimi.se2018.event.game;
 
 import it.polimi.se2018.model.Die;
+import it.polimi.se2018.model.DieValue;
 import it.polimi.se2018.observer.game.GameEventObserver;
 
 /**
@@ -14,13 +15,20 @@ public class ChooseDraftDieValueGameEvent extends AbstractPlayerGameEvent {
 	private Die draftedDie;
 
 	/**
+	 * The die value to assign.
+	 */
+	private DieValue value;
+
+	/**
 	 * Constructor.
 	 * @param draftedDie the die of the draft pool.
 	 * @param playerId the player identifier.
+	 * @param value the value to assign to the die.
 	 */
-	public ChooseDraftDieValueGameEvent(Die draftedDie, String playerId) {
+	public ChooseDraftDieValueGameEvent(Die draftedDie, DieValue value, String playerId) {
 		super(playerId);
 		this.draftedDie = new Die(draftedDie);
+		this.value = value;
 	}
 
 	/**
@@ -30,6 +38,15 @@ public class ChooseDraftDieValueGameEvent extends AbstractPlayerGameEvent {
 	public Die getDraftedDie() {
 		return new Die(draftedDie);
 	}
+
+	/**
+	 * Getter of the die value.
+	 * @return the die value.
+	 */
+	public DieValue getValue() {
+		return value;
+	}
+
 
 	/**
 	 * Accept an observer. Visitor pattern.

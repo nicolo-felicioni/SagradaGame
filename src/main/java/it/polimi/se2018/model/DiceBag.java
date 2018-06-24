@@ -91,6 +91,18 @@ public class DiceBag implements Serializable {
 	}
 
 	/**
+	 * Add a die to the dice bag.
+	 * @param die the die that has to be added.
+	 */
+	public void addDie(Die die) throws DiceBagException{
+		if(numberOfPresentDice.get(die.getColor().toInt()) != DiceBag.INITIAL_NUMBER) {
+			this.numberOfPresentDice.set(die.getColor().toInt(), numberOfPresentDice.get(die.getColor().toInt()) + 1);
+		} else {
+			throw new DiceBagException("The die can not be added to the dice bag.");
+		}
+	}
+
+	/**
 	 * Clone method. It ruterns a new copy of this dice bag.
 	 * @return a new copy of this dice bag.
 	 */

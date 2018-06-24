@@ -55,6 +55,8 @@ public class Scheduler {
             this.queue.addAll(reverseOrder(temp));
             temp.add(temp.remove(0));
         }
+        currentRound = 0;
+        currentTurn = 0;
     }
 
     /**
@@ -105,6 +107,15 @@ public class Scheduler {
     }
 
     /**
+     * Remove the first occurence of a player id in the queue.
+     * @param id the player id.
+     * @return true if a player id has been removed.
+     */
+    public boolean removeFirstOccurenceOf(String id) {
+        return this.queue.remove(id);
+    }
+
+    /**
      * Return true if it is the first turn of a player in a round.
      * @return true if it is the first turn of a player in a round.
      */
@@ -118,6 +129,14 @@ public class Scheduler {
      */
     public String getCurrentPlayerId() {
         return this.currentPlayerID;
+    }
+
+    /**
+     * Return true if it is the first turn of the player in the game.
+     * @return true if it is the first turn of the player in the game.
+     */
+    public boolean isFirstTurnOfGame() {
+        return currentRound == 0 && isFirstTurnOfRound();
     }
 
 }
