@@ -522,6 +522,27 @@ public class Controller implements GameEventObserver {
 		this.initPlayerState();
 	}
 
+
+	/**
+	 * Handle a reconnect event.
+	 *
+	 * @param event the reconnect event.
+	 */
+	@Override
+	public void handle(ReconnectGameEvent event) {
+		try {
+			String id = event.getPlayerId();
+			this.disconnectedPlayersId.remove(id);
+			Player player = null;
+			player = model.getPlayer(id);
+			player.setConnected(true);
+			model.setPlayer(player);
+			model.notifyModel();
+		} catch (NotValidIdException | NotPresentPlayerException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Start the game. Initialize the model with the players.
 	 * @param ids a list of player identifiers.
@@ -720,15 +741,4 @@ public class Controller implements GameEventObserver {
 		}
 	}
 
-	/**
-	 * Reconnect a player.
-	 * @param id the player identifier.
-	 */
-	private void reconnectPlayer(String id) throws NotValidIdException, NotPresentPlayerException {
-		this.disconnectedPlayersId.remove(id);
-		Player player = model.getPlayer(id);
-		player.setConnected(true);
-		model.setPlayer(player);
-		model.notifyModel();
-	}
 }

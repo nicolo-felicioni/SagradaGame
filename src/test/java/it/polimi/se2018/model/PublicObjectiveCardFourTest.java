@@ -56,7 +56,7 @@ public class PublicObjectiveCardFourTest {
 			spaces[3][2].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
 			spaces[3][3].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
 			spaces[3][4].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			window = new WindowPattern(spaces, 4);
+			window = new WindowPattern(spaces, 4, "pattern");
 		}catch(Exception e){
 			fail();
 		}
@@ -92,7 +92,7 @@ public class PublicObjectiveCardFourTest {
 			spaces[3][2].placeDie(new Die(DieColor.BLUE, DieValue.SIX));
 			spaces[3][3].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
 			spaces[3][4].placeDie(new Die(DieColor.BLUE, DieValue.TWO));
-			window = new WindowPattern(spaces, 4);
+			window = new WindowPattern(spaces, 4, "pattern");
 		}catch(Exception e){
 			fail();
 		}
@@ -122,7 +122,7 @@ public class PublicObjectiveCardFourTest {
 			spaces[2][2].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
 			spaces[2][3].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
 			spaces[2][4].placeDie(new Die(DieColor.BLUE, DieValue.ONE));
-			window = new WindowPattern(spaces, 4);
+			window = new WindowPattern(spaces, 4, "pattern");
 		}catch(Exception e){
 			fail();
 		}

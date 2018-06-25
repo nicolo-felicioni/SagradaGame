@@ -302,6 +302,16 @@ public class SocketClient implements ClientInterface {
 		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
+	/**
+	 * Handle a ReconnectGameEvent.
+	 *
+	 * @param event the ReconnectGameEvent.
+	 */
+	@Override
+	public void handle(ReconnectGameEvent event) {
+		this.send(Json.getGson().toJson(event, GameEvent.class));
+	}
+
 
 	private class NetworkListener implements Runnable {
 		private boolean run = true;

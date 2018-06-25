@@ -268,4 +268,13 @@ public class RMIServerSession extends GameEventObservableImpl implements Session
 		this.notifyObservers(event);
 	}
 
+	/**
+	 * Handle a ReconnectGameEvent.
+	 *
+	 * @param event the ReconnectGameEvent.
+	 */
+	@Override
+	public void handle(ReconnectGameEvent event) {
+		this.notifyObservers(event);
+	}
 }

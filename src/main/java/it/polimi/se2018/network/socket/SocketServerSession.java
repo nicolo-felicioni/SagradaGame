@@ -264,6 +264,16 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 		this.notifyObservers(event);
 	}
 
+	/**
+	 * Handle a ReconnectGameEvent.
+	 *
+	 * @param event the ReconnectGameEvent.
+	 */
+	@Override
+	public void handle(ReconnectGameEvent event) {
+		this.notifyObservers(event);
+	}
+
 	private class NetworkListener implements Runnable {
 
 		/**

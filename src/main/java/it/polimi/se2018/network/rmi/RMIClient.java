@@ -409,4 +409,20 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			}
 		});
 	}
+
+	/**
+	 * Handle a ReconnectGameEvent.
+	 *
+	 * @param event the ReconnectGameEvent.
+	 */
+	@Override
+	public void handle(ReconnectGameEvent event) {
+		this.sessions.forEach(session -> {
+			try {
+				session.handle(event);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
+		});
+	}
 }

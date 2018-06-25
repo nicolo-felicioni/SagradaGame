@@ -338,4 +338,14 @@ public class GUIController extends AbstractView implements GUIInterface{
             e.printStackTrace();
         }
     }
+
+    /**
+     * Handle a ReconnectGameEvent.
+     *
+     * @param event the ReconnectGameEvent.
+     */
+    @Override
+    public void handle(ReconnectGameEvent event) {
+        //TODO
+    }
 }

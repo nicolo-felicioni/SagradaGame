@@ -159,4 +159,10 @@ public interface RMIServerSessionInterface extends Remote, Serializable {
      * @throws RemoteException if RMI errors occur during the connection.
      */
     void handle(WindowPatternChosenGameEvent event) throws RemoteException;
+
+    /**
+     * Handle a ReconnectGameEvent.
+     * @param event the ReconnectGameEvent.
+     */
+    void handle(ReconnectGameEvent event) throws RemoteException;
 }

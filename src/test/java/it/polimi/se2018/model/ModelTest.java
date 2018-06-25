@@ -26,7 +26,7 @@ public class ModelTest {
                 blankSpaces[k][j] = new BlankSpace();
 
         try {
-            return new WindowPattern(blankSpaces, randomDiff);
+            return new WindowPattern(blankSpaces, randomDiff, "pattern");
         } catch (WindowPatternDimensionException e) {
             e.printStackTrace();
         } catch (UnboundDifficultyValueException e) {

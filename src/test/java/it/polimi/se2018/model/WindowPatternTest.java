@@ -66,13 +66,13 @@ public class WindowPatternTest {
         for(int j=0; j<WindowPattern.SPACES_LENGTH; j++)
             spaces[i][j] = new ValueSpace(DieValue.getRandom());
 
-        window = new WindowPattern(spaces, randomDiff);
+        window = new WindowPattern(spaces, randomDiff, "pattern");
 
         for(int k = 0; k<WindowPattern.SPACES_HEIGHT; k++)
             for(int j=0; j<WindowPattern.SPACES_LENGTH; j++)
                 blankSpaces[k][j] = new BlankSpace();
 
-        blankWindow = new WindowPattern(blankSpaces, randomDiff);
+        blankWindow = new WindowPattern(blankSpaces, randomDiff, "pattern");
     }
 
     @After
@@ -87,7 +87,7 @@ public class WindowPatternTest {
         Space[][] wrongMatrix =
                 new Space[WindowPattern.SPACES_HEIGHT][WindowPattern.SPACES_LENGTH + 1];
         try {
-            new WindowPattern(wrongMatrix, randomDiff);
+            new WindowPattern(wrongMatrix, randomDiff, "pattern");
             fail();
         } catch (WindowPatternDimensionException e) {
             System.out.println("ok");
@@ -102,7 +102,7 @@ public class WindowPatternTest {
         Space[][] wrongMatrix =
                 new Space[WindowPattern.SPACES_HEIGHT + 1][WindowPattern.SPACES_LENGTH];
         try {
-            WindowPattern wrongWindow = new WindowPattern(wrongMatrix, randomDiff);
+            WindowPattern wrongWindow = new WindowPattern(wrongMatrix, randomDiff, "pattern");
             fail();
         } catch (WindowPatternDimensionException e) {
             System.out.println("ok");
@@ -117,7 +117,7 @@ public class WindowPatternTest {
         Space[][] okMatrix =
                 new Space[WindowPattern.SPACES_HEIGHT][WindowPattern.SPACES_LENGTH];
         try {
-            WindowPattern wrongWindow = new WindowPattern(okMatrix, randomDiff + 60);
+            WindowPattern wrongWindow = new WindowPattern(okMatrix, randomDiff + 60, "pattern");
             fail();
         } catch (WindowPatternDimensionException e) {
             fail();
@@ -128,7 +128,7 @@ public class WindowPatternTest {
 
 
         try {
-            WindowPattern wrongWindow = new WindowPattern(okMatrix, 0);
+            WindowPattern wrongWindow = new WindowPattern(okMatrix, 0, "pattern");
             fail();
         } catch (WindowPatternDimensionException e) {
             fail();
