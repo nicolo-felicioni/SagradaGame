@@ -6,8 +6,13 @@ import java.util.List;
 public abstract class Menu {
 
     List<Option> options;
-    static final String FIRST_MESSAGE = "Select an option.";
+    CommandLineInterface cli;
 
+
+
+    public Menu(CommandLineInterface cli){
+        this.cli = cli;
+    }
 
 
     abstract void executeMenu();

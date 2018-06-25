@@ -393,6 +393,7 @@ public class WindowPattern implements Serializable {
 	 * @throws UnboundDifficultyValueException
 	 */
 	public WindowPattern cloneWindowPattern() {
+
 		try {
 			return new WindowPattern(getAllSpaces(), this.difficulty, this.name);
 		} catch (WindowPatternDimensionException e) {

@@ -233,6 +233,13 @@ public class Printer {
         }
     }
 
+    public static void println(boolean b) {
+        System.out.println(b);
+    }
+
+    public static void print(boolean b) {
+        System.out.print(b);
+    }
 
 
 
@@ -265,7 +272,6 @@ public class Printer {
         print("Info : "+ card.getInfo());
         newLine();
     }
-
 
 
 }

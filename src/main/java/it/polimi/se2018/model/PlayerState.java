@@ -38,15 +38,17 @@ public abstract class PlayerState implements PlayerStateInterface{
      * returns true if you have already activated a tool card in this turn
      * @return true if you have already activated a tool card in this turn
      */
-    protected boolean isToolActivated(){
+    boolean isToolActivated(){
         return toolActivated;
     }
 
-    protected void setDiePlaced(){
+
+
+    void setDiePlaced(){
         this.diePlaced = true;
     }
 
-    protected void setToolActivated(){
+    void setToolActivated(){
         this.toolActivated = true;
     }
 
