@@ -20,7 +20,7 @@ public class YourTurnState extends PlayerState {
 
     /**
      * Copy constructor.
-     * @param state the state. It has to be a Choose Window Pattern state.
+     * @param state the state. It has to be a Your Turn state.
      */
     public YourTurnState(YourTurnState state) {
         super(state);
@@ -50,6 +50,9 @@ public class YourTurnState extends PlayerState {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasChosenWindowPattern() {
         return true;

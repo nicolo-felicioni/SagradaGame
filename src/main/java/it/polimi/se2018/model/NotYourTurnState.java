@@ -22,7 +22,7 @@ public class NotYourTurnState extends PlayerState {
 
     /**
      * Copy constructor.
-     * @param state the state. It has to be a Choose Window Pattern state.
+     * @param state the state. It has to be a Not Your Turn state.
      */
     public NotYourTurnState(NotYourTurnState state) {
         super(state);

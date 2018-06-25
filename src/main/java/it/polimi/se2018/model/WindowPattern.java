@@ -20,17 +20,24 @@ public class WindowPattern implements Serializable {
 	public static final int MIN_DIFFICULTY = 3;
 	public static final int MAX_DIFFICULTY = 6;
 
+	/**
+	 * Window pattern name.
+	 */
+	private String name;
+
 
 	/**
 	 * Constructor
 	 *
 	 *
-	 * @param spaces matrix of spaces
+	 * @param spaces matrix of spaces.
+	 * @param difficulty the difficulty of the pattern.
+	 * @param name the window pattern name.
 	 * @throws WindowPatternDimensionException if the dimension is wrong
 	 * @throws UnboundDifficultyValueException if the difficulty value is wrong
 	 *
 	 */
-	public WindowPattern(Space[][] spaces, int difficulty) throws WindowPatternDimensionException, UnboundDifficultyValueException {
+	public WindowPattern(Space[][] spaces, int difficulty, String name) throws WindowPatternDimensionException, UnboundDifficultyValueException {
 		if(spaces.length != SPACES_HEIGHT)
 			throw new WindowPatternDimensionException("Wrong number of rows");
 		for(int i = 0; i < SPACES_HEIGHT; i++){
@@ -49,6 +56,7 @@ public class WindowPattern implements Serializable {
 		for(int i = 0; i < SPACES_HEIGHT; i++)
 			for(int j=0; j < SPACES_LENGTH; j++)
 				this.spaces[i][j]=spaces[i][j].cloneSpace();
+		this.name = name;
 	}
 
 	/**
@@ -370,6 +378,13 @@ public class WindowPattern implements Serializable {
 		return (int) getAllSpacesAsList().stream().filter(Space::hasDie).count();
 	}
 
+	/**
+	 * Return the name of the window pattern.
+	 * @return the name of the window pattern.
+	 */
+	public String getName() {
+		return this.name;
+	}
 
 	/**
 	 *
@@ -379,7 +394,7 @@ public class WindowPattern implements Serializable {
 	 */
 	public WindowPattern cloneWindowPattern() {
 		try {
-			return new WindowPattern(getAllSpaces(), this.difficulty);
+			return new WindowPattern(getAllSpaces(), this.difficulty, this.name);
 		} catch (WindowPatternDimensionException e) {
 
 		} catch (UnboundDifficultyValueException e) {

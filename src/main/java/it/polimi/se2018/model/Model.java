@@ -77,11 +77,11 @@ public class Model implements ViewUpdaterObservable {
 
 
         this.players.add(player);
-        this.notifyObservers(new PlayerUpdater(player.getId(), player.getTokens()));
+        this.notifyObservers(new PlayerUpdater(player.getId(), player.getTokens(), player.isConnected()));
     }
 
     /**
-     *Removes a player from the current player's set.
+     * Removes a player from the current player's set.
      * @param player player you want to remove
      * @throws NotPresentPlayerException if the player is not present
      */
@@ -92,9 +92,21 @@ public class Model implements ViewUpdaterObservable {
                 return;
             }
         }
-
         throw new NotPresentPlayerException("Player" + player + "is not present in the game.");
+    }
 
+    /**
+     * Set a player.
+     * @param player the new player.
+     * @throws NotPresentPlayerException if the player is not in the game.
+     */
+    public void setPlayer(Player player) throws NotPresentPlayerException {
+        removePlayer(player);
+        try {
+            addPlayer(player);
+        } catch (TooManyPlayersException | NotValidIdException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -396,6 +408,31 @@ public class Model implements ViewUpdaterObservable {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Notify all observer the model state.
+     */
+    public void notifyModel() {
+        this.notifyObservers(new ToolCardUpdater(toolCards[CardPosition.LEFT.toInt()].cloneToolCard(), CardPosition.LEFT));
+        this.notifyObservers(new ToolCardUpdater(toolCards[CardPosition.CENTER.toInt()].cloneToolCard(), CardPosition.CENTER));
+        this.notifyObservers(new ToolCardUpdater(toolCards[CardPosition.RIGHT.toInt()].cloneToolCard(), CardPosition.RIGHT));
+        this.notifyObservers(new PublicObjectiveCardUpdater(publicObjectiveCards[CardPosition.LEFT.toInt()], CardPosition.LEFT));
+        this.notifyObservers(new PublicObjectiveCardUpdater(publicObjectiveCards[CardPosition.CENTER.toInt()], CardPosition.CENTER));
+        this.notifyObservers(new PublicObjectiveCardUpdater(publicObjectiveCards[CardPosition.RIGHT.toInt()], CardPosition.RIGHT));
+        this.notifyObservers(new DiceBagUpdater(diceBag.cloneDiceBag()));
+        this.notifyObservers(new RoundTrackUpdater(roundTrack.cloneRoundTrack()));
+        this.notifyObservers(new DraftPoolUpdater(draftPool.cloneDraftPool()));
+        this.players.forEach(player -> {
+            notifyObservers(new WindowPatternUpdater(player.getId(), player.getPatterns()[WindowPatternPosition.FIRST.toInt()].cloneWindowPattern(), WindowPatternPosition.FIRST));
+            notifyObservers(new WindowPatternUpdater(player.getId(), player.getPatterns()[WindowPatternPosition.SECOND.toInt()].cloneWindowPattern(), WindowPatternPosition.SECOND));
+            notifyObservers(new WindowPatternUpdater(player.getId(), player.getPatterns()[WindowPatternPosition.THIRD.toInt()].cloneWindowPattern(), WindowPatternPosition.THIRD));
+            notifyObservers(new WindowPatternUpdater(player.getId(), player.getPatterns()[WindowPatternPosition.FOURTH.toInt()].cloneWindowPattern(), WindowPatternPosition.FOURTH));
+            notifyObservers(new WindowPatternUpdater(player.getId(), player.getPattern().cloneWindowPattern(), WindowPatternPosition.CHOSEN));
+            notifyObservers(new PlayerStateUpdater(player.getId(), player.getState().cloneState()));
+            notifyObservers(new PrivateObjectiveCardUpdater(player.getId(), player.getPrivateObjective()));
+            notifyObservers(new PlayerUpdater(player.getId(), player.getTokens(), player.isConnected()));
+        });
     }
 
     /**

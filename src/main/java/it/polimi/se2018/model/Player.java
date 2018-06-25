@@ -3,7 +3,6 @@ package it.polimi.se2018.model;
 import it.polimi.se2018.exceptions.*;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author Nicolò Felicioni
@@ -18,6 +17,11 @@ public class Player {
 	private WindowPattern chosenPattern; //the chosen one
 	private PlayerState state;
 
+	/**
+	 * If the player is connected.
+	 */
+	private boolean connected;
+
 	public static final int N_WINDOW_PATTERNS = 4;
 
 
@@ -26,6 +30,7 @@ public class Player {
 		this.state=null;
 		this.privateObjectiveCard=null;
 		this.patterns = null;
+		this.connected = false;
 	}
 
 
@@ -255,4 +260,19 @@ public class Player {
 		return new Player(this);
 	}
 
+	/**
+	 * Return true if the player is connected.
+	 * @return true if the player is connected.
+	 */
+	public boolean isConnected() {
+		return connected;
+	}
+
+	/**
+	 * Set the connection state of the player, true if it is connected, false otherwise.
+	 * @param connected true if it is connected, false otherwise.
+	 */
+	public void setConnected(boolean connected) {
+		this.connected = connected;
+	}
 }

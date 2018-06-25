@@ -11,6 +11,7 @@ import it.polimi.se2018.model.*;
 import it.polimi.se2018.observer.game.GameEventObserver;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,12 +30,23 @@ public class Controller implements GameEventObserver {
 	private Scheduler scheduler;
 
 	/**
+	 * List of disconnected player identifiers.
+	 */
+	private List<String> disconnectedPlayersId;
+
+	/**
 	 * Public constructor.
 	 * @param model the game model.
 	 */
 	public Controller(Model model) {
 		this.model = model;
+		this.disconnectedPlayersId = new ArrayList<>();
 	}
+
+	/**
+	 * Player turn timer. Max amount of time a player has to make his moves in his turn.
+	 */
+	private static int PLAYER_TURN_TIMER = 60000;
 
 	/**
 	 * Handle a choose draft die value game event.
@@ -591,20 +603,25 @@ public class Controller implements GameEventObserver {
 	}
 
 	/**
-	 * Next turn. Change the state of the current turn's player.
-	 * Wake up the next turn's player.
+	 * Go to next turn. End game if there is no player in the schedule.
+	 * The current playing player change his state to NotYourTurnState();
+	 * If there's a player, check if he is connected or not. If he is not connected, advance to next turn (recursive call).
+	 * If there's a player and he is connected change his state to FirstTurnState or YourTurnState.
+	 * It depends on if it is the first turn of the game or not.
 	 */
 	private void nextTurn() {
 		if (this.scheduler.hasNext()) {
 			try {
 				model.changePlayerStateTo(scheduler.getCurrentPlayerId(), new NotYourTurnState());
 				String playerId = scheduler.next();
-				if(scheduler.isFirstTurnOfGame()) {
+				if(disconnectedPlayersId.contains(playerId)) {
+					this.nextTurn();
+				}else if(scheduler.isFirstTurnOfGame()) {
 					model.changePlayerStateTo(playerId, new FirstTurnState());
 				}else {
 					model.changePlayerStateTo(playerId, new YourTurnState());
 				}
-			} catch (NotValidIdException e) {
+			} catch (NotValidIdException  e) {
 				e.printStackTrace();
 			}
 		}else{
@@ -664,5 +681,54 @@ public class Controller implements GameEventObserver {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Start the timer. If the player do not end the turn before the timer countdown, it will disconnect.
+	 */
+	private void startTurnTimer() {
+		String currentTurnId = scheduler.getTurnId();
+		String currentPlayerId = scheduler.getCurrentPlayerId();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(PLAYER_TURN_TIMER);
+					if(currentTurnId.equals(scheduler.getTurnId())) {
+						disconnectPlayer(currentPlayerId);
+					}
+				} catch (InterruptedException | NotValidIdException | NotPresentPlayerException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+
+	/**
+	 * Disconnect a player.
+	 * @param id the player identifier.
+	 */
+	private void disconnectPlayer(String id) throws NotValidIdException, NotPresentPlayerException {
+		this.disconnectedPlayersId.add(id);
+		Player player = model.getPlayer(id);
+		player.setConnected(false);
+		model.setPlayer(player);
+		if(model.getPlayers().stream().anyMatch(p -> p.isConnected())) {
+			this.nextTurn();
+		}else{
+			this.endGame();
+		}
+	}
+
+	/**
+	 * Reconnect a player.
+	 * @param id the player identifier.
+	 */
+	private void reconnectPlayer(String id) throws NotValidIdException, NotPresentPlayerException {
+		this.disconnectedPlayersId.remove(id);
+		Player player = model.getPlayer(id);
+		player.setConnected(true);
+		model.setPlayer(player);
+		model.notifyModel();
 	}
 }

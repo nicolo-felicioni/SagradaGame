@@ -16,13 +16,20 @@ public class PlayerUpdater implements ViewUpdaterInterface {
     private int favorTokens;
 
     /**
+     * The player connection state.
+     */
+    private boolean connected;
+
+    /**
      * Constructor.
      * @param playerId the player identifier.
      * @param favorTokens the amount of favor tokens.
+     * @param connected the player connection state.
      */
-    public PlayerUpdater(String playerId, int favorTokens) {
+    public PlayerUpdater(String playerId, int favorTokens, boolean connected) {
         this.playerId = playerId;
         this.favorTokens = favorTokens;
+        this.connected = connected;
     }
 
     /**

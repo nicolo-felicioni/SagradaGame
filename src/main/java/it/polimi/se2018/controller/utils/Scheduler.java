@@ -110,6 +110,14 @@ public class Scheduler {
     }
 
     /**
+     * Return the unique identifier of the turn and the round.
+     * @return the unique identifier of the turn and the round.
+     */
+    public String getTurnId() {
+        return Integer.toString(currentRound) + Integer.toString(currentTurn);
+    }
+
+    /**
      * Remove the first occurence of a player id in the queue.
      * @param id the player id.
      * @return true if a player id has been removed.
@@ -135,8 +143,8 @@ public class Scheduler {
     }
 
     /**
-     * Return true if it is the first turn of the player in the game.
-     * @return true if it is the first turn of the player in the game.
+     * Return true if it is the first turn of the player of the first round.
+     * @return true if it is the first turn of the player of the first round.
      */
     public boolean isFirstTurnOfGame() {
         return currentRound == 0 && isFirstTurnOfRound();
