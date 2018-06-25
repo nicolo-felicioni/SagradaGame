@@ -20,11 +20,9 @@ public class ReadXOption extends SimpleOption {
         boolean validChoice;
         do {
 
-            try {
-                Printer.print(cli.getPlayer().getPattern());
-            } catch (GameException e) {
-                e.printStackTrace();
-            }
+            WindowPattern pattern = cli.getPlayer().getPattern();
+            if(pattern != null)
+                Printer.print(pattern);
 
             Printer.println(READ_X_MESSAGE);
             Printer.println(INFO);

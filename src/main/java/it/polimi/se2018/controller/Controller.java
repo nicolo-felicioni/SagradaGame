@@ -118,7 +118,7 @@ public class Controller implements GameEventObserver {
 				model.setToolCard(toolCard.cloneToolCard());
 				model.setChosenWindowPattern(event.getPlayerId(), pattern.cloneWindowPattern());
 			}
-		} catch (NotValidDieException | NotValidIdException | ToolCardStateException | PlacementException | NotValidPatterException e) {
+		} catch (GameException e) {
 			e.printStackTrace();
 		}
 	}
@@ -148,7 +148,7 @@ public class Controller implements GameEventObserver {
 				model.setChosenWindowPattern(event.getPlayerId(), pattern.cloneWindowPattern());
 				model.changePlayerStateTo(event.getPlayerId(), state.cloneState());
 			}
-		} catch (NotValidDieException | NotValidIdException | ToolCardStateException | PlacementException | NotValidPatterException | IllegalMoveTurnException e) {
+		} catch (GameException e) {
 			e.printStackTrace();
 		}
 	}
@@ -561,7 +561,7 @@ public class Controller implements GameEventObserver {
 	 * End the game.
 	 */
 	private void endGame() {
-
+		//TODO
 	}
 
 	/**
@@ -656,24 +656,38 @@ public class Controller implements GameEventObserver {
 	private void firstTurn() {
 		if (this.scheduler.hasNext()) {
 			try {
+				String playerId = scheduler.next();
 				model.getPlayers().stream().map(p -> p.getId()).forEach(id -> {
 					try {
-						model.changePlayerStateTo(id, new NotYourTurnState());
+						if(!id.equals(playerId))
+							model.changePlayerStateTo(id, new NotYourTurnState());
 					} catch (NotValidIdException e) {
 						e.printStackTrace();
 					}
 				});
-				String playerId = scheduler.next();
 				if(scheduler.isFirstTurnOfGame()) {
 					model.changePlayerStateTo(playerId, new FirstTurnState());
 				}else {
 					model.changePlayerStateTo(playerId, new YourTurnState());
 				}
+				initRound();
 			} catch (NotValidIdException e) {
 				e.printStackTrace();
 			}
 		}else{
 			endGame();
+		}
+	}
+	//TODO javadoc
+	private void initRound() {
+		try {
+			DraftPool draftPool = model.getDraftPool();
+			DiceBag diceBag = model.getDiceBag();
+			draftPool.addDice(diceBag.drawDice(model.getPlayers().size() + 1));
+			model.setDraftPool(draftPool);
+			model.setDiceBag(diceBag);
+		} catch (DiceBagException e) {
+			e.printStackTrace();
 		}
 	}
 

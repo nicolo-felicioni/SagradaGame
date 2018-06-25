@@ -98,11 +98,12 @@ public class Player {
 	 * gets player's pattern.
 	 * @return player's pattern.
 	 */
-	public WindowPattern getPattern() throws GameException {  //TODO - DA CREARE L'ECCEZIONE
-		if(chosenPattern == null)
-			throw new GameException();
-
-		return chosenPattern.cloneWindowPattern();
+	public WindowPattern getPattern() {
+		if(chosenPattern != null) {
+			return chosenPattern.cloneWindowPattern();
+		}else{
+			return null;
+		}
 	}
 
 

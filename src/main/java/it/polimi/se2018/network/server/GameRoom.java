@@ -49,7 +49,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
 	/**
 	 * Interval of time to wait before to start a game.
 	 */
-	public static int TIMER_WAIT_START_GAME = 20000;
+	public static int TIMER_WAIT_START_GAME = 10000;
 
 	/**
 	 * Constructor.

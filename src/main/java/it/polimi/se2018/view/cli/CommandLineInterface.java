@@ -283,11 +283,8 @@ public class CommandLineInterface extends AbstractView {
     private synchronized boolean areAllWindowInitialized() {
         boolean temp = true;
         for(Player p : players){
-            try {
-                p.getPattern();
-            } catch (GameException e) {
+            if(p.getPattern() == null)
                 temp = false;
-            }
         }
 
         return temp;
