@@ -29,6 +29,11 @@ public enum CardPosition {
         return this.value;
     }
 
+    /**
+     * Return a card position.
+     * @param n the position of the card as a value.
+     * @return a card position.
+     */
     public static CardPosition fromInt(int n){
         Optional<CardPosition> returned = Arrays.stream(CardPosition.values()).filter(o -> o.toInt() == n).findAny();
         return returned.orElse(CardPosition.RIGHT);

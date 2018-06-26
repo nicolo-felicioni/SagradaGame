@@ -27,17 +27,6 @@ public class WindowPatternUpdater implements ViewUpdaterInterface {
      * @param playerId the player identifier.
      * @param windowPattern the window pattern.
      */
-    public WindowPatternUpdater(String playerId, WindowPattern windowPattern){
-        this.playerId = playerId;
-        this.windowPattern=windowPattern.cloneWindowPattern();
-        this.position = WindowPatternPosition.CHOSEN;
-    }
-
-    /**
-     * Constructor.
-     * @param playerId the player identifier.
-     * @param windowPattern the window pattern.
-     */
     public WindowPatternUpdater(String playerId, WindowPattern windowPattern, WindowPatternPosition position){
         this.playerId = playerId;
         this.windowPattern=windowPattern.cloneWindowPattern();

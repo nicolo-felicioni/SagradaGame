@@ -198,14 +198,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 	 */
 	@Override
 	public void handle(EndTurnGameEvent event) {
-		try {
-			if(model.getPlayer(event.getPlayerId()).getState().canEndTurn()) {
-				model.changePlayerStateTo(event.getPlayerId(), new NotYourTurnState());
-			}
-			this.nextTurn();
-		} catch (NotValidIdException e) {
-			this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
-		}
+		this.nextTurn();
 	}
 
 	/**
