@@ -5,6 +5,8 @@ import it.polimi.se2018.model.PublicObjectiveCard;
 import it.polimi.se2018.model.ToolCard;
 
 import java.lang.reflect.Type;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Davide Yi Xian Hu
@@ -41,7 +43,7 @@ class PublicObjectiveCardAdapter implements JsonSerializer<PublicObjectiveCard>,
         try {
             klass = Class.forName(className);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
             throw new JsonParseException(e.getMessage());
         }
         return jsonDeserializationContext.deserialize(jsonObject.get(INSTANCE), klass);

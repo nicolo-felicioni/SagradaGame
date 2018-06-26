@@ -11,6 +11,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Davide Yi Xian Hu
@@ -25,7 +27,7 @@ public class WindowPatternFactory {
 		try {
 			this.loadWindowPattern(STANDARD_WINDOW_PATH);
 		}catch (FileNotFoundException e) {
-			e.printStackTrace();
+			Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 
@@ -49,7 +51,7 @@ public class WindowPatternFactory {
 		try {
 			reader.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 

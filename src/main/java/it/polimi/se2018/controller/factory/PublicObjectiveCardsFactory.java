@@ -51,7 +51,7 @@ public class PublicObjectiveCardsFactory {
     public PublicObjectiveCard[] drawCard(int n) {
         PublicObjectiveCard [] publicObjectiveCards = new PublicObjectiveCard[n];
         for(int i = 0 ; i < n; i++) {
-            publicObjectiveCards[i] = cards.remove((int) Math.random() *cards.size());
+            publicObjectiveCards[i] = cards.remove(new Random().nextInt(cards.size()));
         }
         return publicObjectiveCards;
     }

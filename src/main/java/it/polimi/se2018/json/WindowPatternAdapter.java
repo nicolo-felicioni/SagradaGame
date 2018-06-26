@@ -6,6 +6,8 @@ import it.polimi.se2018.exceptions.WindowPatternDimensionException;
 import it.polimi.se2018.model.*;
 
 import java.lang.reflect.Type;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Davide Yi Xian Hu
@@ -55,10 +57,8 @@ class WindowPatternAdapter implements JsonSerializer<WindowPattern>, JsonDeseria
 		}
 		try {
 			return new WindowPattern(spaces, difficulty, name);
-		} catch (WindowPatternDimensionException e) {
-			e.printStackTrace();
-		} catch (UnboundDifficultyValueException e) {
-			e.printStackTrace();
+		} catch (UnboundDifficultyValueException | WindowPatternDimensionException e) {
+			Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 		}
 		return null;
 	}

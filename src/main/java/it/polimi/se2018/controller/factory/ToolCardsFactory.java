@@ -52,7 +52,7 @@ public class ToolCardsFactory {
     public ToolCard[] drawCard(int n) {
         ToolCard [] toolCards = new ToolCard[n];
         for(int i = 0 ; i < n; i++) {
-            toolCards[i] = this.cards.remove((int) Math.random() * this.cards.size());
+            toolCards[i] = this.cards.remove(new Random().nextInt(cards.size()));
         }
         return toolCards;
     }

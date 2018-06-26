@@ -9,6 +9,8 @@ import it.polimi.se2018.view.View;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author davide yi xian hu
@@ -51,7 +53,7 @@ public class SocketClient implements ClientInterface {
 			this.outStream.flush();
 			this.inStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 		} catch (IOException e) {
-			e.printStackTrace();
+            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 
@@ -74,7 +76,7 @@ public class SocketClient implements ClientInterface {
 			new Thread(listener).start();
 			this.uid = uid;
 		} catch (IOException e) {
-			e.printStackTrace();
+            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 
@@ -98,7 +100,7 @@ public class SocketClient implements ClientInterface {
 			this.outStream.writeUTF(text);
 			this.outStream.flush();
 		} catch (IOException e) {
-			e.printStackTrace();
+            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 
@@ -322,6 +324,7 @@ public class SocketClient implements ClientInterface {
 				try {
 					handle(Json.getGson().fromJson(inStream.readUTF(), ViewUpdaterInterface.class));
 				} catch (IOException e) {
+                    Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 				}
 			}
 		}
