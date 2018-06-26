@@ -34,8 +34,9 @@ public class ToolCardFour extends ToolCard {
 	/**
 	 * Copy constructor.
 	 */
-	public ToolCardFour(boolean used, boolean active, int favorTokensSpent) {
+	public ToolCardFour(boolean used, boolean active, int favorTokensSpent, int  numberOfDiceMoved) {
 		super(NAME, INFO, used, active, favorTokensSpent);
+		this.numberOfDiceMoved = numberOfDiceMoved;
 	}
 
 	/**
@@ -61,7 +62,7 @@ public class ToolCardFour extends ToolCard {
 				numberOfDiceMoved++;
 			}
 		}else{
-			throw new ToolCardStateException("this.getName() + \" is not active or cannot end the activation of the card.");
+			throw new ToolCardStateException(this.getName() + " is not active or cannot end the activation of the card.");
 		}
 	}
 
@@ -70,7 +71,7 @@ public class ToolCardFour extends ToolCard {
 	 */
 	@Override
 	public ToolCard cloneToolCard() {
-		return new ToolCardFour(this.isUsed(), this.isActive(), this.getFavorTokensSpent());
+		return new ToolCardFour(this.isUsed(), this.isActive(), this.getFavorTokensSpent(), numberOfDiceMoved);
 	}
 
 }

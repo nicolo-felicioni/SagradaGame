@@ -18,17 +18,25 @@ public class ToolCardEleven extends ToolCard {
 	public static final String INFO = "After drafting, return the die to the DiceBag and pull 1 die from the bag. Choose a value and place the new die, obeying all placement restrictions, or return it to the draft pool";
 
 	/**
+	 * Tool card state. True if the die has been returned to the dicebag.
+	 */
+	private boolean isDieReturned;
+
+
+	/**
 	 * Constructor of the class. No parameters.
 	 */
 	public ToolCardEleven() {
 		super(NAME, INFO);
+		isDieReturned = false;
 	}
 
 	/**
 	 * Copy constructor.
 	 */
-	public ToolCardEleven(boolean used, boolean active, int favorTokensSpent) {
+	public ToolCardEleven(boolean used, boolean active, int favorTokensSpent, boolean isDieReturned) {
 		super(NAME, INFO, used, active, favorTokensSpent);
+		this.isDieReturned = isDieReturned;
 	}
 
 	/**
@@ -37,7 +45,7 @@ public class ToolCardEleven extends ToolCard {
 	 */
 	@Override
 	public boolean returnDieAndGetNewFromDiceBag() {
-		return isActive();
+		return isActive() && !isDieReturned;
 	}
 
 	/**
@@ -46,7 +54,7 @@ public class ToolCardEleven extends ToolCard {
 	 */
 	@Override
 	public boolean chooseNewDieValue() {
-		return isActive();
+		return isActive() && isDieReturned;
 	}
 
 	/**
@@ -55,7 +63,16 @@ public class ToolCardEleven extends ToolCard {
 	 */
 	@Override
 	public void consumeEffect() throws ToolCardStateException {
-		this.endActivion();
+		if(isActive()) {
+			if(returnDieAndGetNewFromDiceBag()) {
+				isDieReturned = true;
+			}else{
+				isDieReturned = false;
+				this.endActivion();
+			}
+		} else {
+			throw new ToolCardStateException("Can not consume effect. Card is not active.");
+		}
 	}
 
 	/**
@@ -63,7 +80,7 @@ public class ToolCardEleven extends ToolCard {
 	 */
 	@Override
 	public ToolCard cloneToolCard() {
-		return new ToolCardEleven(this.isUsed(), this.isActive(), this.getFavorTokensSpent());
+		return new ToolCardEleven(this.isUsed(), this.isActive(), this.getFavorTokensSpent(), isDieReturned);
 	}
 
 }
