@@ -20,6 +20,8 @@ public interface View extends ViewUpdaterObserver{
     void updatePlayer(String playerId);
     void updatePrivateObjectiveCard(String playerId, PrivateObjectiveCard card);
     void updateWindowPattern(String playerId, WindowPattern windowPattern, WindowPatternPosition position);
+    void updatePublicObjectiveCard(PublicObjectiveCard card, CardPosition position);
+    void updateErrorMessage(String playerId, String message);
 
 
 }

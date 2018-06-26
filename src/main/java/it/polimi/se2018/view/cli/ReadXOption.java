@@ -1,6 +1,7 @@
 package it.polimi.se2018.view.cli;
 
 import it.polimi.se2018.exceptions.GameException;
+import it.polimi.se2018.model.DieColor;
 import it.polimi.se2018.model.WindowPattern;
 
 public class ReadXOption extends SimpleOption {
@@ -23,6 +24,8 @@ public class ReadXOption extends SimpleOption {
             WindowPattern pattern = cli.getPlayer().getPattern();
             if(pattern != null)
                 Printer.print(pattern);
+            else
+                Printer.printlnColor("DEBUG: pattern is null", DieColor.RED);
 
             Printer.println(READ_X_MESSAGE);
             Printer.println(INFO);

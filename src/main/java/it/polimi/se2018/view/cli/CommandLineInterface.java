@@ -1,6 +1,7 @@
 package it.polimi.se2018.view.cli;
 
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.event.game.WindowPatternChosenGameEvent;
 import it.polimi.se2018.model.WindowPatternPosition;
@@ -78,6 +79,7 @@ public class CommandLineInterface extends AbstractView {
     private static final int RMI_CHOICE = 1;
     private static final int SOCKET_CHOICE = 2;
     private static final String LOADING_MESSAGE = "Loading...";
+    private static final DieColor ERROR_COLOR = DieColor.RED;
 
 
     public MyScanner getKeyboard() {
@@ -92,20 +94,21 @@ public class CommandLineInterface extends AbstractView {
         keyboard = new MyScanner();
         patterns = new WindowPattern[Player.N_WINDOW_PATTERNS];
         toolCards = new ToolCard[Model.SET_OF_TOOL_CARDS_SIZE];
+        publicObjectiveCards = new PublicObjectiveCard[Model.SET_OF_PUBLIC_OBJECTIVE_CARDS_SIZE];
         numberOfPatternsReceived = 0;
     }
 
 
     public void start() {
-        Printer.printColor(WELCOME_MESSAGE, DieColor.getRandom());
+        Printer.printlnColor(WELCOME_MESSAGE, DieColor.getRandom());
 
         typeOfConnectionRequest();
         connection();
         login();
         Printer.println(LOADING_MESSAGE);//todo
-        while(!areInitialOptionsInitialized()){
+        while (!areInitialOptionsInitialized()) {
             try {
-                synchronized (this){
+                synchronized (this) {
                     wait();
                 }
             } catch (InterruptedException e) {
@@ -117,9 +120,9 @@ public class CommandLineInterface extends AbstractView {
         startChooseWindow();
         Printer.println(LOADING_MESSAGE);//todo
 
-        while(!areAllWindowInitialized()){
+        while (!areAllWindowInitialized()) {
             try {
-                synchronized (this){
+                synchronized (this) {
                     wait();
                 }
             } catch (InterruptedException e) {
@@ -130,8 +133,6 @@ public class CommandLineInterface extends AbstractView {
         startGame();
 
     }
-
-
 
 
     //-----------------------------UPDATER--------------------------------------------------------------------
@@ -170,17 +171,24 @@ public class CommandLineInterface extends AbstractView {
     public synchronized void updateWindowPattern(String playerId, WindowPattern windowPattern, WindowPatternPosition position) {
 
         //if it is an update of the chosen window pattern
-        if (position == WindowPatternPosition.CHOSEN)
+        if (position == WindowPatternPosition.CHOSEN) {
+
+            //UPDATE OF THE LIST OF THE PLAYERS
             this.players.stream().filter(p -> p.getId().equals(playerId))
                     .findAny().ifPresent(p -> p.setChosenPattern(windowPattern));
-        else //if it is an update of the initial set of windows
+
+            //UPDATE OF MY PLAYER
+            if (playerId.equals(this.player.getId()))
+                this.player.setChosenPattern(windowPattern);
+
+
+        } else //if it is an update of the initial set of windows
             if (this.player.getId().equals(playerId)) {//if it is this player's window
                 patterns[position.toInt()] = windowPattern;
                 numberOfPatternsReceived++;
                 notify();//to wake up the thread
                 Printer.println("Debug: you received a window pattern in position:" + position.name());
             }
-
     }
 
     @Override
@@ -225,6 +233,19 @@ public class CommandLineInterface extends AbstractView {
     }
 
     @Override
+    public synchronized void updatePublicObjectiveCard(PublicObjectiveCard card, CardPosition position) {
+        this.publicObjectiveCards[position.toInt()] = card;
+    }
+
+    @Override
+    public void updateErrorMessage(String playerId, String message) {
+        Printer.printlnColor("UPDATE ERROR MESSAGE :", ERROR_COLOR);
+        Printer.printlnColor("playerId: " + playerId, ERROR_COLOR);
+        Printer.printlnColor("message: " + message, ERROR_COLOR);
+    }
+
+
+    @Override
     public synchronized void updateStatePlayer(String playerId, PlayerState state) {
         Player wantedPlayer;
 
@@ -256,7 +277,7 @@ public class CommandLineInterface extends AbstractView {
 
     private void startGame() {
         boolean exit = false;
-        while(!exit){
+        while (!exit) {
             menu.executeMenu();
         }
     }
@@ -271,6 +292,7 @@ public class CommandLineInterface extends AbstractView {
 
     /**
      * returns true if the player has his state, his private card and his patterns initialized
+     *
      * @return true if the player has his state, his private card and his patterns initialized
      */
     private synchronized boolean areInitialOptionsInitialized() {
@@ -279,12 +301,13 @@ public class CommandLineInterface extends AbstractView {
 
     /**
      * returns true if all players have already chosen a window pattern
+     *
      * @return true if all players have already chosen a window pattern
      */
     private synchronized boolean areAllWindowInitialized() {
         boolean temp = true;
-        for(Player p : players){
-            if(p.getPattern() == null)
+        for (Player p : players) {
+            if (p.getPattern() == null)
                 temp = false;
         }
 

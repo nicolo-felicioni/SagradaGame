@@ -19,35 +19,39 @@ public class PlayerMenu extends Menu {
     @Override
     void executeMenu() {
 
-        boolean validChoice = true;
+        boolean validChoice;
         int choice;
         String firstInput;
 
-        Printer.println(FIRST_MESSAGE);
-        firstInput = cli.getKeyboard().readLine();
-        if (!firstInput.equals(MENU_CHOICE)) {
-            Printer.println(ERROR_CHOICE);
-        } else {
-            do { //if it was pressed the right key
+        do{
+            Printer.println(FIRST_MESSAGE);
+            firstInput = cli.getKeyboard().readLine();
+            if (!firstInput.equals(MENU_CHOICE)) {
+                Printer.println(ERROR_CHOICE);
+                validChoice = false;
+            } else {
+                do { //if it was pressed the right key
 
-                this.options = buildOptions(cli.getPlayer().getState());
-                Printer.println(SELECT_MESSAGE);
-                Printer.print(options);
-                choice = cli.getKeyboard().readInt();
+                    this.options = buildOptions(cli.getPlayer().getState());
+                    Printer.println(SELECT_MESSAGE);
+                    Printer.print(options);
+                    choice = cli.getKeyboard().readInt();
 
-                if (choice == Option.EXIT_CODE)
-                    return;
-                if (choice <= 0 || choice > options.size()) {
-                    validChoice = false;
-                    Printer.print(ERROR_CHOICE);
-                } else {
-                    options.get(choice - 1).executeOption();
-                }
-            } while (!validChoice);
-        }
-
+                    if (choice == Option.EXIT_CODE)
+                        return;
+                    if (choice <= 0 || choice > options.size()) {
+                        validChoice = false;
+                        Printer.print(ERROR_CHOICE);
+                    } else {
+                        options.get(choice - 1).executeOption();
+                        validChoice = true;
+                    }
+                } while (!validChoice);
+            }
+        }while(!validChoice);
 
     }
+
 
     private List<Option> buildOptions(PlayerState state) {
         List<Option> options = new ArrayList<>();

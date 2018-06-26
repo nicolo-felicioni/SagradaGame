@@ -35,6 +35,6 @@ public class PublicObjectiveCardUpdater implements ViewUpdaterInterface {
      */
     @Override
     public void update(View view) {
-        //TODO N update public objective card.
+        view.updatePublicObjectiveCard(publicObjectiveCard, position);
     }
 }

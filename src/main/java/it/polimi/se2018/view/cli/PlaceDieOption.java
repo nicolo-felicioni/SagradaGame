@@ -54,7 +54,6 @@ public class PlaceDieOption extends ComplexOption {
             return ERROR_CODE;
         }
 
-
         cli.notifyObservers(new DraftAndPlaceGameEvent(selectedDie, selectedPoint, cli.getPlayer().getId()));
 
         return 0;

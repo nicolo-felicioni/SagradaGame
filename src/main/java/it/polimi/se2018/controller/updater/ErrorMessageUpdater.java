@@ -32,6 +32,6 @@ public class ErrorMessageUpdater implements ViewUpdaterInterface {
      */
     @Override
     public void update(View view) {
-
+        view.updateErrorMessage(playerId, message);
     }
 }

@@ -98,6 +98,16 @@ public class GUIController extends AbstractView implements GUIInterface{
 
     }
 
+    @Override
+    public void updatePublicObjectiveCard(PublicObjectiveCard card, CardPosition position) {
+        //TODO - G
+    }
+
+    @Override
+    public void updateErrorMessage(String playerId, String message) {
+        //TODO G
+    }
+
     /**
      * Handle the view updater.
      *

@@ -17,7 +17,8 @@ public class ReadDieOption extends SimpleOption {
         do {
             for (int i = 0; i < cli.getDraftPool().size(); i++) {
                 n = i + 1;
-                Printer.print(n + ": " + cli.getDraftPool().getAllDice().get(i) + " ");
+                Printer.print(" " + n + ": ");
+                Printer.print(cli.getDraftPool().getAllDice().get(i));
             }
             Printer.print("\n");
             Printer.println(EXIT_CODE + GO_BACK_MESSAGE);

@@ -62,6 +62,11 @@ public class Printer {
         Ansi.ansi().fgBright(Ansi.Color.DEFAULT);
     }
 
+    public static void printlnColor(String s, DieColor color) {
+        System.out.print(Ansi.ansi().fg(color.toAnsiColor()).a(s));
+        newLine();
+        Ansi.ansi().fgBright(Ansi.Color.DEFAULT);
+    }
 
     /**
      * print a string in bold
@@ -166,7 +171,7 @@ public class Printer {
     public static void print(DraftPool draftPool){
 
         print(OPEN_BRACKET);
-        draftPool.getAllDice().stream().forEach(Printer::print);
+        draftPool.getAllDice().forEach(die -> Printer.print((Die) die));
         print(CLOSED_BRACKET);
         newLine();
     }

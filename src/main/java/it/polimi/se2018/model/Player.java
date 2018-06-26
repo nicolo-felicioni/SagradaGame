@@ -236,7 +236,6 @@ public class Player {
 	//TODO N javadoc
 	public void useTool() throws GameMoveException {
 		this.state.useTool();
-
 	}
 
 	//TODO N javadoc
