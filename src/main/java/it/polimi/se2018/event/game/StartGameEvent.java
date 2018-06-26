@@ -41,7 +41,7 @@ public class StartGameEvent implements GameEvent {
      */
     @Override
     public void accept(GameEventObserver observer) {
-
+        observer.handle(this);
     }
 
 }

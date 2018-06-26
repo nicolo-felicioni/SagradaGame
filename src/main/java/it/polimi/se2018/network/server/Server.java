@@ -1,11 +1,8 @@
 package it.polimi.se2018.network.server;
 
 import it.polimi.se2018.exceptions.LoginException;
-import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.network.rmi.RMIServer;
 import it.polimi.se2018.network.socket.SocketServer;
-
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,32 +18,20 @@ public class Server {
 	private static Server server = null;
 
 	/**
-	 * RMI Server.
-	 */
-	private static RMIServer rmiServer;
-
-	/**
-	 * SocketServer.
-	 */
-	private static SocketServer socketServer;
-
-	/**
 	 * List of active game rooms.
 	 */
-	private static List<GameRoom> roomList;
+	private static List<GameRoom> roomList = new ArrayList<>();
 
 	/**
 	 * Private default constructor.
 	 */
 	private Server() {
-		roomList = new ArrayList();
 		System.out.println("Starting RMI Server..."); //TODO println
-		rmiServer = new RMIServer();
+		new RMIServer();
 		System.out.println("RMI Server started. Ready to accept connections."); //TODO println
 		System.out.println("Starting Socket Server..."); //TODO println
-		socketServer = new SocketServer();
+		new SocketServer();
 		System.out.println("Socket Server started. Ready to accept connections."); //TODO println
-		//socketServer = new SocketServer();
 	}
 
 

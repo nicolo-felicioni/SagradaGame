@@ -30,7 +30,7 @@ public enum CardPosition {
     }
 
     public static CardPosition fromInt(int n){
-        Optional<CardPosition> returned = Arrays.asList(CardPosition.values()).stream().filter(o -> o.toInt() == n).findAny();
-        return returned.get();
+        Optional<CardPosition> returned = Arrays.stream(CardPosition.values()).filter(o -> o.toInt() == n).findAny();
+        return returned.orElse(CardPosition.RIGHT);
     }
 }

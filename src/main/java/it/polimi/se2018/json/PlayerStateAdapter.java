@@ -32,7 +32,7 @@ class PlayerStateAdapter implements JsonSerializer<PlayerState>, JsonDeserialize
      * @return a player state.
      */
     @Override
-    public PlayerState deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+    public PlayerState deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) {
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);
         String className = PACKAGE + prim.getAsString();

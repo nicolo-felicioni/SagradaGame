@@ -32,7 +32,7 @@ class GameEventAdapter implements JsonSerializer<GameEvent>, JsonDeserializer<Ga
      * @return a game event.
      */
     @Override
-    public GameEvent deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+    public GameEvent deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) {
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);
         String className = PACKAGE + prim.getAsString();

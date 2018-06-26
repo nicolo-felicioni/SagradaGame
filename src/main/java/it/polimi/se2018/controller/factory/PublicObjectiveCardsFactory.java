@@ -49,11 +49,11 @@ public class PublicObjectiveCardsFactory {
      * @return an array of private objective cards.
      */
     public PublicObjectiveCard[] drawCard(int n) {
-        PublicObjectiveCard [] cards = new PublicObjectiveCard[n];
+        PublicObjectiveCard [] publicObjectiveCards = new PublicObjectiveCard[n];
         for(int i = 0 ; i < n; i++) {
-            cards[i] = this.cards.remove((int) Math.random() * this.cards.size());
+            publicObjectiveCards[i] = cards.remove((int) Math.random() *cards.size());
         }
-        return cards;
+        return publicObjectiveCards;
     }
 
 }

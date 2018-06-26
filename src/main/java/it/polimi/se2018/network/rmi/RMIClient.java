@@ -14,6 +14,8 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author Davide Yi Xian Hu
@@ -54,7 +56,6 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 	 * @param address the ip address of the RMI server.
 	 * @param port the port number of the RMI server.
 	 *
-	 * @throws RemoteException if the connection with thr RMI server fails.
 	 * @throws NotBoundException if the client can not connect to the RMI server.
 	 */
 	@Override
@@ -64,7 +65,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			server = (RMIServerInterface) registry.lookup("RMIServer") ;
 			UnicastRemoteObject.exportObject(this, 0);
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 		}
 	}
 
@@ -78,9 +79,10 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 	@Override
 	public void login(String uid) throws LoginException {
 		try {
-			sessions.add((RMIServerSessionInterface) server.login(uid, this));
+			sessions.add(server.login(uid, this));
+			this.uid = uid;
 		}catch(RemoteException | NetworkException e) {
-			e.printStackTrace();
+			Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			throw new LoginException("Login to server failed.");
 		}
 	}
@@ -117,7 +119,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -133,7 +135,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -149,7 +151,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -165,7 +167,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -181,7 +183,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -197,7 +199,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -213,7 +215,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -229,7 +231,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -245,7 +247,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -261,7 +263,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -277,7 +279,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -293,7 +295,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -309,7 +311,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -325,7 +327,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -341,7 +343,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -357,7 +359,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -373,7 +375,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -389,7 +391,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -405,7 +407,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}
@@ -421,7 +423,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 			}
 		});
 	}

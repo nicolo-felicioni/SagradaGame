@@ -33,7 +33,7 @@ class ToolCardAdapter implements JsonSerializer<ToolCard>, JsonDeserializer<Tool
      * @return a tool card.
      */
     @Override
-    public ToolCard deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+    public ToolCard deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) {
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);
         String className = PACKAGE + prim.getAsString();

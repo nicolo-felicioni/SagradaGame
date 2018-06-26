@@ -140,6 +140,18 @@ public class Player {
 	}
 
 	/**
+	 * This method choose which of the four possible window patterns the player will use during the game.
+	 * @param pattern the chosen pattern
+	 * @throws NotValidPatterException if the pattern is not present in the four possible patterns.
+	 */
+	public void setPattern(WindowPattern pattern) throws NotValidPatterException {
+		if(this.chosenPattern.getName().equals(pattern.getName())) {
+			this.chosenPattern = pattern;
+		}else
+			throw new NotValidPatterException("The pattern is not valid, the new pattern must have the same name as the old.");
+	}
+
+	/**
 	 * Setter of the chosen window pattern.
 	 * @param pattern the chosen pattern
 	 */
@@ -153,8 +165,11 @@ public class Player {
 
 	//TODO N javadoc
 	public PlayerState getState(){
-		//TODO - forse c'è bisogno del clone dello state
-		return this.state;
+		if(state != null) {
+			return this.state.cloneState();
+		}else{
+			return null;
+		}
 	}
 
 

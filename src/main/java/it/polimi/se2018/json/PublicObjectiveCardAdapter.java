@@ -33,7 +33,7 @@ class PublicObjectiveCardAdapter implements JsonSerializer<PublicObjectiveCard>,
      * @return a public objectiva card.
      */
     @Override
-    public PublicObjectiveCard deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+    public PublicObjectiveCard deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) {
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);
         String className = PACKAGE + prim.getAsString();

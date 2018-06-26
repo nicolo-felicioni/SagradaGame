@@ -310,6 +310,25 @@ public class Model implements ViewUpdaterObservable {
     }
 
     /**
+     * Set the window pattern to a player.
+     * @param playerId the player identifier.
+     * @param windowPattern the window pattern.
+     * @throws NotValidIdException if there's no player with such a player identifer.
+     * @throws NotValidPatterException if the window pattern is not valid.
+     */
+    public void setWindowPattern(String playerId, WindowPattern windowPattern) throws NotValidIdException, NotValidPatterException {
+        Optional<Player> wantedPlayer = this.players.stream()
+                .filter(player -> player.getId().equals(playerId)).findAny();
+
+        if(!wantedPlayer.isPresent())
+            throw new NotValidIdException("Wanted to get a player with a not valid id.");
+
+        wantedPlayer.get().setPattern(windowPattern);
+
+        notifyObservers(new WindowPatternUpdater(playerId,windowPattern.cloneWindowPattern(), WindowPatternPosition.CHOSEN));
+    }
+
+    /**
      * Set the private objective card to a player.
      * @param playerId the player identifier.
      * @param privateObjectiveCard the private objective card.

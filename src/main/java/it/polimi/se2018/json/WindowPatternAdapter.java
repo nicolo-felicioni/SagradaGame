@@ -12,15 +12,15 @@ import java.lang.reflect.Type;
  */
 class WindowPatternAdapter implements JsonSerializer<WindowPattern>, JsonDeserializer<WindowPattern> {
 
-	private final static String X = "x";
-	private final static String Y = "y";
-	private final static String COLOR = "color";
-	private final static String COLOR_SPACES = "colorSpaces";
-	private final static String VALUE = "value";
-	private final static String VALUE_SPACES = "valueSpaces";
-	private final static String DIFFICULTY = "difficulty";
-	private final static String NAME = "name";
-	private final static String WINDOW = "window";
+	private static final String X = "x";
+	private static final String Y = "y";
+	private static final String COLOR = "color";
+	private static final String COLOR_SPACES = "colorSpaces";
+	private static final String VALUE = "value";
+	private static final String VALUE_SPACES = "valueSpaces";
+	private static final String DIFFICULTY = "difficulty";
+	private static final String NAME = "name";
+	private static final String WINDOW = "window";
 
 	/**
 	 * {@inheritDoc}
@@ -29,7 +29,7 @@ class WindowPatternAdapter implements JsonSerializer<WindowPattern>, JsonDeseria
 	 * @return a window pattern.
 	 */
 	@Override
-	public WindowPattern deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+	public WindowPattern deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) {
 		JsonObject windowPattern = jsonElement.getAsJsonObject().getAsJsonObject(WINDOW);
 		JsonArray colorSpaces = windowPattern.getAsJsonArray(COLOR_SPACES);
 		JsonArray valueSpaces = windowPattern.getAsJsonArray(VALUE_SPACES);

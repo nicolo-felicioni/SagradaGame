@@ -219,7 +219,7 @@ public class SocketClient implements ClientInterface {
 	 */
 	@Override
 	public void handle(MoveDieMatchColorRoundTrackGameEvent event) {
-
+		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
 
 	/**

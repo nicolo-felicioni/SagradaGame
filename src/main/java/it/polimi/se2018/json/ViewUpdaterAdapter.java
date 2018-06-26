@@ -31,7 +31,7 @@ class ViewUpdaterAdapter implements JsonSerializer<ViewUpdaterInterface>, JsonDe
 	 * @return a View Updater.
 	 */
 	@Override
-	public ViewUpdaterInterface deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+	public ViewUpdaterInterface deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) {
 		JsonObject jsonObject = jsonElement.getAsJsonObject();
 		JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);
 		String className = PACKAGE + prim.getAsString();

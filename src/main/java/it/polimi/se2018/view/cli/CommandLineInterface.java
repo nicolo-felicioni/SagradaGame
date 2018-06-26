@@ -110,6 +110,7 @@ public class CommandLineInterface extends AbstractView {
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         }
 

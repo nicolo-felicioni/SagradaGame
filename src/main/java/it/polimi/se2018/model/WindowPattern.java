@@ -237,7 +237,7 @@ public class WindowPattern implements Serializable {
 	}
 
 	/**
-	 * Places a die on a space of the window pattern. The spaces adjacent to the space where the die will be placed must not have a die.
+	 * Place a die on a space of the window pattern. The spaces adjacent to the space where the die will be placed must not have a die.
 	 * @param die the die that have to be placed.
 	 * @param p the coordinates of the space.
 	 * @throws PlacementException if the die can not be placed.
@@ -250,7 +250,21 @@ public class WindowPattern implements Serializable {
 		}
 	}
 
+	/**
+	 * Place the first die of the window pattern. It can be positioned only in a border space.
+	 * @param die the die that have to be placed.
+	 * @param p the coordinates of the space.
+	 * @throws PlacementException if the die can not be placed.
+	 * */
+	public void placFirstDie(Die die, Point p) throws PlacementException {
+		Space space = spaces[p.getX()][p.getY()];
+		if(p.isEdgyPoint() && space.respectAllRestrictions(die))
+			space.placeDie(die);
+		else
+			throw new PlacementException("Die not placeable due to window restrictions");
 
+
+	}
 
 
 	/**

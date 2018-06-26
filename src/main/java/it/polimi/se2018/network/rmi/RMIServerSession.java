@@ -17,7 +17,7 @@ public class RMIServerSession extends GameEventObservableImpl implements Session
 	/**
 	 * RMI Client
 	 */
-	private List<RMIClientInterface> clientInterfaces;
+	private transient List<RMIClientInterface> clientInterfaces;
 
 	/**
 	 * Unique identifier of the client.

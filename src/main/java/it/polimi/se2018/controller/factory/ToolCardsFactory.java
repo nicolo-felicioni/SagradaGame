@@ -50,10 +50,10 @@ public class ToolCardsFactory {
      * @return an array of private objective cards.
      */
     public ToolCard[] drawCard(int n) {
-        ToolCard [] cards = new ToolCard[n];
+        ToolCard [] toolCards = new ToolCard[n];
         for(int i = 0 ; i < n; i++) {
-            cards[i] = this.cards.remove((int) Math.random() * this.cards.size());
+            toolCards[i] = this.cards.remove((int) Math.random() * this.cards.size());
         }
-        return cards;
+        return toolCards;
     }
 }

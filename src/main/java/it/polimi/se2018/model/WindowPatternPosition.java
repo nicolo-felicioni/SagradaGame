@@ -38,6 +38,6 @@ public enum WindowPatternPosition implements Serializable {
      */
     public static WindowPatternPosition fromInt(int n){
         Optional<WindowPatternPosition> returned = Arrays.asList(WindowPatternPosition.values()).stream().filter(o -> o.toInt() == n).findAny();
-        return returned.get();
+        return returned.orElse(WindowPatternPosition.CHOSEN);
     }
 }

@@ -127,11 +127,27 @@ public class Scheduler {
     }
 
     /**
-     * Return true if it is the first turn of a player in a round.
-     * @return true if it is the first turn of a player in a round.
+     * Return true if it is the first turn of the round.
+     * @return true if it is the first turn of the round.
      */
     public boolean isFirstTurnOfRound() {
-        return currentTurn < this.playerIds.size();
+        return currentTurn == 0;
+    }
+
+    /**
+     * Return true if it is the first half turns of the round.
+     * @return true if it is the first half turns of the round.
+     */
+    public boolean isFirstHalfOfRound() {
+        return currentTurn < playerIds.size();
+    }
+
+    /**
+     * Return true if it is the first half turns of the round.
+     * @return true if it is the first half turns of the round.
+     */
+    public boolean isFirstTurnOfPlayer() {
+        return currentTurn < playerIds.size() && currentRound == 0;
     }
 
     /**

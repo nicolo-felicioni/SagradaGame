@@ -19,6 +19,6 @@ public class ReconnectGameEvent extends AbstractPlayerGameEvent{
      */
     @Override
     public void accept(GameEventObserver observer) {
-
+        observer.handle(this);
     }
 }
