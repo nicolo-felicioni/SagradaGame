@@ -40,7 +40,6 @@ public class ChooseWindowOption extends SimpleOption {
                 validChoice = true;
                 if(choice!=EXIT_CODE){//if the choice is valid and it's not the exit code
                     patternChosen = cli.getPatterns()[choice-1];
-
                     //throw the event
                     cli.notifyObservers(new WindowPatternChosenGameEvent(patternChosen, cli.getPlayer().getId()));
                 }

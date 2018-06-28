@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 public class MyScanner {
     private BufferedReader in;
+    private static final String INPUT_ERROR = "Wrong input.\nNot a number.";
 
 
 
@@ -38,12 +39,29 @@ public class MyScanner {
      * @return the int read from standard input.
      */
     public int readInt() {
-        try {
-            return Integer.parseInt(in.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();//TODO - DUBBIO
-            return -1;
-        }
+        boolean validInput;
+        int n = -1;
+        String input;
+
+        do{
+            try {
+                input = in.readLine();
+            } catch (IOException e) {
+                e.printStackTrace();//TODO - DUBBIO
+                return n;
+            }
+
+            try{
+                n = Integer.parseInt(input);
+                validInput = true;
+            } catch (NumberFormatException e){
+                Printer.println(INPUT_ERROR);
+                validInput = false;
+            }
+
+        }while(!validInput);
+
+        return n;
     }
 
 }

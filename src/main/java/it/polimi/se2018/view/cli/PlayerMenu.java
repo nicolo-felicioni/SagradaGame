@@ -38,16 +38,17 @@ public class PlayerMenu extends Menu {
 
                     if (choice == Option.EXIT_CODE)
                         return Option.EXIT_CODE;
+
                     if (choice <= 0 || choice > options.size()) {
                         validChoice = false;
                         Printer.print(ERROR_CHOICE);
                     } else {
-                        options.get(choice - 1).execute();
-                        validChoice = true;
+                        return options.get(choice - 1).execute();
                     }
                 } while (!validChoice);
             }
         }while(!validChoice);
+
         return 0;
     }
 

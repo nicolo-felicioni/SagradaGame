@@ -9,6 +9,7 @@ import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.network.rmi.RMIClient;
 import it.polimi.se2018.network.socket.SocketClient;
 import it.polimi.se2018.view.AbstractView;
+import it.polimi.se2018.view.cli.options.Option;
 
 import java.rmi.NotBoundException;
 import java.util.ArrayList;
@@ -292,8 +293,11 @@ public class CommandLineInterface extends AbstractView {
 
     private void startChooseWindow() {
         menu = new PlayerMenu(this);
+        int returnedValue;
 
-        menu.executeMenu();
+        do{
+            returnedValue = menu.executeMenu();
+        }while(returnedValue== Option.EXIT_CODE);
 
     }
 
@@ -306,6 +310,7 @@ public class CommandLineInterface extends AbstractView {
     private synchronized boolean areInitialOptionsInitialized() {
         return player.getState() != null && privateObjectiveCard != null && numberOfPatternsReceived == 4;
     }
+
 
     /**
      * returns true if all players have already chosen a window pattern

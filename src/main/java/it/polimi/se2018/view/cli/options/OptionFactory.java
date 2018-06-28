@@ -3,6 +3,7 @@ package it.polimi.se2018.view.cli.options;
 import it.polimi.se2018.model.PlayerState;
 import it.polimi.se2018.model.ToolCard;
 import it.polimi.se2018.view.cli.CommandLineInterface;
+import it.polimi.se2018.view.cli.Printer;
 import it.polimi.se2018.view.cli.options.tooloptions.DecreaseDieValueOption;
 import it.polimi.se2018.view.cli.options.tooloptions.IncreaseDieValueOption;
 import it.polimi.se2018.view.cli.options.tooloptions.RerollAllDraftPoolDiceOption;
@@ -37,6 +38,9 @@ public class OptionFactory {
                     options.add(new EndTurnOption(cli));
                 }
             }
+
+            addVisualOptions(options, cli);
+
         } else {
             //if the player hasn't chosen a window yet he has to choose one
             options.add(new ChooseWindowOption(cli));
@@ -46,6 +50,8 @@ public class OptionFactory {
 
     private static void addToolCardOptions(List<Option> options, CommandLineInterface cli, ToolCard card){
         if(card.isActive()){
+            //todo debug
+            Printer.println("DEBUG: entrati in addToolCardOptions");
             if(card.rerollAllDraftPoolDice())
                 options.add(new RerollAllDraftPoolDiceOption(cli));
             if(card.increaseDieValue())
@@ -54,6 +60,13 @@ public class OptionFactory {
                 options.add(new DecreaseDieValueOption(cli));
         }
 
+    }
+
+    private static void addVisualOptions(List<Option> options, CommandLineInterface cli){
+        options.add(new ShowOtherWindowPatternOption(cli));
+        options.add(new ShowDraftPoolOption(cli));
+        options.add(new ShowToolCardsOption(cli));
+        options.add(new ShowPublicObjectiveCardsOption(cli));
     }
 
 
