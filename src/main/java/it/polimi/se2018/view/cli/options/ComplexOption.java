@@ -1,4 +1,6 @@
-package it.polimi.se2018.view.cli;
+package it.polimi.se2018.view.cli.options;
+
+import it.polimi.se2018.view.cli.CommandLineInterface;
 
 import java.util.List;
 

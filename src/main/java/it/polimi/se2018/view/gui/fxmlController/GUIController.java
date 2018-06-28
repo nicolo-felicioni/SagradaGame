@@ -84,8 +84,8 @@ public class GUIController extends AbstractView implements GUIInterface{
     }
 
     @Override
-    public void updatePlayer(String playerId) {
-
+    public void updatePlayer(String playerId, int favorTokens, boolean connected) {
+        //TODO - g
     }
 
     @Override

@@ -17,7 +17,7 @@ public interface View extends ViewUpdaterObserver{
     void updateRoundTrack(RoundTrack roundTrack);
     void updateDraftPool(DraftPool draftPool);
     void updateStatePlayer(String playerId, PlayerState state);
-    void updatePlayer(String playerId);
+    void updatePlayer(String playerId, int favorTokens, boolean connected);
     void updatePrivateObjectiveCard(String playerId, PrivateObjectiveCard card);
     void updateWindowPattern(String playerId, WindowPattern windowPattern, WindowPatternPosition position);
     void updatePublicObjectiveCard(PublicObjectiveCard card, CardPosition position);

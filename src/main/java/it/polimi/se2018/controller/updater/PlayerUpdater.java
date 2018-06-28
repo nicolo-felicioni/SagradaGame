@@ -39,6 +39,6 @@ public class PlayerUpdater implements ViewUpdaterInterface {
      */
     @Override
     public void update(View view) {
-        view.updatePlayer(this.playerId);
+        view.updatePlayer(this.playerId, favorTokens, connected);
     }
 }

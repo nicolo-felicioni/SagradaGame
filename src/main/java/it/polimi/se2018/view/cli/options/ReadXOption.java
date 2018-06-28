@@ -1,8 +1,9 @@
-package it.polimi.se2018.view.cli;
+package it.polimi.se2018.view.cli.options;
 
-import it.polimi.se2018.exceptions.GameException;
 import it.polimi.se2018.model.DieColor;
 import it.polimi.se2018.model.WindowPattern;
+import it.polimi.se2018.view.cli.CommandLineInterface;
+import it.polimi.se2018.view.cli.Printer;
 
 public class ReadXOption extends SimpleOption {
     final static String READ_X_MESSAGE = "Enter the first coordinate of the space in which you want to place the die."
@@ -15,7 +16,7 @@ public class ReadXOption extends SimpleOption {
     }
 
     @Override
-    public int executeOption() {
+    public int execute() {
         int choice;
 
         boolean validChoice;

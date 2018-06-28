@@ -1,6 +1,8 @@
-package it.polimi.se2018.view.cli;
+package it.polimi.se2018.view.cli.options;
 
 import it.polimi.se2018.model.WindowPattern;
+import it.polimi.se2018.view.cli.CommandLineInterface;
+import it.polimi.se2018.view.cli.Printer;
 
 public class ReadYOption extends SimpleOption {
     private static final String READ_Y_MESSAGE = "Enter the second coordinate."
@@ -12,7 +14,7 @@ public class ReadYOption extends SimpleOption {
     }
 
     @Override
-    public int executeOption() {
+    public int execute() {
         int choice;
 
         boolean validChoice;

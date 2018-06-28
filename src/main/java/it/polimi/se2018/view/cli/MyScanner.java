@@ -9,7 +9,7 @@ import java.util.Scanner;
  * @author Nicolò Felicioni
  */
 
-class MyScanner {
+public class MyScanner {
     private BufferedReader in;
 
 

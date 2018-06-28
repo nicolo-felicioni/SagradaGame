@@ -1,6 +1,7 @@
 package it.polimi.se2018.view.cli;
 
-import java.util.ArrayList;
+import it.polimi.se2018.view.cli.options.Option;
+
 import java.util.List;
 
 public abstract class Menu {
@@ -15,7 +16,7 @@ public abstract class Menu {
     }
 
 
-    abstract void executeMenu();
+    abstract int executeMenu();
 
 
 

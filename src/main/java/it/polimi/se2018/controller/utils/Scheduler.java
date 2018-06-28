@@ -91,7 +91,8 @@ public class Scheduler {
      */
     public String next() {
         this.nextTurn();
-        return this.queue.remove(0);
+        this.currentPlayerID = this.queue.remove(0);
+        return currentPlayerID;
     }
 
     /**
@@ -147,7 +148,7 @@ public class Scheduler {
      * @return true if it is the first half turns of the round.
      */
     public boolean isFirstTurnOfPlayer() {
-        return currentTurn < playerIds.size() && currentRound == 0;
+        return currentTurn <= playerIds.size() && currentRound == 0;
     }
 
     /**

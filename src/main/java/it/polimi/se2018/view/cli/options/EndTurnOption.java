@@ -1,6 +1,7 @@
-package it.polimi.se2018.view.cli;
+package it.polimi.se2018.view.cli.options;
 
 import it.polimi.se2018.event.game.EndTurnGameEvent;
+import it.polimi.se2018.view.cli.CommandLineInterface;
 
 public class EndTurnOption extends SimpleOption {
 
@@ -13,7 +14,7 @@ public class EndTurnOption extends SimpleOption {
     }
 
     @Override
-    public int executeOption() {
+    public int execute() {
         cli.notifyObservers(new EndTurnGameEvent(cli.getPlayer().getId()));
         return 0;
     }

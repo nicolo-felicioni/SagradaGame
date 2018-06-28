@@ -1,11 +1,8 @@
 package it.polimi.se2018.view.cli;
 
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.event.game.WindowPatternChosenGameEvent;
 import it.polimi.se2018.model.WindowPatternPosition;
-import it.polimi.se2018.event.game.DraftAndPlaceGameEvent;
 import it.polimi.se2018.exceptions.*;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.network.client.ClientInterface;
@@ -138,12 +135,20 @@ public class CommandLineInterface extends AbstractView {
     //-----------------------------UPDATER--------------------------------------------------------------------
 
     @Override
-    public synchronized void updatePlayer(String playerId) {
+    public synchronized void updatePlayer(String playerId, int favorTokens, boolean connected) {
         Optional<Player> optionalPlayer = this.players.stream()
                 .filter(p -> p.getId().equals(playerId)).findAny();
 
         if (!optionalPlayer.isPresent()) {
-            this.players.add(new Player(playerId));
+            Player tempPlayer = new Player(playerId);
+            tempPlayer.setConnected(connected);
+            tempPlayer.setTokens(favorTokens);
+            this.players.add(tempPlayer);
+
+            if(this.player.equalsPlayer(tempPlayer)){
+                this.player.setConnected(connected);
+                this.player.setTokens(favorTokens);
+            }
 
             //TODO - PROVA
             if (!playerId.equals(this.player.getId())) {
@@ -220,6 +225,7 @@ public class CommandLineInterface extends AbstractView {
     @Override
     public synchronized void updateToolCard(ToolCard toolCard, int number) {
         this.toolCards[number] = toolCard;
+        Printer.println("DEBUG: è arrivato l'update della tool card in posizione: " + number); //todo
     }
 
     @Override
@@ -257,13 +263,15 @@ public class CommandLineInterface extends AbstractView {
 
             if (wantedPlayer.equalsPlayer(player)) {
                 player.changePlayerStateTo(state);
+                Printer.printlnColor("DEBUG: stato del player:" + state.getClass().getSimpleName(), DieColor.RED);
+
+                if(state.canPlaceDie() && state.canUseTool())
+                    Printer.println("It's your turn.");
                 notify();//to wake up the thread
             }
 
-
         } else {
             //TODO - DUBBIA GESTIONE NEL CASO IN CUI NON SI TROVI UN GIOCATORE CON L'ID GIUSTO
-            Printer.println("No such player!");
         }
     }
 

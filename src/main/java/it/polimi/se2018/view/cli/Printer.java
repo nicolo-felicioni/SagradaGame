@@ -1,11 +1,12 @@
 package it.polimi.se2018.view.cli;
 
-import it.polimi.se2018.exceptions.DraftPoolEmptyException;
 import it.polimi.se2018.exceptions.NotValidPointException;
 import it.polimi.se2018.exceptions.NotValidRoundException;
 import it.polimi.se2018.exceptions.RoundTrackEmptyException;
 import it.polimi.se2018.model.*;
+import it.polimi.se2018.view.cli.options.Option;
 import org.fusesource.jansi.Ansi;
+import org.fusesource.jansi.AnsiConsole;
 
 
 import java.util.List;
@@ -105,14 +106,29 @@ public class Printer {
      * @param space
      */
     public static void print(Space space){
+
         if(space.hasDie())
-            Printer.print(space.getDie());
+            Printer.printSpaceWithDie(space);
         else if(space.isColorRestricted())
             Printer.printColorSpace(space.getColorRestriction());
         else if(space.isValueRestricted())
             Printer.printValueSpace(space.getValueRestriction());
         else
             Printer.printBlankSpace();
+    }
+
+    private static void printSpaceWithDie(Space space){
+        if(space.isColorRestricted()){
+            DieColor color = space.getColorRestriction();
+            printColor(OPEN_BRACKET, color);
+            print(space.getDie());
+            printColor(CLOSED_BRACKET, color);
+        }else{
+            print(OPEN_BRACKET);
+            print(space.getDie());
+            print(CLOSED_BRACKET);
+        }
+        Ansi.ansi().fgBright(Ansi.Color.DEFAULT);
     }
 
 
@@ -169,10 +185,12 @@ public class Printer {
      * @param draftPool the draft pool from which we print the dice
      */
     public static void print(DraftPool draftPool){
-
-        print(OPEN_BRACKET);
-        draftPool.getAllDice().forEach(die -> Printer.print((Die) die));
-        print(CLOSED_BRACKET);
+        int n;
+        for (int i = 0; i < draftPool.size(); i++) {
+            n = i + 1;
+            Printer.print(" " + n + ": ");
+            Printer.print(draftPool.getAllDice().get(i));
+        }
         newLine();
     }
 
@@ -191,8 +209,10 @@ public class Printer {
      * @param numberOfTokens the number of tokens that will be printed
      */
     public static void printFavorTokens(int numberOfTokens){
-        for(int i=0; i< numberOfTokens; i++)
-            print(FULL_CIRCLE);
+        if(numberOfTokens == 0)
+            print("0");
+        else for(int i=0; i< numberOfTokens; i++)
+                print(FULL_CIRCLE);
 
         newLine();
     }
@@ -231,7 +251,7 @@ public class Printer {
 
 
     public static void print(List<Option> options){
-        for(int i = 0; i<options.size(); i++){
+        for(int i = 0; i< options.size(); i++){
             print(i+1);
             print(". ");
             println(options.get(i).getName());

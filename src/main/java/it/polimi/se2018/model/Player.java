@@ -293,4 +293,12 @@ public class Player {
 	public void setConnected(boolean connected) {
 		this.connected = connected;
 	}
+
+	/**
+	 * Set the number of favor tokens of the player.
+	 * @param favorTokens the number of favor tokens of the player.
+	 */
+	public void setTokens(int favorTokens) {
+		this.favorTokens = favorTokens;
+	}
 }
