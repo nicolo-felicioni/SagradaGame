@@ -2,15 +2,16 @@ package it.polimi.se2018.model;
 
 import it.polimi.se2018.exceptions.NotValidDieException;
 import it.polimi.se2018.exceptions.NotValidRoundException;
-import it.polimi.se2018.exceptions.RoundTrackEmptyException;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class RoundTrack implements Serializable {
 
     private List<Die>[] track;
+    public static final int SIZE = 10;
 
     /**
      * Copy Constructor
@@ -24,7 +25,7 @@ public class RoundTrack implements Serializable {
      * empty constructor
      */
     public RoundTrack(){
-        track=new List[10];
+        track=new List[SIZE];
         for (int i = 0; i < track.length; i++) {
             track[i] = new ArrayList();
         }
@@ -51,11 +52,11 @@ public class RoundTrack implements Serializable {
     /**
      *return an List with all the dice on the round track
      * @return all the dice in the RoundTrack as a List
-     * @throws RoundTrackEmptyException if the round track is empty
+     * @throws  if the round track is empty
      */
-    public List<Die> getAllDice () throws RoundTrackEmptyException {
+    public List<Die> getAllDice () {
         if (isEmpty())
-            throw new RoundTrackEmptyException("Round Track is empty");
+            return Collections.emptyList();
         else {
             ArrayList<Die> temp = new ArrayList<>();
             Die tempDie;
@@ -74,12 +75,12 @@ public class RoundTrack implements Serializable {
      * return all the dice in a specific round as a list
      *@return all the dice in a specific round as a list
      * @param round
-     * @throws RoundTrackEmptyException if the round track is empty
+     * @throws  if the round track is empty
      * @throws NotValidRoundException if the input is greater than 10 or lower than 0
      */
-    public List<Die> getDice ( int round) throws RoundTrackEmptyException, NotValidRoundException {
+    public List<Die> getDice ( int round) throws NotValidRoundException {
         if (isEmpty())
-            throw new RoundTrackEmptyException("Round Track is empty");
+            return Collections.emptyList();
         if ((round < 1) || (round > getRound())) throw new NotValidRoundException("Not valid round number");
         else {
             ArrayList<Die> temp = new ArrayList<>();

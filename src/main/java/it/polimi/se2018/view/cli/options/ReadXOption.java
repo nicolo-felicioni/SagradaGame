@@ -24,7 +24,7 @@ public class ReadXOption extends SimpleOption {
 
             WindowPattern pattern = cli.getPlayer().getPattern();
             if(pattern != null)
-                Printer.print(pattern);
+                Printer.printOnlySpaces(pattern);
             else
                 Printer.printlnColor("DEBUG: pattern is null", DieColor.RED);
 

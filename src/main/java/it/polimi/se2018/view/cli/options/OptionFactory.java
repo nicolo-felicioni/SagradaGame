@@ -4,9 +4,6 @@ import it.polimi.se2018.model.PlayerState;
 import it.polimi.se2018.model.ToolCard;
 import it.polimi.se2018.view.cli.CommandLineInterface;
 import it.polimi.se2018.view.cli.Printer;
-import it.polimi.se2018.view.cli.options.tooloptions.DecreaseDieValueOption;
-import it.polimi.se2018.view.cli.options.tooloptions.IncreaseDieValueOption;
-import it.polimi.se2018.view.cli.options.tooloptions.RerollAllDraftPoolDiceOption;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,6 +45,41 @@ public class OptionFactory {
         return options;
     }
 
+    public static List<Option> buildPlaceDieOptions(CommandLineInterface cli){
+        List<Option> options = new ArrayList<>();
+        options.add(new ReadDraftPoolDieOption(cli));
+        options.add(new ReadXOption(cli));
+        options.add(new ReadYOption(cli));
+        return options;
+    }
+
+    public static List<Option> buildMoveDieIgnoreColorOptions(CommandLineInterface cli){
+        List<Option> options = new ArrayList<>();
+        options.add(new ReadXOption(cli));
+        options.add(new ReadYOption(cli));
+        options.add(new ReadXOption(cli));
+        options.add(new ReadYOption(cli));
+        return options;
+    }
+
+    public static List<Option> buildMoveDieIgnoreValueOptions(CommandLineInterface cli) {
+        return buildMoveDieIgnoreColorOptions(cli);
+    }
+
+    public static List<Option> buildMoveDieOptions(CommandLineInterface cli) {
+        return buildMoveDieIgnoreColorOptions(cli);
+    }
+
+    public static List<Option> buildSwapDraftDieOptions(CommandLineInterface cli) {
+       List<Option> options = new ArrayList<>();
+       options.add(new ReadDraftPoolDieOption(cli));
+       options.add(new ReadRoundOption(cli));
+       return options;
+    }
+
+
+
+
     private static void addToolCardOptions(List<Option> options, CommandLineInterface cli, ToolCard card){
         if(card.isActive()){
             //todo debug
@@ -58,15 +90,18 @@ public class OptionFactory {
                 options.add(new IncreaseDieValueOption(cli));
             if(card.decreaseDieValue())
                 options.add(new DecreaseDieValueOption(cli));
+            if(card.moveDieIgnoreColor())
+                options.add(new MoveDieIgnoreColorOption(cli));
         }
 
     }
 
     private static void addVisualOptions(List<Option> options, CommandLineInterface cli){
-        options.add(new ShowOtherWindowPatternOption(cli));
         options.add(new ShowDraftPoolOption(cli));
-        options.add(new ShowToolCardsOption(cli));
         options.add(new ShowPublicObjectiveCardsOption(cli));
+        options.add(new ShowToolCardsOption(cli));
+        options.add(new ShowYourWindowPatternOption(cli));
+        options.add(new ShowOtherWindowPatternOption(cli));
     }
 
 

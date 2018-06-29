@@ -3,11 +3,11 @@ package it.polimi.se2018.view.cli.options;
 import it.polimi.se2018.view.cli.CommandLineInterface;
 import it.polimi.se2018.view.cli.Printer;
 
-public class ReadDieOption extends SimpleOption {
+public class ReadDraftPoolDieOption extends SimpleOption {
 
     static final String WRONG_CHOICE_MESSAGE = "This die doesn't exists.";
 
-    public ReadDieOption(CommandLineInterface cli) {
+    public ReadDraftPoolDieOption(CommandLineInterface cli) {
         super(cli);
     }
 

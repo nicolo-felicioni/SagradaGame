@@ -17,6 +17,7 @@ public class UseToolOption extends SimpleOption {
     private static final String USE_TOOL_NAME = "Use a tool card";
     private static final String USE_TOOL_MESSAGE = "Select a tool card";
     private static final String ERROR_USE_TOOL = "There isn't any tool card with that number.";
+    private static final String ERROR_COST_TOOL = "Not enough tokens!";
 
     public UseToolOption(CommandLineInterface cli) {
         super(cli);
@@ -37,16 +38,17 @@ public class UseToolOption extends SimpleOption {
         if(choice == EXIT_CODE)
             return EXIT_CODE;
 
+
         CardPosition position = CardPosition.fromInt(choice - 1 );
 
-        cli.notifyObservers(new UseToolCardGameEvent(position, cli.getPlayer().getId()));
+        if(cli.getPlayer().getTokens() < cli.getToolCards()[choice - 1].cost()){
+            Printer.println(ERROR_COST_TOOL);
+            return ERROR_CODE;
+        }
 
+        cli.notifyObservers(new UseToolCardGameEvent(position, cli.getPlayer().getId()));
         Printer.println("DEBUG: Mandato evento useTool"); //todo
         Printer.println(position.name()); //todo
-
-
-
-
 
         return 0;
     }

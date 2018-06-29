@@ -1,10 +1,7 @@
-package it.polimi.se2018.view.cli.options.tooloptions;
+package it.polimi.se2018.view.cli.options;
 
 import it.polimi.se2018.event.game.RerollAllDraftDiceGameEvent;
 import it.polimi.se2018.view.cli.CommandLineInterface;
-import it.polimi.se2018.view.cli.Printer;
-import it.polimi.se2018.view.cli.options.ReadDieOption;
-import it.polimi.se2018.view.cli.options.SimpleOption;
 
 public class RerollAllDraftPoolDiceOption extends SimpleOption {
 

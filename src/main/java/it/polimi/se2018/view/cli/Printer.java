@@ -138,12 +138,34 @@ public class Printer {
      */
     public static void print(WindowPattern windowPattern){
 
+        println(windowPattern.getName());
+
         print("Difficulty : " + windowPattern.getDifficulty() + "\n");
 
         for(int i = 0; i<WindowPattern.SPACES_HEIGHT; i++){
             for(int j=0; j<WindowPattern.SPACES_LENGTH; j++){
                 try {
                         print(windowPattern.getSpace(i, j));
+                } catch (NotValidPointException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            newLine();
+        }
+
+    }
+
+    /**
+     * print the window pattern without the name and the difficulty.
+     * @param windowPattern the window pattern to be printed
+     */
+    public static void printOnlySpaces(WindowPattern windowPattern){
+
+        for(int i = 0; i<WindowPattern.SPACES_HEIGHT; i++){
+            for(int j=0; j<WindowPattern.SPACES_LENGTH; j++){
+                try {
+                    print(windowPattern.getSpace(i, j));
                 } catch (NotValidPointException e) {
                     e.printStackTrace();
                 }
@@ -165,15 +187,21 @@ public class Printer {
      * @throws RoundTrackEmptyException //todo
      * @throws NotValidRoundException //todo
      */
-    public static void print(RoundTrack roundTrack) throws RoundTrackEmptyException, NotValidRoundException {
-        for (int i = 1; i <= 10; i++) {
+    public static void print(RoundTrack roundTrack) {
+        for (int i = 1; i <= roundTrack.SIZE; i++) {
             print("[");
-            if (roundTrack.getDice(i) == null){
-                print(i);
-            }else{
-                roundTrack.getDice(i).stream().forEach(Printer::print);
+            try{
+                if (roundTrack.getDice(i) == null){
+                    print(i);
+                }else{
+                    roundTrack.getDice(i).stream().forEach(Printer::print);
+                }
+                print("] ");
+            }catch (RoundTrackEmptyException e) {
+                print(" ");
+            } catch (NotValidRoundException e) {
+                print(" ");
             }
-            print("] ");
         }
 
         newLine();
