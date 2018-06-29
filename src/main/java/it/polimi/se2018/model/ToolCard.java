@@ -127,8 +127,8 @@ public abstract class ToolCard implements Card, Cloneable, ToolCardEffect{
 		if(isActive()) {
 			throw new ToolCardStateException(this.getName() + " is already active.");
 		}else{
-			this.used = true;
 			this.favorTokensSpent += cost();
+			this.used = true;
 			this.active = true;
 		}
 	}

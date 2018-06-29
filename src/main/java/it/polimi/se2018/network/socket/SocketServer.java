@@ -1,6 +1,7 @@
 package it.polimi.se2018.network.socket;
 
 import it.polimi.se2018.exceptions.LoginException;
+import it.polimi.se2018.network.ServerConfiguration;
 import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.network.server.Server;
 import it.polimi.se2018.network.server.SessionInterface;
@@ -14,11 +15,6 @@ import java.net.ServerSocket;
 public class SocketServer {
 
 	/**
-	 * Socket server port number.
-	 */
-	private final int port = 55555;
-
-	/**
 	 * Server socket
 	 */
 	private ServerSocket serverSocket;
@@ -28,7 +24,7 @@ public class SocketServer {
 	 */
 	public SocketServer(){
 		try {
-			serverSocket = new ServerSocket(port);
+			serverSocket = new ServerSocket(ServerConfiguration.SOCKET_SERVER_PORT);
 			new Thread(new Listener()).start();
 		} catch(IOException ex) {
 			try {

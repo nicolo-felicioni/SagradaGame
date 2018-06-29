@@ -68,6 +68,42 @@ public class ToolCardElevenTest {
     }
 
     @Test
+    public void testEndActivation() {
+        try {
+            activeCard.endActivion();
+            activeCard.activate();
+            assertTrue(activeCard.returnDieAndGetNewFromDiceBag());
+            assertTrue(activeCard.isActive());
+            assertFalse(activeCard.chooseNewDieValue());
+            try {
+                activeCard.consumeEffect();
+            } catch (ToolCardStateException e) {
+                fail();
+            }
+            assertFalse(activeCard.returnDieAndGetNewFromDiceBag());
+            assertTrue(activeCard.isActive());
+            assertTrue(activeCard.chooseNewDieValue());
+            try {
+                activeCard.consumeEffect();
+            } catch (ToolCardStateException e) {
+                fail();
+            }
+            assertFalse(activeCard.returnDieAndGetNewFromDiceBag());
+            assertFalse(activeCard.isActive());
+            assertFalse(activeCard.chooseNewDieValue());
+        } catch (ToolCardStateException e) {
+            fail();
+        }
+
+        try {
+            inactiveCard.endActivion();
+            fail();
+        } catch (ToolCardStateException e) {
+
+        }
+    }
+
+    @Test
     public void testOtherMethods() {
         assertFalse(activeCard.chooseNewDieValue());
         assertFalse(activeCard.flipDraftedDie());

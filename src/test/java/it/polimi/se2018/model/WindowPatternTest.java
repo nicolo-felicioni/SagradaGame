@@ -687,15 +687,4 @@ public class WindowPatternTest {
 
     }
 
-    //@Test
-    //public void jsonTest() {
-    //   WindowPattern window1 = new WindowPatternFactory().getWindowPattern();
-    //    window = new WindowPatternFactory().getWindowPattern();
-    //    String s = new WindowPatternFactory().toJson(window);
-    //    System.out.println(s);
-    //    s = new WindowPatternFactory().toJson(window1);
-    //   System.out.println(s);
-    //    WindowPattern temp = new WindowPatternFactory().fromJson(s);
-    //    assertTrue(window.equalsWindowPattern(window1));
-    //}
 }

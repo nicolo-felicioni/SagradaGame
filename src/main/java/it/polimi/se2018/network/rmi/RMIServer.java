@@ -1,6 +1,7 @@
 package it.polimi.se2018.network.rmi;
 
 import it.polimi.se2018.exceptions.NetworkException;
+import it.polimi.se2018.network.ServerConfiguration;
 import it.polimi.se2018.network.server.GameRoom;
 import it.polimi.se2018.network.server.SessionInterface;
 import it.polimi.se2018.network.server.Server;
@@ -16,24 +17,19 @@ import java.rmi.server.UnicastRemoteObject;
 public class RMIServer implements RMIServerInterface {
 
 	/**
-	 * Port number of the RMI Server.
-	 */
-	private final int RMI_SERVER_PORT = 33333;
-
-	/**
 	 * Default constructor.
 	 */
 	public RMIServer(){
 		Registry registry = null;
 		try {
-			registry = LocateRegistry.createRegistry(RMI_SERVER_PORT);
+			registry = LocateRegistry.createRegistry(ServerConfiguration.RMI_SERVER_PORT);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 		if (registry != null) {
 			try {
 				registry.rebind("RMIServer", this);
-				UnicastRemoteObject.exportObject(this, RMI_SERVER_PORT);
+				UnicastRemoteObject.exportObject(this, ServerConfiguration.RMI_SERVER_PORT);
 			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
@@ -51,7 +47,7 @@ public class RMIServer implements RMIServerInterface {
 		RMIServerSession session = new RMIServerSession(uid);
 		session.addClientObserver(client);
 		Server.getInstance().login(uid, session);
-		UnicastRemoteObject.exportObject(session, RMI_SERVER_PORT);
+		UnicastRemoteObject.exportObject(session, ServerConfiguration.RMI_SERVER_PORT);
 		return session;
 	}
 }

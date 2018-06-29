@@ -5,7 +5,8 @@ import it.polimi.se2018.exceptions.NotValidRoundException;
 import it.polimi.se2018.exceptions.RoundTrackEmptyException;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RoundTrack implements Serializable {
 
@@ -52,7 +53,7 @@ public class RoundTrack implements Serializable {
      * @return all the dice in the RoundTrack as a List
      * @throws RoundTrackEmptyException if the round track is empty
      */
-    public ArrayList<Die> getAllDice () throws RoundTrackEmptyException {
+    public List<Die> getAllDice () throws RoundTrackEmptyException {
         if (isEmpty())
             throw new RoundTrackEmptyException("Round Track is empty");
         else {
@@ -105,7 +106,7 @@ public class RoundTrack implements Serializable {
         }
         return false;
     }
-    public void addDice(ArrayList<Die> dice,int round) throws NotValidRoundException {
+    public void addDice(List<Die> dice,int round) throws NotValidRoundException {
         if ((round < 1) || (round > getRound()))
             throw new NotValidRoundException("Not valid round exception");
         for (Die die : dice) {
@@ -118,8 +119,11 @@ public class RoundTrack implements Serializable {
      * @param dice
      *
      */
-    public void addDice (ArrayList<Die> dice) throws NotValidRoundException {
-        addDice(dice,getRound());
+    public void addDice (List<Die> dice) {
+        for (Die die : dice) {
+            track[getRound() - 1].add(new Die(die));
+        }
+        sortRoundTrack();
     }
 
     /**

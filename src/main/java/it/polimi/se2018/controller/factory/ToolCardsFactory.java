@@ -10,6 +10,7 @@ import java.util.Random;
  * @author Davide Yi Xian Hu
  */
 public class ToolCardsFactory {
+
     /**
      * Tool cards.
      */

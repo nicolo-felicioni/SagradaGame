@@ -72,4 +72,14 @@ public class ToolCardTwelve extends ToolCard {
 	public ToolCard cloneToolCard() {
 		return new ToolCardTwelve(this.isUsed(), this.isActive(), this.getFavorTokensSpent(), numberOfDiceMoved);
 	}
+
+	/**
+	 * End activation of this card. Reset the state of this card.
+	 */
+	@Override
+	public void endActivion() throws ToolCardStateException {
+		super.endActivion();
+		numberOfDiceMoved = 0;
+	}
+
 }

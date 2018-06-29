@@ -48,6 +48,8 @@ public class Player {
 			this.chosenPattern=copy.chosenPattern.cloneWindowPattern();
 		this.privateObjectiveCard=copy.privateObjectiveCard;
 		this.state=copy.state;
+		this.favorTokens = copy.getTokens();
+		this.connected = copy.isConnected();
 
 	}
 
@@ -239,13 +241,6 @@ public class Player {
 	}
 
 	//TODO N javadoc
-	public void endTurn() throws GameMoveException{
-		if(this.state.canEndTurn())
-		    this.endTurn();
-		else throw new IllegalMoveTurnException("You can't end turn");
-	}
-
-	//TODO N javadoc
 	public boolean equalsPlayer(Player player){
 		return this.getId().equals(player.getId());
 	}
@@ -253,13 +248,6 @@ public class Player {
 	//TODO N javadoc
 	public String toString(){
 		return ("Player id: "+ this.getId());
-	}
-
-	/**
-	 * Change the player state to YourTurn.
-	 */
-	public void startTurn() {
-		this.changePlayerStateTo(new YourTurnState());
 	}
 
 	/**

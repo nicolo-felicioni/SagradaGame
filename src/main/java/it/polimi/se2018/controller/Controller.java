@@ -11,7 +11,6 @@ import it.polimi.se2018.exceptions.*;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.observer.game.GameEventObserver;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,7 +122,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 				windowPattern.placeDie(event.getDraftedDie(), event.getPoint());
 				model.setDraftPool(draftPool.cloneDraftPool());
 				model.setToolCard(toolCard.cloneToolCard());
-                model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
+				model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
 			}
 		} catch (GameException e) {
 			this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
@@ -152,7 +151,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 				state.diePlaced();
 				model.setDraftPool(draftPool.cloneDraftPool());
 				model.setToolCard(toolCard.cloneToolCard());
-                model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
+				model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
 				model.changePlayerStateTo(event.getPlayerId(), state.cloneState());
 			}
 		} catch (GameException e) {
@@ -184,7 +183,6 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 				model.changePlayerStateTo(event.getPlayerId(), state.cloneState());
 			}
 		} catch (GameException e) {
-		    System.out.println(e.getClass().getSimpleName() + e.getMessage());
 			this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
 		}
 	}
@@ -267,7 +265,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 				windowPattern.removeDie(event.getInitialPosition());
 				windowPattern.placeDieIgnoreColor(die, event.getFinalPosition());
 				model.setToolCard(toolCard);
-                model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
+				model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
 			}
 		} catch (GameException e) {
 			this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
@@ -292,7 +290,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 				windowPattern.removeDie(event.getInitialPosition());
 				windowPattern.placeDieIgnoreValue(die, event.getFinalPosition());
 				model.setToolCard(toolCard);
-                model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
+				model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
 			}
 		} catch (GameException e) {
 			this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
@@ -318,7 +316,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 					windowPattern.removeDie(event.getInitialPosition());
 					windowPattern.placeDie(die, event.getFinalPosition());
 					model.setToolCard(toolCard);
-                    model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
+					model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
 				}
 			}
 		} catch (GameException e) {
@@ -344,7 +342,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 				windowPattern.removeDie(event.getInitialPosition());
 				windowPattern.placeDie(die, event.getFinalPosition());
 				model.setToolCard(toolCard);
-                model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
+				model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
 			}
 		} catch (GameException e) {
 			this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
@@ -468,11 +466,11 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 			Player player = model.getPlayer(event.getPlayerId());
 			ToolCard toolCard = model.getToolCard(event.getPositionOfToolCard());
 			if(player.getState().canUseTool() && player.getTokens() >= toolCard.cost()) {
+				player.spendToken(toolCard.cost());
 				toolCard.activate();
 				player.getState().useTool();
-				player.spendToken(toolCard.cost());
 				model.changePlayerStateTo(player.getId(), player.getState().cloneState());
-				model.setToolCard(toolCard, event.getPositionOfToolCard());
+				model.setToolCard(toolCard.cloneToolCard(), event.getPositionOfToolCard());
 			}
 		} catch (NotValidIdException | GameMoveException e) {
 			this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
@@ -628,7 +626,9 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 		if (this.scheduler.hasNext()) {
 			try {
 				model.changePlayerStateTo(scheduler.getCurrentPlayerId(), new NotYourTurnState());
+				System.out.println(scheduler.getCurrentPlayerId());
 				String playerId = scheduler.next();
+				System.out.println(playerId);
 				if(disconnectedPlayersId.contains(playerId)) {
 					this.nextTurn();
 				}else if(scheduler.isFirstTurnOfPlayer()) {
@@ -637,6 +637,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 					model.changePlayerStateTo(playerId, new YourTurnState());
 				}
 				if(scheduler.isFirstTurnOfRound()) {
+					endRound();
 					initRound();
 				}
 			} catch (NotValidIdException  e) {
@@ -675,7 +676,10 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 			endGame();
 		}
 	}
-	//TODO javadoc
+
+    /**
+     * Init the round. Move 2n+1 dice from the dice bag to the draft pool. (n is the number of the player in the game)
+     */
 	private void initRound() {
 		try {
 			DraftPool draftPool = model.getDraftPool();
@@ -686,6 +690,17 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 		} catch (DiceBagException e) {
 			this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
 		}
+	}
+
+    /**
+     * End the round. Move all the remaining dice in the draft pool to the roundTrack.
+     */
+	private void endRound() {
+		DraftPool draftPool = model.getDraftPool();
+		RoundTrack roundTrack = model.getRoundTrack();
+		roundTrack.addDice(draftPool.getAllDice());
+		model.setDraftPool(draftPool);
+		model.setRoundTrack(roundTrack);
 	}
 
 	/**

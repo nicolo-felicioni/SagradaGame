@@ -1,11 +1,11 @@
 package it.polimi.se2018.network.server;
 
-import it.polimi.se2018.controller.ViewUpdaterObserver;
-import it.polimi.se2018.controller.updater.PlayerUpdater;
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
+import it.polimi.se2018.controller.ViewUpdaterObserver;
 import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.model.Model;
+import it.polimi.se2018.network.ServerConfiguration;
 import it.polimi.se2018.observable.game.GameEventObservableImpl;
 
 import java.util.ArrayList;
@@ -45,11 +45,6 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
      * Maximum amount of player.
      */
     private static final int MAX_PLAYER = 4;
-
-    /**
-     * Interval of time to wait before to start a game.
-     */
-    private static final int TIMER_WAIT_START_GAME = 10000;
 
     /**
      * Constructor.
@@ -112,8 +107,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
             this.timer.disable();
         }
         if(this.countUniqueIdentifier() >= MIN_PLAYER) {
-            System.out.println(" ==> GameRoom :: Timer started. " + TIMER_WAIT_START_GAME/1000 + " seconds countdown."); //TODO println
-            this.timer = new Timer(TIMER_WAIT_START_GAME);
+            this.timer = new Timer(ServerConfiguration.GAME_ROOM_TIMER);
             new Thread(timer).start();
         }
     }

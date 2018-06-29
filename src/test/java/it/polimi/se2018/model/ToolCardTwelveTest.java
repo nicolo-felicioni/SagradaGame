@@ -59,6 +59,38 @@ public class ToolCardTwelveTest {
     }
 
     @Test
+    public void testEndActivation() {
+        try {
+            activeCard.endActivion();
+            activeCard.activate();
+            assertTrue(activeCard.moveTwoDiceMatchColorOnRoundTrack());
+            assertTrue(activeCard.isActive());
+            try {
+                activeCard.consumeEffect();
+            } catch (ToolCardStateException e) {
+                fail();
+            }
+            assertTrue(activeCard.moveTwoDiceMatchColorOnRoundTrack());
+            assertTrue(activeCard.isActive());
+            try {
+                activeCard.consumeEffect();
+            } catch (ToolCardStateException e) {
+                fail();
+            }
+            assertFalse(activeCard.moveTwoDiceMatchColorOnRoundTrack());
+            assertFalse(activeCard.isActive());
+        } catch (ToolCardStateException e) {
+            fail();
+        }
+        try {
+            inactiveCard.endActivion();
+            fail();
+        } catch (ToolCardStateException e) {
+
+        }
+    }
+
+    @Test
     public void testOtherMethods() {
         assertFalse(activeCard.chooseNewDieValue());
         assertFalse(activeCard.flipDraftedDie());

@@ -58,6 +58,24 @@ public class ToolCardOneTest {
 	}
 
 	@Test
+	public void testCost() {
+		assertTrue(inactiveCard.cost() == ToolCard.NEVER_USED_TOKEN_COST);
+		assertTrue(activeCard.cost() == ToolCard.USED_TOKEN_COST);
+		try {
+			inactiveCard.activate();
+		} catch (ToolCardStateException e) {
+
+		}
+		assertTrue(inactiveCard.cost() == ToolCard.USED_TOKEN_COST);
+	}
+
+	@Test
+	public void testGetter() {
+		assertTrue(activeCard.getName().equals(ToolCardOne.NAME));
+		assertTrue(activeCard.getInfo().equals(ToolCardOne.INFO));
+	}
+
+	@Test
 	public void testOtherMethods() {
 		assertFalse(activeCard.chooseNewDieValue());
 		assertFalse(activeCard.flipDraftedDie());

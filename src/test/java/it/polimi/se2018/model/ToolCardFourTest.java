@@ -56,6 +56,35 @@ public class ToolCardFourTest {
 	}
 
 	@Test
+	public void testEndActivation() {
+		try {
+			activeCard.endActivion();
+			activeCard.activate();
+			assertTrue(activeCard.moveADie());
+			try {
+				activeCard.consumeEffect();
+			} catch (ToolCardStateException e) {
+
+			}
+			assertTrue(activeCard.moveADie());
+			try {
+				activeCard.consumeEffect();
+			} catch (ToolCardStateException e) {
+
+			}
+			assertFalse(activeCard.moveADie());
+		} catch (ToolCardStateException e) {
+			fail();
+		}
+		try {
+			inactiveCard.endActivion();
+			fail();
+		} catch (ToolCardStateException e) {
+
+		}
+	}
+
+	@Test
 	public void testOtherMethods() {
 		assertFalse(activeCard.chooseNewDieValue());
 		assertFalse(activeCard.flipDraftedDie());

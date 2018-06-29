@@ -83,4 +83,13 @@ public class ToolCardEleven extends ToolCard {
 		return new ToolCardEleven(this.isUsed(), this.isActive(), this.getFavorTokensSpent(), isDieReturned);
 	}
 
+	/**
+	 * End activation of this card. Reset the state of this card.
+	 */
+	@Override
+	public void endActivion() throws ToolCardStateException {
+		super.endActivion();
+		isDieReturned = false;
+	}
+
 }

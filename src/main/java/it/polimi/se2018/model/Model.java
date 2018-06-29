@@ -5,12 +5,16 @@ package it.polimi.se2018.model;
  */
 
 
-import it.polimi.se2018.controller.*;
-import it.polimi.se2018.controller.updater.PlayerUpdater;
+import it.polimi.se2018.controller.ViewUpdaterInterface;
+import it.polimi.se2018.controller.ViewUpdaterObservable;
+import it.polimi.se2018.controller.ViewUpdaterObserver;
 import it.polimi.se2018.controller.updater.*;
 import it.polimi.se2018.exceptions.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 
 public class Model implements ViewUpdaterObservable {
@@ -306,6 +310,7 @@ public class Model implements ViewUpdaterObservable {
 
         wantedPlayer.get().choosePattern(windowPattern);
 
+        notifyObservers(new PlayerUpdater(wantedPlayer.get().getId(), wantedPlayer.get().getTokens(), wantedPlayer.get().isConnected()));
         notifyObservers(new WindowPatternUpdater(playerId,windowPattern.cloneWindowPattern(), WindowPatternPosition.CHOSEN));
     }
 
