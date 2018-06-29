@@ -1,41 +1,51 @@
 package it.polimi.se2018.view.gui.fxmlController;
 
 import it.polimi.se2018.model.Die;
+import it.polimi.se2018.model.DieColor;
+import it.polimi.se2018.model.DieValue;
 import it.polimi.se2018.model.DraftPool;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-public class GUIDraftPool {
+public class GUIDraftPool extends GridPane{
 
-    GridPane draftPool;
-    private int savedColumn;
+    /**
+     * The draft pool.
+     */
+    private DraftPool draft;
 
-    public GUIDraftPool(GridPane gridPane){
-        this.draftPool=gridPane;
-        savedColumn=0;
+    /**
+     * FXML Grid Pane.
+     */
+    @FXML
+    private GridPane draftPool;
+
+    public GUIDraftPool() {
     }
-    private void showDraftPool(DraftPool draftPool) throws MalformedURLException {
-        List<Die> draft= draftPool.getAllDice();
-        int i=0;
-        for (Die die:draft){
-            URL url=new URL("/resources/images/Die/"+die.getColor().toString()+die.getValue().toString()+".jpg");
-            ImageView imageView=new ImageView(String.valueOf(url));
-            this.draftPool.addColumn(i,imageView);
-            this.draftPool.setFillHeight(imageView,true);
-            this.draftPool.setFillWidth(imageView,true);
-            imageView.setOnMouseClicked(event -> {});
-            savedColumn=this.draftPool.getColumnIndex(imageView);
+
+    public void setDraftPool(DraftPool draft) {
+        this.draft = draft.cloneDraftPool();
+        List<Die> dice = draft.getAllDice();
+        for(int i = 0; i < dice.size(); i++) {
+            Die die = dice.get(i);
+                GUIDie guiDie = new GUIDie();
+                guiDie.setDie(die);
+                this.draftPool.add(guiDie, i, 0, 1, 1);
         }
+        this.draftPool.setGridLinesVisible(true);
+    }
 
-    }
-    public int getColimn(){
-        return savedColumn;
-    }
-    public void reset(){
-        savedColumn=0;
+    @FXML
+    public void onMouseClicked() {
+
     }
 }

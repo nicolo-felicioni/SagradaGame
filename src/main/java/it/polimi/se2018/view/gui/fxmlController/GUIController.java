@@ -1098,13 +1098,36 @@ public class GUIController extends Application implements GUIInterface{
      * @throws IOException if the application can not load the fxml file.
      */
     private void showLoginScene() throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUILogin.fxml"));
+        /*FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUILogin.fxml"));
         Parent root = loader.load();
         GUILogin controller = loader.getController();
         controller.addGameObserver(this);
         controller.addObserver((ConnectRMIObserver) this);
         controller.addObserver((ConnectSocketObserver) this);
         controller.addObserver((LoginObserver) this);
+        primaryStage.setTitle("Sagrada-The Game");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIDraftPool.fxml"));
+        Parent root = loader.load();
+        GUIDraftPool controller = loader.getController();
+        DraftPool draftPool = new DraftPool();
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        controller.setDraftPool(draftPool);*/
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIDraftPool.fxml"));
+        Parent root = loader.load();
+        GUIDraftPool controller = loader.getController();
+        DraftPool draftPool = new DraftPool();
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        controller.setDraftPool(draftPool);
         primaryStage.setTitle("Sagrada-The Game");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
@@ -1115,7 +1138,7 @@ public class GUIController extends Application implements GUIInterface{
      * @throws IOException if the application can not load the fxml file.
      */
     private void showChooseWindowPatternScene() throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUILogin.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIDie.fxml"));
         Parent root = loader.load();
         GUILogin controller = loader.getController();
         controller.addGameObserver(this);

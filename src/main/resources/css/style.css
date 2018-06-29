@@ -8,14 +8,138 @@
     -fx-background-size: 640px 127px
 }
 #draftPool{
-    -fx-background-color: black;
 }
 #cardBoard{
     -fx-background-color:red;
 }
 .windowPatternSpaces{
-    -fx.
+
 }
 .die{
+    -fx-background-position: center;
+    -fx-background-size: 99% 99%;
+    -fx-background-repeat: no-repeat;
+}
 
+.die:hover {
+}
+
+.BLUE-ONE {
+    -fx-background-image: url("../images/Die/Blue1.jpg");
+}
+
+.BLUE-TWO {
+    -fx-background-image: url("../images/Die/Blue2.jpg");
+}
+
+.BLUE-THREE {
+    -fx-background-image: url("../images/Die/Blue3.jpg");
+}
+
+.BLUE-FOUR {
+    -fx-background-image: url("../images/Die/Blue4.jpg");
+}
+
+.BLUE-FIVE {
+    -fx-background-image: url("../images/Die/Blue5.jpg");
+}
+
+.BLUE-SIX {
+    -fx-background-image: url("../images/Die/Blue6.jpg");
+}
+
+.RED-ONE {
+    -fx-background-image: url("../images/Die/Red1.jpg");
+}
+
+.RED-TWO {
+    -fx-background-image: url("../images/Die/Red2.jpg");
+}
+
+.RED-THREE {
+    -fx-background-image: url("../images/Die/Red3.jpg");
+}
+
+.RED-FOUR {
+    -fx-background-image: url("../images/Die/Red4.jpg");
+}
+
+.RED-FIVE {
+    -fx-background-image: url("../images/Die/Red5.jpg");
+}
+
+.RED-SIX {
+    -fx-background-image: url("../images/Die/Red6.jpg");
+}
+
+.GREEN-ONE {
+    -fx-background-image: url("../images/Die/Green1.jpg");
+}
+
+.GREEN-TWO {
+    -fx-background-image: url("../images/Die/Green2.jpg");
+}
+
+.GREEN-THREE {
+    -fx-background-image: url("../images/Die/Green3.jpg");
+}
+
+.GREEN-FOUR {
+    -fx-background-image: url("../images/Die/Green4.jpg");
+}
+
+.GREEN-FIVE {
+    -fx-background-image: url("../images/Die/Green5.jpg");
+}
+
+.GREEN-SIX {
+    -fx-background-image: url("../images/Die/Green6.jpg");
+}
+
+.YELLOW-ONE {
+    -fx-background-image: url("../images/Die/Yellow1.jpg");
+}
+
+.YELLOW-TWO {
+    -fx-background-image: url("../images/Die/Yellow2.jpg");
+}
+
+.YELLOW-THREE {
+    -fx-background-image: url("../images/Die/Yellow3.jpg");
+}
+
+.YELLOW-FOUR {
+    -fx-background-image: url("../images/Die/Yellow4.jpg");
+}
+
+.YELLOW-FIVE {
+    -fx-background-image: url("../images/Die/Yellow5.jpg");
+}
+
+.YELLOW-SIX {
+    -fx-background-image: url("../images/Die/Yellow6.jpg");
+}
+
+.PURPLE-ONE {
+    -fx-background-image: url("../images/Die/Purple1.jpg");
+}
+
+.PURPLE-TWO {
+    -fx-background-image: url("../images/Die/Purple2.jpg");
+}
+
+.PURPLE-THREE {
+    -fx-background-image: url("../images/Die/Purple3.jpg");
+}
+
+.PURPLE-FOUR {
+    -fx-background-image: url("../images/Die/Purple4.jpg");
+}
+
+.PURPLE-FIVE {
+    -fx-background-image: url("../images/Die/Purple5.jpg");
+}
+
+.PURPLE-SIX {
+    -fx-background-image: url("../images/Die/Purple6.jpg");
 }
