@@ -1,63 +1,73 @@
 package it.polimi.se2018.view.gui.fxmlController;
 
+import it.polimi.se2018.controller.factory.WindowPatternFactory;
 import it.polimi.se2018.event.network.ConnectRMIEvent;
 import it.polimi.se2018.event.network.ConnectSocketEvent;
 import it.polimi.se2018.event.network.LoginEvent;
+import it.polimi.se2018.model.Die;
+import it.polimi.se2018.model.DraftPool;
+import it.polimi.se2018.model.Space;
+import it.polimi.se2018.model.WindowPattern;
 import it.polimi.se2018.observable.game.GameEventObservableImpl;
 import it.polimi.se2018.observer.network.ConnectRMIObserver;
 import it.polimi.se2018.observer.network.ConnectSocketObserver;
 import it.polimi.se2018.observer.network.LoginObserver;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 
-import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginController extends GameEventObservableImpl implements GUILoginControllerInterface {
+public class GameBoardController extends GameEventObservableImpl implements GUILoginControllerInterface {
     private List<LoginObserver> loginObservers= new ArrayList<>();
     private List<ConnectRMIObserver> connectRMIObservers= new ArrayList<>();
     private List<ConnectSocketObserver> connectSocketObservers = new ArrayList<>();
 
+    private static final int ROW_NUMBER= 5;
+    private static final int COLUMN_NUMBER= 4;
     @FXML
-    TextField accountText;
+    GridPane windowPattern;
     @FXML
-    TextField portText;
-    @FXML
-    TextField adressText;
-    @FXML
-    ChoiceBox networkType;
-    @FXML
-    BorderPane borderPane;
-    @FXML
-    Button loginButton;
+    GridPane draftPool;
 
-    @FXML
-    public void logInAction(ActionEvent event) throws IOException {
-        if (networkType.getValue().equals("RMI")){
-            notifyObservers(new ConnectRMIEvent(adressText.getText(),Integer.parseInt(portText.getText())));
-        }else{
-            notifyObservers(new ConnectSocketEvent(adressText.getText(),Integer.parseInt(portText.getText())));
+    public GameBoardController(){
+        try {
+            showWindowPattern(windowPattern, new WindowPatternFactory().getWindowPattern());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
-        notifyObservers(new LoginEvent(accountText.getText()));
-        FXMLLoader loader=new FXMLLoader(getClass().getClassLoader().getResource("fxml/gameBoard.fxml"));
-        Parent root1=(Parent)loader.load();
-        Stage stage= new Stage();
-        stage.setScene(new Scene(root1));
-        stage.show();
-        ((Node)(event.getSource())).getScene().getWindow().hide();
-
+    }
+    private void showWindowPattern(GridPane whichWindowPattern, WindowPattern windowPattern) throws MalformedURLException {
+        Space[][] spaces= windowPattern.getAllSpaces();
+        for (int i=0;i<COLUMN_NUMBER;i++){
+            for (int j=0;j<ROW_NUMBER;j++){
+                URL url=new URL("/resources/images/Die/"+spaces[i][j].getColorRestriction()+spaces[i][j].getValueRestriction()+".jpg");
+                ImageView imageView=new ImageView(String.valueOf(url));
+                whichWindowPattern.add(imageView,i,j);
+                whichWindowPattern.setFillHeight(imageView,true);
+                whichWindowPattern.setFillWidth(imageView,true);
+            }
+        }
+    }
+    private void showDraftPool(DraftPool draftPool) throws MalformedURLException {
+        List<Die> draft= draftPool.getAllDice();
+        int i=0;
+        for (Die die:draft){
+            URL url=new URL("/resources/images/Die/"+die.getColor().toString()+die.getValue().toString()+".jpg");
+            ImageView imageView=new ImageView(String.valueOf(url));
+            this.draftPool.addColumn(i,imageView);
+            this.draftPool.setFillHeight(imageView,true);
+            this.draftPool.setFillWidth(imageView,true);
+            imageView.setOnMouseClicked(event -> {});
+        }
     }
 
+    public void chooseDieFromDraftPool(){
+
+    }
     /**
      * Add a ConnectRMIObserver.
      *
@@ -86,6 +96,7 @@ public class LoginController extends GameEventObservableImpl implements GUILogin
     @Override
     public void notifyObservers(ConnectRMIEvent event) {
         for(ConnectRMIObserver o : connectRMIObservers) {
+            System.out.println(o);
             o.handle(event);
         }
     }

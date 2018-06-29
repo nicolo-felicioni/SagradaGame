@@ -4,6 +4,7 @@ import it.polimi.se2018.observer.network.ConnectRMIObserver;
 import it.polimi.se2018.observer.network.ConnectSocketObserver;
 import it.polimi.se2018.observer.network.LoginObserver;
 import it.polimi.se2018.view.gui.fxmlController.GUIController;
+import it.polimi.se2018.view.gui.fxmlController.GameBoardController;
 import it.polimi.se2018.view.gui.fxmlController.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -31,14 +32,19 @@ public class MainGUI extends Application{
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/login.fxml"));
+        FXMLLoader loader1=new FXMLLoader(getClass().getClassLoader().getResource("fxml/gameBoard.fxml"));
         Parent root= (Parent) loader.load();
+        Parent root1=(Parent) loader1.load();
         LoginController controller = loader.getController();
-        System.out.println(MainGUI.guiController);
-        System.out.println((LoginController)loader.getController());
+        GameBoardController controller1 = loader1.getController();
         controller.addGameObserver(guiController);
         controller.addObserver((LoginObserver) MainGUI.guiController);
         controller.addObserver((ConnectRMIObserver) MainGUI.guiController);
         controller.addObserver((ConnectSocketObserver) MainGUI.guiController);
+        controller1.addGameObserver(guiController);
+        controller1.addObserver((LoginObserver) MainGUI.guiController);
+        controller1.addObserver((ConnectRMIObserver) MainGUI.guiController);
+        controller1.addObserver((ConnectSocketObserver) MainGUI.guiController);
         primaryStage.setTitle("Sagrada-The Game");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

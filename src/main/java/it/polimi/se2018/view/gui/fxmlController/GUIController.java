@@ -27,9 +27,9 @@ public class GUIController extends AbstractView implements GUIInterface{
     private ClientInterface client;
     private List<Player> players;
     private Player player;
-    private WindowPattern[] patterns;
+    public static WindowPattern[] patterns;//TODO ERRORE GRAVISSIMO
     private RoundTrack roundTrack;
-    private DraftPool draftPool;
+    public static DraftPool draftPool;//TODO ERRORE GRAVISSIMO
     private PrivateObjectiveCard privateObjectiveCard;
     private ToolCard[] toolCards;
     private PublicObjectiveCard[] publicObjectiveCards;
@@ -95,7 +95,22 @@ public class GUIController extends AbstractView implements GUIInterface{
 
     @Override
     public void updateWindowPattern(String playerId, WindowPattern windowPattern, WindowPatternPosition position) {
+        //if it is an update of the chosen window pattern
+        if (position == WindowPatternPosition.CHOSEN) {
 
+            //UPDATE OF THE LIST OF THE PLAYERS
+            this.players.stream().filter(p -> p.getId().equals(playerId))
+                    .findAny().ifPresent(p -> p.setChosenPattern(windowPattern));
+
+            //UPDATE OF MY PLAYER
+            if (playerId.equals(this.player.getId()))
+                this.player.setChosenPattern(windowPattern);
+
+
+        } else //if it is an update of the initial set of windows
+            if (this.player.getId().equals(playerId)) {//if it is this player's window
+                patterns[position.toInt()] = windowPattern;
+            }
     }
 
     @Override

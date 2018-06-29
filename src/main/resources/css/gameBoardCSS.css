@@ -1,0 +1,18 @@
+#windowPattern{
+    -fx-background-image: url(../images/sfondo.jpg);
+    -fx-hgap: 0;
+    -fx-vgap: 0;
+}
+#roundTrack{
+    -fx-background-image: url(../images/roundTrack.jpg);
+    -fx-background-size: 640px 127px
+}
+#draftPool{
+    -fx-background-color: black;
+}
+#cardBoard{
+    -fx-background-color:red;
+}
+.windowPatternSpaces{
+    -fx.
+}
