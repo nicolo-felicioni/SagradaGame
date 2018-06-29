@@ -121,9 +121,9 @@ public class RoundTrack implements Serializable {
      *
      */
     public void addDice (List<Die> dice) {
-        for (Die die : dice) {
-            track[getRound() - 1].add(new Die(die));
-        }
+        List<Die> d = new ArrayList<>();
+        dice.forEach(die -> d.add(die.cloneDie()));
+        track[getRound() -1].addAll(d);
         sortRoundTrack();
     }
 

@@ -699,6 +699,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 		DraftPool draftPool = model.getDraftPool();
 		RoundTrack roundTrack = model.getRoundTrack();
 		roundTrack.addDice(draftPool.getAllDice());
+		draftPool.removeAllDice();
 		model.setDraftPool(draftPool);
 		model.setRoundTrack(roundTrack);
 	}

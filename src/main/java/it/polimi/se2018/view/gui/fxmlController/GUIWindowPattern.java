@@ -2,49 +2,77 @@ package it.polimi.se2018.view.gui.fxmlController;
 
 import it.polimi.se2018.model.Space;
 import it.polimi.se2018.model.WindowPattern;
-import javafx.scene.image.ImageView;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import java.net.MalformedURLException;
-import java.net.URL;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 
-public class GUIWindowPattern {
+import java.util.ArrayList;
+import java.util.List;
 
-    private static final int ROW_NUMBER= 5;
-    private static final int COLUMN_NUMBER= 4;
-    private int savedRow;
-    private int savedColumn;
-    GridPane whichWindowPattern;
+public class GUIWindowPattern extends GridPane{
 
-    public GUIWindowPattern(GridPane gridPane){
-        whichWindowPattern=gridPane;
-        savedColumn=0;
-        savedRow=0;
+    /**
+     * The draft pool.
+     */
+    private WindowPattern windowPattern;
+
+    /**
+     * GUIDie components
+     */
+    private List<GUISpace> guiSpaces;
+
+    /**
+     * The selected die;
+     */
+    private Space selectedSpace;
+
+    /**
+     * Constructor.
+     */
+    public GUIWindowPattern() {
+        this.guiSpaces = new ArrayList<>();
+        this.getStyleClass().add("window-pattern");
+        this.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                guiSpaces.forEach(space -> {
+                    if(space == event.getTarget()) {
+                        space.setSelected(!space.isSelected());
+                        selectedSpace = space.getSpace();
+                    } else {
+                        space.setSelected(false);
+                    }
+                });
+            }
+        });
     }
 
-    private void showWindowPattern(WindowPattern windowPattern) throws MalformedURLException {
-        Space[][] spaces= windowPattern.getAllSpaces();
-        for (int i=0;i<COLUMN_NUMBER;i++){
-            for (int j=0;j<ROW_NUMBER;j++){
-                URL url=new URL("/resources/images/Die/"+spaces[i][j].getColorRestriction()+spaces[i][j].isValueRestricted()+".jpg");
-                ImageView imageView=new ImageView(String.valueOf(url));
-                whichWindowPattern.add(imageView,i,j);
-                whichWindowPattern.setFillHeight(imageView,true);
-                whichWindowPattern.setFillWidth(imageView,true);
-                imageView.setOnMouseClicked(event -> {
-                    savedRow=whichWindowPattern.getRowIndex(imageView);
-                    savedColumn=whichWindowPattern.getColumnIndex(imageView);
-                });
+    /**
+     * Set the window pattern.
+     * @param window the window pattern.
+     */
+    public void setWindowPattern(WindowPattern window) {
+        System.out.println(window.getName());
+        this.windowPattern = window.cloneWindowPattern();
+        Space[][] spaces = windowPattern.getAllSpaces();
+        for(int i = 0; i < spaces.length; i++) {
+            for(int j = 0; j < spaces[i].length; j++) {
+                GUISpace guiSpace = new GUISpace(spaces[i][j]);
+                guiSpaces.add(guiSpace);
+                this.add(guiSpace, j, i, 1, 1);
+                GridPane.setHgrow(guiSpace, Priority.ALWAYS);
+                GridPane.setVgrow(guiSpace, Priority.ALWAYS);
             }
         }
     }
-    public int getRow(){
-        return savedRow;
-    }
-    public int getColumn(){
-        return savedColumn;
-    }
-    public void resetRowAndColumn(){
-        savedColumn=0;
-        savedRow=0;
+
+    /**
+     * Return the selected space.
+     * @return the selected space.
+     */
+    public Space getSelectedSpace() {
+        return selectedSpace.cloneSpace();
     }
 }

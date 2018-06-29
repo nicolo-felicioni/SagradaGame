@@ -1,6 +1,7 @@
 package it.polimi.se2018.view.gui.fxmlController;
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
+import it.polimi.se2018.controller.factory.WindowPatternFactory;
 import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.event.network.ConnectRMIEvent;
 import it.polimi.se2018.event.network.ConnectSocketEvent;
@@ -1108,28 +1109,63 @@ public class GUIController extends Application implements GUIInterface{
         primaryStage.setTitle("Sagrada-The Game");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIDraftPool.fxml"));
-        Parent root = loader.load();
-        GUIDraftPool controller = loader.getController();
+        */
+
+        /*
+        GUIDraftPool dp = new GUIDraftPool();
         DraftPool draftPool = new DraftPool();
         draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.RED, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.GREEN, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.PURPLE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.YELLOW, DieValue.ONE));
         draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
         draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
         draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
-        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
-        controller.setDraftPool(draftPool);*/
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIDraftPool.fxml"));
-        Parent root = loader.load();
-        GUIDraftPool controller = loader.getController();
-        DraftPool draftPool = new DraftPool();
-        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
-        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
-        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
-        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
-        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
-        controller.setDraftPool(draftPool);
+        dp.setDraftPool(draftPool);
+        */
+
+        /*
+        GUIWindowPattern wp = new GUIWindowPattern();
+        wp.setWindowPattern(new WindowPatternFactory().getWindowPattern());
+        */
+
+        /*
+        GUISpace space= new GUISpace(new ColorSpace(DieColor.BLUE));
+        */
+
+
+        GUIRoundTrack rt = new GUIRoundTrack();
+        RoundTrack roundTrack = new RoundTrack();
+        List<Die> dice1 = new ArrayList<>();
+        dice1.add(new Die(DieColor.BLUE, DieValue.ONE));
+        dice1.add(new Die(DieColor.RED, DieValue.ONE));
+        dice1.add(new Die(DieColor.BLUE, DieValue.TWO));
+        dice1.add(new Die(DieColor.YELLOW, DieValue.ONE));
+        roundTrack.addDice(dice1);
+        List<Die> dice2 = new ArrayList<>();
+        dice2.add(new Die(DieColor.GREEN, DieValue.SIX));
+        dice2.add(new Die(DieColor.PURPLE, DieValue.FIVE));
+        dice2.add(new Die(DieColor.GREEN, DieValue.FOUR));
+        dice2.add(new Die(DieColor.YELLOW, DieValue.THREE));
+        dice2.add(new Die(DieColor.GREEN, DieValue.FOUR));
+        dice2.add(new Die(DieColor.YELLOW, DieValue.THREE));
+        roundTrack.addDice(dice2);
+        List<Die> dice3 = new ArrayList<>();
+        dice3.add(new Die(DieColor.RED, DieValue.ONE));
+        dice3.add(new Die(DieColor.BLUE, DieValue.TWO));
+        dice3.add(new Die(DieColor.GREEN, DieValue.SIX));
+        dice3.add(new Die(DieColor.BLUE, DieValue.FIVE));
+        dice3.add(new Die(DieColor.RED, DieValue.FOUR));
+        roundTrack.addDice(dice3);
+        rt.setRoundTrack(roundTrack);
+
+
+        Scene scene = new Scene(rt, 400, 100);
+        scene.getStylesheets().add("css/style.css");
+
         primaryStage.setTitle("Sagrada-The Game");
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 
