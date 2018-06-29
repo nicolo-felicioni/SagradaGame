@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginController extends GameEventObservableImpl implements GUILoginControllerInterface {
+public class GUILogin extends GameEventObservableImpl implements GUILoginControllerInterface {
     private List<LoginObserver> loginObservers= new ArrayList<>();
     private List<ConnectRMIObserver> connectRMIObservers= new ArrayList<>();
     private List<ConnectSocketObserver> connectSocketObservers = new ArrayList<>();
@@ -49,13 +49,6 @@ public class LoginController extends GameEventObservableImpl implements GUILogin
             notifyObservers(new ConnectSocketEvent(adressText.getText(),Integer.parseInt(portText.getText())));
         }
         notifyObservers(new LoginEvent(accountText.getText()));
-        FXMLLoader loader=new FXMLLoader(getClass().getClassLoader().getResource("fxml/gameBoard.fxml"));
-        Parent root1=(Parent)loader.load();
-        Stage stage= new Stage();
-        stage.setScene(new Scene(root1));
-        stage.show();
-        ((Node)(event.getSource())).getScene().getWindow().hide();
-
     }
 
     /**

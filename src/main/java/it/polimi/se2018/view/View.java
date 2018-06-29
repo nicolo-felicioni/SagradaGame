@@ -3,12 +3,13 @@ package it.polimi.se2018.view;
 import it.polimi.se2018.controller.ViewUpdaterObserver;
 import it.polimi.se2018.model.WindowPatternPosition;
 import it.polimi.se2018.model.*;
+import it.polimi.se2018.observable.game.GameEventObservable;
 
 /**
  * @author Nicolò Felicioni
  */
 
-public interface View extends ViewUpdaterObserver{
+public interface View extends ViewUpdaterObserver, GameEventObservable {
 
 
 
