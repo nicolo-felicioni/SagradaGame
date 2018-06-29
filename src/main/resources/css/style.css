@@ -8,6 +8,7 @@
     -fx-background-size: 640px 127px
 }
 #draftPool{
+    -fx-background-color: red;
 }
 #cardBoard{
     -fx-background-color:red;
@@ -17,102 +18,119 @@
 }
 .die{
     -fx-background-position: center;
-    -fx-background-size: 99% 99%;
+    -fx-background-size: 60% 60%;
+    -fx-background-repeat: no-repeat;
+}
+
+.die-selected{
+    -fx-background-color: #e67e22;
+    -fx-background-position: center;
+    -fx-background-size: 80% 80%;
     -fx-background-repeat: no-repeat;
 }
 
 .die:hover {
 }
 
-.BLUE-ONE {
+.draftpool {
+    -fx-background-color: #f1c40f;
+    -fx-padding : 5%;
+}
+
+
+.window-pattern {
+    -fx-background-color: #000000;
+}
+
+.blue-one {
     -fx-background-image: url("../images/Die/Blue1.jpg");
 }
 
-.BLUE-TWO {
+.blue-two {
     -fx-background-image: url("../images/Die/Blue2.jpg");
 }
 
-.BLUE-THREE {
+.blue-three {
     -fx-background-image: url("../images/Die/Blue3.jpg");
 }
 
-.BLUE-FOUR {
+.blue-four {
     -fx-background-image: url("../images/Die/Blue4.jpg");
 }
 
-.BLUE-FIVE {
+.blue-five {
     -fx-background-image: url("../images/Die/Blue5.jpg");
 }
 
-.BLUE-SIX {
+.blue-six {
     -fx-background-image: url("../images/Die/Blue6.jpg");
 }
 
-.RED-ONE {
+.red-one {
     -fx-background-image: url("../images/Die/Red1.jpg");
 }
 
-.RED-TWO {
+.red-two {
     -fx-background-image: url("../images/Die/Red2.jpg");
 }
 
-.RED-THREE {
+.red-three {
     -fx-background-image: url("../images/Die/Red3.jpg");
 }
 
-.RED-FOUR {
+.red-four {
     -fx-background-image: url("../images/Die/Red4.jpg");
 }
 
-.RED-FIVE {
+.red-five {
     -fx-background-image: url("../images/Die/Red5.jpg");
 }
 
-.RED-SIX {
+.red-six {
     -fx-background-image: url("../images/Die/Red6.jpg");
 }
 
-.GREEN-ONE {
+.green-one {
     -fx-background-image: url("../images/Die/Green1.jpg");
 }
 
-.GREEN-TWO {
+.green-two {
     -fx-background-image: url("../images/Die/Green2.jpg");
 }
 
-.GREEN-THREE {
+.green-three {
     -fx-background-image: url("../images/Die/Green3.jpg");
 }
 
-.GREEN-FOUR {
+.green-four {
     -fx-background-image: url("../images/Die/Green4.jpg");
 }
 
-.GREEN-FIVE {
+.green-five {
     -fx-background-image: url("../images/Die/Green5.jpg");
 }
 
-.GREEN-SIX {
+.green-six {
     -fx-background-image: url("../images/Die/Green6.jpg");
 }
 
-.YELLOW-ONE {
+.yellow-one {
     -fx-background-image: url("../images/Die/Yellow1.jpg");
 }
 
-.YELLOW-TWO {
+.yellow-two {
     -fx-background-image: url("../images/Die/Yellow2.jpg");
 }
 
-.YELLOW-THREE {
+.yellow-three {
     -fx-background-image: url("../images/Die/Yellow3.jpg");
 }
 
-.YELLOW-FOUR {
+.yellow-four {
     -fx-background-image: url("../images/Die/Yellow4.jpg");
 }
 
-.YELLOW-FIVE {
+.yellow-five {
     -fx-background-image: url("../images/Die/Yellow5.jpg");
 }
 
@@ -120,26 +138,80 @@
     -fx-background-image: url("../images/Die/Yellow6.jpg");
 }
 
-.PURPLE-ONE {
+.purple-one {
     -fx-background-image: url("../images/Die/Purple1.jpg");
 }
 
-.PURPLE-TWO {
+.purple-two {
     -fx-background-image: url("../images/Die/Purple2.jpg");
 }
 
-.PURPLE-THREE {
+.purple-three {
     -fx-background-image: url("../images/Die/Purple3.jpg");
 }
 
-.PURPLE-FOUR {
+.purple-four {
     -fx-background-image: url("../images/Die/Purple4.jpg");
 }
 
-.PURPLE-FIVE {
+.purple-five {
     -fx-background-image: url("../images/Die/Purple5.jpg");
 }
 
-.PURPLE-SIX {
+.purple-six {
+    -fx-background-image: url("../images/Die/Purple6.jpg");
+}
+
+.space {
+    -fx-background-position: center;
+    -fx-background-size: 60% 60%;
+    -fx-background-repeat: no-repeat;
+}
+
+.space-blank {
+    -fx-background-color : #ffffff;
+}
+
+.space-blue {
+    -fx-background-color : #3498db;
+}
+
+.space-red {
+    -fx-background-color : #e74c3c;
+}
+
+.space-yellow {
+    -fx-background-color : #f1c40f;
+}
+
+.space-green {
+    -fx-background-color : #2ecc71;
+}
+
+.space-purple {
+    -fx-background-color : #8e44ad;
+}
+
+.space-one {
+    -fx-background-image: url("../images/Die/Purple1.jpg");
+}
+
+.space-two {
+    -fx-background-image: url("../images/Die/Purple2.jpg");
+}
+
+.space-three {
+    -fx-background-image: url("../images/Die/Purple3.jpg");
+}
+
+.space-four {
+    -fx-background-image: url("../images/Die/Purple4.jpg");
+}
+
+.space-five {
+    -fx-background-image: url("../images/Die/Purple5.jpg");
+}
+
+.space-six {
     -fx-background-image: url("../images/Die/Purple6.jpg");
 }

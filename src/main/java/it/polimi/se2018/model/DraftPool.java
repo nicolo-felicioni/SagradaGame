@@ -85,6 +85,13 @@ public class DraftPool implements Serializable {
     }
 
     /**
+     * Remove all dice from the draft pool.
+     */
+    public void removeAllDice() {
+        draftPool.clear();
+    }
+
+    /**
      * Method for get all the dice in the draft pool as an ArrayList
      * @return ArrayList<Die> containing all the dice in the draft pool
      */

@@ -1,19 +1,14 @@
 package it.polimi.se2018.view.gui.fxmlController;
 
 import it.polimi.se2018.model.Die;
-import it.polimi.se2018.model.DieColor;
-import it.polimi.se2018.model.DieValue;
 import it.polimi.se2018.model.DraftPool;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.image.ImageView;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GUIDraftPool extends GridPane{
@@ -24,28 +19,61 @@ public class GUIDraftPool extends GridPane{
     private DraftPool draft;
 
     /**
-     * FXML Grid Pane.
+     * GUIDie components
      */
-    @FXML
-    private GridPane draftPool;
+    private List<GUIDie> guiDice;
 
+    /**
+     * The selected die;
+     */
+    private Die selectedDie;
+
+    /**
+     * Constructor.
+     */
     public GUIDraftPool() {
+        this.guiDice = new ArrayList<>();
+        this.getStyleClass().add("draftpool");
+        this.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                guiDice.forEach(die -> {
+                    if(die == event.getTarget()) {
+                        die.setSelected(!die.isSelected());
+                        selectedDie = die.getDie();
+                    } else {
+                        die.setSelected(false);
+                    }
+                });
+            }
+        });
     }
 
+    /**
+     * Set the draft pool.
+     * @param draft the draft pool.
+     */
     public void setDraftPool(DraftPool draft) {
         this.draft = draft.cloneDraftPool();
         List<Die> dice = draft.getAllDice();
         for(int i = 0; i < dice.size(); i++) {
-            Die die = dice.get(i);
-                GUIDie guiDie = new GUIDie();
-                guiDie.setDie(die);
-                this.draftPool.add(guiDie, i, 0, 1, 1);
+            ColumnConstraints column = new ColumnConstraints();
+            column.setPercentWidth(100/9);
+            this.getColumnConstraints().add(column);
+            GUIDie guiDie = new GUIDie(dice.get(i));
+            guiDice.add(guiDie);
+            this.add(guiDie, i, 0, 1, 1);
+            GridPane.setHgrow(guiDie, Priority.ALWAYS);
+            GridPane.setVgrow(guiDie, Priority.ALWAYS);
         }
-        this.draftPool.setGridLinesVisible(true);
     }
 
-    @FXML
-    public void onMouseClicked() {
-
+    /**
+     * Return the selected die.
+     * @return the selected die.
+     */
+    public Die getSelectedDie() {
+        return selectedDie.cloneDie();
     }
+
 }
