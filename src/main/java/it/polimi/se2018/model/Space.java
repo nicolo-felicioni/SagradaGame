@@ -94,8 +94,8 @@ public abstract class Space implements SpaceInterface, Cloneable{
 		String message = "Color restriction: " + this.getColorRestriction() +
 				"\nValue restriction: " + this.getValueRestriction() ;
 		if(this.hasDie())
-			message = message + "\nDie color: " + this.getDie().getColor() +
-					"\nDie value: " + this.getDie().getValue() ;
+			message = message + "\ndie color: " + this.getDie().getColor() +
+					"\ndie value: " + this.getDie().getValue() ;
 		else
 			message = message + "\nNo die";
 

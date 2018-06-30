@@ -9,7 +9,7 @@ import it.polimi.se2018.observable.game.GameEventObservable;
  * @author Nicolò Felicioni
  */
 
-public interface View extends ViewUpdaterObserver, GameEventObservable {
+public interface View extends ViewUpdaterObserver {
 
 
 

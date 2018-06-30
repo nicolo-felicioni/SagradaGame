@@ -222,7 +222,7 @@ public class WindowPatternTest {
         try {
             window.placeDie(die, p);
 
-            System.out.println("Die placed.");
+            System.out.println("die placed.");
 
             if(window.getSpace(p).isValueRestricted())
                 assertTrue(die.getValue()==window.getSpace(p).getValueRestriction());
@@ -248,7 +248,7 @@ public class WindowPatternTest {
             System.out.println("Point :" + p );
             System.out.println("Space color :" + window.getSpace(p).getColorRestriction() );
             System.out.println("Space value :" + window.getSpace(p).getValueRestriction() );
-            System.out.println("Die :" + die );
+            System.out.println("die :" + die );
 
             if(window.getSpace(p).hasDie())
                 try{
@@ -272,7 +272,7 @@ public class WindowPatternTest {
         try {
             window.placeDieIgnoreColor(die, p);
 
-            System.out.println("Die placed.");
+            System.out.println("die placed.");
 
             if(window.getSpace(p).isValueRestricted())
                 assertTrue(die.getValue()==window.getSpace(p).getValueRestriction());
@@ -296,7 +296,7 @@ public class WindowPatternTest {
             System.out.println("Point :" + p );
             System.out.println("Space color :" + window.getSpace(p).getColorRestriction() );
             System.out.println("Space value :" + window.getSpace(p).getValueRestriction() );
-            System.out.println("Die :" + die );
+            System.out.println("die :" + die );
 
             if(window.getSpace(p).hasDie())
                 try{
@@ -319,7 +319,7 @@ public class WindowPatternTest {
         try {
             window.placeDieIgnoreValue(die, p);
 
-            System.out.println("Die placed.");
+            System.out.println("die placed.");
 
             if(window.getSpace(p).isColorRestricted())
                 assertTrue(die.getColor()==window.getSpace(p).getColorRestriction());
@@ -342,7 +342,7 @@ public class WindowPatternTest {
             System.out.println("Point :" + p );
             System.out.println("Space color :" + window.getSpace(p).getColorRestriction() );
             System.out.println("Space value :" + window.getSpace(p).getValueRestriction() );
-            System.out.println("Die :" + die );
+            System.out.println("die :" + die );
 
             if(window.getSpace(p).hasDie())
                 try{
@@ -407,7 +407,7 @@ public class WindowPatternTest {
         try {
             window.placeDie(die, randX, randY);
 
-            System.out.println("Die placed.");
+            System.out.println("die placed.");
 
             if(window.getSpace( randX, randY).isValueRestricted())
                 assertTrue(die.getValue()==window.getSpace( randX, randY).getValueRestriction());
@@ -433,7 +433,7 @@ public class WindowPatternTest {
             System.out.println("Point :" +  randX + ", " + randY );
             System.out.println("Space color :" + window.getSpace( randX, randY).getColorRestriction() );
             System.out.println("Space value :" + window.getSpace( randX, randY).getValueRestriction() );
-            System.out.println("Die :" + die );
+            System.out.println("die :" + die );
 
             if(window.getSpace( randX, randY).hasDie())
                 try{
@@ -456,7 +456,7 @@ public class WindowPatternTest {
         try {
             window.placeDieIgnoreColor(die, randX, randY);
 
-            System.out.println("Die placed.");
+            System.out.println("die placed.");
 
             if(window.getSpace(randX, randY).isValueRestricted())
                 assertTrue(die.getValue()==window.getSpace(randX, randY).getValueRestriction());
@@ -480,7 +480,7 @@ public class WindowPatternTest {
             System.out.println("Point :" + randX + randY );
             System.out.println("Space color :" + window.getSpace(randX, randY).getColorRestriction() );
             System.out.println("Space value :" + window.getSpace(randX, randY).getValueRestriction() );
-            System.out.println("Die :" + die );
+            System.out.println("die :" + die );
 
             if(window.getSpace(randX, randY).hasDie())
                 try{
@@ -503,7 +503,7 @@ public class WindowPatternTest {
         try {
             window.placeDieIgnoreValue(die, randX, randY);
 
-            System.out.println("Die placed.");
+            System.out.println("die placed.");
 
             if(window.getSpace(randX, randY).isColorRestricted())
                 assertTrue(die.getColor()==window.getSpace(randX, randY).getColorRestriction());
@@ -527,7 +527,7 @@ public class WindowPatternTest {
             System.out.println("Point :" + randX + randY );
             System.out.println("Space color :" + window.getSpace(randX, randY).getColorRestriction() );
             System.out.println("Space value :" + window.getSpace(randX, randY).getValueRestriction() );
-            System.out.println("Die :" + die );
+            System.out.println("die :" + die );
 
             if(window.getSpace(randX, randY).hasDie())
                 try{

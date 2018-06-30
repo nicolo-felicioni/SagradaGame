@@ -53,7 +53,7 @@ public class DraftPool implements Serializable {
     }
 
     /**
-     * Method for adding a Die in the draft pool
+     * Method for adding a die in the draft pool
      * @param die
      */
     public void addDie(Die die){
@@ -93,7 +93,7 @@ public class DraftPool implements Serializable {
 
     /**
      * Method for get all the dice in the draft pool as an ArrayList
-     * @return ArrayList<Die> containing all the dice in the draft pool
+     * @return ArrayList<die> containing all the dice in the draft pool
      */
     public List<Die> getAllDice() {
         return new ArrayList<>(draftPool);

@@ -4,15 +4,13 @@
     -fx-vgap: 0;
 }
 
-.logo{
+.logo {
     -fx-background-image: url(../images/logo-sagrada.png);
     -fx-background-position: center;
     -fx-background-size: 50% 80%;
     -fx-background-repeat: no-repeat;
 }
-
 #roundTrack{
-    -fx-background-image: url(../images/roundTrack.jpg);
     -fx-background-size: 640px 127px
 }
 #draftPool{
@@ -47,132 +45,167 @@
 
 
 .window-pattern {
+    -fx-background-color: #BBBBBB;
+}
+
+.window-pattern-selected {
     -fx-background-color: #000000;
 }
 
+.window-pattern-name {
+    -fx-background-color: #BBBBBB;
+    -fx-font-weight : bold;
+    -fx-font-size : 1.1em;
+    -fx-padding : 0.5em;
+}
+
+.private-card {
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+.public-card {
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
+.tool-card {
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+}
+
 .blue-one {
-    -fx-background-image: url("../images/Die/Blue1.jpg");
+    -fx-background-image: url("../images/die/Blue1.jpg");
 }
 
 .blue-two {
-    -fx-background-image: url("../images/Die/Blue2.jpg");
+    -fx-background-image: url("../images/die/Blue2.jpg");
 }
 
 .blue-three {
-    -fx-background-image: url("../images/Die/Blue3.jpg");
+    -fx-background-image: url("../images/die/Blue3.jpg");
 }
 
 .blue-four {
-    -fx-background-image: url("../images/Die/Blue4.jpg");
+    -fx-background-image: url("../images/die/Blue4.jpg");
 }
 
 .blue-five {
-    -fx-background-image: url("../images/Die/Blue5.jpg");
+    -fx-background-image: url("../images/die/Blue5.jpg");
 }
 
 .blue-six {
-    -fx-background-image: url("../images/Die/Blue6.jpg");
+    -fx-background-image: url("../images/die/Blue6.jpg");
 }
 
 .red-one {
-    -fx-background-image: url("../images/Die/Red1.jpg");
+    -fx-background-image: url("../images/die/Red1.jpg");
 }
 
 .red-two {
-    -fx-background-image: url("../images/Die/Red2.jpg");
+    -fx-background-image: url("../images/die/Red2.jpg");
 }
 
 .red-three {
-    -fx-background-image: url("../images/Die/Red3.jpg");
+    -fx-background-image: url("../images/die/Red3.jpg");
 }
 
 .red-four {
-    -fx-background-image: url("../images/Die/Red4.jpg");
+    -fx-background-image: url("../images/die/Red4.jpg");
 }
 
 .red-five {
-    -fx-background-image: url("../images/Die/Red5.jpg");
+    -fx-background-image: url("../images/die/Red5.jpg");
 }
 
 .red-six {
-    -fx-background-image: url("../images/Die/Red6.jpg");
+    -fx-background-image: url("../images/die/Red6.jpg");
 }
 
 .green-one {
-    -fx-background-image: url("../images/Die/Green1.jpg");
+    -fx-background-image: url("../images/die/Green1.jpg");
 }
 
 .green-two {
-    -fx-background-image: url("../images/Die/Green2.jpg");
+    -fx-background-image: url("../images/die/Green2.jpg");
 }
 
 .green-three {
-    -fx-background-image: url("../images/Die/Green3.jpg");
+    -fx-background-image: url("../images/die/Green3.jpg");
 }
 
 .green-four {
-    -fx-background-image: url("../images/Die/Green4.jpg");
+    -fx-background-image: url("../images/die/Green4.jpg");
 }
 
 .green-five {
-    -fx-background-image: url("../images/Die/Green5.jpg");
+    -fx-background-image: url("../images/die/Green5.jpg");
 }
 
 .green-six {
-    -fx-background-image: url("../images/Die/Green6.jpg");
+    -fx-background-image: url("../images/die/Green6.jpg");
 }
 
 .yellow-one {
-    -fx-background-image: url("../images/Die/Yellow1.jpg");
+    -fx-background-image: url("../images/die/Yellow1.jpg");
 }
 
 .yellow-two {
-    -fx-background-image: url("../images/Die/Yellow2.jpg");
+    -fx-background-image: url("../images/die/Yellow2.jpg");
 }
 
 .yellow-three {
-    -fx-background-image: url("../images/Die/Yellow3.jpg");
+    -fx-background-image: url("../images/die/Yellow3.jpg");
 }
 
 .yellow-four {
-    -fx-background-image: url("../images/Die/Yellow4.jpg");
+    -fx-background-image: url("../images/die/Yellow4.jpg");
 }
 
 .yellow-five {
-    -fx-background-image: url("../images/Die/Yellow5.jpg");
+    -fx-background-image: url("../images/die/Yellow5.jpg");
 }
 
-.YELLOW-SIX {
-    -fx-background-image: url("../images/Die/Yellow6.jpg");
+.yellow-six {
+    -fx-background-image: url("../images/die/Yellow6.jpg");
 }
 
 .purple-one {
-    -fx-background-image: url("../images/Die/Purple1.jpg");
+    -fx-background-image: url("../images/die/Purple1.jpg");
 }
 
 .purple-two {
-    -fx-background-image: url("../images/Die/Purple2.jpg");
+    -fx-background-image: url("../images/die/Purple2.jpg");
 }
 
 .purple-three {
-    -fx-background-image: url("../images/Die/Purple3.jpg");
+    -fx-background-image: url("../images/die/Purple3.jpg");
 }
 
 .purple-four {
-    -fx-background-image: url("../images/Die/Purple4.jpg");
+    -fx-background-image: url("../images/die/Purple4.jpg");
 }
 
 .purple-five {
-    -fx-background-image: url("../images/Die/Purple5.jpg");
+    -fx-background-image: url("../images/die/Purple5.jpg");
 }
 
 .purple-six {
-    -fx-background-image: url("../images/Die/Purple6.jpg");
+    -fx-background-image: url("../images/die/Purple6.jpg");
 }
 
 .space {
     -fx-background-position: center;
-    -fx-background-size: 60% 60%;
+    -fx-background-size: 96% 96%;
+    -fx-background-repeat: no-repeat;
+}
+
+.space-selected{
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
     -fx-background-repeat: no-repeat;
 }
 
@@ -181,45 +214,153 @@
 }
 
 .space-blue {
-    -fx-background-color : #3498db;
+    -fx-background-image: url("../images/die/Bluenull.jpg");
 }
 
 .space-red {
-    -fx-background-color : #e74c3c;
+    -fx-background-image: url("../images/die/Rednull.jpg");
 }
 
 .space-yellow {
-    -fx-background-color : #f1c40f;
+    -fx-background-image: url("../images/die/Yellownull.jpg");
 }
 
 .space-green {
-    -fx-background-color : #2ecc71;
+    -fx-background-image: url("../images/die/Greennull.jpg");
 }
 
 .space-purple {
-    -fx-background-color : #8e44ad;
+    -fx-background-image: url("../images/die/Purplenull.jpg");
 }
 
 .space-one {
-    -fx-background-image: url("../images/Die/Purple1.jpg");
+    -fx-background-image: url("../images/die/null1.jpg");
 }
 
 .space-two {
-    -fx-background-image: url("../images/Die/Purple2.jpg");
+    -fx-background-image: url("../images/die/null2.jpg");
 }
 
 .space-three {
-    -fx-background-image: url("../images/Die/Purple3.jpg");
+    -fx-background-image: url("../images/die/null3.jpg");
 }
 
 .space-four {
-    -fx-background-image: url("../images/Die/Purple4.jpg");
+    -fx-background-image: url("../images/die/null4.jpg");
 }
 
 .space-five {
-    -fx-background-image: url("../images/Die/Purple5.jpg");
+    -fx-background-image: url("../images/die/null5.jpg");
 }
 
 .space-six {
-    -fx-background-image: url("../images/Die/Purple6.jpg");
+    -fx-background-image: url("../images/die/null6.jpg");
+}
+
+.tool-card-grozing-pliers {
+    -fx-background-image: url("../images/toolcard/toolcard1.jpg");
+}
+
+.tool-card-eglomise-brush {
+    -fx-background-image: url("../images/toolcard/toolcard2.jpg");
+}
+
+.tool-card-copper-foil-burnisher {
+    -fx-background-image: url("../images/toolcard/toolcard3.jpg");
+}
+
+.tool-card-lathekin {
+    -fx-background-image: url("../images/toolcard/toolcard4.jpg");
+}
+
+.tool-card-lens-cutter {
+    -fx-background-image: url("../images/toolcard/toolcard5.jpg");
+}
+
+.tool-card-flux-brush {
+    -fx-background-image: url("../images/toolcard/toolcard6.jpg");
+}
+
+.tool-card-glazing-hammer {
+    -fx-background-image: url("../images/toolcard/toolcard7.jpg");
+}
+
+.tool-card-running-pliers {
+    -fx-background-image: url("../images/toolcard/toolcard8.jpg");
+}
+
+.tool-card-cork-backed-straightedge {
+    -fx-background-image: url("../images/toolcard/toolcard9.jpg");
+}
+
+.tool-card-grinding-stone {
+    -fx-background-image: url("../images/toolcard/toolcard10.jpg");
+}
+
+.tool-card-flux-remover {
+    -fx-background-image: url("../images/toolcard/toolcard11.jpg");
+}
+
+.tool-card-tap-wheel {
+    -fx-background-image: url("../images/toolcard/toolcard12.jpg");
+}
+
+.private-card-purple {
+    -fx-background-image: url("../images/privatecard/private1.jpg");
+}
+
+.private-card-red {
+    -fx-background-image: url("../images/privatecard/private2.jpg");
+}
+
+.private-card-yellow {
+    -fx-background-image: url("../images/privatecard/private3.jpg");
+}
+
+.private-card-green {
+    -fx-background-image: url("../images/privatecard/private4.jpg");
+}
+
+.private-card-blue {
+    -fx-background-image: url("../images/privatecard/private5.jpg");
+}
+
+.public-card-color-diagonals {
+    -fx-background-image: url("../images/publiccard/colordiagonals.jpg");
+}
+
+.public-card-color-variety {
+    -fx-background-image: url("../images/publiccard/colorvariety.jpg");
+}
+
+.public-card-column-color-variety {
+    -fx-background-image: url("../images/publiccard/ccolorvariety.jpg");
+}
+
+.public-card-column-shade-variety {
+    -fx-background-image: url("../images/publiccard/cshadevariety.jpg");
+}
+
+.public-card-deep-shades {
+    -fx-background-image: url("../images/publiccard/deepshades.jpg");
+}
+
+.public-card-medium-shades {
+    -fx-background-image: url("../images/publiccard/mediumshades.jpg");
+}
+
+.public-card-light-shades {
+    -fx-background-image: url("../images/publiccard/lightshades.jpg");
+}
+
+.public-card-row-color-variety {
+    -fx-background-image: url("../images/publiccard/rcolorvariety.jpg");
+}
+
+.public-card-row-shade-variety {
+    -fx-background-image: url("../images/publiccard/rshadevariety.jpg");
+}
+
+.public-card-shade-variety {
+    -fx-background-image: url("../images/publiccard/shadevariety.jpg");
 }

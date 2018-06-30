@@ -142,7 +142,7 @@ public class SpaceTest {
         spaces.remove(colorSpace);
         spaces.stream().forEach(space -> {
             try {
-                space.placeDieIgnoreColor(new Die(DieColor.getRandom(), DieValue.getRandom()));
+                space.placeDieIgnoreColor(new die(DieColor.getRandom(), DieValue.getRandom()));
             } catch (PlacementException e) {
                 fail();
             }

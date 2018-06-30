@@ -24,8 +24,8 @@ public class DieTest {
 
 
         Die tempDie = new Die(tempCol, tempVal);
-        System.out.println("Die value is: " + tempDie.getValue());
-        System.out.println("Die color is: " + tempDie.getColor());
+        System.out.println("die value is: " + tempDie.getValue());
+        System.out.println("die color is: " + tempDie.getColor());
         assertEquals(tempDie.getValue(), tempVal);
         assertEquals(tempDie.getColor(), tempCol);
     }
@@ -62,8 +62,8 @@ public class DieTest {
         Die tempDie = new Die(tempCol, tempVal);
 
 
-        System.out.println("Die value is: " + tempDie.getValue());
-        System.out.println("Die color is: " + tempDie.getColor());
+        System.out.println("die value is: " + tempDie.getValue());
+        System.out.println("die color is: " + tempDie.getColor());
 
         DieColor oldColor = tempDie.getColor();
 

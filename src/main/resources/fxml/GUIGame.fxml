@@ -6,6 +6,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import it.polimi.se2018.view.gui.fxmlController.GUIDraftPool?>
+<?import it.polimi.se2018.view.gui.fxmlController.GUIRoundTrack?>
+<?import it.polimi.se2018.view.gui.fxmlController.GUIWindowPattern?>
+<?import it.polimi.se2018.view.gui.fxmlController.GUIToolCard?>
+<?import it.polimi.se2018.view.gui.fxmlController.GUIPublicObjectiveCard?>
 <GridPane fx:controller="it.polimi.se2018.view.gui.fxmlController.GUIGame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -168,15 +173,15 @@
 
     </rowConstraints>
    <children>
-      <Pane fx:id="draftpool" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="600.0" styleClass="draftpool" GridPane.columnIndex="2" GridPane.columnSpan="60" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="6" GridPane.vgrow="ALWAYS" />
-      <Pane fx:id="roundtrack" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="300.0" styleClass="roundtrack" GridPane.columnIndex="64" GridPane.columnSpan="30" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="6" GridPane.vgrow="ALWAYS" />
-      <Pane fx:id="windowpattern" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="240.0" styleClass="window-pattern" GridPane.columnIndex="12" GridPane.columnSpan="24" GridPane.hgrow="ALWAYS" GridPane.rowIndex="11" GridPane.rowSpan="36" GridPane.vgrow="ALWAYS" />
-      <Pane fx:id="toolcardLeft" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="toolcard" GridPane.columnIndex="47" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="12" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
-      <Pane fx:id="toolcardCenter" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="toolcard" GridPane.columnIndex="63" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="12" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
-      <Pane fx:id="toolcardRight" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="toolcard" GridPane.columnIndex="79" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="12" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
-      <Pane fx:id="publiccardLeft" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="publiccard" GridPane.columnIndex="47" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="31" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
-      <Pane fx:id="publiccardCenter" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="publiccard" GridPane.columnIndex="63" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="31" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
-      <Pane fx:id="publiccardRight" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="publiccard" GridPane.columnIndex="79" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="31" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
+      <GUIDraftPool fx:id="draftpool" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="600.0" styleClass="draftpool" GridPane.columnIndex="2" GridPane.columnSpan="60" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="6" GridPane.vgrow="ALWAYS" />
+      <GUIRoundTrack fx:id="roundtrack" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="300.0" styleClass="roundtrack" GridPane.columnIndex="64" GridPane.columnSpan="30" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="6" GridPane.vgrow="ALWAYS" />
+      <GUIWindowPattern fx:id="windowpattern" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="240.0" styleClass="window-pattern" GridPane.columnIndex="12" GridPane.columnSpan="24" GridPane.hgrow="ALWAYS" GridPane.rowIndex="11" GridPane.rowSpan="36" GridPane.vgrow="ALWAYS" />
+      <GUIToolCard fx:id="toolcardLeft" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="toolcard" GridPane.columnIndex="47" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="12" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
+      <GUIToolCard fx:id="toolcardCenter" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="toolcard" GridPane.columnIndex="63" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="12" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
+      <GUIToolCard fx:id="toolcardRight" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="toolcard" GridPane.columnIndex="79" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="12" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
+      <GUIPublicObjectiveCard fx:id="publiccardLeft" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="publiccard" GridPane.columnIndex="47" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="31" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
+      <GUIPublicObjectiveCard fx:id="publiccardCenter" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="publiccard" GridPane.columnIndex="63" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="31" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
+      <GUIPublicObjectiveCard fx:id="publiccardRight" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="publiccard" GridPane.columnIndex="79" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="31" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
       <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="920.0" GridPane.columnIndex="2" GridPane.columnSpan="92" GridPane.hgrow="ALWAYS" GridPane.rowIndex="50" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
          <children>
             <Button layoutY="-15.0" mnemonicParsing="false" onAction="#endTurn" text="End Turn" />

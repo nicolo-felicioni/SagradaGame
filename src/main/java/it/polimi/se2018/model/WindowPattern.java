@@ -146,7 +146,7 @@ public class WindowPattern implements Serializable {
 		}
 
 		else
-			throw new PlacementException("Die not placeable due to window restrictions");
+			throw new PlacementException("die not placeable due to window restrictions");
 
 	}
 
@@ -162,7 +162,7 @@ public class WindowPattern implements Serializable {
 		if(isPlaceable(die, p))
 			spaces[p.getX()][p.getY()].placeDie(die);
 		else
-			throw new PlacementException("Die not placeable due to window restrictions");
+			throw new PlacementException("die not placeable due to window restrictions");
 
 
 	}
@@ -179,7 +179,7 @@ public class WindowPattern implements Serializable {
 		if(isPlaceable(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreColor(die);
 		else
-			throw new PlacementException("Die not placeable due to window restrictions");
+			throw new PlacementException("die not placeable due to window restrictions");
 
 	}
 
@@ -198,7 +198,7 @@ public class WindowPattern implements Serializable {
 		if(isPlaceable(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreColor(die);
 		else
-			throw new PlacementException("Die not placeable due to window restrictions");
+			throw new PlacementException("die not placeable due to window restrictions");
 	}
 
 	/**
@@ -212,7 +212,7 @@ public class WindowPattern implements Serializable {
 		if(isPlaceable(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreValue(die);
 		else
-			throw new PlacementException("Die not placeable due to window restrictions");
+			throw new PlacementException("die not placeable due to window restrictions");
 
 	}
 
@@ -232,7 +232,7 @@ public class WindowPattern implements Serializable {
 		if(isPlaceable(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreValue(die);
 		else
-			throw new PlacementException("Die not placeable due to window restrictions");
+			throw new PlacementException("die not placeable due to window restrictions");
 
 	}
 
@@ -246,7 +246,7 @@ public class WindowPattern implements Serializable {
 		if(!isThereSomeDieAdjacent(p)) {
 			spaces[p.getX()][p.getY()].placeDie(die);
 		} else {
-			throw new PlacementException("Die not placeable because there's a die in adjacent position.");
+			throw new PlacementException("die not placeable because there's a die in adjacent position.");
 		}
 	}
 
@@ -261,7 +261,7 @@ public class WindowPattern implements Serializable {
 		if(p.isEdgyPoint() && space.respectAllRestrictions(die))
 			space.placeDie(die);
 		else
-			throw new PlacementException("Die not placeable due to window restrictions");
+			throw new PlacementException("die not placeable due to window restrictions");
 
 
 	}

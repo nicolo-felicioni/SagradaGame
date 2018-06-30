@@ -9,7 +9,7 @@ import java.util.Comparator;
 import static org.fusesource.jansi.Ansi.ansi;
 
 /**
- * The Class of Die
+ * The Class of die
  * @author PeiQing Gao
  */
 public class Die implements Serializable {
@@ -98,7 +98,7 @@ public class Die implements Serializable {
 		}
 	};
 	public String toString(){
-		return("Die color: " + color + "\nDie value: " + value);
+		return("die color: " + color + "\ndie value: " + value);
 	}
 
 	/**

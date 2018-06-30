@@ -8,7 +8,7 @@ public class PublicObjectiveCardFour extends PublicObjectiveCard {
 	/**
 	 * Name of the PublicObjectiveCardFour.
 	 */
-	public static final String NAME = "Columnn Shade Variety";
+	public static final String NAME = "Column Shade Variety";
 
 	/**
 	 * Info of the PublicObjectiveCardFour.

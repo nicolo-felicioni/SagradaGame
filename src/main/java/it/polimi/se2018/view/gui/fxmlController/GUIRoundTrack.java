@@ -45,7 +45,7 @@ public class GUIRoundTrack extends GridPane{
     /**
      * Constructor.
      */
-    GUIRoundTrack() {
+    public GUIRoundTrack() {
         this.guiDice = new ArrayList<>();
         this.guiSelectedRoundDice = new ArrayList<>();
         this.getStyleClass().add("round-track");

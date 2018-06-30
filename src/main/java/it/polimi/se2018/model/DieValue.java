@@ -50,7 +50,7 @@ public enum DieValue implements Serializable {
 	/**
 	 *
 	 * @param n
-	 * @return corresponding Die Value of input n
+	 * @return corresponding die Value of input n
 	 */
 	public static DieValue fromInt(int n){
 		for (DieValue value : DieValue.values()) {
@@ -63,7 +63,7 @@ public enum DieValue implements Serializable {
 
 	/**
 	 *
-	 * @return a random Die Value
+	 * @return a random die Value
 	 */
 	public static DieValue getRandom() {
 		return values()[(int) (Math.random() * values().length)];

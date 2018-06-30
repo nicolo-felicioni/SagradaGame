@@ -101,8 +101,8 @@ public class Scheduler {
      */
     private void nextTurn() {
         if(this.hasNext()) {
-            if (this.currentTurn == (this.playerIds.size() * 2) - 1) {
-                this.currentTurn = 0;
+            if (this.currentTurn == (this.playerIds.size() * 2) ) {
+                this.currentTurn = 1;
                 this.currentRound++;
             } else {
                 this.currentTurn++;
@@ -132,7 +132,7 @@ public class Scheduler {
      * @return true if it is the first turn of the round.
      */
     public boolean isFirstTurnOfRound() {
-        return currentTurn == 0;
+        return currentTurn == 1;
     }
 
     /**
@@ -140,7 +140,7 @@ public class Scheduler {
      * @return true if it is the first half turns of the round.
      */
     public boolean isFirstHalfOfRound() {
-        return currentTurn < playerIds.size();
+        return currentTurn < playerIds.size() + 1;
     }
 
     /**
