@@ -3,6 +3,14 @@
     -fx-hgap: 0;
     -fx-vgap: 0;
 }
+
+.logo{
+    -fx-background-image: url(../images/logo-sagrada.png);
+    -fx-background-position: center;
+    -fx-background-size: 50% 80%;
+    -fx-background-repeat: no-repeat;
+}
+
 #roundTrack{
     -fx-background-image: url(../images/roundTrack.jpg);
     -fx-background-size: 640px 127px
