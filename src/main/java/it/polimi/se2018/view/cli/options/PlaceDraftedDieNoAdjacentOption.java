@@ -1,35 +1,34 @@
 package it.polimi.se2018.view.cli.options;
 
 import it.polimi.se2018.event.game.DraftAndPlaceGameEvent;
+import it.polimi.se2018.event.game.DraftAndPlaceNoAdjacentGameEvent;
 import it.polimi.se2018.exceptions.NotValidPointException;
 import it.polimi.se2018.model.Die;
 import it.polimi.se2018.model.Point;
 import it.polimi.se2018.view.cli.CommandLineInterface;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class PlaceDieOption extends ComplexOption {
+public class PlaceDraftedDieNoAdjacentOption extends ComplexOption {
 
-    private static final String PLACE_DIE_NAME = "Place a die.";
-    private static final String PLACE_DIE_MESSAGE = "Select a die, then a space in your pattern.";
+    private static final String NAME = "Place a die in a space without adjacent dice";
+    private static final String SELECT = "Select a die.";
 
 
-    public PlaceDieOption(CommandLineInterface cli) {
+    public PlaceDraftedDieNoAdjacentOption(CommandLineInterface cli) {
         super(cli);
         this.subOptions = OptionFactory.buildPlaceDieOptions(cli);
     }
 
     @Override
     protected void setName() {
-        this.name = PLACE_DIE_NAME;
+        this.name = NAME;
     }
 
     @Override
     protected void setSelectMessage() {
-        this.selectMessage = PLACE_DIE_MESSAGE;
+        this.selectMessage = SELECT;
     }
-
 
     @Override
     public int execute() {
@@ -45,10 +44,8 @@ public class PlaceDieOption extends ComplexOption {
             } catch (NotValidPointException e) {
                 return ERROR_CODE;
             }
-            cli.notifyObservers(new DraftAndPlaceGameEvent(selectedDie, selectedPoint, cli.getPlayer().getId()));
+            cli.notifyObservers(new DraftAndPlaceNoAdjacentGameEvent(selectedDie, selectedPoint, cli.getPlayer().getId()));
         }
 
-        return 0;
-
-    }
+        return 0;    }
 }

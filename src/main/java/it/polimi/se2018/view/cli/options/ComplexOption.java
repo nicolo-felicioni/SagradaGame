@@ -12,7 +12,12 @@ public abstract class ComplexOption extends Option {
 
     public ComplexOption(CommandLineInterface cli) {
         super(cli);
+        setSelectMessage();
+        setName();
     }
+
+    protected abstract void setName();
+    protected abstract void setSelectMessage();
 
     protected List<Integer> makeChoices(){
         int choice;

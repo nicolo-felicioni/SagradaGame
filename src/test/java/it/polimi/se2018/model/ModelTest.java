@@ -241,12 +241,7 @@ public class ModelTest {
 
     @Test
     public void getRoundTrack() {
-        try {
-            model.getRoundTrack().getAllDice();
-            fail();
-        } catch (RoundTrackEmptyException e) {
-            //ok
-        }
+
 
     }
 

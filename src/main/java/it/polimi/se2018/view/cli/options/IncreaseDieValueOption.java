@@ -12,13 +12,23 @@ public class IncreaseDieValueOption extends ComplexOption {
 
     private static final String INCREASE_DIE_VALUE_NAME = "Increase the value of a die.";
     private static final String ERROR_MESSAGE = "You can't increase this die";
-    private static final int READ_DIE_CHOICE = 1;
+    private static final int READ_DIE_CHOICE = 0;
+    private static final String SELECT = "Select the die you want to increase.";
 
     public IncreaseDieValueOption(CommandLineInterface cli) {
         super(cli);
-        this.name = INCREASE_DIE_VALUE_NAME;
         subOptions = new ArrayList<>();
         subOptions.add(new ReadDraftPoolDieOption(cli));
+    }
+
+    @Override
+    protected void setName() {
+        this.name = INCREASE_DIE_VALUE_NAME;
+    }
+
+    @Override
+    protected void setSelectMessage() {
+        this.selectMessage = SELECT;
     }
 
 

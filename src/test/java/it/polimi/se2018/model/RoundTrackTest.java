@@ -119,11 +119,8 @@ public class RoundTrackTest {
         ArrayList<Die> tempDice= new ArrayList<>();
         tempDice.add(tempDie);
         tempDice.add(tempDie1);
-        try {
-            roundTrack.getAllDice();
-            fail();
-        } catch (RoundTrackEmptyException ignored) {
-        }
+        roundTrack.getAllDice();
+
         roundTrack.addDice(tempDice);
 
     }
@@ -145,12 +142,7 @@ public class RoundTrackTest {
         } catch (NotValidRoundException e) {
             fail();
         }
-        try {
-            tempDice1=roundTrack.getAllDice();
-            tempDice2=tempRoundTrack.getAllDice();
-        } catch (RoundTrackEmptyException e) {
-            e.printStackTrace();
-        }
+
         for (int i=0;i<2;i++){
             tempDice1.get(i).equalsDie(tempDice2.get(i));
         }
@@ -182,11 +174,9 @@ public class RoundTrackTest {
             fail();
         assertFalse(roundTrack.hasDie(tempDie1));
         }*/
-        try {
-            tempDice=roundTrack.getAllDice();
-        } catch (RoundTrackEmptyException e) {
-            fail();
-        }
+
+        tempDice=roundTrack.getAllDice();
+
         tempDice.get(0).equalsDie(tempDice.get(1));
     }
     @Test

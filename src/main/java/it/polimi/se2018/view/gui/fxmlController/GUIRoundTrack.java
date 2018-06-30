@@ -126,7 +126,7 @@ public class GUIRoundTrack extends GridPane{
                 this.add(guiDie, i, 0, 1, 1);
                 GridPane.setHgrow(guiDie, Priority.ALWAYS);
                 GridPane.setVgrow(guiDie, Priority.ALWAYS);
-            } catch (RoundTrackEmptyException | NotValidRoundException e) {
+            } catch ( NotValidRoundException e) {
             }
         }
     }
@@ -143,7 +143,7 @@ public class GUIRoundTrack extends GridPane{
                 GridPane.setHgrow(guiDie, Priority.ALWAYS);
                 GridPane.setVgrow(guiDie, Priority.ALWAYS);
             }
-        } catch (RoundTrackEmptyException | NotValidRoundException e) {
+        } catch ( NotValidRoundException e) {
         }
     }
 }

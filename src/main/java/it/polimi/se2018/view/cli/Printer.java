@@ -197,8 +197,6 @@ public class Printer {
                     roundTrack.getDice(i).stream().forEach(Printer::print);
                 }
                 print("] ");
-            }catch (RoundTrackEmptyException e) {
-                print(" ");
             } catch (NotValidRoundException e) {
                 print(" ");
             }
@@ -229,6 +227,7 @@ public class Printer {
     public static void print(int n) {
         System.out.print(n);
     }
+
 
 
     /**

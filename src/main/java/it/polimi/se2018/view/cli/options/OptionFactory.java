@@ -22,6 +22,7 @@ public class OptionFactory {
                     .filter(ToolCard::isActive).findAny();
 
             if (state.canPlaceDie() || state.canUseTool()) {//if it's this player's turn
+
                 if (state.canPlaceDie()) {
                     options.add(new PlaceDieOption(cli));
                 }
@@ -92,6 +93,18 @@ public class OptionFactory {
                 options.add(new DecreaseDieValueOption(cli));
             if(card.moveDieIgnoreColor())
                 options.add(new MoveDieIgnoreColorOption(cli));
+            if(card.moveDieIgnoreValue())
+                options.add(new MoveDieIgnoreValueOption(cli));
+            if(card.swapDraftDieWithRoundTrackDie())
+                options.add(new SwapDraftDieWithRoundTrackDieOption(cli));
+            if(card.rerollDraftedDie())
+                options.add(new RerollDraftedDieOption(cli));
+            if(card.flipDraftedDie())
+                options.add(new FlipDraftedDieOption(cli));
+            if(card.placeDraftedDieNoAdjacent())
+                options.add(new PlaceDraftedDieNoAdjacentOption(cli));
+            if(card.moveADie())
+                options.add(new MoveADieOption(cli));
         }
 
     }

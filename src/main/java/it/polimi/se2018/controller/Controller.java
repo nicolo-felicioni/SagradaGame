@@ -177,7 +177,6 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 				draftPool.removeDie(event.getDraftedDie());
 				windowPattern.placeDie(event.getDraftedDie(), event.getPoint());
 				state.diePlaced();
-				model.changePlayerStateTo(player.getId(), player.getState().cloneState());
 				model.setDraftPool(draftPool.cloneDraftPool());
 				model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
 				model.changePlayerStateTo(event.getPlayerId(), state.cloneState());

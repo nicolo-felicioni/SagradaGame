@@ -16,10 +16,18 @@ public class DecreaseDieValueOption extends ComplexOption {
 
     public DecreaseDieValueOption(CommandLineInterface cli) {
         super(cli);
-        this.name = DECREASE_DIE_VALUE_NAME;
-        this.selectMessage = DECREASE_DIE_VALUE_MESSAGE;
         this.subOptions = new ArrayList<>();
         this.subOptions.add(new ReadDraftPoolDieOption(cli));
+    }
+
+    @Override
+    protected void setName() {
+        this.name = DECREASE_DIE_VALUE_NAME;
+    }
+
+    @Override
+    protected void setSelectMessage() {
+        this.selectMessage = DECREASE_DIE_VALUE_MESSAGE;
     }
 
     @Override
