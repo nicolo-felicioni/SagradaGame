@@ -28,16 +28,34 @@ public class GUILogin extends GameEventObservableImpl implements GUILoginControl
     private List<ConnectRMIObserver> connectRMIObservers= new ArrayList<>();
     private List<ConnectSocketObserver> connectSocketObservers = new ArrayList<>();
 
+    /**
+     * the account text field
+     */
     @FXML
     TextField accountText;
+    /**
+     * the port text field
+     */
     @FXML
     TextField portText;
+    /**
+     * the adress text field
+     */
     @FXML
     TextField adressText;
+    /**
+     * the network type choice box
+     */
     @FXML
     ChoiceBox networkType;
+    /**
+     * the border pane that contain all other element
+     */
     @FXML
     BorderPane borderPane;
+    /**
+     * the log in button
+     */
     @FXML
     Button loginButton;
 

@@ -20,34 +20,77 @@ public class GUIGame {
      */
     private GameEventObserver observer;
 
+    /**
+     * the draft pool
+     */
     @FXML
     GUIDraftPool draftpool;
+    /**
+     * the roundt track
+     */
     @FXML
     GUIRoundTrack roundtrack;
+    /**
+     * the window pattern
+     */
     @FXML
     GUIWindowPattern windowpattern;
+    /**
+     * the tool card on the left
+     */
     @FXML
     GUIToolCard toolcardLeft;
+    /**
+     * the tool card on the center
+     */
     @FXML
     GUIToolCard toolcardCenter;
+    /**
+     * the tool card on the right
+     */
     @FXML
     GUIToolCard toolcardRight;
+    /**
+     * the public objective card on the left
+     */
     @FXML
     GUIPublicObjectiveCard publiccardLeft;
+    /**
+     * the public objective card on the center
+     */
     @FXML
     GUIPublicObjectiveCard publiccardCenter;
+    /**
+     * the public objective card on the right
+     */
     @FXML
     GUIPublicObjectiveCard publiccardRight;
 
+    /**
+     * method for handle on click on the end turn button
+     * @param event
+     */
     public void endTurn(javafx.event.ActionEvent event) {
     }
 
+    /**
+     * method for handle on click on the private object card button
+     * @param event
+     */
     public void privateObjectCard(javafx.event.ActionEvent event) {
     }
 
+    /**
+     * method for handle on click on the use tool card button
+     * @param event
+     */
     public void useToolCard(javafx.event.ActionEvent event) {
     }
 
+    /**
+     * method for handle on click on the show enemy window pattern button
+     * @param event
+     */
     public void showEnemyWindowPattern(javafx.event.ActionEvent event) {
     }
 
