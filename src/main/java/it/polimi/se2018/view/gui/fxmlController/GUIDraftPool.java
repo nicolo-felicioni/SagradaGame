@@ -79,7 +79,10 @@ public class GUIDraftPool extends GridPane{
      * @return the selected die.
      */
     public Die getSelectedDie() {
-        return selectedDie.cloneDie();
+        if(selectedDie != null)
+            return selectedDie.cloneDie();
+        else
+            return null;
     }
 
 }

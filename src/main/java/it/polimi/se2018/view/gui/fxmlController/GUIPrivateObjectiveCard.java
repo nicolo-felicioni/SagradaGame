@@ -2,14 +2,11 @@ package it.polimi.se2018.view.gui.fxmlController;
 
 import it.polimi.se2018.model.PrivateObjectiveCard;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
 public class GUIPrivateObjectiveCard extends Pane {
-    @FXML
-    Pane POCard;
 
     /**
      * The private objective card.
