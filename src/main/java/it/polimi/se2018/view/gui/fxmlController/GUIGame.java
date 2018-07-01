@@ -5,13 +5,12 @@ import it.polimi.se2018.event.game.EndTurnGameEvent;
 import it.polimi.se2018.event.game.UseToolCardGameEvent;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.observer.game.GameEventObserver;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
+import java.io.IOException;
 
 public class GUIGame {
 
@@ -70,7 +69,16 @@ public class GUIGame {
         }
     }
 
-    public void privateObjectCard(javafx.event.ActionEvent event) {
+    public void privateObjectCard(javafx.event.ActionEvent event) throws IOException {
+        GUIPrivateObjectiveCard guiPrivateObjectiveCard=new GUIPrivateObjectiveCard();
+        guiPrivateObjectiveCard.setPrivateObjectiveCard(this.privateObjectiveCard);
+        Scene scene=new Scene(guiPrivateObjectiveCard,100,140);
+        Stage stage=new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Private Objective Card");
+        stage.setResizable(false);
+        stage.show();
+
     }
 
     public void useToolCard(javafx.event.ActionEvent event) {
