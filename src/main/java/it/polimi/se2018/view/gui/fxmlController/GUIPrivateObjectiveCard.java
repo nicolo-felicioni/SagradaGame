@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class GUIPrivateObjectiveCard extends Pane {
     @FXML
-    Pane privateobjectivecard;
+    Pane POCard;
 
     /**
      * The private objective card.
