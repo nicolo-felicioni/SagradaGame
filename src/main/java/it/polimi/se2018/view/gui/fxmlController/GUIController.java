@@ -1,13 +1,13 @@
 package it.polimi.se2018.view.gui.fxmlController;
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.controller.factory.WindowPatternFactory;
 import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.event.network.ConnectRMIEvent;
 import it.polimi.se2018.event.network.ConnectSocketEvent;
 import it.polimi.se2018.event.network.LoginEvent;
 import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.exceptions.NetworkException;
+import it.polimi.se2018.exceptions.NotValidPointException;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.network.rmi.RMIClient;
@@ -25,8 +25,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Author Gao PeiQing
@@ -42,23 +40,52 @@ public class GUIController extends Application implements GUIInterface{
     private Stage primaryStage;
 
     /**
+     * The gui choose window pattern controller.
+     */
+    private GUIChooseWindowPattern guiChooseWindowPatternController;
+
+    /**
      * The gui choose window pattern scene.
      */
-    private GUIChooseWindowPattern guiChooseWindowPattern;
+    private Scene guiChooseWindowPatternScene;
+
+    /**
+     * The gui game controller.
+     */
+    private GUIGame guiGameController;
 
     /**
      * The gui game scene.
      */
-    private GUIGame guiGame;
+    private Scene guiGameScene;
 
     /**
      * Initialize the application.
      */
     @Override
     public void init() {
-        this.guiChooseWindowPattern = null;
-        this.guiGame = null;
+        this.guiChooseWindowPatternController = null;
+        this.guiGameController = null;
         this.observable = new GameEventObservableImpl();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIGame.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+            guiGameController = loader.getController();
+            guiGameScene = new Scene(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIChooseWindowPattern.fxml"));
+            root = loader.load();
+            guiChooseWindowPatternController = loader.getController();
+            guiChooseWindowPatternScene = new Scene(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 
@@ -91,8 +118,8 @@ public class GUIController extends Application implements GUIInterface{
     public void updateToolCard(ToolCard toolCard, int number) {
         Platform.runLater(
                 () -> {
-                    if (guiGame != null && this.playerId.equals(playerId)) {
-                        guiGame.setToolCard(toolCard, CardPosition.fromInt(number));
+                    if (guiGameController != null && this.playerId.equals(playerId)) {
+                        guiGameController.setToolCard(toolCard, CardPosition.fromInt(number));
                     }
                 }
         );
@@ -103,8 +130,8 @@ public class GUIController extends Application implements GUIInterface{
     public void updateRoundTrack(RoundTrack roundTrack) {
         Platform.runLater(
                 () -> {
-                    if (guiGame != null && this.playerId.equals(playerId)) {
-                        guiGame.setRoundtrack(roundTrack);
+                    if (guiGameController != null && this.playerId.equals(playerId)) {
+                        guiGameController.setRoundtrack(roundTrack);
                     }
                 }
         );
@@ -114,8 +141,8 @@ public class GUIController extends Application implements GUIInterface{
     public void updateDraftPool(DraftPool draftPool) {
         Platform.runLater(
                 () -> {
-                    if (guiGame != null && this.playerId.equals(playerId)) {
-                        guiGame.setDraftpool(draftPool);
+                    if (guiGameController != null && this.playerId.equals(playerId)) {
+                        guiGameController.setDraftpool(draftPool);
                     }
                 }
         );
@@ -124,21 +151,38 @@ public class GUIController extends Application implements GUIInterface{
 
     @Override
     public void updateStatePlayer(String playerId, PlayerState state) {
-
+        Platform.runLater(
+                () -> {
+                    if (guiGameController != null && this.playerId.equals(playerId)) {
+                        guiGameController.setPlayerState(state);
+                    }
+                }
+        );
     }
 
     @Override
     public void updatePlayer(String playerId, int favorTokens, boolean connected) {
+        Platform.runLater(
+                () -> {
+                    if (guiGameController != null && this.playerId.equals(playerId)) {
+                        Player player = new Player(playerId);
+                        player.setTokens(favorTokens);
+                        player.setConnected(connected);
+                        guiGameController.setPlayer(player);
+                    }
+                }
+        );
     }
 
     @Override
     public void updatePrivateObjectiveCard(String playerId, PrivateObjectiveCard card) {
         Platform.runLater(
                 () -> {
-                    if (guiChooseWindowPattern != null && this.playerId.equals(playerId)) {
-                        guiChooseWindowPattern.setPrivateObjectiveCard(card);
-                    } else if (guiGame != null && this.playerId.equals(playerId)) {
-                        //guiGame.set(card);
+                    if (guiChooseWindowPatternController != null && this.playerId.equals(playerId)) {
+                        guiChooseWindowPatternController.setPrivateObjectiveCard(card);
+                    }
+                    if (guiGameController != null && this.playerId.equals(playerId)) {
+                        guiGameController.setPrivateObjectiveCard(card);
                     }
                 }
         );
@@ -149,8 +193,11 @@ public class GUIController extends Application implements GUIInterface{
     public void updateWindowPattern(String playerId, WindowPattern windowPattern, WindowPatternPosition position) {
         Platform.runLater(
                 () -> {
-                    if (guiChooseWindowPattern != null && this.playerId.equals(playerId)) {
-                        guiChooseWindowPattern.setWindowPattern(windowPattern.cloneWindowPattern(), position);
+                    if (guiChooseWindowPatternController != null && this.playerId.equals(playerId)) {
+                        guiChooseWindowPatternController.setWindowPattern(windowPattern.cloneWindowPattern(), position);
+                    }
+                    if (guiGameController != null && this.playerId.equals(playerId) && position == WindowPatternPosition.CHOSEN) {
+                        guiGameController.setWindowpattern(windowPattern);
                     }
                 }
         );
@@ -161,8 +208,8 @@ public class GUIController extends Application implements GUIInterface{
     public void updatePublicObjectiveCard(PublicObjectiveCard card, CardPosition position) {
         Platform.runLater(
                 () -> {
-                    if (guiGame != null && this.playerId.equals(playerId)) {
-                        guiGame.setPublicCard(card, position);
+                    if (guiGameController != null && this.playerId.equals(playerId)) {
+                        guiGameController.setPublicCard(card, position);
                     }
                 }
         );
@@ -370,8 +417,8 @@ public class GUIController extends Application implements GUIInterface{
      */
     @Override
     public void handle(WindowPatternChosenGameEvent event) {
-        this.observable.notifyObservers(event);
         this.showGame();
+        this.observable.notifyObservers(event);
     }
 
     @Override
@@ -432,7 +479,7 @@ public class GUIController extends Application implements GUIInterface{
      * @throws IOException if the application can not load the fxml file.
      */
     private void showLoginScene() throws IOException{
-
+  //      /*
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUILogin.fxml"));
         Parent root = loader.load();
         GUILogin controller = loader.getController();
@@ -443,6 +490,7 @@ public class GUIController extends Application implements GUIInterface{
         primaryStage.setTitle("Sagrada-The Game");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+   //     */
 
         /*
         GUIDraftPool dp = new GUIDraftPool();
@@ -464,8 +512,16 @@ public class GUIController extends Application implements GUIInterface{
 */
 
         /*
-        GUISpace space= new GUISpace(new ColorSpace(DieColor.BLUE));
+        GUISpace s= null;
+        try {
+            Space space = new ColorSpace(DieColor.BLUE);
+            space.placeDie(new Die(DieColor.BLUE, DieValue.ONE));
+            s = new GUISpace(space,  new Point(0, 0));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         */
+
 
         /*
         GUIRoundTrack rt = new GUIRoundTrack();
@@ -504,8 +560,8 @@ public class GUIController extends Application implements GUIInterface{
 
 
 
-/*
-        Scene scene = new Scene(wp, 172, 258);
+        /*
+        Scene scene = new Scene(s, 172, 258);
         scene.getStylesheets().add("css/style.css");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -519,17 +575,9 @@ public class GUIController extends Application implements GUIInterface{
     private void showChooseWindowPatternScene(){
         Platform.runLater(
                 () -> {
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIChooseWindowPattern.fxml"));
-                    Parent root = null;
-                    try {
-                        root = loader.load();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    guiChooseWindowPattern = loader.getController();
-                    guiChooseWindowPattern.setObserver(this);
-                    guiChooseWindowPattern.setPlayerId(playerId);
-                    primaryStage.setScene(new Scene(root));
+                    guiChooseWindowPatternController.setObserver(this);
+                    guiChooseWindowPatternController.setPlayerId(playerId);
+                    primaryStage.setScene(guiChooseWindowPatternScene);
                     primaryStage.show();
                 }
         );
@@ -543,17 +591,9 @@ public class GUIController extends Application implements GUIInterface{
     private void showGame(){
         Platform.runLater(
                 () -> {
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIGame.fxml"));
-                    Parent root = null;
-                    try {
-                        root = loader.load();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    guiGame = loader.getController();
-                    guiGame.setPlayerId(playerId);
-                    guiGame.setObserver(this);
-                    primaryStage.setScene(new Scene(root));
+                    guiGameController.setPlayerId(playerId);
+                    guiGameController.setObserver(this);
+                    primaryStage.setScene(guiGameScene);
                     primaryStage.show();
                 }
         );

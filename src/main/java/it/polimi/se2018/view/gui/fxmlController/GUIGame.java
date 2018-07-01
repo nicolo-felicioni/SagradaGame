@@ -1,8 +1,13 @@
 package it.polimi.se2018.view.gui.fxmlController;
 
+import it.polimi.se2018.event.game.DraftAndPlaceGameEvent;
+import it.polimi.se2018.event.game.EndTurnGameEvent;
+import it.polimi.se2018.event.game.UseToolCardGameEvent;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.observer.game.GameEventObserver;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 import java.awt.event.ActionEvent;
@@ -19,6 +24,26 @@ public class GUIGame {
      * Game event observers.
      */
     private GameEventObserver observer;
+
+    /**
+     * The private objective card.
+     */
+    private PrivateObjectiveCard privateObjectiveCard;
+
+    /**
+     * The player state.
+     */
+    private PlayerState playerState;
+
+    /**
+     * The selected tool card.
+     */
+    private CardPosition selectedToolCard;
+
+    /**
+     * The player.
+     */
+    private Player player;
 
     @FXML
     GUIDraftPool draftpool;
@@ -40,12 +65,18 @@ public class GUIGame {
     GUIPublicObjectiveCard publiccardRight;
 
     public void endTurn(javafx.event.ActionEvent event) {
+        if(this.playerState.canEndTurn()) {
+            this.observer.handle(new EndTurnGameEvent(playerId));
+        }
     }
 
     public void privateObjectCard(javafx.event.ActionEvent event) {
     }
 
     public void useToolCard(javafx.event.ActionEvent event) {
+        if(playerState.canUseTool() && selectedToolCard != null) {
+            this.observer.handle(new UseToolCardGameEvent(selectedToolCard, playerId));
+        }
     }
 
     public void showEnemyWindowPattern(javafx.event.ActionEvent event) {
@@ -57,7 +88,6 @@ public class GUIGame {
      */
     public void setPlayerId(String playerId) {
         this.playerId = playerId;
-        refresh();
     }
 
     /**
@@ -66,7 +96,6 @@ public class GUIGame {
      */
     public void setObserver(GameEventObserver observer) {
         this.observer = observer;
-        refresh();
     }
 
     /**
@@ -118,8 +147,82 @@ public class GUIGame {
         }
     }
 
-    private void refresh() {
-
+    /**
+     * Set the private objective card.
+     * @param privateObjectiveCard the private objective card.
+     */
+    public void setPrivateObjectiveCard(PrivateObjectiveCard privateObjectiveCard) {
+        this.privateObjectiveCard = privateObjectiveCard;
     }
+
+    /**
+     * Set the player state.
+     * @param playerState the player state.
+     */
+    public void setPlayerState(PlayerState playerState) {
+        this.playerState = playerState;
+    }
+
+
+    /**
+     * Set the player.
+     * @param player the player.
+     */
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    /**
+     * Window pattern clicked.
+     */
+    @FXML
+    private void handleWindowPatternClicked(MouseEvent event) {
+        if(playerState != null && playerState.canPlaceDie() && draftpool.getSelectedDie() != null &&
+                windowpattern.getSelectedSpace() != null && observer != null) {
+            this.observer.handle(new DraftAndPlaceGameEvent(draftpool.getSelectedDie(), windowpattern.getSelectedPosition(), playerId));
+        }
+    }
+
+    /**
+     * Draft pool clicked.
+     */
+    @FXML
+    private void handleDraftPoolClicked(MouseEvent event) {
+        windowpattern.highlightPlaceableSpaces(draftpool.getSelectedDie());
+    }
+
+    /**
+     * Tool card left selected.
+     */
+    @FXML
+    private void selectToolCardLeft(MouseEvent event) {
+        selectedToolCard = CardPosition.LEFT;
+        toolcardLeft.setSelected(true);
+        toolcardCenter.setSelected(false);
+        toolcardRight.setSelected(false);
+    }
+
+    /**
+     * Tool card center selected.
+     */
+    @FXML
+    private void selectToolCardCenter(MouseEvent event) {
+        selectedToolCard = CardPosition.CENTER;
+        toolcardLeft.setSelected(false);
+        toolcardCenter.setSelected(true);
+        toolcardRight.setSelected(false);
+    }
+
+    /**
+     * Tool card right selected.
+     */
+    @FXML
+    private void selectToolCardRight(MouseEvent event) {
+        selectedToolCard = CardPosition.RIGHT;
+        toolcardLeft.setSelected(false);
+        toolcardCenter.setSelected(false);
+        toolcardRight.setSelected(true);
+    }
+
 
 }

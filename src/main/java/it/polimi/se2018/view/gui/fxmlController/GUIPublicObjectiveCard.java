@@ -72,7 +72,6 @@ public class GUIPublicObjectiveCard extends Pane {
             this.getStyleClass().add("public-card");
         }
         this.getStyleClass().add("public-card-" + publicObjectiveCard.getName().toLowerCase().replace(' ', '-'));
-        System.out.println(this.getStyleClass());
     }
 
 }

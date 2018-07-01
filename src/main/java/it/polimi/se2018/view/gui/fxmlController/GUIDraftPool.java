@@ -34,13 +34,21 @@ public class GUIDraftPool extends GridPane{
     public GUIDraftPool() {
         this.guiDice = new ArrayList<>();
         this.getStyleClass().add("draftpool");
+        for(int i = 0; i < 9; i++) {
+            ColumnConstraints column = new ColumnConstraints();
+            column.setPercentWidth(100 / 9);
+            this.getColumnConstraints().add(column);
+        }
         this.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 guiDice.forEach(die -> {
                     if(die == event.getTarget()) {
                         die.setSelected(!die.isSelected());
-                        selectedDie = die.getDie();
+                        if(die.isSelected())
+                            selectedDie = die.getDie();
+                        else
+                            selectedDie = null;
                     } else {
                         die.setSelected(false);
                     }
@@ -54,12 +62,10 @@ public class GUIDraftPool extends GridPane{
      * @param draft the draft pool.
      */
     public void setDraftPool(DraftPool draft) {
+        this.getChildren().clear();
         this.draft = draft.cloneDraftPool();
         List<Die> dice = draft.getAllDice();
         for(int i = 0; i < dice.size(); i++) {
-            ColumnConstraints column = new ColumnConstraints();
-            column.setPercentWidth(100/9);
-            this.getColumnConstraints().add(column);
             GUIDie guiDie = new GUIDie(dice.get(i));
             guiDice.add(guiDie);
             this.add(guiDie, i, 0, 1, 1);

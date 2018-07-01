@@ -77,6 +77,13 @@
     -fx-background-repeat: no-repeat;
 }
 
+.tool-card-selected {
+    -fx-background-color: #111111;
+    -fx-background-position: center;
+    -fx-background-size: 90% 90%;
+    -fx-background-repeat: no-repeat;
+}
+
 .blue-one {
     -fx-background-image: url("../images/die/Blue1.jpg");
 }
@@ -199,14 +206,19 @@
 
 .space {
     -fx-background-position: center;
-    -fx-background-size: 96% 96%;
+    -fx-background-size: 80% 80%;
     -fx-background-repeat: no-repeat;
 }
 
 .space-selected{
     -fx-background-position: center;
-    -fx-background-size: 100% 100%;
+    -fx-background-size: 80% 80%;
     -fx-background-repeat: no-repeat;
+}
+
+
+.space-highlighted {
+    -fx-background-color : green;
 }
 
 .space-blank {

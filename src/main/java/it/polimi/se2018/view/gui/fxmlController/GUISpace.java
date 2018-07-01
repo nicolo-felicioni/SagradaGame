@@ -1,5 +1,6 @@
 package it.polimi.se2018.view.gui.fxmlController;
 
+import it.polimi.se2018.model.Point;
 import it.polimi.se2018.model.Space;
 import javafx.scene.layout.Pane;
 
@@ -11,6 +12,11 @@ public class GUISpace extends Pane {
     private Space space;
 
     /**
+     * The space.
+     */
+    private Point position;
+
+    /**
      * True if it is selected.
      */
     private boolean selected;
@@ -19,17 +25,20 @@ public class GUISpace extends Pane {
      * Constructor.
      * @param space the space.
      */
-    public GUISpace(Space space) {
+    public GUISpace(Space space, Point p) {
         this.space = space.cloneSpace();
+        this.position = p;
         this.refresh();
     }
 
     /**
      * Set the space.
      * @param space the space.
+     * @param p the position of the space.
      */
-    public void setSpace(Space space) {
+    public void setSpace(Space space, Point p) {
         this.space = space.cloneSpace();
+        this.position = p;
         this.refresh();
     }
 
@@ -39,6 +48,14 @@ public class GUISpace extends Pane {
      */
     public Space getSpace() {
         return space.cloneSpace();
+    }
+
+    /**
+     * Return the position of the space.
+     * @return the position of the space.
+     */
+    public Point getPosition() {
+        return position.clonePoint();
     }
 
     /**
@@ -68,18 +85,16 @@ public class GUISpace extends Pane {
         }else{
             this.getStyleClass().add("space");
         }
-        if(space.isColorRestricted()) {
+        if(space.hasDie()) {
+            this.getChildren().removeAll();
+            this.getStyleClass().add(this.space.getDie().getColor().toString().toLowerCase() + "-" + this.space.getDie().getValue().toString().toLowerCase());
+        }else if(space.isColorRestricted()) {
             this.getStyleClass().add("space-" + space.getColorRestriction().toString().toLowerCase());
         }else if(space.isValueRestricted()) {
             this.getStyleClass().add("space-" + space.getValueRestriction().toString().toLowerCase());
         }else {
             this.getStyleClass().add("space-blank");
         }
-        if(space.hasDie()) {
-            this.getChildren().removeAll();
-            this.getChildren().add(new GUIDie(space.getDie()));
-        }
-
     }
 
 }

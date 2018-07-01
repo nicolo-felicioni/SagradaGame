@@ -1,5 +1,5 @@
 {
   "rmiPort":33333,
   "socketPort":55555,
-  "gameRoomTimer":5000
+  "gameRoomTimer":2000
 }

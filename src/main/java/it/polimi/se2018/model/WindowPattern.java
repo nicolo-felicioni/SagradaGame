@@ -113,12 +113,13 @@ public class WindowPattern implements Serializable {
 	 */
 	public boolean isPlaceable(Die die, Point p) {
 		if(this.getNumberOfDice() == 0)
-			return p.isEdgyPoint();
+			return p.isEdgyPoint() && getSpace(p).respectAllRestrictions(die);
 		else
 			return this.isThereSomeDieAdjacent(p) &&
 					p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
                             .noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
-                                    this.getSpace(point).getDie().getValue()==die.getValue());
+                                    this.getSpace(point).getDie().getValue()==die.getValue()) &&
+					getSpace(p).respectAllRestrictions(die) && !getSpace(p).hasDie();
 
 
 
