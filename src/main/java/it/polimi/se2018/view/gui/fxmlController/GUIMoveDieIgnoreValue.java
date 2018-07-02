@@ -1,6 +1,7 @@
 package it.polimi.se2018.view.gui.fxmlController;
 
-import it.polimi.se2018.event.game.MoveDieRespectAllRestrictionsGameEvent;
+import it.polimi.se2018.event.game.MoveDieIgnoreColorRestrictionGameEvent;
+import it.polimi.se2018.event.game.MoveDieIgnoreValueRestrictionGameEvent;
 import it.polimi.se2018.exceptions.SpaceNotOccupiedException;
 import it.polimi.se2018.model.Die;
 import it.polimi.se2018.model.WindowPattern;
@@ -9,7 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 
-public class GUIMoveDie {
+public class GUIMoveDieIgnoreValue {
 
 
     /**
@@ -50,7 +51,7 @@ public class GUIMoveDie {
      * Set the window pattern.
      * @param windowpattern the window pattern.
      */
-    public void setWindowPattern(WindowPattern windowpattern) {
+    public void setWindowpattern(WindowPattern windowpattern) {
         this.firstPattern.setWindowPattern(windowpattern);
         this.secondPattern.setWindowPattern(windowpattern);
     }
@@ -70,16 +71,16 @@ public class GUIMoveDie {
             }
             secondPattern.setWindowPattern(window);
             if(die != null)
-                secondPattern.highlightPlaceableSpaces(die);
+                secondPattern.highlightPlaceableIgnoreValueSpaces(die);
         } else {
             secondPattern.setWindowPattern(firstPattern.getWindowPattern());
         }
     }
 
     @FXML
-    private void moveDie(MouseEvent event) {
+    private void moveDieIgnoreValue(MouseEvent event) {
         if(firstPattern.getSelectedPosition() != null && secondPattern.getSelectedPosition() != null) {
-            this.observer.handle(new MoveDieRespectAllRestrictionsGameEvent(
+            this.observer.handle(new MoveDieIgnoreValueRestrictionGameEvent(
                     firstPattern.getSelectedPosition(), secondPattern.getSelectedPosition(), playerId));
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

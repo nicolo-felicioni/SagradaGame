@@ -28,6 +28,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.List;
 
@@ -489,7 +491,7 @@ public class GUIController extends Application implements GUIInterface{
      * @throws IOException if the application can not load the fxml file.
      */
     private void showLoginScene() throws IOException{
-        /*
+/*
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUILogin.fxml"));
         Parent root = loader.load();
         GUILogin controller = loader.getController();
@@ -500,7 +502,7 @@ public class GUIController extends Application implements GUIInterface{
         primaryStage.setTitle("Sagrada-The Game");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-        */
+*/
 
         /*
         GUIDraftPool dp = new GUIDraftPool();
@@ -516,10 +518,17 @@ public class GUIController extends Application implements GUIInterface{
         dp.setDraftPool(draftPool);
         */
 
-/*
-        GUIWindowPattern wp = new GUIWindowPattern();
+            /*
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIWindowPattern.fxml"));
+        Parent root = loader.load();
+        GUIWindowPattern wp = loader.getController();
         wp.setWindowPattern(new WindowPatternFactory().getWindowPattern());
-*/
+        Scene scene = new Scene(root, 720, 560);
+        scene.getStylesheets().add("css/style.css");
+        primaryStage.setTitle("Sagrada-The Game");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+            */
 
         /*
         GUISpace s= null;
@@ -571,9 +580,9 @@ public class GUIController extends Application implements GUIInterface{
 
 
         /*
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIIncreaseDecreaseDraftPoolDie.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIFlipDie.fxml"));
         Parent root = loader.load();
-        GUIIncreaseDecreaseDraftPoolDie controller = loader.getController();
+        GUIFlipDie controller = loader.getController();
         DraftPool draftPool = new DraftPool();
         draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
         draftPool.addDie(new Die(DieColor.RED, DieValue.ONE));
@@ -593,26 +602,112 @@ public class GUIController extends Application implements GUIInterface{
         primaryStage.show();
         */
 
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIMoveDie.fxml"));
+        /*
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIMoveDieMatchColor.fxml"));
         Parent root = loader.load();
-        GUIMoveDie controller = loader.getController();
+        GUIMoveDieMatchColor controller = loader.getController();
         WindowPattern w = new WindowPatternFactory().getWindowPattern();
-        for(int i = 0; i < 200; i++) {
+        for(int i = 0; i < 100; i++) {
             try {
                 w.placeDie(Die.getRandomDie(), new Point(new Random().nextInt(4), new Random().nextInt(5)));
             } catch (PlacementException e) {
             } catch (NotValidPointException e) {
             }
         }
+        List<DieColor> colors = new ArrayList<>();
+        colors.add(DieColor.BLUE);
+        colors.add(DieColor.YELLOW);
         controller.setWindowpattern(w);
         controller.setObserver(this);
         controller.setPlayerId("ciao");
-        Scene scene = new Scene(root, 720, 560);
+        controller.setColors(colors);
+        Scene scene = new Scene(root, 720, 500);
         scene.getStylesheets().add("css/style.css");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+                      */
 
+        /*
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUISwapDieRoundTrackDraftPool.fxml"));
+        Parent root = loader.load();
+        GUISwapDieRoundTrackDraftPool controller = loader.getController();
+        DraftPool draftPool = new DraftPool();
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.RED, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.GREEN, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.PURPLE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.YELLOW, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+
+        RoundTrack roundTrack = new RoundTrack();
+        List<Die> dice1 = new ArrayList<>();
+        dice1.add(new Die(DieColor.BLUE, DieValue.ONE));
+        dice1.add(new Die(DieColor.RED, DieValue.ONE));
+        dice1.add(new Die(DieColor.BLUE, DieValue.TWO));
+        dice1.add(new Die(DieColor.YELLOW, DieValue.ONE));
+        roundTrack.addDice(dice1);
+        List<Die> dice2 = new ArrayList<>();
+        dice2.add(new Die(DieColor.GREEN, DieValue.SIX));
+        dice2.add(new Die(DieColor.PURPLE, DieValue.FIVE));
+        dice2.add(new Die(DieColor.GREEN, DieValue.FOUR));
+        dice2.add(new Die(DieColor.YELLOW, DieValue.THREE));
+        dice2.add(new Die(DieColor.GREEN, DieValue.FOUR));
+        dice2.add(new Die(DieColor.YELLOW, DieValue.THREE));
+        roundTrack.addDice(dice2);
+        List<Die> dice3 = new ArrayList<>();
+        dice3.add(new Die(DieColor.RED, DieValue.ONE));
+        dice3.add(new Die(DieColor.BLUE, DieValue.TWO));
+        dice3.add(new Die(DieColor.GREEN, DieValue.SIX));
+        dice3.add(new Die(DieColor.BLUE, DieValue.FIVE));
+        dice3.add(new Die(DieColor.RED, DieValue.FOUR));
+        roundTrack.addDice(dice3);
+        controller.setDraftpool(draftPool);
+        controller.setObserver(this);
+        controller.setPlayerId("ciao");
+        controller.setRoundTrack(roundTrack);
+        Scene scene = new Scene(root, 720, 80);
+        scene.getStylesheets().add("css/style.css");
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.show();
+        */
+
+
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIPlaceNoAdjacent.fxml"));
+        Parent root = loader.load();
+        GUIPlaceNoAdjacent controller = loader.getController();
+        DraftPool draftPool = new DraftPool();
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.RED, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.GREEN, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.PURPLE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.YELLOW, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+
+
+        WindowPattern w = new WindowPatternFactory().getWindowPattern();
+        for(int i = 0; i < 30; i++) {
+            try {
+                w.placeDie(Die.getRandomDie(), new Point(new Random().nextInt(4), new Random().nextInt(5)));
+            } catch (PlacementException e) {
+            } catch (NotValidPointException e) {
+            }
+        }
+
+        controller.setDraftpool(draftPool);
+        controller.setObserver(this);
+        controller.setPlayerId("ciao");
+        controller.setWindowPattern(w);
+        Scene scene = new Scene(root, 540, 630);
+        scene.getStylesheets().add("css/style.css");
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.show();
     }
 
     /**

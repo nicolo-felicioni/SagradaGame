@@ -5,12 +5,14 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import it.polimi.se2018.view.gui.fxmlController.GUIDraftPool?>
 <?import it.polimi.se2018.view.gui.fxmlController.GUIRoundTrack?>
 <?import it.polimi.se2018.view.gui.fxmlController.GUIWindowPattern?>
 <?import it.polimi.se2018.view.gui.fxmlController.GUIToolCard?>
 <?import it.polimi.se2018.view.gui.fxmlController.GUIPublicObjectiveCard?>
+
+<?import it.polimi.se2018.view.gui.fxmlController.GUIPrivateObjectiveCard?>
+<?import it.polimi.se2018.view.gui.fxmlController.GUIInfo?>
 <GridPane fx:controller="it.polimi.se2018.view.gui.fxmlController.GUIGame" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -109,8 +111,8 @@
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 
 
     </columnConstraints>
@@ -169,26 +171,20 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
 
     </rowConstraints>
-   <children>
-      <GUIDraftPool fx:id="draftpool" onMouseClicked="#handleDraftPoolClicked" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="600.0" styleClass="draftpool" GridPane.columnIndex="2" GridPane.columnSpan="60" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="6" GridPane.vgrow="ALWAYS" />
-      <GUIRoundTrack fx:id="roundtrack" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="300.0" styleClass="roundtrack" GridPane.columnIndex="64" GridPane.columnSpan="30" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="6" GridPane.vgrow="ALWAYS" />
-      <GUIWindowPattern fx:id="windowpattern" onMouseClicked="#handleWindowPatternClicked" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="240.0" styleClass="window-pattern" GridPane.columnIndex="12" GridPane.columnSpan="24" GridPane.hgrow="ALWAYS" GridPane.rowIndex="11" GridPane.rowSpan="36" GridPane.vgrow="ALWAYS" />
-      <GUIToolCard fx:id="toolcardLeft" onMouseClicked="#selectToolCardLeft" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="toolcard" GridPane.columnIndex="47" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="12" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
-      <GUIToolCard fx:id="toolcardCenter" onMouseClicked="#selectToolCardCenter" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="toolcard" GridPane.columnIndex="63" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="12" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
-      <GUIToolCard fx:id="toolcardRight" onMouseClicked="#selectToolCardRight" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="toolcard" GridPane.columnIndex="79" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="12" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
-      <GUIPublicObjectiveCard fx:id="publiccardLeft" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="publiccard" GridPane.columnIndex="47" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="31" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
-      <GUIPublicObjectiveCard fx:id="publiccardCenter" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="publiccard" GridPane.columnIndex="63" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="31" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
-      <GUIPublicObjectiveCard fx:id="publiccardRight" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="publiccard" GridPane.columnIndex="79" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="31" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
-      <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="920.0" GridPane.columnIndex="2" GridPane.columnSpan="92" GridPane.hgrow="ALWAYS" GridPane.rowIndex="50" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
-         <children>
-            <Button layoutY="-15.0" mnemonicParsing="false" onAction="#endTurn" text="End Turn" />
-            <Button layoutX="135.0" layoutY="-15.0" mnemonicParsing="false" onAction="#privateObjectCard" text="Private Object Card" />
-            <Button fx:id="useToolCard" layoutX="381.0" layoutY="-15.0" mnemonicParsing="false" onAction="#useToolCard" text="Use Tool Card" />
-            <Button fx:id="showEnemyWindowPattern" layoutX="576.0" layoutY="-15.0" mnemonicParsing="false" onAction="#showEnemyWindowPattern" text="Show Enemy Window Pattern" />
-         </children>
-      </Pane>
-   </children>
+    <children>
+        <GUIDraftPool fx:id="draftpool" onMouseClicked="#handleDraftPoolClicked" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="600.0" styleClass="draftpool" GridPane.columnIndex="4" GridPane.columnSpan="60" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.rowSpan="8" GridPane.vgrow="ALWAYS" />
+        <GUIRoundTrack fx:id="roundtrack" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="300.0" styleClass="roundtrack" GridPane.columnIndex="62" GridPane.columnSpan="30" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.rowSpan="8" GridPane.vgrow="ALWAYS" />
+        <GUIWindowPattern fx:id="windowpattern" onMouseClicked="#handleWindowPatternClicked" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="240.0" styleClass="window-pattern" GridPane.columnIndex="20" GridPane.columnSpan="24" GridPane.hgrow="ALWAYS" GridPane.rowIndex="14" GridPane.rowSpan="36" GridPane.vgrow="ALWAYS" />
+        <GUIToolCard fx:id="toolcardLeft" onMouseClicked="#selectToolCardLeft" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="toolcard" GridPane.columnIndex="48" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="14" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
+        <GUIToolCard fx:id="toolcardCenter" onMouseClicked="#selectToolCardCenter" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="toolcard" GridPane.columnIndex="64" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="14" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
+        <GUIToolCard fx:id="toolcardRight" onMouseClicked="#selectToolCardRight" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="toolcard" GridPane.columnIndex="80" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="14" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
+        <GUIPublicObjectiveCard fx:id="publiccardLeft" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="publiccard" GridPane.columnIndex="48" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="33" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
+        <GUIPublicObjectiveCard fx:id="publiccardCenter" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="publiccard" GridPane.columnIndex="64" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="33" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
+        <GUIPublicObjectiveCard fx:id="publiccardRight" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="publiccard" GridPane.columnIndex="80" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="33" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />
+        <GUIPrivateObjectiveCard fx:id="privatecard" prefHeight="170" prefWidth="120" styleClass="privatecard" GridPane.columnIndex="4" GridPane.columnSpan="12" GridPane.rowIndex="14" GridPane.rowSpan="17" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS"/>
+        <GUIInfo fx:id="infobox" prefWidth="120" prefHeight="170" GridPane.rowIndex="33" GridPane.rowSpan="17" GridPane.columnIndex="4" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+    </children>
 </GridPane>

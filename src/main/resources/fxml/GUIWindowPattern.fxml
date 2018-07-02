@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<GridPane gridLinesVisible="true" minHeight="420.0" minWidth="300.0" prefHeight="420.0" prefWidth="300.0" styleClass="window-pattern-margin" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.se2018.view.gui.fxmlController.GUIWindowPattern">
+<fx:root type="javafx.scene.layout.GridPane" gridLinesVisible="true" minHeight="140" minWidth="100" prefHeight="420.0" prefWidth="300.0" styleClass="window-pattern-margin" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
     </columnConstraints>
@@ -14,7 +11,7 @@
         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <GridPane fx:id="gridPane" prefHeight="420.0" prefWidth="300.0" styleClass="window-pattern-background" stylesheets="@../css/style.css" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+        <GridPane prefHeight="420.0" prefWidth="300.0" styleClass="window-pattern-background" stylesheets="@../css/style.css" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
@@ -31,7 +28,7 @@
 
 
 
-                <GridPane styleClass="margin-5-pc" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowSpan="1" GridPane.vgrow="ALWAYS">
+                <GridPane GridPane.columnIndex="0" GridPane.hgrow="ALWAYS" GridPane.rowSpan="1" GridPane.vgrow="ALWAYS">
                     <columnConstraints>
                         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -39,7 +36,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                     </rowConstraints>
                     <children>
-                        <GridPane fx:id="name" styleClass="window-pattern-name">
+                        <GridPane styleClass="window-pattern-name">
                             <columnConstraints>
                                 <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                             </columnConstraints>
@@ -47,7 +44,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                             </rowConstraints>
                             <children>
-                                <Label text="Name" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                <Label fx:id="name" text="Name" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                                 </Label>
                             </children>
                         </GridPane>
@@ -82,19 +79,19 @@
                         </GridPane>
                     </children>
                 </GridPane>
-                <GridPane fx:id="windowPattern" GridPane.rowIndex="1" GridPane.rowSpan="5">
+                <GridPane fx:id="windowPattern" gridLinesVisible="true" GridPane.rowIndex="1" GridPane.rowSpan="5">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                     </rowConstraints>
                     <styleClass>
                         <String fx:value="window-pattern" />
@@ -104,4 +101,4 @@
             </children>
         </GridPane>
     </children>
-</GridPane>
+</fx:root>

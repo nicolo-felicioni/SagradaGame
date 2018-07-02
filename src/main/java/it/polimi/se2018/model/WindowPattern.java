@@ -122,13 +122,85 @@ public class WindowPattern implements Serializable {
 					getSpace(p).respectAllRestrictions(die) && !getSpace(p).hasDie();
 
 
+	}
 
-
-
-
+	/**
+	 * Checks if the die is placeable for the window pattern ignoring color restrictions.
+	 * If the window is empty, this method checks if the point is on the edge of the window,
+	 * otherwise it will check if there is any adjacent die to the point p.
+	 * Ignoring color restrictions.
+	 *
+	 * @param die  the die.
+	 * @param p a point.
+	 */
+	public boolean isPlaceableIgnoreColor(Die die, Point p) {
+		if(this.getNumberOfDice() == 0) {
+			if (getSpace(p).isValueRestricted())
+				return p.isEdgyPoint() && getSpace(p).getValueRestriction() == die.getValue();
+			else
+				return p.isEdgyPoint();
+		} else
+			if (getSpace(p).isValueRestricted())
+				return this.isThereSomeDieAdjacent(p) &&
+						p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
+								.noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
+										this.getSpace(point).getDie().getValue()==die.getValue()) &&
+						getSpace(p).getValueRestriction() == die.getValue() && !getSpace(p).hasDie();
+			else
+				return this.isThereSomeDieAdjacent(p) &&
+						p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
+								.noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
+										this.getSpace(point).getDie().getValue()==die.getValue()) && !getSpace(p).hasDie();
 
 	}
 
+	/**
+	 * Checks if the die is placeable for the window pattern ignoring value restrictions.
+	 * If the window is empty, this method checks if the point is on the edge of the window,
+	 * otherwise it will check if there is any adjacent die to the point p.
+	 * Ignoring value restrictions.
+	 *
+	 * @param die  the die.
+	 * @param p a point.
+	 */
+	public boolean isPlaceableIgnoreValue(Die die, Point p) {
+		if(this.getNumberOfDice() == 0) {
+			if (getSpace(p).isColorRestricted())
+				return p.isEdgyPoint() && getSpace(p).getColorRestriction() == die.getColor();
+			else
+				return p.isEdgyPoint();
+		} else
+		if (getSpace(p).isColorRestricted())
+			return this.isThereSomeDieAdjacent(p) &&
+					p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
+							.noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
+									this.getSpace(point).getDie().getValue()==die.getValue()) &&
+					getSpace(p).getColorRestriction() == die.getColor() && !getSpace(p).hasDie();
+		else
+			return this.isThereSomeDieAdjacent(p) &&
+					p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
+							.noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
+									this.getSpace(point).getDie().getValue()==die.getValue()) && !getSpace(p).hasDie();
+
+	}
+
+
+	/**
+	 * Checks if the die is placeable for the window pattern and there's no die in adjacent spaces.
+	 * If the window is empty, this method checks if the point is on the edge of the window,
+	 * otherwise it will check if there is any adjacent die to the point p.
+	 *
+	 * @param die  the die.
+	 * @param p a point.
+	 */
+	public boolean isPlaceableNoAdjacent(Die die, Point p) {
+		if(this.getNumberOfDice() == 0)
+			return p.isEdgyPoint() && getSpace(p).respectAllRestrictions(die);
+		else
+			return !this.isThereSomeDieAdjacent(p) && getSpace(p).respectAllRestrictions(die) && !getSpace(p).hasDie();
+
+
+	}
 
 	/**
 	 *
