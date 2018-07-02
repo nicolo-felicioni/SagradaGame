@@ -10,6 +10,7 @@ public class GUINotification {
     public GUINotification(String string){
         text.setText(string);
     }
+
     public void setText(String string){
         text.setText(string);
     }

@@ -1,7 +1,7 @@
 package it.polimi.se2018.view.gui.fxmlController;
 
 import it.polimi.se2018.model.PrivateObjectiveCard;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;

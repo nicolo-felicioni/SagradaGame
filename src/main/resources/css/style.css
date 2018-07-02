@@ -1,9 +1,3 @@
-#windowPattern{
-    -fx-background-image: url(../images/sfondo.jpg);
-    -fx-hgap: 0;
-    -fx-vgap: 0;
-}
-
 .logo {
     -fx-background-image: url(../images/logo-sagrada.png);
     -fx-background-position: center;
@@ -13,14 +7,9 @@
 #roundTrack{
     -fx-background-size: 640px 127px
 }
-#draftPool{
-    -fx-background-color: red;
-}
+
 #cardBoard{
     -fx-background-color:red;
-}
-.windowPatternSpaces{
-
 }
 .die{
     -fx-background-position: center;
@@ -29,9 +18,8 @@
 }
 
 .die-selected{
-    -fx-background-color: #e67e22;
     -fx-background-position: center;
-    -fx-background-size: 80% 80%;
+    -fx-background-size: 90% 90%;
     -fx-background-repeat: no-repeat;
 }
 
@@ -39,26 +27,47 @@
 }
 
 .draftpool {
-    -fx-background-color: #f1c40f;
     -fx-padding : 5%;
 }
-
-
-.window-pattern {
-    -fx-background-color: #BBBBBB;
+<!--------------------------------wINDOW PATTERN------------------------------------------------------------------------------>
+#windowPattern{
+    -fx-background-color:#dfe6e9;
+    -fx-hgap: 0;
+    -fx-vgap: 0;
 }
+.windowPatternSpaces{
 
+}
+.window-pattern {
+    -fx-background-color: #596275;
+}
+.window-pattern-background{
+    -fx-border:1;
+    -fx-background-color: #b2bec3;
+    -fx-border-color:black;
+}
 .window-pattern-selected {
-    -fx-background-color: #000000;
+    -fx-background-color: #303952;
 }
 
 .window-pattern-name {
-    -fx-background-color: #BBBBBB;
+    -fx-color : #ffffff;
     -fx-font-weight : bold;
     -fx-font-size : 1.1em;
     -fx-padding : 0.5em;
+    -fx-background-color:#dfe6e9;
 }
-
+.window-pattern-difficulty{
+    -fx-background-color:#dfe6e9;
+}
+.window-pattern-margin{
+    -fx-padding:15;
+    -fx-background-color:#b2bec3;
+}
+<!------------------FINE WINDOWS PATTERN------------------------------------------------------------------------------------------------------->
+.margin-5-pc-no-bottom {
+    -fx-padding : 15 15 0 15;
+}
 .private-card {
     -fx-background-position: center;
     -fx-background-size: 100% 100%;
@@ -205,12 +214,14 @@
 }
 
 .space {
+    -fx-background-color: #596275;
     -fx-background-position: center;
     -fx-background-size: 80% 80%;
     -fx-background-repeat: no-repeat;
 }
 
 .space-selected{
+    -fx-background-color: #2c3e50;
     -fx-background-position: center;
     -fx-background-size: 80% 80%;
     -fx-background-repeat: no-repeat;
@@ -218,11 +229,14 @@
 
 
 .space-highlighted {
-    -fx-background-color : green;
+    -fx-background-color: #f7d794;
+    -fx-background-position: center;
+    -fx-background-size: 80% 80%;
+    -fx-background-repeat: no-repeat;
 }
 
 .space-blank {
-    -fx-background-color : #ffffff;
+    -fx-background-image: url("../images/die/nullnull.jpg");
 }
 
 .space-blue {
@@ -375,4 +389,35 @@
 
 .public-card-shade-variety {
     -fx-background-image: url("../images/publiccard/shadevariety.jpg");
+}
+
+.button-decrease-die {
+    -fx-border-width : 5px;
+    -fx-border-color : #d35400;
+    -fx-background-color: #e67e22;
+}
+
+.button-decrease-die Label{
+    -fx-text-fill: #ecf0f1;
+    -fx-font-weight : bold;
+    -fx-font-size : 1.1em;
+    -fx-padding : 0.5em;
+}
+
+.button-increase-die {
+    -fx-border-width : 5px;
+    -fx-border-color : #27ae60;
+    -fx-background-color: #2ecc71;
+}
+
+.button-increase-die Label{
+    -fx-text-fill: #ecf0f1;
+    -fx-font-weight : bold;
+    -fx-font-size : 1.1em;
+    -fx-padding : 0.5em;
+}
+
+.margin-5-pc {
+    -fx-padding : 15;
+    -fx-background-color:#dfe6e9;
 }

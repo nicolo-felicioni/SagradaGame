@@ -159,7 +159,7 @@ public class GUIWindowPattern extends GridPane{
      * @return the window pattern.
      */
     public WindowPattern getWindowPattern() {
-        return windowPattern;
+        return windowPattern.cloneWindowPattern();
     }
 
     /**
@@ -167,7 +167,10 @@ public class GUIWindowPattern extends GridPane{
      * @return the selected space.
      */
     public Space getSelectedSpace() {
-        return selectedSpace.cloneSpace();
+        if(selectedSpace != null)
+            return selectedSpace.cloneSpace();
+        else
+            return null;
     }
 
     /**
@@ -175,7 +178,10 @@ public class GUIWindowPattern extends GridPane{
      * @return the selected position.
      */
     public Point getSelectedPosition() {
-        return selectedPosition.clonePoint();
+        if(selectedPosition != null)
+            return selectedPosition.clonePoint();
+        else
+            return null;
     }
 
     /**

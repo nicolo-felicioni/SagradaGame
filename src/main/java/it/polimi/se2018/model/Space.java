@@ -61,7 +61,10 @@ public abstract class Space implements SpaceInterface, Cloneable{
 	 */
 	@Override
 	public Die getDie() {
-		return new Die(die.getColor(), die.getValue());
+		if (hasDie())
+			return new Die(die.getColor(), die.getValue());
+		else
+			return null;
 	}
 
 	/**

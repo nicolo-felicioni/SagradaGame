@@ -5,13 +5,14 @@ import it.polimi.se2018.event.game.EndTurnGameEvent;
 import it.polimi.se2018.event.game.UseToolCardGameEvent;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.observer.game.GameEventObserver;
-import javafx.event.EventHandler;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
+import java.io.IOException;
 
 public class GUIGame {
 
@@ -70,7 +71,22 @@ public class GUIGame {
         }
     }
 
-    public void privateObjectCard(javafx.event.ActionEvent event) {
+    public void privateObjectCard(javafx.event.ActionEvent event) throws IOException {
+        Platform.runLater(
+                () -> {
+                    GUIPrivateObjectiveCard guiPrivateObjectiveCard=new GUIPrivateObjectiveCard();
+                    guiPrivateObjectiveCard.setPrivateObjectiveCard(this.privateObjectiveCard);
+                    Scene scene = new Scene(guiPrivateObjectiveCard,300,420);
+                    scene.getStylesheets().add("css/style.css");
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.setTitle("Private Objective Card");
+                    stage.setResizable(false);
+                    stage.show();
+                }
+        );
+
     }
 
     public void useToolCard(javafx.event.ActionEvent event) {
@@ -188,7 +204,8 @@ public class GUIGame {
      */
     @FXML
     private void handleDraftPoolClicked(MouseEvent event) {
-        windowpattern.highlightPlaceableSpaces(draftpool.getSelectedDie());
+        if(playerState.canPlaceDie())
+            windowpattern.highlightPlaceableSpaces(draftpool.getSelectedDie());
     }
 
     /**
