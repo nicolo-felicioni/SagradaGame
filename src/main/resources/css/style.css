@@ -419,3 +419,23 @@ Label{
     -fx-font-weight : bold;
     -fx-font-size : 1.1em;
 }
+.info-box {
+    -fx-border-width:5px;
+}
+.info-box Label{
+    -fx-font-weight:bold;
+    -fx-font-size: 1.1em;
+}
+.info-box GridPane{
+    -fx-background-color:#dfe6e9;
+}
+.button-info-box-active{
+    -fx-border-width : 5px;
+    -fx-border-color : #27ae60;
+    -fx-background-color: #2ecc71;
+}
+.button-info-box-notactive{
+    -fx-border-width:5px;
+    -fx-border-color:#d63031;
+    -fx-background-color:#ff7675;
+}
