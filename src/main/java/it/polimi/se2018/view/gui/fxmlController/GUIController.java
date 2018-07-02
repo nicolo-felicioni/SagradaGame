@@ -1,6 +1,7 @@
 package it.polimi.se2018.view.gui.fxmlController;
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
+import it.polimi.se2018.controller.utils.RankingPlayer;
 import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.event.network.ConnectRMIEvent;
 import it.polimi.se2018.event.network.ConnectSocketEvent;
@@ -25,6 +26,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
+import java.util.List;
 
 /**
  * Author Gao PeiQing
@@ -218,6 +220,11 @@ public class GUIController extends Application implements GUIInterface{
     @Override
     public void updateErrorMessage(String playerId, String message) {
         //TODO G
+    }
+
+    @Override
+    public void updateEndGame(List<RankingPlayer> rankingPlayers) {
+        //todo g
     }
 
     /**

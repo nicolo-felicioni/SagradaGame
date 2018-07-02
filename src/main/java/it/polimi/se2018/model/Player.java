@@ -25,10 +25,10 @@ public class Player {
 	public static final int N_WINDOW_PATTERNS = 4;
 
 
-	public Player(String id){
+	public Player(String id) {
 		this.id = id;
-		this.state=null;
-		this.privateObjectiveCard=null;
+		this.state = null;
+		this.privateObjectiveCard = null;
 		this.patterns = null;
 		this.connected = false;
 	}
@@ -36,18 +36,18 @@ public class Player {
 
 	/**
 	 * copy constructor.
+	 *
 	 * @param copy
 	 */
 	//TODO - da rivedere
-
-	public Player(Player copy){
+	public Player(Player copy) {
 		this.id = copy.getId();
-		if(copy.patterns != null) //TODO a cosa serve questo if???
+		if (copy.patterns != null) //TODO a cosa serve questo if???
 			this.patterns = copy.getPatterns();
-		if(copy.chosenPattern != null)  //TODO a cosa serve questo if???
-			this.chosenPattern=copy.chosenPattern.cloneWindowPattern();
-		this.privateObjectiveCard=copy.privateObjectiveCard;
-		this.state=copy.state;
+		if (copy.chosenPattern != null)  //TODO a cosa serve questo if???
+			this.chosenPattern = copy.chosenPattern.cloneWindowPattern();
+		this.privateObjectiveCard = copy.privateObjectiveCard;
+		this.state = copy.state;
 		this.favorTokens = copy.getTokens();
 		this.connected = copy.isConnected();
 
@@ -65,24 +65,26 @@ public class Player {
 
 	/**
 	 * This is a setter for the 4 patterns a player can choose before starting the game.
+	 *
 	 * @param patterns a vector formed of four window pattern
 	 */
 	public void setPatterns(WindowPattern[] patterns) throws NotValidPatternVectorException {
-		if(patterns.length != N_WINDOW_PATTERNS)
+		if (patterns.length != N_WINDOW_PATTERNS)
 			throw new NotValidPatternVectorException("vector length:" + patterns.length);
 		this.patterns = new WindowPattern[N_WINDOW_PATTERNS];
-		for(int i = 0; i < N_WINDOW_PATTERNS; i++) {
+		for (int i = 0; i < N_WINDOW_PATTERNS; i++) {
 			this.patterns[i] = patterns[i].cloneWindowPattern();
 		}
 	}
 
 	/**
 	 * this method returns an array with the 4 pattern this player can choose before starting the game.
+	 *
 	 * @return an array with the 4 pattern this player can choose before starting the game.
 	 */
 	public WindowPattern[] getPatterns() {
 		WindowPattern[] patterns = new WindowPattern[N_WINDOW_PATTERNS];
-		for(int i = 0; i < N_WINDOW_PATTERNS; i++) {
+		for (int i = 0; i < N_WINDOW_PATTERNS; i++) {
 			patterns[i] = this.patterns[i].cloneWindowPattern();
 		}
 		return patterns;
@@ -90,6 +92,7 @@ public class Player {
 
 	/**
 	 * gets the number of favor tokens this player has.
+	 *
 	 * @return the number of favor tokens this player has.
 	 */
 	public int getTokens() {
@@ -98,12 +101,13 @@ public class Player {
 
 	/**
 	 * gets player's pattern.
+	 *
 	 * @return player's pattern.
 	 */
 	public WindowPattern getPattern() {
-		if(chosenPattern != null) {
+		if (chosenPattern != null) {
 			return chosenPattern.cloneWindowPattern();
-		}else{
+		} else {
 			return null;
 		}
 	}
@@ -111,6 +115,7 @@ public class Player {
 
 	/**
 	 * gets player's private objective card.
+	 *
 	 * @return player's private objective card.
 	 */
 	public PrivateObjectiveCard getPrivateObjective() {
@@ -120,6 +125,7 @@ public class Player {
 
 	/**
 	 * sets player's private objective card.
+	 *
 	 * @param card it's the player's private objective card.
 	 */
 	public void setPrivateObjective(PrivateObjectiveCard card) {
@@ -127,15 +133,15 @@ public class Player {
 	}
 
 
-
 	/**
 	 * This method choose which of the four possible window patterns the player will use during the game.
+	 *
 	 * @param pattern the chosen pattern
 	 * @throws NotValidPatterException if the pattern is not present in the four possible patterns.
 	 */
 	public void choosePattern(WindowPattern pattern) throws NotValidPatterException {
-		if(Arrays.stream(this.patterns).noneMatch(p -> p.equalsWindowPattern(pattern))){
-			throw new NotValidPatterException("the pattern "+ pattern + "is not present in the four possible patterns");
+		if (Arrays.stream(this.patterns).noneMatch(p -> p.equalsWindowPattern(pattern))) {
+			throw new NotValidPatterException("the pattern " + pattern + "is not present in the four possible patterns");
 		}
 		this.chosenPattern = pattern;
 		this.favorTokens = pattern.getDifficulty();
@@ -143,18 +149,20 @@ public class Player {
 
 	/**
 	 * This method choose which of the four possible window patterns the player will use during the game.
+	 *
 	 * @param pattern the chosen pattern
 	 * @throws NotValidPatterException if the pattern is not present in the four possible patterns.
 	 */
 	public void setPattern(WindowPattern pattern) throws NotValidPatterException {
-		if(this.chosenPattern.getName().equals(pattern.getName())) {
+		if (this.chosenPattern.getName().equals(pattern.getName())) {
 			this.chosenPattern = pattern;
-		}else
+		} else
 			throw new NotValidPatterException("The pattern is not valid, the new pattern must have the same name as the old.");
 	}
 
 	/**
 	 * Setter of the chosen window pattern.
+	 *
 	 * @param pattern the chosen pattern
 	 */
 	public void setChosenPattern(WindowPattern pattern) {
@@ -163,36 +171,33 @@ public class Player {
 	}
 
 
-
-
 	//TODO N javadoc
-	public PlayerState getState(){
-		if(state != null) {
+	public PlayerState getState() {
+		if (state != null) {
 			return this.state.cloneState();
-		}else{
+		} else {
 			return null;
 		}
 	}
 
 
 	/**
-	 * 
 	 * @param playerState
 	 */
 	public void changePlayerStateTo(PlayerState playerState) {
-		this.state = playerState;
+		this.state = playerState.cloneState();
 	}
 
 	//TODO N javadoc
 	public void placeDie(Point p, Die die) throws PlacementException, IllegalMoveTurnException {
 
-	    //TODO - Non so
+		//TODO - Non so
 
-		if(this.state.canPlaceDie()){
-            this.chosenPattern.placeDie(die, p);
-        }
+		if (this.state.canPlaceDie()) {
+			this.chosenPattern.placeDie(die, p);
+		}
 
-        this.state.diePlaced();
+		this.state.diePlaced();
 
 	}
 
@@ -201,36 +206,38 @@ public class Player {
 
 		Point p = new Point(x, y);
 
-        //TODO - Non so
+		//TODO - Non so
 
-        if(this.state.canPlaceDie()){
-            this.chosenPattern.placeDie(die, p);
-        }
+		if (this.state.canPlaceDie()) {
+			this.chosenPattern.placeDie(die, p);
+		}
 
-        this.state.diePlaced(); //if it can't be placed, throws exception
+		this.state.diePlaced(); //if it can't be placed, throws exception
 
 	}
 
 	/**
 	 * Return if a die can be placed in a space of the chosen window pattern respecting all restrictions.
-	 * @param p the position of the space in the window pattern.
+	 *
+	 * @param p   the position of the space in the window pattern.
 	 * @param die the die.
 	 * @return true if a die can be placed in a space of the chosen window pattern respecting all restrictions.
 	 */
-	public boolean isPlaceable(Point p, Die die){
+	public boolean isPlaceable(Point p, Die die) {
 		return this.chosenPattern.isPlaceable(die, p);
 	}
 
 	/**
 	 * Spend player's favor tokens.
+	 *
 	 * @param amount the amount that have to be spent.
 	 * @throws NotEnoughTokenException if player has not enough favor tokens.
 	 */
-	public void spendToken(int amount) throws NotEnoughTokenException{
-		if(this.favorTokens >= amount) {
+	public void spendToken(int amount) throws NotEnoughTokenException {
+		if (this.favorTokens >= amount) {
 			this.favorTokens = this.favorTokens - amount;
-		}else{
-			throw new NotEnoughTokenException("your favor tokens: "+ this.getTokens() +
+		} else {
+			throw new NotEnoughTokenException("your favor tokens: " + this.getTokens() +
 					"\nFavor tokens needed: " + amount);
 		}
 	}
@@ -241,17 +248,18 @@ public class Player {
 	}
 
 	//TODO N javadoc
-	public boolean equalsPlayer(Player player){
+	public boolean equalsPlayer(Player player) {
 		return this.getId().equals(player.getId());
 	}
 
 	//TODO N javadoc
-	public String toString(){
-		return ("Player id: "+ this.getId());
+	public String toString() {
+		return ("Player id: " + this.getId());
 	}
 
 	/**
 	 * Return true if the player has chosen a window pattern.
+	 *
 	 * @return true if the player has chosen a window pattern.
 	 */
 	public boolean hasChosenWindowPattern() {
@@ -260,6 +268,7 @@ public class Player {
 
 	/**
 	 * Return a clone of this player.
+	 *
 	 * @return a clone of this player.
 	 */
 	public Player clonePlayer() {
@@ -268,6 +277,7 @@ public class Player {
 
 	/**
 	 * Return true if the player is connected.
+	 *
 	 * @return true if the player is connected.
 	 */
 	public boolean isConnected() {
@@ -276,6 +286,7 @@ public class Player {
 
 	/**
 	 * Set the connection state of the player, true if it is connected, false otherwise.
+	 *
 	 * @param connected true if it is connected, false otherwise.
 	 */
 	public void setConnected(boolean connected) {
@@ -284,9 +295,11 @@ public class Player {
 
 	/**
 	 * Set the number of favor tokens of the player.
+	 *
 	 * @param favorTokens the number of favor tokens of the player.
 	 */
 	public void setTokens(int favorTokens) {
 		this.favorTokens = favorTokens;
 	}
+
 }

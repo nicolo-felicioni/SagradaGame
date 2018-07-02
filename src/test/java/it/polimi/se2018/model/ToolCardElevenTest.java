@@ -70,7 +70,7 @@ public class ToolCardElevenTest {
     @Test
     public void testEndActivation() {
         try {
-            activeCard.endActivion();
+            activeCard.endActivation();
             activeCard.activate();
             assertTrue(activeCard.returnDieAndGetNewFromDiceBag());
             assertTrue(activeCard.isActive());
@@ -96,7 +96,7 @@ public class ToolCardElevenTest {
         }
 
         try {
-            inactiveCard.endActivion();
+            inactiveCard.endActivation();
             fail();
         } catch (ToolCardStateException e) {
 

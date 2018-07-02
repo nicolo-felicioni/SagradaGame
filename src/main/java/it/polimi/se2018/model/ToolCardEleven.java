@@ -68,7 +68,7 @@ public class ToolCardEleven extends ToolCard {
 				isDieReturned = true;
 			}else{
 				isDieReturned = false;
-				this.endActivion();
+				this.endActivation();
 			}
 		} else {
 			throw new ToolCardStateException("Can not consume effect. Card is not active.");
@@ -87,8 +87,8 @@ public class ToolCardEleven extends ToolCard {
 	 * End activation of this card. Reset the state of this card.
 	 */
 	@Override
-	public void endActivion() throws ToolCardStateException {
-		super.endActivion();
+	public void endActivation() throws ToolCardStateException {
+		super.endActivation();
 		isDieReturned = false;
 	}
 
