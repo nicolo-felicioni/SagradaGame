@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class MyScanner {
     private BufferedReader in;
-    private static final String INPUT_ERROR = "Wrong input.\nNot a number.";
+    private static final String INPUT_ERROR = "Wrong input, not a number.\nEnter a number.";
 
 
 
@@ -47,7 +47,6 @@ public class MyScanner {
             try {
                 input = in.readLine();
             } catch (IOException e) {
-                e.printStackTrace();//TODO - DUBBIO
                 return n;
             }
 

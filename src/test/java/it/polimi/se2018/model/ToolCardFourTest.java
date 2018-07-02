@@ -58,7 +58,7 @@ public class ToolCardFourTest {
 	@Test
 	public void testEndActivation() {
 		try {
-			activeCard.endActivion();
+			activeCard.endActivation();
 			activeCard.activate();
 			assertTrue(activeCard.moveADie());
 			try {
@@ -77,7 +77,7 @@ public class ToolCardFourTest {
 			fail();
 		}
 		try {
-			inactiveCard.endActivion();
+			inactiveCard.endActivation();
 			fail();
 		} catch (ToolCardStateException e) {
 

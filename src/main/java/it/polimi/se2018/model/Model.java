@@ -350,6 +350,8 @@ public class Model implements ViewUpdaterObservable {
         notifyObservers(new PrivateObjectiveCardUpdater(playerId, privateObjectiveCard));
     }
 
+
+
     /**
      * Change a player state to another player state.
      * @param playerId the player identifier.
@@ -433,6 +435,8 @@ public class Model implements ViewUpdaterObservable {
             return null;
         }
     }
+
+
 
     /**
      * Notify all observer the model state.

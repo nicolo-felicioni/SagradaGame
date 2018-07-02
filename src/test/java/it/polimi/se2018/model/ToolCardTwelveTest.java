@@ -61,7 +61,7 @@ public class ToolCardTwelveTest {
     @Test
     public void testEndActivation() {
         try {
-            activeCard.endActivion();
+            activeCard.endActivation();
             activeCard.activate();
             assertTrue(activeCard.moveTwoDiceMatchColorOnRoundTrack());
             assertTrue(activeCard.isActive());
@@ -83,7 +83,7 @@ public class ToolCardTwelveTest {
             fail();
         }
         try {
-            inactiveCard.endActivion();
+            inactiveCard.endActivation();
             fail();
         } catch (ToolCardStateException e) {
 

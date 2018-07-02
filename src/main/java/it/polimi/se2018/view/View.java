@@ -1,9 +1,11 @@
 package it.polimi.se2018.view;
 
 import it.polimi.se2018.controller.ViewUpdaterObserver;
+import it.polimi.se2018.controller.utils.RankingPlayer;
 import it.polimi.se2018.model.WindowPatternPosition;
 import it.polimi.se2018.model.*;
-import it.polimi.se2018.observable.game.GameEventObservable;
+
+import java.util.List;
 
 /**
  * @author Nicolò Felicioni
@@ -23,6 +25,6 @@ public interface View extends ViewUpdaterObserver {
     void updateWindowPattern(String playerId, WindowPattern windowPattern, WindowPatternPosition position);
     void updatePublicObjectiveCard(PublicObjectiveCard card, CardPosition position);
     void updateErrorMessage(String playerId, String message);
-
+    void updateEndGame(List<RankingPlayer> rankingPlayers);
 
 }

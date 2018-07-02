@@ -57,7 +57,7 @@ public class ToolCardFour extends ToolCard {
 	public void consumeEffect() throws ToolCardStateException {
 		if(this.isActive()) {
 			if (numberOfDiceMoved == 1) {
-				this.endActivion();
+				this.endActivation();
 			} else {
 				numberOfDiceMoved++;
 			}
@@ -78,8 +78,8 @@ public class ToolCardFour extends ToolCard {
 	 * End activation of this card. Reset the state of this card.
 	 */
 	@Override
-	public void endActivion() throws ToolCardStateException {
-		super.endActivion();
+	public void endActivation() throws ToolCardStateException {
+		super.endActivation();
 		numberOfDiceMoved = 0;
 	}
 

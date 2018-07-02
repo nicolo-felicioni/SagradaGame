@@ -70,7 +70,7 @@ public class SwapDraftDieWithRoundTrackDieOption extends ComplexOption {
                 choiceList.add(i, choice);
                 if(i == READ_ROUND_CHOICE){
                     round = choice;
-                    subOptions.set(i + 1, new ReadRoundTrackDieOption(cli, round));
+                    subOptions.add(i + 1, new ReadRoundTrackDieOption(cli, round));
                 }
                 i++;
 
