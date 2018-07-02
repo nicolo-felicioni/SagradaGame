@@ -49,7 +49,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
             </rowConstraints>
             <children>
-                <Label text="Draft Pool" GridPane.hgrow="ALWAYS" />
+                <Label text="DRAFT POOL" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" />
             </children>
         </GridPane>
     </children>
