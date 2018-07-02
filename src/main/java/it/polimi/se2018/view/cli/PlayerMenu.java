@@ -8,12 +8,22 @@ public class PlayerMenu extends Menu {
     private static final String FIRST_MESSAGE = "Press 'm' for menu.";
     private static final String SELECT_MESSAGE = "Select an option.";
     private static final String MENU_CHOICE = "m";
+    private volatile boolean exit = false;
+
 
     public PlayerMenu(CommandLineInterface cli) {
         super(cli);
-
     }
 
+
+
+    public synchronized void setExit(){
+        this.exit = true;
+    }
+
+    private synchronized boolean getExit(){
+        return exit;
+    }
 
     @Override
     int executeMenu() {
@@ -31,7 +41,7 @@ public class PlayerMenu extends Menu {
             } else {//if it was pressed the right key
 
                 do {
-                    this.options = OptionFactory.buildOptions(cli, cli.getPlayer().getState());
+                    this.options = OptionFactory.buildOptions(cli, cli.getPlayer().getState(), getExit());
                     Printer.println(SELECT_MESSAGE);
                     Printer.print(options);
                     choice = cli.getKeyboard().readInt();

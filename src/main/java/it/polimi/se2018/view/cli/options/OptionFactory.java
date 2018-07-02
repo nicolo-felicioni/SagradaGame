@@ -12,37 +12,43 @@ import java.util.Optional;
 
 public class OptionFactory {
 
-    public static List<Option> buildOptions(CommandLineInterface cli, PlayerState state) {
+    public static List<Option> buildOptions(CommandLineInterface cli, PlayerState state, boolean exit) {
 
         List<Option> options = new ArrayList<>();
 
-        if (state.hasChosenWindowPattern()) { //if the player already chose a window pattern
+        if(!exit){
+            if (state.hasChosenWindowPattern()) { //if the player already chose a window pattern
 
-            Optional<ToolCard> optionalActiveCard = Arrays.stream(cli.getToolCards())
-                    .filter(ToolCard::isActive).findAny();
+                Optional<ToolCard> optionalActiveCard = Arrays.stream(cli.getToolCards())
+                        .filter(ToolCard::isActive).findAny();
 
-            if ((state.canPlaceDie() || state.isDiePlaced()) || state.canUseTool()) {//if it's this player's turn
+                if ((state.canPlaceDie() || state.isDiePlaced()) || state.canUseTool()) {//if it's this player's turn
 
-                if (state.canPlaceDie()) {
-                    options.add(new PlaceDieOption(cli));
+                    if (state.canPlaceDie()) {
+                        options.add(new PlaceDieOption(cli));
+                    }
+                    if (state.canUseTool()) {
+                        options.add(new UseToolOption(cli));
+                    }
+
+                    optionalActiveCard.ifPresent(toolCard -> addToolCardOptions(options, cli, toolCard));
+
+                    if (state.canEndTurn()) {
+                        options.add(new EndTurnOption(cli));
+                    }
                 }
-                if (state.canUseTool()) {
-                    options.add(new UseToolOption(cli));
-                }
 
-                optionalActiveCard.ifPresent(toolCard -> addToolCardOptions(options, cli, toolCard));
+                addVisualOptions(options, cli);
 
-                if (state.canEndTurn()) {
-                    options.add(new EndTurnOption(cli));
-                }
+            } else {
+                //if the player hasn't chosen a window yet he has to choose one
+                options.add(new ChooseWindowOption(cli));
             }
-
+        }else{
             addVisualOptions(options, cli);
-
-        } else {
-            //if the player hasn't chosen a window yet he has to choose one
-            options.add(new ChooseWindowOption(cli));
+            options.add(new EndGameOption(cli));
         }
+
         return options;
     }
 

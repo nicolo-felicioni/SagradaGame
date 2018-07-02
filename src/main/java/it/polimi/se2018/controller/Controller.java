@@ -209,10 +209,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 	 */
 	@Override
 	public void handle(EndTurnGameEvent event) {
-		if(!scheduler.hasNext()){
-			endGame();
-		}else
-			this.nextTurn();
+		this.nextTurn();
 	}
 
 	/**
@@ -732,7 +729,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 			draftPool.addDice(diceBag.drawDice(model.getPlayers().size() * 2 + 1));
 			ToolCard toolCard = model.getActiveToolCard();
 			if (toolCard != null) {
-				toolCard.endActivion();
+				toolCard.endActivation();
 				model.setToolCard(toolCard);
 			}
 			model.setDraftPool(draftPool);
@@ -759,8 +756,6 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 	private List<RankingPlayer> sortPlayers(){
 		List<Player> players = model.getPlayers();
 		List<RankingPlayer> rankingPlayers = new ArrayList<>();
-		List<String> playerIds = new ArrayList<>();
-
 
 		for(Player player : players){
 			WindowPattern pattern = player.getPattern();
@@ -776,7 +771,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 			rankingPlayers.add(new RankingPlayer(player.getId(), points, pointsFromPrivateObjective, favorTokens, 0));
 		}
 
-		Collections.sort(rankingPlayers, new RankingPlayer.RankingPlayerComparator());
+		Collections.sort(rankingPlayers, new RankingPlayer.RankingPlayerComparator().reversed());
 
 		return rankingPlayers;
 	}

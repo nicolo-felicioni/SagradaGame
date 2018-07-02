@@ -26,6 +26,8 @@ public class CommandLineInterface extends AbstractView {
     private static final String WINNER_MESSAGE = "You win!";
     private static final String LOSER_MESSAGE = "You lost.";
 
+    public static final int END_GAME_CODE = -999;
+
     private ClientInterface client;
 
     private volatile boolean exit = false;
@@ -62,7 +64,7 @@ public class CommandLineInterface extends AbstractView {
         return publicObjectiveCards;
     }
 
-    private Menu menu;
+    private PlayerMenu menu;
     private List<Player> players;
     private Player player;
     private WindowPattern[] patterns;
@@ -259,7 +261,9 @@ public class CommandLineInterface extends AbstractView {
 
     @Override
     public synchronized void updateEndGame(List<RankingPlayer> rankingPlayers) {
-        exit = true;
+
+        menu.setExit();
+
         if(rankingPlayers.get(0).getPlayerId().equals(player.getId()))
             Printer.println(WINNER_MESSAGE);
         else
@@ -307,9 +311,10 @@ public class CommandLineInterface extends AbstractView {
     //----------------------PRIVATE METHODS--------------------------------------------------------------------
 
     private void startGame() {
-        while (!exit) {
-            menu.executeMenu();
-        }
+        int returnedValue;
+        do {
+            returnedValue = menu.executeMenu();
+        } while(returnedValue != END_GAME_CODE);
     }
 
     private void startChooseWindow() {
@@ -360,8 +365,10 @@ public class CommandLineInterface extends AbstractView {
 
             if (choice == RMI_CHOICE) {
                 this.client = new RMIClient(this);
+                badChoice = false;
             } else if (choice == SOCKET_CHOICE) {
                 this.client = new SocketClient(this);
+                badChoice = false;
             } else {
                 Printer.println(CHOICE_ERROR_MESSAGE);
                 badChoice = true;
@@ -406,7 +413,7 @@ public class CommandLineInterface extends AbstractView {
                 client.login(username);
                 loginError = false;
             } catch (LoginException e) {
-                Printer.println(e.getMessage());
+                //Printer.println(e.getMessage());
                 this.player = null;
             }
         } while (loginError);
