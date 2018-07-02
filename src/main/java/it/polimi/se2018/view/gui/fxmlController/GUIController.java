@@ -3,6 +3,7 @@ package it.polimi.se2018.view.gui.fxmlController;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.controller.factory.ToolCardsFactory;
 import it.polimi.se2018.controller.factory.WindowPatternFactory;
+import it.polimi.se2018.controller.utils.RankingPlayer;
 import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.event.network.ConnectRMIEvent;
 import it.polimi.se2018.event.network.ConnectSocketEvent;
@@ -31,6 +32,7 @@ import java.rmi.NotBoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.List;
 
 /**
  * Author Gao PeiQing
@@ -224,6 +226,11 @@ public class GUIController extends Application implements GUIInterface{
     @Override
     public void updateErrorMessage(String playerId, String message) {
         //TODO G
+    }
+
+    @Override
+    public void updateEndGame(List<RankingPlayer> rankingPlayers) {
+        //todo g
     }
 
     /**

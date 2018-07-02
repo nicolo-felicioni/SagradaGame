@@ -2,6 +2,7 @@ package it.polimi.se2018.view.cli;
 
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
+import it.polimi.se2018.controller.utils.RankingPlayer;
 import it.polimi.se2018.model.WindowPatternPosition;
 import it.polimi.se2018.exceptions.*;
 import it.polimi.se2018.model.*;
@@ -22,7 +23,14 @@ import java.util.Optional;
 
 public class CommandLineInterface extends AbstractView {
 
+    private static final String WINNER_MESSAGE = "You win!";
+    private static final String LOSER_MESSAGE = "You lost.";
+
+    public static final int END_GAME_CODE = -999;
+
     private ClientInterface client;
+
+    private volatile boolean exit = false;
 
     public synchronized List<Player> getPlayers() {
         return players;
@@ -56,7 +64,7 @@ public class CommandLineInterface extends AbstractView {
         return publicObjectiveCards;
     }
 
-    private Menu menu;
+    private PlayerMenu menu;
     private List<Player> players;
     private Player player;
     private WindowPattern[] patterns;
@@ -245,10 +253,27 @@ public class CommandLineInterface extends AbstractView {
     }
 
     @Override
-    public void updateErrorMessage(String playerId, String message) {
+    public synchronized void updateErrorMessage(String playerId, String message) {
         Printer.printlnColor("UPDATE ERROR MESSAGE :", ERROR_COLOR);
         Printer.printlnColor("playerId: " + playerId, ERROR_COLOR);
         Printer.printlnColor("message: " + message, ERROR_COLOR);
+    }
+
+    @Override
+    public synchronized void updateEndGame(List<RankingPlayer> rankingPlayers) {
+
+        menu.setExit();
+
+        if(rankingPlayers.get(0).getPlayerId().equals(player.getId()))
+            Printer.println(WINNER_MESSAGE);
+        else
+            Printer.println(LOSER_MESSAGE);
+
+        Printer.println("Ranking:");
+        for(int i = 0; i<rankingPlayers.size(); i++){
+            Printer.println(i+1 + " -> " + rankingPlayers.get(i).getPlayerId().toUpperCase());
+            Printer.print(rankingPlayers.get(i));
+        }
     }
 
 
@@ -264,6 +289,7 @@ public class CommandLineInterface extends AbstractView {
 
             if (wantedPlayer.equalsPlayer(player)) {
                 player.changePlayerStateTo(state);
+
                 Printer.printlnColor("DEBUG: stato del player:" + state.getClass().getSimpleName(), DieColor.RED);
 
                 if(state.canPlaceDie() && state.canUseTool())
@@ -285,10 +311,10 @@ public class CommandLineInterface extends AbstractView {
     //----------------------PRIVATE METHODS--------------------------------------------------------------------
 
     private void startGame() {
-        boolean exit = false;
-        while (!exit) {
-            menu.executeMenu();
-        }
+        int returnedValue;
+        do {
+            returnedValue = menu.executeMenu();
+        } while(returnedValue != END_GAME_CODE);
     }
 
     private void startChooseWindow() {
@@ -297,7 +323,7 @@ public class CommandLineInterface extends AbstractView {
 
         do{
             returnedValue = menu.executeMenu();
-        }while(returnedValue== Option.EXIT_CODE);
+        }while(returnedValue == Option.EXIT_CODE);
 
     }
 
@@ -339,8 +365,10 @@ public class CommandLineInterface extends AbstractView {
 
             if (choice == RMI_CHOICE) {
                 this.client = new RMIClient(this);
+                badChoice = false;
             } else if (choice == SOCKET_CHOICE) {
                 this.client = new SocketClient(this);
+                badChoice = false;
             } else {
                 Printer.println(CHOICE_ERROR_MESSAGE);
                 badChoice = true;
@@ -385,7 +413,7 @@ public class CommandLineInterface extends AbstractView {
                 client.login(username);
                 loginError = false;
             } catch (LoginException e) {
-                Printer.println(e.getMessage());
+                //Printer.println(e.getMessage());
                 this.player = null;
             }
         } while (loginError);

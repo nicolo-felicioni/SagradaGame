@@ -107,6 +107,10 @@ public interface ToolCardEffect {
 	 */
 	boolean moveTwoDiceMatchColorOnRoundTrack();
 
+
+
+	boolean canEndTurn();
+
 	/**
 	 * Consume the effect of the card.
 	 */

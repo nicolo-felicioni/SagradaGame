@@ -11,10 +11,10 @@ public class MoveADieOption extends ComplexOption {
     private static final String NAME = "Move a die respecting all restrictions.";
     private static final String SELECT = "Select the point of the die you want to move, then select the space where you want to put it.";
 
-    private static final int READ_FIRST_X_CHOICE = 0;
-    private static final int READ_FIRST_Y_CHOICE = 1;
-    private static final int READ_SECOND_X_CHOICE = 2;
-    private static final int READ_SECOND_Y_CHOICE = 3;
+    protected static final int READ_FIRST_X_CHOICE = 0;
+    protected static final int READ_FIRST_Y_CHOICE = 1;
+    protected static final int READ_SECOND_X_CHOICE = 2;
+    protected static final int READ_SECOND_Y_CHOICE = 3;
 
     public MoveADieOption(CommandLineInterface cli) {
         super(cli);
@@ -43,8 +43,6 @@ public class MoveADieOption extends ComplexOption {
             } catch (NotValidPointException e) {
                 return ERROR_CODE;
             }
-
-
         }
 
         return 0;

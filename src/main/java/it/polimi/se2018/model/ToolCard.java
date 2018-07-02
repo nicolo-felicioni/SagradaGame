@@ -274,6 +274,10 @@ public abstract class ToolCard implements Card, Cloneable, ToolCardEffect{
 		return false;
 	}
 
+	public boolean canEndTurn(){
+		return true;
+	}
+
 	/**
 	 * Clone this tool card.
 	 * @return a clone of this tool card.

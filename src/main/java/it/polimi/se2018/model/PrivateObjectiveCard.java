@@ -76,9 +76,22 @@ public class PrivateObjectiveCard implements ObjectiveCard {
 	 */
 	@Override
 	public int calculatePoints(WindowPattern windowPattern) {
-		return getAmountOfDiceWith(windowPattern, color) * POINTS_PER_DIE;
+		int points = 0;
+		Space[][] spaces = windowPattern.getAllSpaces();
+		for(int i = 0; i < WindowPattern.SPACES_HEIGHT; i++) {
+			for(int j = 0; j < WindowPattern.SPACES_LENGTH; j++) {
+				if(spaces[i][j].hasDie()) {
+					if (color.equals(spaces[i][j].getDie().getColor())) {
+						points+=spaces[i][j].getDie().getValue().toInt();
+					}
+				}
+			}
+		}
+		return points;
 	}
 
+
+	//todo - credo inutile
 	/**
 	 * Get the amount of dice that has a certain color in a window pattern.
 	 *

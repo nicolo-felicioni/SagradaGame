@@ -14,7 +14,7 @@ public class UseToolOption extends SimpleOption {
 
 
 
-    private static final String USE_TOOL_NAME = "Use a tool card";
+    private static final String USE_TOOL_NAME = "Active a tool card";
     private static final String USE_TOOL_MESSAGE = "Select a tool card";
     private static final String ERROR_USE_TOOL = "There isn't any tool card with that number.";
     private static final String ERROR_COST_TOOL = "Not enough tokens!";
