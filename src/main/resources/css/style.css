@@ -1,9 +1,3 @@
-#windowPattern{
-    -fx-background-image: url(../images/sfondo.jpg);
-    -fx-hgap: 0;
-    -fx-vgap: 0;
-}
-
 .logo {
     -fx-background-image: url(../images/logo-sagrada.png);
     -fx-background-position: center;
@@ -16,9 +10,6 @@
 
 #cardBoard{
     -fx-background-color:red;
-}
-.windowPatternSpaces{
-
 }
 .die{
     -fx-background-position: center;
@@ -38,12 +29,23 @@
 .draftpool {
     -fx-padding : 5%;
 }
+<!--------------------------------wINDOW PATTERN------------------------------------------------------------------------------>
+#windowPattern{
+    -fx-background-color:#dfe6e9;
+    -fx-hgap: 0;
+    -fx-vgap: 0;
+}
+.windowPatternSpaces{
 
-
+}
 .window-pattern {
     -fx-background-color: #596275;
 }
-
+.window-pattern-background{
+    -fx-border:1;
+    -fx-background-color: #b2bec3;
+    -fx-border-color:black;
+}
 .window-pattern-selected {
     -fx-background-color: #303952;
 }
@@ -53,8 +55,19 @@
     -fx-font-weight : bold;
     -fx-font-size : 1.1em;
     -fx-padding : 0.5em;
+    -fx-background-color:#dfe6e9;
 }
-
+.window-pattern-difficulty{
+    -fx-background-color:#dfe6e9;
+}
+.window-pattern-margin{
+    -fx-padding:15;
+    -fx-background-color:#b2bec3;
+}
+<!------------------FINE WINDOWS PATTERN------------------------------------------------------------------------------------------------------->
+.margin-5-pc-no-bottom {
+    -fx-padding : 15 15 0 15;
+}
 .private-card {
     -fx-background-position: center;
     -fx-background-size: 100% 100%;
@@ -406,8 +419,5 @@
 
 .margin-5-pc {
     -fx-padding : 15;
-}
-
-.margin-5-pc-no-bottom {
-    -fx-padding : 15 15 0 15;
+    -fx-background-color:#dfe6e9;
 }
