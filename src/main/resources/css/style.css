@@ -462,3 +462,14 @@ Label{
     -fx-text-fill:#2d3436;
 }
 <!------------------------FINE INFOBOX-------------------------------------------------------------------------------->
+
+
+GUIToolCard .foreground {
+    -fx-background-color : rgba(99, 110, 114, 0.5)
+}
+
+GUIToolCard .foreground GridPane{
+    -fx-border-width:5px;
+    -fx-border-color : rgba(45, 52, 54,1.0);
+    -fx-background-color : rgba(99, 110, 114,1.0);
+}

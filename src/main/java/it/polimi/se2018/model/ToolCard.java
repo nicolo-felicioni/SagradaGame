@@ -136,7 +136,7 @@ public abstract class ToolCard implements Card, Cloneable, ToolCardEffect{
 	/**
 	 * End activation of this card.
 	 */
-	public void endActivion() throws ToolCardStateException {
+	public void endActivation() throws ToolCardStateException {
 		if(!isActive()) {
 			throw new ToolCardStateException(this.getName() + " is not active or cannot end the activation of the card.");
 		}else {
@@ -161,7 +161,7 @@ public abstract class ToolCard implements Card, Cloneable, ToolCardEffect{
 	 */
 	@Override
 	public void consumeEffect() throws ToolCardStateException{
-		this.endActivion();
+		this.endActivation();
 	}
 
 	/**

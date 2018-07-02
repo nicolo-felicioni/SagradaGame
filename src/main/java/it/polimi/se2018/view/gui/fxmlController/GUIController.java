@@ -1,6 +1,7 @@
 package it.polimi.se2018.view.gui.fxmlController;
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
+import it.polimi.se2018.controller.factory.ToolCardsFactory;
 import it.polimi.se2018.controller.factory.WindowPatternFactory;
 import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.event.network.ConnectRMIEvent;
@@ -484,7 +485,7 @@ public class GUIController extends Application implements GUIInterface{
      * @throws IOException if the application can not load the fxml file.
      */
     private void showLoginScene() throws IOException{
-/*
+
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUILogin.fxml"));
         Parent root = loader.load();
         GUILogin controller = loader.getController();
@@ -495,22 +496,28 @@ public class GUIController extends Application implements GUIInterface{
         primaryStage.setTitle("Sagrada-The Game");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-*/
 
-        /*
+
+
+/*
         GUIDraftPool dp = new GUIDraftPool();
         DraftPool draftPool = new DraftPool();
-        draftPool.addDie(new die(DieColor.BLUE, DieValue.ONE));
-        draftPool.addDie(new die(DieColor.RED, DieValue.ONE));
-        draftPool.addDie(new die(DieColor.GREEN, DieValue.ONE));
-        draftPool.addDie(new die(DieColor.PURPLE, DieValue.ONE));
-        draftPool.addDie(new die(DieColor.YELLOW, DieValue.ONE));
-        draftPool.addDie(new die(DieColor.BLUE, DieValue.ONE));
-        draftPool.addDie(new die(DieColor.BLUE, DieValue.ONE));
-        draftPool.addDie(new die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.RED, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.GREEN, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.PURPLE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.YELLOW, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
+        draftPool.addDie(new Die(DieColor.BLUE, DieValue.ONE));
         dp.setDraftPool(draftPool);
-        */
+        Scene scene = new Scene(dp, 720, 500);
+        scene.getStylesheets().add("css/style.css");
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(true);
+        primaryStage.show();
 
+*/
             /*
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIWindowPattern.fxml"));
         Parent root = loader.load();
@@ -563,8 +570,15 @@ public class GUIController extends Application implements GUIInterface{
         */
 
         /*
-        GUIToolCard tc = new GUIToolCard(new ToolCardsFactory().drawCard());
+        GUIToolCard controller = new GUIToolCard();
+        controller.setToolCard(new ToolCardsFactory().drawCard());
+        Scene scene = new Scene(controller, 540, 630);
+        scene.getStylesheets().add("css/style.css");
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.show();
         */
+
 
         /*
         GUIPrivateObjectiveCard pc = new GUIPrivateObjectiveCard(new PrivateObjectiveCardsFactory().drawCard());
@@ -669,6 +683,7 @@ public class GUIController extends Application implements GUIInterface{
         */
 
 
+        /*
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIPlaceNoAdjacent.fxml"));
         Parent root = loader.load();
         GUIPlaceNoAdjacent controller = loader.getController();
@@ -701,6 +716,7 @@ public class GUIController extends Application implements GUIInterface{
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+        */
     }
 
     /**

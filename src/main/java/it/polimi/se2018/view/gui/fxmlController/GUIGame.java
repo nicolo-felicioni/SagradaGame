@@ -89,12 +89,6 @@ public class GUIGame {
 
     }
 
-    public void useToolCard(javafx.event.ActionEvent event) {
-        if(playerState.canUseTool() && selectedToolCard != null) {
-            this.observer.handle(new UseToolCardGameEvent(selectedToolCard, playerId));
-        }
-    }
-
     public void showEnemyWindowPattern(javafx.event.ActionEvent event) {
     }
 
@@ -104,6 +98,9 @@ public class GUIGame {
      */
     public void setPlayerId(String playerId) {
         this.playerId = playerId;
+        this.toolcardLeft.setPlayerId(playerId);
+        this.toolcardCenter.setPlayerId(playerId);
+        this.toolcardRight.setPlayerId(playerId);
     }
 
     /**
@@ -112,6 +109,9 @@ public class GUIGame {
      */
     public void setObserver(GameEventObserver observer) {
         this.observer = observer;
+        this.toolcardLeft.setObserver(observer);
+        this.toolcardCenter.setObserver(observer);
+        this.toolcardRight.setObserver(observer);
     }
 
     /**
@@ -146,10 +146,13 @@ public class GUIGame {
     public void setToolCard(ToolCard toolcard, CardPosition position) {
         if (position == CardPosition.LEFT) {
             this.toolcardLeft.setToolCard(toolcard);
+            this.toolcardLeft.setCardPosition(CardPosition.LEFT);
         } else if (position == CardPosition.CENTER) {
             this.toolcardCenter.setToolCard(toolcard);
+            this.toolcardCenter.setCardPosition(CardPosition.CENTER);
         } else if (position == CardPosition.RIGHT) {
             this.toolcardRight.setToolCard(toolcard);
+            this.toolcardRight.setCardPosition(CardPosition.RIGHT);
         }
     }
 
@@ -206,39 +209,6 @@ public class GUIGame {
     private void handleDraftPoolClicked(MouseEvent event) {
         if(playerState.canPlaceDie())
             windowpattern.highlightPlaceableSpaces(draftpool.getSelectedDie());
-    }
-
-    /**
-     * Tool card left selected.
-     */
-    @FXML
-    private void selectToolCardLeft(MouseEvent event) {
-        selectedToolCard = CardPosition.LEFT;
-        toolcardLeft.setSelected(true);
-        toolcardCenter.setSelected(false);
-        toolcardRight.setSelected(false);
-    }
-
-    /**
-     * Tool card center selected.
-     */
-    @FXML
-    private void selectToolCardCenter(MouseEvent event) {
-        selectedToolCard = CardPosition.CENTER;
-        toolcardLeft.setSelected(false);
-        toolcardCenter.setSelected(true);
-        toolcardRight.setSelected(false);
-    }
-
-    /**
-     * Tool card right selected.
-     */
-    @FXML
-    private void selectToolCardRight(MouseEvent event) {
-        selectedToolCard = CardPosition.RIGHT;
-        toolcardLeft.setSelected(false);
-        toolcardCenter.setSelected(false);
-        toolcardRight.setSelected(true);
     }
 
 
