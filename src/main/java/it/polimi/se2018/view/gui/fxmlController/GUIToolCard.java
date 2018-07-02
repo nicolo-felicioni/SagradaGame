@@ -93,7 +93,7 @@ public class GUIToolCard extends GridPane {
                                     GUIToolCard gui = new GUIToolCard();
                                     gui.setToolCard(toolCard);
                                     gui.setAdvancedMode(false);
-                                    Scene scene = new Scene(gui, 600, 840);
+                                    Scene scene = new Scene(gui, 300, 420);
                                     scene.getStylesheets().add("css/style.css");
                                     Stage stage = new Stage();
                                     stage.setScene(scene);

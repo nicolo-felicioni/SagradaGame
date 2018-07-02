@@ -651,8 +651,14 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 	 * First turn. Wake up the next turn's player. Other players' state will be NotYourTurn.
 	 */
 	private void firstTurn() {
+
 		if (this.scheduler.hasNext()) {
 			try {
+				ToolCard toolCard = model.getActiveToolCard();
+				if (toolCard != null) {
+					toolCard.endActivation();
+					model.setToolCard(toolCard);
+				}
 				String playerId = scheduler.next();
 				model.getPlayers().stream().map(Player::getId).forEach(id -> {
 					try {
@@ -668,7 +674,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 					model.changePlayerStateTo(playerId, new YourTurnState());
 				}
 				initRound();
-			} catch (NotValidIdException e) {
+			} catch (NotValidIdException | ToolCardStateException e) {
 				this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
 			}
 		}else{
@@ -684,14 +690,9 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 			DraftPool draftPool = model.getDraftPool();
 			DiceBag diceBag = model.getDiceBag();
 			draftPool.addDice(diceBag.drawDice(model.getPlayers().size() * 2 + 1));
-			ToolCard toolCard = model.getActiveToolCard();
-			if (toolCard != null) {
-				toolCard.endActivation();
-				model.setToolCard(toolCard);
-			}
 			model.setDraftPool(draftPool);
 			model.setDiceBag(diceBag);
-		} catch (DiceBagException | ToolCardStateException e) {
+		} catch (DiceBagException e) {
 			this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
 		}
 	}

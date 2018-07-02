@@ -624,7 +624,7 @@ public class GUIController extends Application implements GUIInterface{
         List<DieColor> colors = new ArrayList<>();
         colors.add(DieColor.BLUE);
         colors.add(DieColor.YELLOW);
-        controller.setWindowpattern(w);
+        controller.setWindowPattern(w);
         controller.setObserver(this);
         controller.setPlayerId("ciao");
         controller.setColors(colors);

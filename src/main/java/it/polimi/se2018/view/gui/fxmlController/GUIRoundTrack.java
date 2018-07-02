@@ -93,6 +93,14 @@ public class GUIRoundTrack extends GridPane{
     }
 
     /**
+     * Return the round track.
+     * @return the round track.
+     */
+    public RoundTrack getRoundTrack() {
+        return roundTrack.cloneRoundTrack();
+    }
+
+    /**
      * Return the selected die.
      * @return the selected die.
      */

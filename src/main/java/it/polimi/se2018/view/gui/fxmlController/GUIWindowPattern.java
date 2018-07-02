@@ -82,6 +82,7 @@ public class GUIWindowPattern extends GridPane{
                     });
                 }
             });
+            refresh();
         } catch (IOException exception)  {
             throw new RuntimeException(exception);
         }

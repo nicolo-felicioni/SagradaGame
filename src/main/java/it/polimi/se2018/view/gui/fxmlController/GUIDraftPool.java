@@ -84,6 +84,14 @@ public class GUIDraftPool extends GridPane{
     }
 
     /**
+     * Return the draft pool.
+     * @return the draft pool.
+     */
+    public DraftPool getDraftPool() {
+        return draft.cloneDraftPool();
+    }
+
+    /**
      * Return the selected die.
      * @return the selected die.
      */

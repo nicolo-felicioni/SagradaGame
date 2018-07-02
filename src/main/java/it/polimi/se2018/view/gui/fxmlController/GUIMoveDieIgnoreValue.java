@@ -51,7 +51,7 @@ public class GUIMoveDieIgnoreValue {
      * Set the window pattern.
      * @param windowpattern the window pattern.
      */
-    public void setWindowpattern(WindowPattern windowpattern) {
+    public void setWindowPattern(WindowPattern windowpattern) {
         this.firstPattern.setWindowPattern(windowpattern);
         this.secondPattern.setWindowPattern(windowpattern);
     }
