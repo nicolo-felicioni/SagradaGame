@@ -27,7 +27,15 @@
 }
 
 .draftpool {
-    -fx-padding : 5%;
+    -fx-background-color:#b2bec3;
+}
+.draftpool-name{
+    -fx-padding: 5px;
+    -fx-background-color:#636e72;
+}
+.draftpool-name Label{
+    -fx-text-fill:#dfe6e9;
+    -fx-font-size:0.9em;
 }
 <!--------------------------------wINDOW PATTERN------------------------------------------------------------------------------>
 .windowPatternSpaces{
@@ -419,6 +427,7 @@ Label{
     -fx-font-weight : bold;
     -fx-font-size : 1.1em;
 }
+<!------------------------INFOBOX-------------------------------------------------------------------------------->
 .info-box {
     -fx-border-width:5px;
 }
@@ -439,3 +448,17 @@ Label{
     -fx-border-color:#d63031;
     -fx-background-color:#ff7675;
 }
+.info-box-darklabel{
+    -fx-background-color:#636e72;
+    -fx-padding:5px;
+}
+.info-box-darklabel Label{
+    -fx-text-fill:#dfe6e9;
+}
+.info-box-lightlabel{
+    -fx-background-color:#b2bec3;
+}
+.info-box-lightlabel Lable{
+    -fx-text-fill:#2d3436;
+}
+<!------------------------FINE INFOBOX-------------------------------------------------------------------------------->
