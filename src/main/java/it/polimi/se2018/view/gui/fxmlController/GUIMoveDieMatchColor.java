@@ -1,16 +1,19 @@
 package it.polimi.se2018.view.gui.fxmlController;
 
-import it.polimi.se2018.event.game.MoveDieRespectAllRestrictionsGameEvent;
+import it.polimi.se2018.event.game.MoveDieIgnoreValueRestrictionGameEvent;
+import it.polimi.se2018.event.game.MoveDieMatchColorRoundTrackGameEvent;
 import it.polimi.se2018.exceptions.SpaceNotOccupiedException;
 import it.polimi.se2018.model.Die;
+import it.polimi.se2018.model.DieColor;
 import it.polimi.se2018.model.WindowPattern;
 import it.polimi.se2018.observer.game.GameEventObserver;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 
-public class GUIMoveDie {
+import java.util.List;
 
+public class GUIMoveDieMatchColor {
 
     /**
      * Player identifier.
@@ -21,6 +24,11 @@ public class GUIMoveDie {
      * Game event observers.
      */
     private GameEventObserver observer;
+
+    /**
+     * Round track dice colors.
+     */
+    private List<DieColor> colors;
 
     @FXML
     GUIWindowPattern firstPattern;
@@ -50,11 +58,22 @@ public class GUIMoveDie {
      * Set the window pattern.
      * @param windowpattern the window pattern.
      */
-    public void setWindowPattern(WindowPattern windowpattern) {
+    public void setWindowpattern(WindowPattern windowpattern) {
         this.firstPattern.setWindowPattern(windowpattern);
         this.secondPattern.setWindowPattern(windowpattern);
+        highlightFirstPattern();
     }
 
+    public void setColors(List<DieColor> colors) {
+        this.colors = colors;
+        highlightFirstPattern();
+    }
+
+    private void highlightFirstPattern() {
+        if(colors != null && firstPattern != null) {
+            firstPattern.highlightDiceMatchColors(colors);
+        }
+    }
 
     @FXML
     private void firstPatternClicked(MouseEvent event) {
@@ -71,15 +90,16 @@ public class GUIMoveDie {
             secondPattern.setWindowPattern(window);
             if(die != null)
                 secondPattern.highlightPlaceableSpaces(die);
-        } else {
+        }else{
+            highlightFirstPattern();
             secondPattern.setWindowPattern(firstPattern.getWindowPattern());
         }
     }
 
     @FXML
-    private void moveDie(MouseEvent event) {
+    private void moveDieMatchColor(MouseEvent event) {
         if(firstPattern.getSelectedPosition() != null && secondPattern.getSelectedPosition() != null) {
-            this.observer.handle(new MoveDieRespectAllRestrictionsGameEvent(
+            this.observer.handle(new MoveDieMatchColorRoundTrackGameEvent(
                     firstPattern.getSelectedPosition(), secondPattern.getSelectedPosition(), playerId));
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

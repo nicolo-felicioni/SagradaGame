@@ -687,10 +687,10 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 			ToolCard toolCard = model.getActiveToolCard();
 			if (toolCard != null) {
 				toolCard.endActivion();
+				model.setToolCard(toolCard);
 			}
 			model.setDraftPool(draftPool);
 			model.setDiceBag(diceBag);
-			model.setToolCard(toolCard);
 		} catch (DiceBagException | ToolCardStateException e) {
 			this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
 		}

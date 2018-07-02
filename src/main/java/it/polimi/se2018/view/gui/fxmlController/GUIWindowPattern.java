@@ -1,19 +1,16 @@
 package it.polimi.se2018.view.gui.fxmlController;
 
 import it.polimi.se2018.exceptions.NotValidPointException;
-import it.polimi.se2018.model.Die;
-import it.polimi.se2018.model.Point;
-import it.polimi.se2018.model.Space;
-import it.polimi.se2018.model.WindowPattern;
-import it.polimi.se2018.view.cli.Printer;
+import it.polimi.se2018.model.*;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +19,7 @@ public class GUIWindowPattern extends GridPane{
     /**
      * The draft pool.
      */
-    private WindowPattern windowPattern;
+    private WindowPattern window;
 
     /**
      * GUIDie components
@@ -44,10 +41,14 @@ public class GUIWindowPattern extends GridPane{
      */
     private boolean selected;
 
-    /**
-     * Name label
-     */
-    private Label label;
+    @FXML
+    private GridPane windowPattern;
+
+    @FXML
+    private Label name;
+
+    @FXML
+    private GridPane difficulty;
 
     /**
      * Constructor.
@@ -56,49 +57,33 @@ public class GUIWindowPattern extends GridPane{
     public GUIWindowPattern() {
         this.guiSpaces = new ArrayList<>();
         this.selected = false;
-        this.getStyleClass().add("window-pattern");
-        this.getRowConstraints().clear();
-        this.getColumnConstraints().clear();
-        RowConstraints header = new RowConstraints();
-        header.setPrefHeight(65);
-        header.setVgrow(Priority.NEVER);
-        this.getRowConstraints().add(header);
-        for(int i = 0; i < 4; i++) {
-            RowConstraints r = new RowConstraints();
-            r.setMinHeight(32);
-            r.setPrefHeight(32);
-            r.setVgrow(Priority.ALWAYS);
-            this.getRowConstraints().add(r);
-        }
-        for(int i = 0; i < 5; i++) {
-            ColumnConstraints column = new ColumnConstraints();
-            column.setPercentWidth(100/5);
-            this.getColumnConstraints().add(column);
-        }
-        RowConstraints footer = new RowConstraints();
-        footer.setPrefHeight(65);
-        footer.setVgrow(Priority.NEVER);
-        this.getRowConstraints().add(footer);
-        this.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                guiSpaces.forEach(space -> {
-                    if(space == event.getTarget()) {
-                        space.setSelected(!space.isSelected());
-                        if(space.isSelected()) {
-                            selectedSpace = space.getSpace();
-                            selectedPosition = space.getPosition();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIWindowPattern.fxml"));
+        loader.setRoot(this);
+        loader.setController(this);
+        try  {
+            loader.load();
+            windowPattern.addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    guiSpaces.forEach(space -> {
+                        if (space == event.getTarget()) {
+                            space.setSelected(!space.isSelected());
+                            if (space.isSelected()) {
+                                selectedSpace = space.getSpace();
+                                selectedPosition = space.getPosition();
+                            } else {
+                                selectedSpace = null;
+                                selectedPosition = null;
+                            }
+                        } else {
+                            space.setSelected(false);
                         }
-                        else {
-                            selectedSpace = null;
-                            selectedPosition = null;
-                        }
-                    } else {
-                        space.setSelected(false);
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        } catch (IOException exception)  {
+            throw new RuntimeException(exception);
+        }
     }
 
     /**
@@ -106,15 +91,16 @@ public class GUIWindowPattern extends GridPane{
      * @param window the window pattern.
      */
     public void setWindowPattern(WindowPattern window) {
-        this.getChildren().clear();
-        this.windowPattern = window.cloneWindowPattern();
-        Space[][] spaces = windowPattern.getAllSpaces();
+        System.out.println(this);
+        this.windowPattern.getChildren().clear();
+        this.window = window.cloneWindowPattern();
+        Space[][] spaces = this.window.getAllSpaces();
         for(int i = 0; i < spaces.length; i++) {
             for(int j = 0; j < spaces[i].length; j++) {
                 try {
                     GUISpace guiSpace = new GUISpace(spaces[i][j], new Point(i, j));
                     guiSpaces.add(guiSpace);
-                    this.add(guiSpace, j, i + 1, 1, 1);
+                    this.windowPattern.add(guiSpace, j, i, 1, 1);
                     GridPane.setHgrow(guiSpace, Priority.ALWAYS);
                     GridPane.setVgrow(guiSpace, Priority.ALWAYS);
                 } catch (NotValidPointException e) {
@@ -122,24 +108,20 @@ public class GUIWindowPattern extends GridPane{
                 }
             }
         }
-        label = new Label();
-        label.setText(windowPattern.getName().toUpperCase());
-        GridPane.setHalignment(label, HPos.CENTER);
-        label.getStyleClass().add("window-pattern-name");
-        this.add(label, 0, 0, 5, 1);
+        this.name.setText(window.getName().toUpperCase());
     }
 
     public void highlightPlaceableSpaces(Die die) {
-        this.getChildren().clear();
-        Space[][] spaces = windowPattern.getAllSpaces();
+        this.windowPattern.getChildren().clear();
+        Space[][] spaces = window.getAllSpaces();
         for(int i = 0; i < spaces.length; i++) {
             for(int j = 0; j < spaces[i].length; j++) {
                 try {
                     GUISpace guiSpace = new GUISpace(spaces[i][j], new Point(i, j));
-                    if(die != null && windowPattern.isPlaceable(die, new Point(i, j)))
+                    if(die != null && window.isPlaceable(die, new Point(i, j)))
                         guiSpace.getStyleClass().add("space-highlighted");
                     guiSpaces.add(guiSpace);
-                    this.add(guiSpace, j, i + 1, 1, 1);
+                    this.windowPattern.add(guiSpace, j, i, 1, 1);
                     GridPane.setHgrow(guiSpace, Priority.ALWAYS);
                     GridPane.setVgrow(guiSpace, Priority.ALWAYS);
                 } catch (NotValidPointException e) {
@@ -147,11 +129,92 @@ public class GUIWindowPattern extends GridPane{
                 }
             }
         }
-        label = new Label();
-        label.setText(windowPattern.getName().toUpperCase());
-        GridPane.setHalignment(label, HPos.CENTER);
-        label.getStyleClass().add("window-pattern-name");
-        this.add(label, 0, 0, 5, 1);
+        this.name.setText(window.getName().toUpperCase());
+    }
+
+    public void highlightPlaceableIgnoreColorSpaces(Die die) {
+        this.windowPattern.getChildren().clear();
+        Space[][] spaces = window.getAllSpaces();
+        for(int i = 0; i < spaces.length; i++) {
+            for(int j = 0; j < spaces[i].length; j++) {
+                try {
+                    GUISpace guiSpace = new GUISpace(spaces[i][j], new Point(i, j));
+                    if(die != null && window.isPlaceableIgnoreColor(die, new Point(i, j)))
+                        guiSpace.getStyleClass().add("space-highlighted");
+                    guiSpaces.add(guiSpace);
+                    this.windowPattern.add(guiSpace, j, i, 1, 1);
+                    GridPane.setHgrow(guiSpace, Priority.ALWAYS);
+                    GridPane.setVgrow(guiSpace, Priority.ALWAYS);
+                } catch (NotValidPointException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        this.name.setText(window.getName().toUpperCase());
+    }
+
+    public void highlightPlaceableIgnoreValueSpaces(Die die) {
+        this.windowPattern.getChildren().clear();
+        Space[][] spaces = window.getAllSpaces();
+        for(int i = 0; i < spaces.length; i++) {
+            for(int j = 0; j < spaces[i].length; j++) {
+                try {
+                    GUISpace guiSpace = new GUISpace(spaces[i][j], new Point(i, j));
+                    if(die != null && window.isPlaceableIgnoreValue(die, new Point(i, j)))
+                        guiSpace.getStyleClass().add("space-highlighted");
+                    guiSpaces.add(guiSpace);
+                    this.windowPattern.add(guiSpace, j, i, 1, 1);
+                    GridPane.setHgrow(guiSpace, Priority.ALWAYS);
+                    GridPane.setVgrow(guiSpace, Priority.ALWAYS);
+                } catch (NotValidPointException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        this.name.setText(window.getName().toUpperCase());
+    }
+
+    public void highlightDiceMatchColors(List<DieColor> colors) {
+        this.windowPattern.getChildren().clear();
+        Space[][] spaces = window.getAllSpaces();
+        for(int i = 0; i < spaces.length; i++) {
+            for(int j = 0; j < spaces[i].length; j++) {
+                try {
+                    Space sp = spaces[i][j];
+                    GUISpace guiSpace = new GUISpace(spaces[i][j], new Point(i, j));
+                    if(colors != null && sp.hasDie() && colors.contains(sp.getDie().getColor()))
+                        guiSpace.getStyleClass().add("space-highlighted");
+                    guiSpaces.add(guiSpace);
+                    this.windowPattern.add(guiSpace, j, i, 1, 1);
+                    GridPane.setHgrow(guiSpace, Priority.ALWAYS);
+                    GridPane.setVgrow(guiSpace, Priority.ALWAYS);
+                } catch (NotValidPointException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        this.name.setText(window.getName().toUpperCase());
+    }
+
+    public void highlightPlaceableNoAdjacentSpaces(Die die) {
+        this.windowPattern.getChildren().clear();
+        Space[][] spaces = window.getAllSpaces();
+        for(int i = 0; i < spaces.length; i++) {
+            for(int j = 0; j < spaces[i].length; j++) {
+                try {
+                    GUISpace guiSpace = new GUISpace(spaces[i][j], new Point(i, j));
+                    if(die != null && window.isPlaceableNoAdjacent(die, new Point(i, j)))
+                        guiSpace.getStyleClass().add("space-highlighted");
+                    guiSpaces.add(guiSpace);
+                    this.windowPattern.add(guiSpace, j, i, 1, 1);
+                    GridPane.setHgrow(guiSpace, Priority.ALWAYS);
+                    GridPane.setVgrow(guiSpace, Priority.ALWAYS);
+                } catch (NotValidPointException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        this.name.setText(window.getName().toUpperCase());
     }
 
     /**
@@ -159,7 +222,7 @@ public class GUIWindowPattern extends GridPane{
      * @return the window pattern.
      */
     public WindowPattern getWindowPattern() {
-        return windowPattern.cloneWindowPattern();
+        return window.cloneWindowPattern();
     }
 
     /**
@@ -205,11 +268,11 @@ public class GUIWindowPattern extends GridPane{
      * Refresh grafically.
      */
     public void refresh() {
-        this.getStyleClass().remove(0, this.getStyleClass().size());
+        this.windowPattern.getStyleClass().remove(0, this.windowPattern.getStyleClass().size());
         if(selected) {
-            this.getStyleClass().add("window-pattern-selected");
+            this.windowPattern.getStyleClass().add("window-pattern-selected");
         }else{
-            this.getStyleClass().add("window-pattern");
+            this.windowPattern.getStyleClass().add("window-pattern");
         }
     }
 
@@ -217,8 +280,9 @@ public class GUIWindowPattern extends GridPane{
      * Return true if the control has been correctly initialized.
      * @return true if the control has been correctly initialized.
      */
+
     public boolean isInitialized() {
-        return windowPattern != null;
+        return window != null;
     }
 
 }
