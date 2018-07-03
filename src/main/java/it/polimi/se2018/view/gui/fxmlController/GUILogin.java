@@ -16,6 +16,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -60,7 +63,7 @@ public class GUILogin extends GameEventObservableImpl implements GUILoginControl
     Button loginButton;
 
     @FXML
-    public void logInAction(ActionEvent event) throws IOException {
+    public void logInAction() throws IOException {
         if (networkType.getValue().equals("RMI")){
             notifyObservers(new ConnectRMIEvent(adressText.getText(),Integer.parseInt(portText.getText())));
         }else{
@@ -166,5 +169,35 @@ public class GUILogin extends GameEventObservableImpl implements GUILoginControl
     public void addGUI(GUIInterface gui) {
         this.connectRMIObservers.add(gui);
         this.loginObservers.add(gui);
+    }
+
+    public void initializeChoiseBox(){
+        networkType.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)->setPortText(newValue.toString()));
+
+    }
+    private void setPortText(String choise){
+        if (choise.equals("RMI")) {
+            portText.clear();
+            portText.setText("33333");
+        }else{
+            portText.clear();
+            portText.setText("55555");
+        }
+    }
+
+    public void portTextClicked(MouseEvent mouseEvent) {
+        portText.clear();
+    }
+
+    public void adressTextClicked(MouseEvent mouseEvent) {
+        adressText.clear();
+    }
+
+    public void onKeyPressed(KeyEvent keyEvent) throws IOException {
+        if (keyEvent.getCode().equals(KeyCode.ENTER)){
+            if (accountText.isFocused()){
+                logInAction();
+            }
+        }
     }
 }

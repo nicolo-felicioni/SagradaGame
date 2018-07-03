@@ -500,6 +500,7 @@ public class GUIController extends Application implements GUIInterface{
         controller.addObserver((ConnectRMIObserver) this);
         controller.addObserver((ConnectSocketObserver) this);
         controller.addObserver((LoginObserver) this);
+        controller.initializeChoiseBox();
         primaryStage.setTitle("Sagrada-The Game");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
