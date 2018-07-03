@@ -20,51 +20,6 @@
         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
@@ -91,62 +46,23 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
     </rowConstraints>
 
-    <GUIDraftPool fx:id="draftPool" onMouseClicked="#draftPoolClicked" GridPane.columnIndex="0" GridPane.columnSpan="54" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.rowSpan="8" GridPane.vgrow="ALWAYS" >
+    <GUIDraftPool fx:id="draftPool" onMouseClicked="#draftPoolClicked" GridPane.columnIndex="0" GridPane.columnSpan="9" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.rowSpan="3" GridPane.vgrow="ALWAYS">
     </GUIDraftPool>
 
-    <GUIWindowPattern fx:id="windowPattern" GridPane.columnIndex="7" GridPane.columnSpan="40" GridPane.hgrow="ALWAYS" GridPane.rowIndex="9" GridPane.rowSpan="48" GridPane.vgrow="ALWAYS">
+    <GUIWindowPattern fx:id="windowPattern" GridPane.columnIndex="1" GridPane.columnSpan="7" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.rowSpan="19" GridPane.vgrow="ALWAYS">
 
     </GUIWindowPattern>
 
-    <GridPane styleClass="margin-5-pc" GridPane.columnIndex="0" GridPane.columnSpan="54" GridPane.hgrow="ALWAYS" GridPane.rowIndex="57" GridPane.rowSpan="6" GridPane.vgrow="ALWAYS">
+    <GridPane GridPane.columnIndex="0" GridPane.columnSpan="9" GridPane.hgrow="ALWAYS" GridPane.rowIndex="23" GridPane.vgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
         </rowConstraints>
-        <GridPane onMouseClicked="#placeDie" styleClass="button-increase-die">
+        <GridPane onMouseClicked="#placeDie" styleClass="button">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>

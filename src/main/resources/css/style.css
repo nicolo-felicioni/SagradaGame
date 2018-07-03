@@ -401,12 +401,12 @@
 
 .button {
     -fx-border-width : 5px;
-    -fx-border-color : #0984e3;
-    -fx-background-color: #74b9ff;
+    -fx-border-color : #2d3436;
+    -fx-background-color: #636e72;
 }
 
-.button-decrease-die Label{
-    -fx-text-fill: #2d3436;
+.button Label{
+    -fx-text-fill: #dfe6e9;
     -fx-font-weight : bold;
     -fx-font-size : 1.1em;
 }
