@@ -27,10 +27,16 @@ public class CommandLineInterface extends AbstractView {
     private static final String LOSER_MESSAGE = "You lost.";
 
     public static final int END_GAME_CODE = -999;
+    private final Object draftedDieLock = new Object();
+
+    public Object getDraftedDieLock() {
+        return draftedDieLock;
+    }
 
     private ClientInterface client;
 
     private volatile boolean exit = false;
+
 
     public synchronized List<Player> getPlayers() {
         return players;
@@ -112,6 +118,8 @@ public class CommandLineInterface extends AbstractView {
         connection();
         login();
         Printer.println(LOADING_MESSAGE);//todo
+
+
         while (!areInitialOptionsInitialized()) {
             try {
                 synchronized (this) {
@@ -245,6 +253,9 @@ public class CommandLineInterface extends AbstractView {
     @Override
     public synchronized void updateDraftPool(DraftPool draftPool) {
         this.draftPool = draftPool;
+        synchronized (draftedDieLock){
+            draftedDieLock.notifyAll();
+        }
     }
 
     @Override
@@ -254,9 +265,8 @@ public class CommandLineInterface extends AbstractView {
 
     @Override
     public synchronized void updateErrorMessage(String playerId, String message) {
-        Printer.printlnColor("UPDATE ERROR MESSAGE :", ERROR_COLOR);
-        Printer.printlnColor("playerId: " + playerId, ERROR_COLOR);
-        Printer.printlnColor("message: " + message, ERROR_COLOR);
+        if(playerId.equals(this.player.getId()))
+            Printer.printlnColor(message, ERROR_COLOR);
     }
 
     @Override
@@ -357,7 +367,7 @@ public class CommandLineInterface extends AbstractView {
     private void typeOfConnectionRequest() {
         int choice;
 
-        boolean badChoice = false;
+        boolean badChoice;
 
         do {
             Printer.println(CONNECTION_REQUEST_MESSAGE);

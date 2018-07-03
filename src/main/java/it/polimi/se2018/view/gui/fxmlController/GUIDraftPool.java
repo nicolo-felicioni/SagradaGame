@@ -38,8 +38,8 @@ public class GUIDraftPool extends GridPane{
      * Constructor.
      */
     public GUIDraftPool() {
-        this.guiDice = new ArrayList<>()
-        ;FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIDraftPool.fxml"));
+        this.guiDice = new ArrayList<>();
+        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIDraftPool.fxml"));
         loader.setRoot(this);
         loader.setController(this);
         try  {

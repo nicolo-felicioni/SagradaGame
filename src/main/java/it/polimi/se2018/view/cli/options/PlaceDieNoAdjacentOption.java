@@ -9,13 +9,13 @@ import it.polimi.se2018.view.cli.CommandLineInterface;
 
 import java.util.List;
 
-public class PlaceDraftedDieNoAdjacentOption extends ComplexOption {
+public class PlaceDieNoAdjacentOption extends ComplexOption {
 
     private static final String NAME = "Place a die in a space without adjacent dice";
     private static final String SELECT = "Select a die.";
 
 
-    public PlaceDraftedDieNoAdjacentOption(CommandLineInterface cli) {
+    public PlaceDieNoAdjacentOption(CommandLineInterface cli) {
         super(cli);
         this.subOptions = OptionFactory.buildPlaceDieOptions(cli);
     }

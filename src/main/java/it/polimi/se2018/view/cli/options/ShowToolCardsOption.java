@@ -16,7 +16,12 @@ public class ShowToolCardsOption extends SimpleOption {
 
     @Override
     public int execute() {
-        Arrays.stream(cli.getToolCards()).forEach(Printer::print);
+
+        //TODO DEBUG
+        Arrays.stream(cli.getToolCards()).forEach(card -> {
+            Printer.println(card.getClass().getSimpleName());
+            Printer.print(card);
+        });
         return 0;
     }
 }

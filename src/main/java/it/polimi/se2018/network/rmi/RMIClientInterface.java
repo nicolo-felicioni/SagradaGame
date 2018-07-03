@@ -2,6 +2,7 @@ package it.polimi.se2018.network.rmi;
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.exceptions.LoginException;
+import it.polimi.se2018.exceptions.NetworkException;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -35,4 +36,11 @@ public interface RMIClientInterface extends Remote {
      */
     void handle(ViewUpdaterInterface updater) throws RemoteException;
 
+    /**
+     * Disconnect the client.
+     *
+     * @throws NetworkException if the client can not connect to the server.
+     * @throws RemoteException if RMI errors occur during the connection.
+     */
+    void disconnect() throws NetworkException, RemoteException;
 }

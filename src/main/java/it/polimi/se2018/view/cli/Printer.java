@@ -197,21 +197,24 @@ public class Printer {
      * @throws NotValidRoundException   //todo
      */
     public static void print(RoundTrack roundTrack) {
-        for (int i = 1; i <= roundTrack.SIZE; i++) {
-            print(i + 1 + ": ");
-            print("[");
-            try {
-                if (roundTrack.getDice(i).isEmpty()) {
+
+        if (!roundTrack.getAllDice().isEmpty()) {
+            for (int round = 1; round <= roundTrack.SIZE; round++) {
+                print(round + ": ");
+                print("[");
+                try {
+                    if (roundTrack.getDice(round).isEmpty()) {
+                        print(" ");
+                    } else {
+                        roundTrack.getDice(round).stream().forEach(Printer::print);
+                    }
+                    print("] ");
+                } catch (NotValidRoundException e) {
                     print(" ");
-                } else {
-                    roundTrack.getDice(i).stream().forEach(Printer::print);
                 }
-                print("] ");
-            } catch (NotValidRoundException e) {
-                print(" ");
             }
+            newLine();
         }
-        newLine();
     }
 
 

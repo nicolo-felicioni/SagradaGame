@@ -3,9 +3,11 @@ package it.polimi.se2018.network.socket;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.exceptions.LoginException;
+import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.json.Json;
 import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.view.View;
+import sun.nio.ch.Net;
 
 import java.io.*;
 import java.net.Socket;
@@ -54,6 +56,22 @@ public class SocketClient implements ClientInterface {
 			this.inStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 		} catch (IOException e) {
             Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
+		}
+	}
+
+	/**
+	 * Disonnect the client.
+	 *
+	 * @throws NetworkException if the client can not connect to the server.
+	 */
+	@Override
+	public void disconnect() throws NetworkException {
+		try {
+			this.outStream.close();
+			this.inStream.close();
+			this.socket.close();
+		} catch (IOException e) {
+			new NetworkException("Disconnection failed");
 		}
 	}
 

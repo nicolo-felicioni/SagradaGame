@@ -115,11 +115,11 @@ public class WindowPattern implements Serializable {
 		if(this.getNumberOfDice() == 0)
 			return p.isEdgyPoint() && getSpace(p).respectAllRestrictions(die);
 		else
-			return this.isThereSomeDieAdjacent(p) &&
+			return (this.isThereSomeDieAdjacent(p) &&
 					p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
                             .noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
                                     this.getSpace(point).getDie().getValue()==die.getValue()) &&
-					getSpace(p).respectAllRestrictions(die) && !getSpace(p).hasDie();
+					getSpace(p).respectAllRestrictions(die) )&& !getSpace(p).hasDie();
 
 
 	}
@@ -141,16 +141,16 @@ public class WindowPattern implements Serializable {
 				return p.isEdgyPoint();
 		} else
 			if (getSpace(p).isValueRestricted())
-				return this.isThereSomeDieAdjacent(p) &&
+				return (this.isThereSomeDieAdjacent(p) &&
 						p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
 								.noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
 										this.getSpace(point).getDie().getValue()==die.getValue()) &&
-						getSpace(p).getValueRestriction() == die.getValue() && !getSpace(p).hasDie();
+						getSpace(p).getValueRestriction() == die.getValue()) && !getSpace(p).hasDie();
 			else
-				return this.isThereSomeDieAdjacent(p) &&
+				return (this.isThereSomeDieAdjacent(p) &&
 						p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
 								.noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
-										this.getSpace(point).getDie().getValue()==die.getValue()) && !getSpace(p).hasDie();
+										this.getSpace(point).getDie().getValue()==die.getValue())) && !getSpace(p).hasDie();
 
 	}
 
@@ -171,16 +171,16 @@ public class WindowPattern implements Serializable {
 				return p.isEdgyPoint();
 		} else
 		if (getSpace(p).isColorRestricted())
-			return this.isThereSomeDieAdjacent(p) &&
+			return (this.isThereSomeDieAdjacent(p) &&
 					p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
 							.noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
 									this.getSpace(point).getDie().getValue()==die.getValue()) &&
-					getSpace(p).getColorRestriction() == die.getColor() && !getSpace(p).hasDie();
+					getSpace(p).getColorRestriction() == die.getColor()) && !getSpace(p).hasDie();
 		else
-			return this.isThereSomeDieAdjacent(p) &&
+			return (this.isThereSomeDieAdjacent(p) &&
 					p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
 							.noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
-									this.getSpace(point).getDie().getValue()==die.getValue()) && !getSpace(p).hasDie();
+									this.getSpace(point).getDie().getValue()==die.getValue())) && !getSpace(p).hasDie();
 
 	}
 
@@ -249,7 +249,7 @@ public class WindowPattern implements Serializable {
 	 */
 	public void placeDieIgnoreColor(Die die, Point p) throws PlacementException {
 
-		if(isPlaceable(die, p))
+		if(isPlaceableIgnoreColor(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreColor(die);
 		else
 			throw new PlacementException("die not placeable due to window restrictions");
@@ -268,7 +268,7 @@ public class WindowPattern implements Serializable {
 
 		Point p = new Point(x, y);
 
-		if(isPlaceable(die, p))
+		if(isPlaceableIgnoreColor(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreColor(die);
 		else
 			throw new PlacementException("die not placeable due to window restrictions");
@@ -282,7 +282,7 @@ public class WindowPattern implements Serializable {
 	 */
 	public void placeDieIgnoreValue(Die die, Point p) throws PlacementException {
 
-		if(isPlaceable(die, p))
+		if(isPlaceableIgnoreValue(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreValue(die);
 		else
 			throw new PlacementException("die not placeable due to window restrictions");
@@ -302,7 +302,7 @@ public class WindowPattern implements Serializable {
 
 
 
-		if(isPlaceable(die, p))
+		if(isPlaceableIgnoreValue(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreValue(die);
 		else
 			throw new PlacementException("die not placeable due to window restrictions");
@@ -316,27 +316,11 @@ public class WindowPattern implements Serializable {
 	 * @throws PlacementException if the die can not be placed.
 	 */
 	public void plaaceDieIgnoreAdjacent(Die die, Point p) throws PlacementException {
-		if(!isThereSomeDieAdjacent(p)) {
+		if(isPlaceableNoAdjacent(die, p)) {
 			spaces[p.getX()][p.getY()].placeDie(die);
 		} else {
 			throw new PlacementException("die not placeable because there's a die in adjacent position.");
 		}
-	}
-
-	/**
-	 * Place the first die of the window pattern. It can be positioned only in a border space.
-	 * @param die the die that have to be placed.
-	 * @param p the coordinates of the space.
-	 * @throws PlacementException if the die can not be placed.
-	 * */
-	public void placFirstDie(Die die, Point p) throws PlacementException {
-		Space space = spaces[p.getX()][p.getY()];
-		if(p.isEdgyPoint() && space.respectAllRestrictions(die))
-			space.placeDie(die);
-		else
-			throw new PlacementException("die not placeable due to window restrictions");
-
-
 	}
 
 

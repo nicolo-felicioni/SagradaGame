@@ -106,7 +106,11 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
         if(timer != null) {
             this.timer.disable();
         }
-        if(this.countUniqueIdentifier() >= MIN_PLAYER) {
+        if(this.countUniqueIdentifier() == MAX_PLAYER) {
+            List<String> playerIds = new ArrayList<>();
+            playerSessions.stream().map(SessionInterface::getUID).distinct().forEach(id -> playerIds.add(id));
+            handle(new StartGameEvent(playerIds));
+        } else if(this.countUniqueIdentifier() >= MIN_PLAYER) {
             this.timer = new Timer(ServerConfiguration.GAME_ROOM_TIMER);
             new Thread(timer).start();
         }

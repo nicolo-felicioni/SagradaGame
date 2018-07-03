@@ -35,21 +35,27 @@ public class SwapDraftDieWithRoundTrackDieOption extends ComplexOption {
 
     @Override
     public int execute() {
-        List<Integer> choices = makeChoices();
+        if (cli.getRoundTrack().isEmpty()) {
+            Printer.print("Roundtrack empty!");
+            return -1;
+        } else {
 
-        if(!choices.isEmpty()){
+            List<Integer> choices = makeChoices();
 
-            try {
-                Die draftDie = cli.getDraftPool().getAllDice().get(choices.get(READ_DRAFT_DIE_CHOICE));
-                int round = choices.get(READ_ROUND_CHOICE);
-                Die roundDie = cli.getRoundTrack().getDice(round).get(choices.get(READ_ROUND_DIE_CHOICE));
-                cli.notifyObservers(new SwapDraftDieWithRoundTrackDieGameEvent(draftDie, roundDie, round, cli.getPlayer().getId()));
+            if (!choices.isEmpty()) {
 
-            } catch (NotValidRoundException e) {
-                return ERROR_CODE;
+                try {
+                    Die draftDie = cli.getDraftPool().getAllDice().get(choices.get(READ_DRAFT_DIE_CHOICE));
+                    int round = choices.get(READ_ROUND_CHOICE);
+                    Die roundDie = cli.getRoundTrack().getDice(round).get(choices.get(READ_ROUND_DIE_CHOICE));
+                    cli.notifyObservers(new SwapDraftDieWithRoundTrackDieGameEvent(draftDie, roundDie, round, cli.getPlayer().getId()));
+
+                } catch (NotValidRoundException e) {
+                    return ERROR_CODE;
+                }
             }
+            return 0;
         }
-        return 0;
     }
 
     @Override
@@ -62,13 +68,12 @@ public class SwapDraftDieWithRoundTrackDieOption extends ComplexOption {
         while (i >= 0 && i < subOptions.size()) {
             choice = subOptions.get(i).execute();
             if (choice == EXIT_CODE) { //go back
-                if(!choiceList.isEmpty())
-                    choiceList.remove(i-1);
+                if (!choiceList.isEmpty())
+                    choiceList.remove(i - 1);
                 i--;
-            }
-            else {
+            } else {
                 choiceList.add(i, choice);
-                if(i == READ_ROUND_CHOICE){
+                if (i == READ_ROUND_CHOICE) {
                     round = choice;
                     subOptions.add(i + 1, new ReadRoundTrackDieOption(cli, round));
                 }
@@ -76,5 +81,6 @@ public class SwapDraftDieWithRoundTrackDieOption extends ComplexOption {
 
             }
         }
-        return choiceList;    }
+        return choiceList;
+    }
 }

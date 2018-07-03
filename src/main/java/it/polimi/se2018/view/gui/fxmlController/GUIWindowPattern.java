@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 
 import java.io.IOException;
@@ -93,7 +94,6 @@ public class GUIWindowPattern extends GridPane{
      * @param window the window pattern.
      */
     public void setWindowPattern(WindowPattern window) {
-        System.out.println(this);
         this.windowPattern.getChildren().clear();
         this.window = window.cloneWindowPattern();
         Space[][] spaces = this.window.getAllSpaces();
@@ -111,6 +111,14 @@ public class GUIWindowPattern extends GridPane{
             }
         }
         this.name.setText(window.getName().toUpperCase());
+        this.difficulty.getChildren().clear();
+        for (int i = 0; i < window.getDifficulty(); i++) {
+            Pane circle = new Pane();
+            circle.getStyleClass().add("diff-circle");
+            GridPane.setHgrow(circle, Priority.ALWAYS);
+            GridPane.setVgrow(circle, Priority.ALWAYS);
+            this.difficulty.add(circle, i , 0);
+        }
         this.setVisible(true);
     }
 
@@ -133,6 +141,14 @@ public class GUIWindowPattern extends GridPane{
             }
         }
         this.name.setText(window.getName().toUpperCase());
+        this.difficulty.getChildren().clear();
+        for (int i = 0; i < window.getDifficulty(); i++) {
+            Pane circle = new Pane();
+            circle.getStyleClass().add("diff-circle");
+            GridPane.setHgrow(circle, Priority.ALWAYS);
+            GridPane.setVgrow(circle, Priority.ALWAYS);
+            this.difficulty.add(circle, i , 0);
+        }
     }
 
     public void highlightPlaceableIgnoreColorSpaces(Die die) {
@@ -154,6 +170,14 @@ public class GUIWindowPattern extends GridPane{
             }
         }
         this.name.setText(window.getName().toUpperCase());
+        this.difficulty.getChildren().clear();
+        for (int i = 0; i < window.getDifficulty(); i++) {
+            Pane circle = new Pane();
+            circle.getStyleClass().add("diff-circle");
+            GridPane.setHgrow(circle, Priority.ALWAYS);
+            GridPane.setVgrow(circle, Priority.ALWAYS);
+            this.difficulty.add(circle, i , 0);
+        }
     }
 
     public void highlightPlaceableIgnoreValueSpaces(Die die) {
@@ -175,6 +199,14 @@ public class GUIWindowPattern extends GridPane{
             }
         }
         this.name.setText(window.getName().toUpperCase());
+        this.difficulty.getChildren().clear();
+        for (int i = 0; i < window.getDifficulty(); i++) {
+            Pane circle = new Pane();
+            circle.getStyleClass().add("diff-circle");
+            GridPane.setHgrow(circle, Priority.ALWAYS);
+            GridPane.setVgrow(circle, Priority.ALWAYS);
+            this.difficulty.add(circle, i , 0);
+        }
     }
 
     public void highlightDiceMatchColors(List<DieColor> colors) {
@@ -197,6 +229,14 @@ public class GUIWindowPattern extends GridPane{
             }
         }
         this.name.setText(window.getName().toUpperCase());
+        this.difficulty.getChildren().clear();
+        for (int i = 0; i < window.getDifficulty(); i++) {
+            Pane circle = new Pane();
+            circle.getStyleClass().add("diff-circle");
+            GridPane.setHgrow(circle, Priority.ALWAYS);
+            GridPane.setVgrow(circle, Priority.ALWAYS);
+            this.difficulty.add(circle, i , 0);
+        }
     }
 
     public void highlightPlaceableNoAdjacentSpaces(Die die) {
@@ -218,6 +258,14 @@ public class GUIWindowPattern extends GridPane{
             }
         }
         this.name.setText(window.getName().toUpperCase());
+        this.difficulty.getChildren().clear();
+        for (int i = 0; i < window.getDifficulty(); i++) {
+            Pane circle = new Pane();
+            circle.getStyleClass().add("diff-circle");
+            GridPane.setHgrow(circle, Priority.ALWAYS);
+            GridPane.setVgrow(circle, Priority.ALWAYS);
+            this.difficulty.add(circle, i , 0);
+        }
     }
 
     /**
@@ -225,7 +273,10 @@ public class GUIWindowPattern extends GridPane{
      * @return the window pattern.
      */
     public WindowPattern getWindowPattern() {
-        return window.cloneWindowPattern();
+        if(window != null)
+            return window.cloneWindowPattern();
+        else
+            return null;
     }
 
     /**
@@ -271,11 +322,14 @@ public class GUIWindowPattern extends GridPane{
      * Refresh grafically.
      */
     public void refresh() {
-        this.windowPattern.getStyleClass().remove(0, this.windowPattern.getStyleClass().size());
+        this.windowPattern.getStyleClass().clear();
+        this.name.getStyleClass().clear();
         if(selected) {
             this.windowPattern.getStyleClass().add("window-pattern-selected");
+            this.name.getStyleClass().add("window-pattern-name-selected");
         }else{
             this.windowPattern.getStyleClass().add("window-pattern");
+            this.name.getStyleClass().add("window-pattern-name");
         }
     }
 

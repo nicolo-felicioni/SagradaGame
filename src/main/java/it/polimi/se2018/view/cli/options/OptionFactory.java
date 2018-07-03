@@ -1,5 +1,6 @@
 package it.polimi.se2018.view.cli.options;
 
+import it.polimi.se2018.model.Die;
 import it.polimi.se2018.model.PlayerState;
 import it.polimi.se2018.model.ToolCard;
 import it.polimi.se2018.view.cli.CommandLineInterface;
@@ -84,6 +85,11 @@ public class OptionFactory {
        return options;
     }
 
+    public static void addReturnDieAndGetNewOptions(List<Option> options, CommandLineInterface cli, Die draftedDie){
+        options.add(new ChooseDraftedDieValueOption(cli, draftedDie));
+        options.add(new ReadXOption(cli));
+        options.add(new ReadYOption(cli));
+    }
 
 
 
@@ -108,11 +114,13 @@ public class OptionFactory {
             if(card.flipDraftedDie())
                 options.add(new FlipDraftedDieOption(cli));
             if(card.placeDraftedDieNoAdjacent())
-                options.add(new PlaceDraftedDieNoAdjacentOption(cli));
+                options.add(new PlaceDieNoAdjacentOption(cli));
             if(card.moveADie())
                 options.add(new MoveADieOption(cli));
             if(card.moveTwoDiceMatchColorOnRoundTrack())
                 options.add(new MoveDieMatchColorOnRoundTrackOption(cli));
+            if(card.returnDieAndGetNewFromDiceBag())
+                options.add(new ReturnDieAndGetNewOption(cli));
         }
 
     }

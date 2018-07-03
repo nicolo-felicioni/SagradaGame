@@ -50,4 +50,5 @@ public class RMIServer implements RMIServerInterface {
 		UnicastRemoteObject.exportObject(session, ServerConfiguration.RMI_SERVER_PORT);
 		return session;
 	}
+
 }
