@@ -41,8 +41,12 @@
 .windowPatternSpaces{
 
 }
+.window-pattern-background{
+    -fx-background-color:#636e72;
+}
 .window-pattern {
     -fx-background-color: #636e72;
+    -fx-padding: 30px 0px 30px 0px;
 }
 
 .window-pattern-selected {
