@@ -71,7 +71,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 			if(toolCard.chooseNewDieValue()) {
 				toolCard.consumeEffect();
 				draftPool.removeDie(event.getDraftedDie());
-				draftPool.addDie(event.getDraftedDie().cloneDie());
+				draftPool.addDie(new Die(event.getDraftedDie().getColor(), event.getValue()));
 				model.setDraftPool(draftPool.cloneDraftPool());
 				model.setToolCard(toolCard.cloneToolCard());
 			}
@@ -333,11 +333,15 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 			if(toolCard.moveTwoDiceMatchColorOnRoundTrack()) {
 				toolCard.consumeEffect();
 				Die die = windowPattern.getSpace(event.getInitialPosition()).getDie();
-				if(model.getRoundTrack().getAllDice().stream().anyMatch(d -> d.getColor().equals(die.getColor()))) {
-					windowPattern.removeDie(event.getInitialPosition());
-					windowPattern.placeDie(die, event.getFinalPosition());
-					model.setToolCard(toolCard);
-					model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
+				if(die == null)
+					this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), "There's no die here."));
+				else{
+					if(model.getRoundTrack().getAllDice().stream().anyMatch(d -> d.getColor().equals(die.getColor()))) {
+						windowPattern.removeDie(event.getInitialPosition());
+						windowPattern.placeDie(die, event.getFinalPosition());
+						model.setToolCard(toolCard);
+						model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
+					}
 				}
 			}else
 				this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), TOOL_CARD_CONDITION_ERROR_MESSAGE));
@@ -361,10 +365,14 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 			if(toolCard.moveADie()) {
 				toolCard.consumeEffect();
 				Die die = windowPattern.getSpace(event.getInitialPosition()).getDie();
-				windowPattern.removeDie(event.getInitialPosition());
-				windowPattern.placeDie(die, event.getFinalPosition());
-				model.setToolCard(toolCard);
-				model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
+				if(die == null)
+					this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), "There's no die here."));
+				else{
+					windowPattern.removeDie(event.getInitialPosition());
+					windowPattern.placeDie(die, event.getFinalPosition());
+					model.setToolCard(toolCard);
+					model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
+				}
 			}else
 				this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), TOOL_CARD_CONDITION_ERROR_MESSAGE));
 		} catch (GameException e) {
@@ -447,7 +455,9 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 				toolCard.consumeEffect();
 				draftPool.removeDie(event.getDraftedDie());
 				diceBag.addDie((event.getDraftedDie().cloneDie()));
-				draftPool.addDie(diceBag.drawDie().cloneDie());
+				Die diceBagDie = diceBag.drawDie().cloneDie();
+				draftPool.setDraftedDie(diceBagDie.cloneDie());
+				draftPool.addDie(diceBagDie.cloneDie());
 				model.setToolCard(toolCard.cloneToolCard());
 				model.setDraftPool(draftPool.cloneDraftPool());
 				model.setDiceBag(diceBag.cloneDiceBag());

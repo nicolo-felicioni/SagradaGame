@@ -6,8 +6,8 @@ import it.polimi.se2018.view.cli.CommandLineInterface;
 import it.polimi.se2018.view.cli.Printer;
 
 public class ReadXOption extends SimpleOption {
-    final static String READ_X_MESSAGE = "Enter the first coordinate of the space in which you want to place the die."
-            + "\nEnter " + EXIT_CODE + "for go back.";
+    final static String READ_X_MESSAGE = "Enter the first coordinate of the space."
+            + "\nEnter " + EXIT_CODE + " for go back.";
     final static String INFO = "Coordinates starts from 0.";
     final static String WRONG_CHOICE_MESSAGE = "Wrong coordinate.";
 

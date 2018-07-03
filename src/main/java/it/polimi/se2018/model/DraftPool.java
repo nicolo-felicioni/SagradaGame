@@ -12,6 +12,11 @@ public class DraftPool implements Serializable {
 
     private List<Die> draftPool;
 
+
+    private Die draftedDie;
+
+
+
     /**
      * Empty Constructor
      */
@@ -19,12 +24,16 @@ public class DraftPool implements Serializable {
         draftPool = new ArrayList<>();
     }
 
+
+
     /**
      * Copy Constructor
      * @param draftPool
      */
     public DraftPool(DraftPool draftPool){
         this.draftPool= new ArrayList<>(draftPool.getAllDice());
+        if(draftPool.draftedDie != null)
+            this.draftedDie = new Die(draftPool.draftedDie);
     }
 
     /**
@@ -107,11 +116,23 @@ public class DraftPool implements Serializable {
         return new DraftPool(this);
     }
 
+    public synchronized Die getDraftedDie() {
+        if(this.draftedDie == null)
+            return null;
+        else
+            return draftedDie.cloneDie();
+    }
+
+    public synchronized void setDraftedDie(Die draftedDie) {
+        this.draftedDie = draftedDie.cloneDie();
+    }
+
+
     /**
      * Roll every dice in the draft pool.
      */
     public void rollAllDice() {
-        this.draftPool.forEach(d -> d.roll());
+        this.draftPool.forEach(Die::roll);
     }
 
 }

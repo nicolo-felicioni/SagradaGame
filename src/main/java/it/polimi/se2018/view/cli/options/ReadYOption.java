@@ -6,7 +6,7 @@ import it.polimi.se2018.view.cli.Printer;
 
 public class ReadYOption extends SimpleOption {
     private static final String READ_Y_MESSAGE = "Enter the second coordinate."
-            + "\nEnter " + EXIT_CODE + "for go back.";
+            + "\nEnter " + EXIT_CODE + " for go back.";
     private static final String WRONG_CHOICE_MESSAGE = "Wrong coordinate.";
 
     public ReadYOption(CommandLineInterface cli) {

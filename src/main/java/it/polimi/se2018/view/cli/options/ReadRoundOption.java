@@ -30,7 +30,7 @@ public class ReadRoundOption extends SimpleOption {
             Printer.print(roundTrack);
 
             choice = cli.getKeyboard().readInt();
-            if ((choice <= 0 && choice != EXIT_CODE) || choice > roundTrack.SIZE) { //if the choice isn't in the range
+            if ((choice <= 0 && choice != EXIT_CODE) || choice > RoundTrack.SIZE) { //if the choice isn't in the range
                 Printer.println(WRONG_CHOICE_MESSAGE);
                 validChoice = false;
             } else
