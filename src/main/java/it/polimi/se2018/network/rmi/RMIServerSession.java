@@ -2,6 +2,7 @@ package it.polimi.se2018.network.rmi;
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.event.game.*;
+import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.network.server.SessionInterface;
 import it.polimi.se2018.observable.game.GameEventObservableImpl;
 
@@ -31,6 +32,14 @@ public class RMIServerSession extends GameEventObservableImpl implements Session
 	public RMIServerSession(String uid) {
 		this.clientInterfaces = new ArrayList<>();
 		this.uid = uid;
+	}
+
+	/**
+	 * Disconnect a client.
+	 */
+	@Override
+	public synchronized void disconnect(RMIClientInterface client) {
+		this.clientInterfaces.remove(client);
 	}
 
 	/**

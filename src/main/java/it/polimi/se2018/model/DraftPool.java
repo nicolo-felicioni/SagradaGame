@@ -90,7 +90,7 @@ public class DraftPool implements Serializable {
                return;
            }
        }
-       throw new NotValidDieException(die + "isn't in the dice bag");
+       throw new NotValidDieException(die + "isn't in the draft pool.");
     }
 
     /**

@@ -56,12 +56,18 @@
     -fx-padding : 0.5em;
     -fx-background-color:#636e72;
 }
+
 .window-pattern-difficulty{
     -fx-background-color:#636e72;
 }
+
 .window-pattern-margin{
     -fx-padding:15;
     -fx-background-color:#2d3436;
+}
+
+.diff-circle {
+    -fx-background-image: url("../images/token.png");
 }
 <!------------------FINE WINDOWS PATTERN-------------------------------------------------------------------------------------------------------
 

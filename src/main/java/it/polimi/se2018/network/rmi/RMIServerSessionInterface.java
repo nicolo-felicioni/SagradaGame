@@ -1,6 +1,7 @@
 package it.polimi.se2018.network.rmi;
 
 import it.polimi.se2018.event.game.*;
+import it.polimi.se2018.network.client.ClientInterface;
 
 import java.io.Serializable;
 import java.rmi.Remote;
@@ -10,6 +11,12 @@ import java.rmi.RemoteException;
  * @author Davide Yi Xian Hu
  */
 public interface RMIServerSessionInterface extends Remote, Serializable {
+
+    /**
+     * Disconnect a client.
+     */
+    void disconnect(RMIClientInterface client) throws RemoteException;
+
     /**
      * Handle a ChooseDraftDieValueEvent.
      *

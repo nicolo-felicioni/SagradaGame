@@ -70,6 +70,23 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 	}
 
 	/**
+	 * Disconnect the client.
+	 *
+	 * @throws NetworkException if the client can not connect to the server.
+	 */
+	@Override
+	public synchronized void disconnect() throws NetworkException {
+		for(RMIServerSessionInterface session : sessions) {
+			try {
+				session.disconnect(this);
+			} catch (RemoteException e) {
+				throw new NetworkException("Disconnection failed");
+			}
+		}
+
+	}
+
+	/**
 	 * Connect to the RMI server.
 	 *
 	 * @param uid the unique identifier of the user.

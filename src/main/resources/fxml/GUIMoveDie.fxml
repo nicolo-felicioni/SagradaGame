@@ -61,7 +61,6 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
     </rowConstraints>
 
     <GridPane GridPane.columnIndex="1" GridPane.columnSpan="10" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.rowSpan="27" GridPane.vgrow="ALWAYS">

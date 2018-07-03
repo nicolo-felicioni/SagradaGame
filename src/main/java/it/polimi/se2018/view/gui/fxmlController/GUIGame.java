@@ -396,7 +396,7 @@ public class GUIGame {
 
 
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUISwapDieRoundTrackDraftPool.fxml"));
-            guiSwapDieRoundTrackDraftPoolScene = new Scene(loader.load(), 720, 160);
+            guiSwapDieRoundTrackDraftPoolScene = new Scene(loader.load(), 500, 430);
             guiSwapDieRoundTrackDraftPoolScene.getStylesheets().add("css/style.css");
             guiSwapDieRoundTrackDraftPool = loader.getController();
 
@@ -407,12 +407,12 @@ public class GUIGame {
 
 
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIDraftPlaceAgain.fxml"));
-            guiDraftPlaceAgainScene = new Scene(loader.load(), 720, 160);
+            guiDraftPlaceAgainScene = new Scene(loader.load(), 360, 480);
             guiDraftPlaceAgainScene.getStylesheets().add("css/style.css");
             guiDraftPlaceAgain = loader.getController();
 
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIPlaceNoAdjacent.fxml"));
-            guiPlaceNoAdjacentScene = new Scene(loader.load(), 720, 160);
+            guiPlaceNoAdjacentScene = new Scene(loader.load(), 360, 480);
             guiPlaceNoAdjacentScene.getStylesheets().add("css/style.css");
             guiPlaceNoAdjacent = loader.getController();
 

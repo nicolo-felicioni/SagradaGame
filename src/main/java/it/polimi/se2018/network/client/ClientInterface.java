@@ -20,6 +20,13 @@ public interface ClientInterface extends GameEventObserver, ViewUpdaterObserver 
 	 */
 	void connect (String address, int port) throws NetworkException, NotBoundException;
 
+
+	/**
+	 * Disconnect the client.
+	 * @throws NetworkException if the client can not connect to the server.
+	 */
+	void disconnect () throws NetworkException;
+
 	/**
 	 * Login a client to the server.
 	 *
