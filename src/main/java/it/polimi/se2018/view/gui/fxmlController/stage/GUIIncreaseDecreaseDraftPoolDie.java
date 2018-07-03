@@ -1,46 +1,19 @@
-package it.polimi.se2018.view.gui.fxmlController;
+package it.polimi.se2018.view.gui.fxmlController.stage;
 
 import it.polimi.se2018.event.game.DecreaseDieValueGameEvent;
 import it.polimi.se2018.event.game.IncreaseDieValueGameEvent;
 import it.polimi.se2018.model.DraftPool;
 import it.polimi.se2018.observer.game.GameEventObserver;
+import it.polimi.se2018.view.gui.fxmlController.GUIDraftPool;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 
 
-public class GUIIncreaseDecreaseDraftPoolDie {
-
-    /**
-     * Player identifier.
-     */
-    private String playerId;
-
-    /**
-     * Game event observers.
-     */
-    private GameEventObserver observer;
+public class GUIIncreaseDecreaseDraftPoolDie extends GUIStage{
 
     @FXML
     GUIDraftPool draftPool;
-
-    /**
-     * Set the observer.
-     * @param observer the observer.
-     */
-    public void setObserver(GameEventObserver observer) {
-        this.observer = observer;
-    }
-
-
-    /**
-     * Set the player identifier;
-     * @param playerId the player identifer.
-     */
-    public void setPlayerId(String playerId) {
-        this.playerId = playerId;
-    }
-
 
     /**
      * Set the draft pool.
@@ -54,6 +27,7 @@ public class GUIIncreaseDecreaseDraftPoolDie {
     private void increaseDie(MouseEvent event) {
         if(draftPool.getSelectedDie() != null) {
             this.observer.handle(new IncreaseDieValueGameEvent(draftPool.getSelectedDie(), playerId));
+            container.close();
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Die not selected error");
@@ -67,6 +41,7 @@ public class GUIIncreaseDecreaseDraftPoolDie {
     private void decreaseDie(MouseEvent event) {
         if(draftPool.getSelectedDie() != null) {
             this.observer.handle(new DecreaseDieValueGameEvent(draftPool.getSelectedDie(), playerId));
+            container.close();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Die not selected error");

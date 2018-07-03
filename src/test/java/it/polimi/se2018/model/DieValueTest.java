@@ -18,4 +18,15 @@ public class DieValueTest {
         assertNull(DieValue.fromInt(7));
 
     }
+
+    @Test
+    public void oppositeValue(){
+        assertTrue(DieValue.ONE == DieValue.SIX.oppositeValue());
+        assertTrue(DieValue.TWO == DieValue.FIVE.oppositeValue());
+        assertTrue(DieValue.THREE == DieValue.FOUR.oppositeValue());
+        assertTrue(DieValue.FOUR == DieValue.THREE.oppositeValue());
+        assertTrue(DieValue.FIVE == DieValue.TWO.oppositeValue());
+        assertTrue(DieValue.SIX == DieValue.ONE.oppositeValue());
+        assertFalse(DieValue.ONE == DieValue.ONE.oppositeValue());
+    }
 }

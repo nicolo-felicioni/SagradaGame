@@ -57,7 +57,7 @@
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
                     </rowConstraints>
-                    <Label text="ACTIVATE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                    <Label text="USE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                     </Label>
                 </GridPane>
             </children>

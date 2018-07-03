@@ -93,7 +93,6 @@ public class GUIWindowPattern extends GridPane{
      * @param window the window pattern.
      */
     public void setWindowPattern(WindowPattern window) {
-        System.out.println(this);
         this.windowPattern.getChildren().clear();
         this.window = window.cloneWindowPattern();
         Space[][] spaces = this.window.getAllSpaces();
@@ -271,11 +270,14 @@ public class GUIWindowPattern extends GridPane{
      * Refresh grafically.
      */
     public void refresh() {
-        this.windowPattern.getStyleClass().remove(0, this.windowPattern.getStyleClass().size());
+        this.windowPattern.getStyleClass().clear();
+        this.name.getStyleClass().clear();
         if(selected) {
             this.windowPattern.getStyleClass().add("window-pattern-selected");
+            this.name.getStyleClass().add("window-pattern-name-selected");
         }else{
             this.windowPattern.getStyleClass().add("window-pattern");
+            this.name.getStyleClass().add("window-pattern-name");
         }
     }
 

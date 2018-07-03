@@ -504,6 +504,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 				player.spendToken(toolCard.cost());
 				toolCard.activate();
 				state.useTool();
+				model.setPlayer(player);
 				model.changePlayerStateTo(player.getId(), state);
 				model.setToolCard(toolCard.cloneToolCard(), event.getPositionOfToolCard());
 			}else{
@@ -513,7 +514,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 					this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), "You can't use a tool card"));
 			}
 
-		} catch (NotValidIdException | GameMoveException e) {
+		} catch (NotValidIdException | GameMoveException | NotPresentPlayerException e) {
 			this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
 		}
 	}
@@ -682,7 +683,12 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 					endRound();
 					initRound();
 				}
-			} catch (NotValidIdException  e) {
+				ToolCard toolCard = model.getActiveToolCard();
+				if (toolCard != null) {
+					toolCard.endActivation();
+					model.setToolCard(toolCard);
+				}
+			} catch (NotValidIdException | ToolCardStateException e) {
 				this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
 			}
 		}else{
@@ -727,14 +733,9 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
 			DraftPool draftPool = new DraftPool();
 			DiceBag diceBag = model.getDiceBag();
 			draftPool.addDice(diceBag.drawDice(model.getPlayers().size() * 2 + 1));
-			ToolCard toolCard = model.getActiveToolCard();
-			if (toolCard != null) {
-				toolCard.endActivation();
-				model.setToolCard(toolCard);
-			}
 			model.setDraftPool(draftPool);
 			model.setDiceBag(diceBag);
-		} catch (DiceBagException | ToolCardStateException e) {
+		} catch (DiceBagException e) {
 			this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
 		}
 	}

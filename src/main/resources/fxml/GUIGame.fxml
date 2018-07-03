@@ -173,7 +173,7 @@
 
     </rowConstraints>
     <children>
-        <GUIDraftPool fx:id="draftpool" onMouseClicked="#handleDraftPoolClicked" GridPane.columnIndex="4" GridPane.columnSpan="54" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.rowSpan="8" GridPane.vgrow="ALWAYS" />
+        <GUIDraftPool fx:id="draftpool" onMouseClicked="#handleDraftPoolClicked" GridPane.columnIndex="4" GridPane.columnSpan="45" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.rowSpan="7" GridPane.vgrow="ALWAYS" />
         <GUIRoundTrack fx:id="roundtrack" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="300.0" styleClass="roundtrack" GridPane.columnIndex="62" GridPane.columnSpan="30" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.rowSpan="8" GridPane.vgrow="ALWAYS" />
         <GUIWindowPattern fx:id="windowpattern" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleWindowPatternClicked" prefHeight="360.0" prefWidth="240.0" styleClass="window-pattern" GridPane.columnIndex="20" GridPane.columnSpan="24" GridPane.hgrow="ALWAYS" GridPane.rowIndex="14" GridPane.rowSpan="36" GridPane.vgrow="ALWAYS" />
         <GUIToolCard fx:id="toolcardLeft" minHeight="-Infinity" minWidth="-Infinity" prefHeight="170.0" prefWidth="120.0" styleClass="toolcard" GridPane.columnIndex="48" GridPane.columnSpan="12" GridPane.hgrow="ALWAYS" GridPane.rowIndex="14" GridPane.rowSpan="17" GridPane.vgrow="ALWAYS" />

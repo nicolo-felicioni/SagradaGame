@@ -37,7 +37,7 @@
     -fx-text-fill:#dfe6e9;
     -fx-font-size:0.9em;
 }
-/*--------------------------------wINDOW PATTERN----------------------------------------------------------------------*/
+<!--------------------------------wINDOW PATTERN------------------------------------------------------------------------------>
 .windowPatternSpaces{
 
 }
@@ -63,7 +63,7 @@
     -fx-padding:15;
     -fx-background-color:#2d3436;
 }
-/*------------------FINE WINDOWS PATTERN--------------------------------------------------------*/
+<!------------------FINE WINDOWS PATTERN-------------------------------------------------------------------------------------------------------
 
 
 
@@ -399,11 +399,22 @@
     -fx-background-color: #e67e22;
 }
 
+.button {
+    -fx-border-width : 5px;
+    -fx-border-color : #0984e3;
+    -fx-background-color: #74b9ff;
+}
+
+.button-decrease-die Label{
+    -fx-text-fill: #2d3436;
+    -fx-font-weight : bold;
+    -fx-font-size : 1.1em;
+}
+
 .button-decrease-die Label{
     -fx-text-fill: #ecf0f1;
     -fx-font-weight : bold;
     -fx-font-size : 1.1em;
-    -fx-padding : 0.5em;
 }
 
 .button-increase-die {
@@ -416,43 +427,27 @@
     -fx-text-fill: #ecf0f1;
     -fx-font-weight : bold;
     -fx-font-size : 1.1em;
-    -fx-padding : 0.5em;
-}
-
-.margin-5-pc {
-    -fx-padding : 15;
 }
 
 Label{
     -fx-font-weight : bold;
-    -fx-font-size : 1.1em;
+    -fx-font-size : 1em;
 }
-/*------------------------INFOBOX-------------------------------------------------------------------------------->*/
+<!------------------------INFOBOX-------------------------------------------------------------------------------->
 .info-box {
-    -fx-border-width:5px;
+    -fx-border-width:2px;
 }
-.info-box Label{
-    -fx-font-weight:bold;
-    -fx-font-size: 1.1em;
-}
+
 .info-box GridPane{
     -fx-background-color:#dfe6e9;
 }
-.button-info-box-active{
-    -fx-border-width : 5px;
-    -fx-border-color : #27ae60;
-    -fx-background-color: #2ecc71;
-}
-.button-info-box-notactive{
-    -fx-border-width:5px;
-    -fx-border-color:#d63031;
-    -fx-background-color:#ff7675;
-}
+
 .info-box-darklabel{
+    -fx-padding : 0 2 0 0;
     -fx-background-color:#636e72;
-    -fx-padding:5px;
 }
 .info-box-darklabel Label{
+    -fx-padding : 0 0 0 2;
     -fx-text-fill:#dfe6e9;
 }
 .info-box-lightlabel{
@@ -461,7 +456,71 @@ Label{
 .info-box-lightlabel Lable{
     -fx-text-fill:#2d3436;
 }
-/*------------------------FINE INFOBOX------------------------------------------------------------------------------->*/
+<!------------------------FINE INFOBOX-------------------------------------------------------------------------------->
+
+
+GUIToolCard .foreground {
+    -fx-background-color : rgba(99, 110, 114, 0.8)
+}
+
+GUIToolCard .foreground GridPane{
+    -fx-border-width:5px;
+    -fx-border-color : rgba(45, 52, 54,1.0);
+    -fx-background-color : rgba(99, 110, 114,1.0);
+}
+
+GUIPrivateObjectiveCard {
+    -fx-background-image: url("../images/publiccard/shadevariety.jpg");
+}
+
+GUIPrivateObjectiveCard .foreground GridPane{
+    -fx-border-width:5px;
+    -fx-border-color : rgba(45, 52, 54,1.0);
+    -fx-background-color : rgba(99, 110, 114,1.0);
+}
+
+#placeDieState {
+    -fx-border-width : 2px;
+}
+
+#placeDieState.ok {
+    -fx-border-color : #27ae60;
+    -fx-background-color: #2ecc71;
+
+}
+
+#placeDieState.ko {
+    -fx-border-color:#d63031;
+    -fx-background-color:#ff7675;
+}
+
+#endTurnState {
+    -fx-border-width : 2px;
+}
+
+#endTurnState.ok {
+    -fx-border-color : #27ae60;
+    -fx-background-color: #2ecc71;
+}
+
+#endTurnState.ko {
+    -fx-border-color:#d63031;
+    -fx-background-color:#ff7675;
+}
+
+#useToolState {
+    -fx-border-width : 2px;
+}
+
+#useToolState.ok {
+    -fx-border-color : #27ae60;
+    -fx-background-color: #2ecc71;
+}
+
+#useToolState.ko {
+    -fx-border-color:#d63031;
+    -fx-background-color:#ff7675;
+}
 /*-------------------------ROUND TRACK--------------------------------------------------------------------------------*/
 
 .round-track-secondary{

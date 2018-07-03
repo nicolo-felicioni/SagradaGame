@@ -12,12 +12,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Map;
+import java.util.*;
 
 public class GUIInfo extends GridPane {
 
@@ -69,6 +72,7 @@ public class GUIInfo extends GridPane {
         this.playerState = null;
         this.observer = null;
         this.playerId = null;
+        this.windowPatternMap = new HashMap<>();
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIInfo.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -80,6 +84,36 @@ public class GUIInfo extends GridPane {
                     if (playerState != null && playerState.canEndTurn() && observer != null) {
                         observer.handle(new EndTurnGameEvent(playerId));
                     }
+                }
+            });
+            showOpponent.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    Platform.runLater(
+                            () -> {
+                                    GridPane pane = new GridPane();
+                                    RowConstraints row = new RowConstraints();
+                                    row.setVgrow(Priority.ALWAYS);
+                                    pane.getRowConstraints().add(row);
+                                    List<String> keys = new ArrayList<String>(windowPatternMap.keySet());
+                                    for(int i = 0; i < keys.size(); i++) {
+                                        ColumnConstraints column = new ColumnConstraints();
+                                        column.setHgrow(Priority.ALWAYS);
+                                        pane.getColumnConstraints().add(column);
+                                        GUIWindowPattern guiWindowPattern = new GUIWindowPattern();
+                                        guiWindowPattern.setWindowPattern(windowPatternMap.get(keys.get(i)));
+                                        pane.add(guiWindowPattern, i, 0);
+                                    }
+                                    Scene scene = new Scene(pane, 300 * keys.size(), 390);
+                                    scene.getStylesheets().add("css/style.css");
+                                    Stage stage = new Stage();
+                                    stage.setScene(scene);
+                                    stage.initModality(Modality.APPLICATION_MODAL);
+                                    stage.setTitle("WINDOW PATTERNS");
+                                    stage.setResizable(false);
+                                    stage.show();
+                                }
+                    );
                 }
             });
         } catch (IOException exception)  {
@@ -112,28 +146,25 @@ public class GUIInfo extends GridPane {
      */
     public void setPlayerState(PlayerState playerState) {
         this.playerState = playerState.cloneState();
+        useToolState.getStyleClass().clear();
+        placeDieState.getStyleClass().clear();
+        endTurnState.getStyleClass().clear();
         if (playerState.canUseTool()) {
-            useToolState.getStyleClass().remove("ko");
             useToolState.getStyleClass().add("ok");
         } else {
             useToolState.getStyleClass().add("ko");
-            useToolState.getStyleClass().remove("ok");
         }
         if (playerState.canPlaceDie()) {
-            placeDieState.getStyleClass().remove("ko");
             placeDieState.getStyleClass().add("ok");
         } else {
             placeDieState.getStyleClass().add("ko");
-            placeDieState.getStyleClass().remove("ok");
         }
         if (playerState.canEndTurn()) {
-            endTurnState.getStyleClass().remove("ko");
             endTurnState.getStyleClass().add("ok");
         } else {
             endTurnState.getStyleClass().add("ko");
-            endTurnState.getStyleClass().remove("ok");
         }
-        this.state.setText(playerState.getClass().getSimpleName().toUpperCase());
+        this.state.setText(playerState.getClass().getSimpleName().toLowerCase());
     }
 
     /**
@@ -143,4 +174,15 @@ public class GUIInfo extends GridPane {
     public void setTokens(int tokens) {
         this.tokens.setText(Integer.toString(tokens));
     }
+
+
+    public void setWindowPattern(WindowPattern windowPattern, String playerId) {
+        if(this.windowPatternMap.containsKey(playerId)) {
+            this.windowPatternMap.remove(playerId);
+        }
+        this.windowPatternMap.put(playerId, windowPattern);
+    }
+
+
+
 }

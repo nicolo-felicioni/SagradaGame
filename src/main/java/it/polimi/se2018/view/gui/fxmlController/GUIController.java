@@ -45,7 +45,7 @@ public class GUIController extends Application implements GUIInterface{
 
     private GameEventObservableImpl observable;
 
-    private Stage primaryStage;
+    static Stage primaryStage;
 
     /**
      * The gui choose window pattern controller.
@@ -206,6 +206,8 @@ public class GUIController extends Application implements GUIInterface{
                     }
                     if (guiGameController != null && this.playerId.equals(playerId) && position == WindowPatternPosition.CHOSEN) {
                         guiGameController.setWindowpattern(windowPattern);
+                    } else if (guiGameController != null && position == WindowPatternPosition.CHOSEN) {
+                        guiGameController.setWindowpattern(windowPattern, playerId);
                     }
                 }
         );
@@ -493,6 +495,7 @@ public class GUIController extends Application implements GUIInterface{
      */
     private void showLoginScene() throws IOException{
 
+
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUILogin.fxml"));
         Parent root = loader.load();
         GUILogin controller = loader.getController();
@@ -575,6 +578,11 @@ public class GUIController extends Application implements GUIInterface{
         dice3.add(new Die(DieColor.RED, DieValue.FOUR));
         roundTrack.addDice(dice3);
         rt.setRoundTrack(roundTrack);
+        Scene scene = new Scene(rt, 720, 500);
+        scene.getStylesheets().add("css/style.css");
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(true);
+        primaryStage.show();
         */
 
         /*

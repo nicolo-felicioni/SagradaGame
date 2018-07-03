@@ -4,11 +4,13 @@ import it.polimi.se2018.event.game.DraftAndPlaceGameEvent;
 import it.polimi.se2018.event.game.RerollAllDraftDiceGameEvent;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.observer.game.GameEventObserver;
+import it.polimi.se2018.view.gui.fxmlController.stage.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -69,6 +71,43 @@ public class GUIGame {
     @FXML
     GUIInfo infobox;
 
+    private Scene guiIncreaseDecreaseDraftPoolDieScene;
+    private GUIIncreaseDecreaseDraftPoolDie guiIncreaseDecreaseDraftPoolDie;
+
+    private Scene guiMoveDieIgnoreColorScene;
+    private GUIMoveDieIgnoreColor guiMoveDieIgnoreColor;
+
+    private Scene guiMoveDieIgnoreValueScene;
+    private GUIMoveDieIgnoreValue guiMoveDieIgnoreValue;
+
+    private Scene guiMoveDieScene;
+    private GUIMoveDie guiMoveDie;
+
+    private Scene guiSwapDieRoundTrackDraftPoolScene;
+    private GUISwapDieRoundTrackDraftPool guiSwapDieRoundTrackDraftPool;
+
+    private Scene guiRollDieScene;
+    private GUIRollDie guiRollDie;
+
+    private Scene guiDraftPlaceAgainScene;
+    private GUIDraftPlaceAgain guiDraftPlaceAgain;
+
+    private Scene guiPlaceNoAdjacentScene;
+    private GUIPlaceNoAdjacent guiPlaceNoAdjacent;
+
+    private Scene guiFlipDieScene;
+    private GUIFlipDie guiFlipDie;
+
+    private Scene guiMoveDieMatchColorScene;
+    private GUIMoveDieMatchColor guiMoveDieMatchColor;
+
+    /**
+     * Constructor.
+     */
+    public GUIGame() {
+        initGUIStages();
+    }
+
     /**
      * Set the player identifier;
      * @param playerId the player identifer.
@@ -79,6 +118,17 @@ public class GUIGame {
         this.toolcardCenter.setPlayerId(playerId);
         this.toolcardRight.setPlayerId(playerId);
         this.infobox.setPlayerId(playerId);
+
+        this.guiDraftPlaceAgain.setPlayerId(playerId);
+        this.guiFlipDie.setPlayerId(playerId);
+        this.guiIncreaseDecreaseDraftPoolDie.setPlayerId(playerId);
+        this.guiMoveDie.setPlayerId(playerId);
+        this.guiMoveDieIgnoreColor.setPlayerId(playerId);
+        this.guiMoveDieIgnoreValue.setPlayerId(playerId);
+        this.guiMoveDieMatchColor.setPlayerId(playerId);
+        this.guiPlaceNoAdjacent.setPlayerId(playerId);
+        this.guiRollDie.setPlayerId(playerId);
+        this.guiSwapDieRoundTrackDraftPool.setPlayerId(playerId);
     }
 
     /**
@@ -91,6 +141,17 @@ public class GUIGame {
         this.toolcardCenter.setObserver(observer);
         this.toolcardRight.setObserver(observer);
         this.infobox.setObserver(observer);
+
+        this.guiDraftPlaceAgain.setObserver(observer);
+        this.guiFlipDie.setObserver(observer);
+        this.guiIncreaseDecreaseDraftPoolDie.setObserver(observer);
+        this.guiMoveDie.setObserver(observer);
+        this.guiMoveDieIgnoreColor.setObserver(observer);
+        this.guiMoveDieIgnoreValue.setObserver(observer);
+        this.guiMoveDieMatchColor.setObserver(observer);
+        this.guiPlaceNoAdjacent.setObserver(observer);
+        this.guiRollDie.setObserver(observer);
+        this.guiSwapDieRoundTrackDraftPool.setObserver(observer);
     }
 
     /**
@@ -99,6 +160,13 @@ public class GUIGame {
      */
     public void setDraftpool(DraftPool draftpool) {
         this.draftpool.setDraftPool(draftpool.cloneDraftPool());
+
+        this.guiDraftPlaceAgain.setDraftpool(draftpool);
+        this.guiFlipDie.setDraftpool(draftpool);
+        this.guiIncreaseDecreaseDraftPoolDie.setDraftpool(draftpool);
+        this.guiPlaceNoAdjacent.setDraftpool(draftpool);
+        this.guiRollDie.setDraftpool(draftpool);
+        this.guiSwapDieRoundTrackDraftPool.setDraftpool(draftpool);
     }
 
     /**
@@ -107,6 +175,9 @@ public class GUIGame {
      */
     public void setRoundtrack(RoundTrack roundtrack) {
         this.roundtrack.setRoundTrack(roundtrack.cloneRoundTrack());
+
+        this.guiSwapDieRoundTrackDraftPool.setRoundTrack(roundtrack);
+        this.guiMoveDieMatchColor.setColors(roundtrack.getAllDice().stream().map(Die::getColor).distinct().collect(Collectors.toList()));
     }
 
     /**
@@ -115,6 +186,21 @@ public class GUIGame {
      */
     public void setWindowpattern(WindowPattern windowpattern) {
         this.windowpattern.setWindowPattern(windowpattern.cloneWindowPattern());
+
+        this.guiDraftPlaceAgain.setWindowPattern(windowpattern);
+        this.guiMoveDie.setWindowPattern(windowpattern);
+        this.guiMoveDieIgnoreColor.setWindowPattern(windowpattern);
+        this.guiMoveDieIgnoreValue.setWindowPattern(windowpattern);
+        this.guiPlaceNoAdjacent.setWindowPattern(windowpattern);
+    }
+
+    /**
+     * Set other player window patterns.
+     * @param windowpattern the window pattern.
+     * @param playerId the player identifier.
+     */
+    public void setWindowpattern(WindowPattern windowpattern, String playerId) {
+        this.infobox.setWindowPattern(windowpattern, playerId);
     }
 
     /**
@@ -171,154 +257,97 @@ public class GUIGame {
      */
     public void setPlayer(Player player) {
         this.player = player.clonePlayer();
+        this.infobox.setTokens(player.getTokens());
     }
 
     private void checkToolCard(ToolCard toolCard) {
         if(playerState.canEndTurn() || playerState.canPlaceDie()) {
-            try {
-                if (toolCard.decreaseDieValue() && toolCard.increaseDieValue()) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIIncreaseDecreaseDraftPoolDie.fxml"));
-                    Parent root = loader.load();
-                    GUIIncreaseDecreaseDraftPoolDie controller = loader.getController();
-                    controller.setDraftpool(draftpool.getDraftPool().cloneDraftPool());
-                    controller.setObserver(observer);
-                    controller.setPlayerId(playerId);
-                    Scene scene = new Scene(root, 720, 160);
-                    scene.getStylesheets().add("css/style.css");
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setResizable(false);
-                    stage.showAndWait();
-                } else if (toolCard.moveDieIgnoreColor()) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIMoveDieIgnoreColor.fxml"));
-                    Parent root = loader.load();
-                    GUIMoveDieIgnoreColor controller = loader.getController();
-                    controller.setWindowPattern(windowpattern.getWindowPattern().cloneWindowPattern());
-                    controller.setObserver(observer);
-                    controller.setPlayerId(playerId);
-                    Scene scene = new Scene(root, 720, 480);
-                    scene.getStylesheets().add("css/style.css");
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setResizable(false);
-                    stage.showAndWait();
-                } else if (toolCard.moveDieIgnoreValue()) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIMoveDieIgnoreValue.fxml"));
-                    Parent root = loader.load();
-                    GUIMoveDieIgnoreValue controller = loader.getController();
-                    controller.setWindowPattern(windowpattern.getWindowPattern().cloneWindowPattern());
-                    controller.setObserver(observer);
-                    controller.setPlayerId(playerId);
-                    Scene scene = new Scene(root, 720, 480);
-                    scene.getStylesheets().add("css/style.css");
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setResizable(false);
-                    stage.showAndWait();
-                } else if (toolCard.moveADie()) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIMoveDie.fxml"));
-                    Parent root = loader.load();
-                    GUIMoveDie controller = loader.getController();
-                    controller.setWindowPattern(windowpattern.getWindowPattern().cloneWindowPattern());
-                    controller.setObserver(observer);
-                    controller.setPlayerId(playerId);
-                    Scene scene = new Scene(root, 720, 480);
-                    scene.getStylesheets().add("css/style.css");
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setResizable(false);
-                    stage.showAndWait();
-                } else if (toolCard.swapDraftDieWithRoundTrackDie()) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUISwapDieRoundTrackDraftPool.fxml"));
-                    Parent root = loader.load();
-                    GUISwapDieRoundTrackDraftPool controller = loader.getController();
-                    controller.setRoundTrack(roundtrack.getRoundTrack().cloneRoundTrack());
-                    controller.setDraftpool(draftpool.getDraftPool().cloneDraftPool());
-                    controller.setObserver(observer);
-                    controller.setPlayerId(playerId);
-                    Scene scene = new Scene(root, 720, 480);
-                    scene.getStylesheets().add("css/style.css");
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setResizable(false);
-                    stage.showAndWait();
-                } else if (toolCard.rerollDraftedDie()) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIRollDie.fxml"));
-                    Parent root = loader.load();
-                    GUIRollDie controller = loader.getController();
-                    controller.setDraftpool(draftpool.getDraftPool().cloneDraftPool());
-                    controller.setObserver(observer);
-                    controller.setPlayerId(playerId);
-                    Scene scene = new Scene(root, 720, 480);
-                    scene.getStylesheets().add("css/style.css");
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setResizable(false);
-                    stage.showAndWait();
-                } else if (toolCard.rerollAllDraftPoolDice()) {
-                    this.observer.handle(new RerollAllDraftDiceGameEvent(playerId));
-                } else if (toolCard.placeDieAfterFirstTurn()) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIDraftPlaceAgain.fxml"));
-                    Parent root = loader.load();
-                    GUIDraftPlaceAgain controller = loader.getController();
-                    controller.setDraftpool(draftpool.getDraftPool().cloneDraftPool());
-                    controller.setWindowPattern(windowpattern.getWindowPattern().cloneWindowPattern());
-                    controller.setObserver(observer);
-                    controller.setPlayerId(playerId);
-                    Scene scene = new Scene(root, 720, 480);
-                    scene.getStylesheets().add("css/style.css");
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setResizable(false);
-                    stage.showAndWait();
-                } else if (toolCard.placeDraftedDieNoAdjacent() && playerState.canPlaceDie()) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIPlaceNoAdjacent.fxml"));
-                    Parent root = loader.load();
-                    GUIPlaceNoAdjacent controller = loader.getController();
-                    controller.setDraftpool(draftpool.getDraftPool().cloneDraftPool());
-                    controller.setWindowPattern(windowpattern.getWindowPattern().cloneWindowPattern());
-                    controller.setObserver(observer);
-                    controller.setPlayerId(playerId);
-                    Scene scene = new Scene(root, 720, 480);
-                    scene.getStylesheets().add("css/style.css");
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setResizable(false);
-                    stage.showAndWait();
-                } else if (toolCard.flipDraftedDie()) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIFlipDie.fxml"));
-                    Parent root = loader.load();
-                    GUIFlipDie controller = loader.getController();
-                    controller.setDraftpool(draftpool.getDraftPool().cloneDraftPool());
-                    controller.setObserver(observer);
-                    controller.setPlayerId(playerId);
-                    Scene scene = new Scene(root, 720, 480);
-                    scene.getStylesheets().add("css/style.css");
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setResizable(false);
-                    stage.showAndWait();
-                } else if (toolCard.swapDraftDieWithRoundTrackDie()) {
-                    //TODO
-                } else if (toolCard.chooseNewDieValue()) {
-                    //TODO
-                } else if (toolCard.moveTwoDiceMatchColorOnRoundTrack()) {
-                    FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIMoveDieMatchColor.fxml"));
-                    Parent root = loader.load();
-                    GUIMoveDieMatchColor controller = loader.getController();
-                    controller.setColors(roundtrack.getRoundTrack().getAllDice().stream().map(Die::getColor).distinct().collect(Collectors.toList()));
-                    controller.setWindowpattern(windowpattern.getWindowPattern().cloneWindowPattern());
-                    controller.setObserver(observer);
-                    controller.setPlayerId(playerId);
-                    Scene scene = new Scene(root, 720, 480);
-                    scene.getStylesheets().add("css/style.css");
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setResizable(false);
-                    stage.showAndWait();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (toolCard.decreaseDieValue() && toolCard.increaseDieValue()) {
+                Stage stage = new Stage();
+                guiIncreaseDecreaseDraftPoolDie.setContainer(stage);
+                stage.setScene(guiIncreaseDecreaseDraftPoolDieScene);
+                stage.setResizable(false);
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(GUIController.primaryStage);
+                stage.showAndWait();
+            } else if (toolCard.moveDieIgnoreColor()) {
+                Stage stage = new Stage();
+                guiMoveDieIgnoreColor.setContainer(stage);
+                stage.setScene(guiMoveDieIgnoreColorScene);
+                stage.setResizable(false);
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(GUIController.primaryStage);
+                stage.showAndWait();
+            } else if (toolCard.moveDieIgnoreValue()) {
+                Stage stage = new Stage();
+                guiMoveDieIgnoreValue.setContainer(stage);
+                stage.setScene(guiMoveDieIgnoreValueScene);
+                stage.setResizable(false);
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(GUIController.primaryStage);
+                stage.showAndWait();
+            } else if (toolCard.moveADie()) {
+                Stage stage = new Stage();
+                guiMoveDie.setContainer(stage);
+                stage.setScene(guiMoveDieScene);
+                stage.setResizable(false);
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(GUIController.primaryStage);
+                stage.showAndWait();
+            } else if (toolCard.swapDraftDieWithRoundTrackDie()) {
+                Stage stage = new Stage();
+                guiSwapDieRoundTrackDraftPool.setContainer(stage);
+                stage.setScene(guiSwapDieRoundTrackDraftPoolScene);
+                stage.setResizable(false);
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(GUIController.primaryStage);
+                stage.showAndWait();
+            } else if (toolCard.rerollDraftedDie()) {
+                Stage stage = new Stage();
+                guiRollDie.setContainer(stage);
+                stage.setScene(guiRollDieScene);
+                stage.setResizable(false);
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(GUIController.primaryStage);
+                stage.showAndWait();
+            } else if (toolCard.rerollAllDraftPoolDice()) {
+                this.observer.handle(new RerollAllDraftDiceGameEvent(playerId));
+            } else if (toolCard.placeDieAfterFirstTurn()) {
+                Stage stage = new Stage();
+                guiDraftPlaceAgain.setContainer(stage);
+                stage.setScene(guiDraftPlaceAgainScene);
+                stage.setResizable(false);
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(GUIController.primaryStage);
+                stage.showAndWait();
+            } else if (toolCard.placeDraftedDieNoAdjacent() && playerState.canPlaceDie()) {
+                Stage stage = new Stage();
+                guiPlaceNoAdjacent.setContainer(stage);
+                stage.setScene(guiPlaceNoAdjacentScene);
+                stage.setResizable(false);
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(GUIController.primaryStage);
+                stage.showAndWait();
+            } else if (toolCard.flipDraftedDie()) {
+                Stage stage = new Stage();
+                guiFlipDie.setContainer(stage);
+                stage.setScene(guiFlipDieScene);
+                stage.setResizable(false);
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(GUIController.primaryStage);
+                stage.showAndWait();
+            } else if (toolCard.swapDraftDieWithRoundTrackDie()) {
+                //TODO
+            } else if (toolCard.chooseNewDieValue()) {
+                //TODO
+            } else if (toolCard.moveTwoDiceMatchColorOnRoundTrack()) {
+                Stage stage = new Stage();
+                guiMoveDieMatchColor.setContainer(stage);
+                stage.setScene(guiMoveDieMatchColorScene);
+                stage.setResizable(false);
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(GUIController.primaryStage);
+                stage.showAndWait();
             }
         }
     }
@@ -343,5 +372,64 @@ public class GUIGame {
             windowpattern.highlightPlaceableSpaces(draftpool.getSelectedDie());
     }
 
+    private void initGUIStages() {
+        try {
+            
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIIncreaseDecreaseDraftPoolDie.fxml"));
+            guiIncreaseDecreaseDraftPoolDieScene = new Scene(loader.load(), 720, 160);
+            guiIncreaseDecreaseDraftPoolDieScene.getStylesheets().add("css/style.css");
+            guiIncreaseDecreaseDraftPoolDie = loader.getController();
+
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIMoveDieIgnoreColor.fxml"));
+            guiMoveDieIgnoreColorScene = new Scene(loader.load(), 720, 160);
+            guiMoveDieIgnoreColorScene.getStylesheets().add("css/style.css");
+            guiMoveDieIgnoreColor = loader.getController();
+
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIMoveDieIgnoreValue.fxml"));
+            guiMoveDieIgnoreValueScene = new Scene(loader.load(), 720, 160);
+            guiMoveDieIgnoreValueScene.getStylesheets().add("css/style.css");
+            guiMoveDieIgnoreValue = loader.getController();
+
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIMoveDie.fxml"));
+            guiMoveDieScene = new Scene(loader.load(), 720, 160);
+            guiMoveDie = loader.getController();
+
+
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUISwapDieRoundTrackDraftPool.fxml"));
+            guiSwapDieRoundTrackDraftPoolScene = new Scene(loader.load(), 720, 160);
+            guiSwapDieRoundTrackDraftPoolScene.getStylesheets().add("css/style.css");
+            guiSwapDieRoundTrackDraftPool = loader.getController();
+
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIRollDie.fxml"));
+            guiRollDieScene = new Scene(loader.load(), 720, 160);
+            guiRollDieScene.getStylesheets().add("css/style.css");
+            guiRollDie = loader.getController();
+
+
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIDraftPlaceAgain.fxml"));
+            guiDraftPlaceAgainScene = new Scene(loader.load(), 720, 160);
+            guiDraftPlaceAgainScene.getStylesheets().add("css/style.css");
+            guiDraftPlaceAgain = loader.getController();
+
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIPlaceNoAdjacent.fxml"));
+            guiPlaceNoAdjacentScene = new Scene(loader.load(), 720, 160);
+            guiPlaceNoAdjacentScene.getStylesheets().add("css/style.css");
+            guiPlaceNoAdjacent = loader.getController();
+
+
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIFlipDie.fxml"));
+            guiFlipDieScene = new Scene(loader.load(), 720, 160);
+            guiFlipDieScene.getStylesheets().add("css/style.css");
+            guiFlipDie = loader.getController();
+
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIMoveDieMatchColor.fxml"));
+            guiMoveDieMatchColorScene = new Scene(loader.load(), 720, 160);
+            guiMoveDieMatchColorScene.getStylesheets().add("css/style.css");
+            guiMoveDieMatchColor = loader.getController();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
