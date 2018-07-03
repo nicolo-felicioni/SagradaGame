@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="540.0" styleClass="draftpool" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.se2018.view.gui.fxmlController.GUIDraftPool">
+<fx:root type="javafx.scene.layout.GridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="540.0" styleClass="draftpool" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <rowConstraints>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
@@ -25,7 +22,7 @@
         <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
     </columnConstraints>
     <children>
-        <GridPane fx:id="draftPool" gridLinesVisible="true" onMouseClicked="#draftPoolClicked" GridPane.columnSpan="9" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="3" GridPane.vgrow="ALWAYS">
+        <GridPane fx:id="draftPool" GridPane.columnSpan="9" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.rowSpan="3" GridPane.vgrow="ALWAYS">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
@@ -46,11 +43,11 @@
                 <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS"/>
             </rowConstraints>
             <children>
                 <Label text="DRAFT POOL" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" />
             </children>
         </GridPane>
     </children>
-</GridPane>
+</fx:root>

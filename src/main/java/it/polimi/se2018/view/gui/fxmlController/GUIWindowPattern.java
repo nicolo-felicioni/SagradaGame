@@ -57,6 +57,7 @@ public class GUIWindowPattern extends GridPane{
     public GUIWindowPattern() {
         this.guiSpaces = new ArrayList<>();
         this.selected = false;
+        this.setVisible(false);
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIWindowPattern.fxml"));
         loader.setRoot(this);
         loader.setController(this);
@@ -81,6 +82,7 @@ public class GUIWindowPattern extends GridPane{
                     });
                 }
             });
+            refresh();
         } catch (IOException exception)  {
             throw new RuntimeException(exception);
         }
@@ -109,6 +111,7 @@ public class GUIWindowPattern extends GridPane{
             }
         }
         this.name.setText(window.getName().toUpperCase());
+        this.setVisible(true);
     }
 
     public void highlightPlaceableSpaces(Die die) {
