@@ -101,6 +101,12 @@ public class GUIGame {
     private Scene guiMoveDieMatchColorScene;
     private GUIMoveDieMatchColor guiMoveDieMatchColor;
 
+    private Scene guiSwapDieDraftPoolDiceBagScene;
+    private GUISwapDieDraftPoolDiceBag guiSwapDieDraftPoolDiceBag;
+
+    private Scene guiChooseDieValueScene;
+    private GUIChooseDieValue guiChooseDieValue;
+
     /**
      * Constructor.
      */
@@ -129,6 +135,8 @@ public class GUIGame {
         this.guiPlaceNoAdjacent.setPlayerId(playerId);
         this.guiRollDie.setPlayerId(playerId);
         this.guiSwapDieRoundTrackDraftPool.setPlayerId(playerId);
+        this.guiChooseDieValue.setPlayerId(playerId);
+        this.guiSwapDieDraftPoolDiceBag.setPlayerId(playerId);
     }
 
     /**
@@ -152,6 +160,8 @@ public class GUIGame {
         this.guiPlaceNoAdjacent.setObserver(observer);
         this.guiRollDie.setObserver(observer);
         this.guiSwapDieRoundTrackDraftPool.setObserver(observer);
+        this.guiChooseDieValue.setObserver(observer);
+        this.guiSwapDieDraftPoolDiceBag.setObserver(observer);
     }
 
     /**
@@ -167,6 +177,9 @@ public class GUIGame {
         this.guiPlaceNoAdjacent.setDraftpool(draftpool);
         this.guiRollDie.setDraftpool(draftpool);
         this.guiSwapDieRoundTrackDraftPool.setDraftpool(draftpool);
+        this.guiSwapDieDraftPoolDiceBag.setDraftpool(draftpool);
+        if(draftpool.getDraftedDie() != null)
+            this.guiChooseDieValue.setDie(draftpool.getDraftedDie());
     }
 
     /**
@@ -191,6 +204,7 @@ public class GUIGame {
         this.guiMoveDie.setWindowPattern(windowpattern);
         this.guiMoveDieIgnoreColor.setWindowPattern(windowpattern);
         this.guiMoveDieIgnoreValue.setWindowPattern(windowpattern);
+        this.guiMoveDieMatchColor.setWindowpattern(windowpattern);
         this.guiPlaceNoAdjacent.setWindowPattern(windowpattern);
     }
 
@@ -336,10 +350,22 @@ public class GUIGame {
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.initOwner(GUIController.primaryStage);
                 stage.showAndWait();
-            } else if (toolCard.swapDraftDieWithRoundTrackDie()) {
-                //TODO
+            } else if (toolCard.returnDieAndGetNewFromDiceBag()) {
+                Stage stage = new Stage();
+                guiSwapDieDraftPoolDiceBag.setContainer(stage);
+                stage.setScene(guiChooseDieValueScene);
+                stage.setResizable(false);
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(GUIController.primaryStage);
+                stage.showAndWait();
             } else if (toolCard.chooseNewDieValue()) {
-                //TODO
+                Stage stage = new Stage();
+                guiChooseDieValue.setContainer(stage);
+                stage.setScene(guiChooseDieValueScene);
+                stage.setResizable(false);
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.initOwner(GUIController.primaryStage);
+                stage.showAndWait();
             } else if (toolCard.moveTwoDiceMatchColorOnRoundTrack()) {
                 Stage stage = new Stage();
                 guiMoveDieMatchColor.setContainer(stage);
@@ -394,7 +420,6 @@ public class GUIGame {
             guiMoveDieScene = new Scene(loader.load(), 920, 560);
             guiMoveDie = loader.getController();
 
-
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUISwapDieRoundTrackDraftPool.fxml"));
             guiSwapDieRoundTrackDraftPoolScene = new Scene(loader.load(), 500, 430);
             guiSwapDieRoundTrackDraftPoolScene.getStylesheets().add("css/style.css");
@@ -405,22 +430,30 @@ public class GUIGame {
             guiRollDieScene.getStylesheets().add("css/style.css");
             guiRollDie = loader.getController();
 
-
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIDraftPlaceAgain.fxml"));
-            guiDraftPlaceAgainScene = new Scene(loader.load(), 360, 480);
+            guiDraftPlaceAgainScene = new Scene(loader.load(), 450, 600);
             guiDraftPlaceAgainScene.getStylesheets().add("css/style.css");
             guiDraftPlaceAgain = loader.getController();
 
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIPlaceNoAdjacent.fxml"));
-            guiPlaceNoAdjacentScene = new Scene(loader.load(), 360, 480);
+            guiPlaceNoAdjacentScene = new Scene(loader.load(), 450, 600);
             guiPlaceNoAdjacentScene.getStylesheets().add("css/style.css");
             guiPlaceNoAdjacent = loader.getController();
-
 
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIFlipDie.fxml"));
             guiFlipDieScene = new Scene(loader.load(), 900, 180);
             guiFlipDieScene.getStylesheets().add("css/style.css");
             guiFlipDie = loader.getController();
+
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUISwapDieDraftPoolDiceBag.fxml"));
+            guiSwapDieDraftPoolDiceBagScene = new Scene(loader.load(), 900, 180);
+            guiSwapDieDraftPoolDiceBagScene.getStylesheets().add("css/style.css");
+            guiSwapDieDraftPoolDiceBag = loader.getController();
+
+            loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIChooseDieValue.fxml"));
+            guiChooseDieValueScene = new Scene(loader.load(), 400, 250);
+            guiChooseDieValueScene.getStylesheets().add("css/style.css");
+            guiChooseDieValue = loader.getController();
 
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIMoveDieMatchColor.fxml"));
             guiMoveDieMatchColorScene = new Scene(loader.load(), 920, 560);

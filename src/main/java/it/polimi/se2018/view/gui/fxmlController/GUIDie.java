@@ -19,7 +19,7 @@ public class GUIDie extends Pane {
      * Constructor.
      * @param die the die.
      */
-    GUIDie(Die die) {
+    public GUIDie(Die die) {
         this.die = die.cloneDie();
         this.refresh();
     }

@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 /**
  * @author Davide Yi Xian Hu
  */
-class WindowPatternAdapter implements JsonSerializer<WindowPattern>, JsonDeserializer<WindowPattern> {
+public class WindowPatternAdapter implements JsonSerializer<WindowPattern>, JsonDeserializer<WindowPattern> {
 
 	private static final String X = "x";
 	private static final String Y = "y";

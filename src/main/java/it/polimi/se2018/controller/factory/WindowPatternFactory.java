@@ -1,8 +1,10 @@
 package it.polimi.se2018.controller.factory;
 
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import it.polimi.se2018.json.Json;
+import it.polimi.se2018.json.WindowPatternAdapter;
 import it.polimi.se2018.model.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -44,9 +46,11 @@ public class WindowPatternFactory {
 	}
 
 	private void loadWindowPattern(String path) throws FileNotFoundException{
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(WindowPattern.class, new WindowPatternAdapter());
 		JsonReader reader = new JsonReader(new FileReader(path));
 		Type listType = new TypeToken<ArrayList<WindowPattern>>(){}.getType();
-		List<WindowPattern> list = Json.getGson().fromJson(reader, listType);
+		List<WindowPattern> list = gsonBuilder.create().fromJson(reader, listType);
 		this.windows.addAll(list);
 		try {
 			reader.close();

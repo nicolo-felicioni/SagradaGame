@@ -11,15 +11,15 @@
 <GridPane fx:controller="it.polimi.se2018.view.gui.fxmlController.stage.GUIDraftPlaceAgain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="540.0" minWidth="960.0" prefHeight="540.0" prefWidth="960.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
 
     <columnConstraints>
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
@@ -57,14 +57,14 @@
 
     <GridPane GridPane.columnIndex="0" GridPane.columnSpan="9" GridPane.hgrow="ALWAYS" GridPane.rowIndex="23" GridPane.vgrow="ALWAYS">
         <columnConstraints>
-            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
         </rowConstraints>
         <GridPane onMouseClicked="#placeDie" styleClass="button">
             <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />

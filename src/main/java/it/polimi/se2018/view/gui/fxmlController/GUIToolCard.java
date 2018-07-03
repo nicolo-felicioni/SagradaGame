@@ -115,6 +115,7 @@ public class GUIToolCard extends GridPane {
                 }
             });
             foreground.setVisible(false);
+            this.setVisible(false);
         } catch (IOException exception)  {
             throw new RuntimeException(exception);
         }
@@ -144,6 +145,7 @@ public class GUIToolCard extends GridPane {
      */
     public void setToolCard(ToolCard toolCard) {
         this.toolCard = toolCard.cloneToolCard();
+        this.setVisible(true);
         this.refresh();
     }
 

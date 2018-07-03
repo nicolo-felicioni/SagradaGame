@@ -506,7 +506,7 @@ public class GUIController extends Application implements GUIInterface{
      */
     private void showLoginScene() throws IOException{
 
-
+     //   /*
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUILogin.fxml"));
         Parent root = loader.load();
         GUILogin controller = loader.getController();
@@ -518,7 +518,7 @@ public class GUIController extends Application implements GUIInterface{
         primaryStage.setTitle("Sagrada-The Game");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-
+   //     */
 
 
 /*
@@ -541,14 +541,12 @@ public class GUIController extends Application implements GUIInterface{
 
 */
             /*
-        FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIWindowPattern.fxml"));
-        Parent root = loader.load();
-        GUIWindowPattern wp = loader.getController();
+        GUIWindowPattern wp = new GUIWindowPattern();
         wp.setWindowPattern(new WindowPatternFactory().getWindowPattern());
-        Scene scene = new Scene(root, 720, 560);
+        Scene scene = new Scene(wp, 720, 560);
         scene.getStylesheets().add("css/style.css");
         primaryStage.setTitle("Sagrada-The Game");
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(scene);
         primaryStage.show();
             */
 

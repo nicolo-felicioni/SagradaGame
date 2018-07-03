@@ -1,22 +1,17 @@
 package it.polimi.se2018.view.gui.fxmlController.stage;
 
-import it.polimi.se2018.event.game.SwapDraftDieWithRoundTrackDieGameEvent;
+import it.polimi.se2018.event.game.RerollDraftDieGameEvent;
+import it.polimi.se2018.event.game.SwapDraftDieWithDiceBagDieGameEvent;
 import it.polimi.se2018.model.DraftPool;
-import it.polimi.se2018.model.RoundTrack;
 import it.polimi.se2018.view.gui.fxmlController.GUIDraftPool;
-import it.polimi.se2018.view.gui.fxmlController.GUIRoundTrack;
-import it.polimi.se2018.view.gui.fxmlController.stage.GUIStage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 
-public class GUISwapDieRoundTrackDraftPool extends GUIStage {
+public class GUISwapDieDraftPoolDiceBag extends GUIStage {
 
     @FXML
     GUIDraftPool draftPool;
-
-    @FXML
-    GUIRoundTrack roundTrack;
 
     /**
      * Set the draft pool.
@@ -26,19 +21,10 @@ public class GUISwapDieRoundTrackDraftPool extends GUIStage {
         this.draftPool.setDraftPool(draftpool);
     }
 
-    /**
-     * Set the round track.
-     * @param roundTrack the round track.
-     */
-    public void setRoundTrack(RoundTrack roundTrack) {
-        this.roundTrack.setRoundTrack(roundTrack);
-    }
-
     @FXML
-    private void swapDie(MouseEvent event) {
-        if(draftPool.getSelectedDie() != null && roundTrack.getSelectedDie() != null) {
-            this.observer.handle(new SwapDraftDieWithRoundTrackDieGameEvent(draftPool.getSelectedDie(),
-                    roundTrack.getSelectedDie(), roundTrack.getSelectedRound() + 1, playerId));
+    private void returnDie(MouseEvent event) {
+        if(draftPool.getSelectedDie() != null) {
+            this.observer.handle(new SwapDraftDieWithDiceBagDieGameEvent(draftPool.getSelectedDie(), playerId));
             container.close();
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

@@ -16,28 +16,28 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
     </rowConstraints>
     <columnConstraints>
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
     </columnConstraints>
     <children>
         <GridPane fx:id="draftPool" GridPane.columnSpan="9" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.rowSpan="5" GridPane.vgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
@@ -45,7 +45,7 @@
         </GridPane>
         <GridPane minHeight="20.0" minWidth="540.0" prefHeight="20.0" prefWidth="540.0" styleClass="draftpool-name" GridPane.columnSpan="9" GridPane.hgrow="ALWAYS" GridPane.rowSpan="2" GridPane.vgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" minWidth="1.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />

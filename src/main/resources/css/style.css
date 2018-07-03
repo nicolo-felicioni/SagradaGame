@@ -72,6 +72,9 @@
 
 .diff-circle {
     -fx-background-image: url("../images/token.png");
+    -fx-background-position: center;
+    -fx-background-size: 40% 40%;
+    -fx-background-repeat: no-repeat;
 }
 <!------------------FINE WINDOWS PATTERN-------------------------------------------------------------------------------------------------------
 
@@ -223,6 +226,12 @@
 
 .purple-six {
     -fx-background-image: url("../images/die/Purple6.jpg");
+}
+
+.fill-80 {
+    -fx-background-position: center;
+    -fx-background-size: 80% 80%;
+    -fx-background-repeat: no-repeat;
 }
 
 .space {

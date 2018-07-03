@@ -117,7 +117,7 @@ public class GUIWindowPattern extends GridPane{
             circle.getStyleClass().add("diff-circle");
             GridPane.setHgrow(circle, Priority.ALWAYS);
             GridPane.setVgrow(circle, Priority.ALWAYS);
-            this.difficulty.add(circle, i , 0);
+            this.difficulty.add(circle, 5 - i , 0);
         }
         this.setVisible(true);
     }
@@ -147,7 +147,7 @@ public class GUIWindowPattern extends GridPane{
             circle.getStyleClass().add("diff-circle");
             GridPane.setHgrow(circle, Priority.ALWAYS);
             GridPane.setVgrow(circle, Priority.ALWAYS);
-            this.difficulty.add(circle, i , 0);
+            this.difficulty.add(circle, 5 - i , 0);
         }
     }
 
@@ -176,7 +176,7 @@ public class GUIWindowPattern extends GridPane{
             circle.getStyleClass().add("diff-circle");
             GridPane.setHgrow(circle, Priority.ALWAYS);
             GridPane.setVgrow(circle, Priority.ALWAYS);
-            this.difficulty.add(circle, i , 0);
+            this.difficulty.add(circle, 5 - i , 0);
         }
     }
 
@@ -205,7 +205,7 @@ public class GUIWindowPattern extends GridPane{
             circle.getStyleClass().add("diff-circle");
             GridPane.setHgrow(circle, Priority.ALWAYS);
             GridPane.setVgrow(circle, Priority.ALWAYS);
-            this.difficulty.add(circle, i , 0);
+            this.difficulty.add(circle, 5 - i , 0);
         }
     }
 
@@ -235,7 +235,7 @@ public class GUIWindowPattern extends GridPane{
             circle.getStyleClass().add("diff-circle");
             GridPane.setHgrow(circle, Priority.ALWAYS);
             GridPane.setVgrow(circle, Priority.ALWAYS);
-            this.difficulty.add(circle, i , 0);
+            this.difficulty.add(circle, 5 - i , 0);
         }
     }
 
@@ -264,7 +264,8 @@ public class GUIWindowPattern extends GridPane{
             circle.getStyleClass().add("diff-circle");
             GridPane.setHgrow(circle, Priority.ALWAYS);
             GridPane.setVgrow(circle, Priority.ALWAYS);
-            this.difficulty.add(circle, i , 0);
+            this.difficulty.add(circle, 5 - i , 0);
+
         }
     }
 
