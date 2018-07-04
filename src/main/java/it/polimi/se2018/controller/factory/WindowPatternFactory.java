@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import it.polimi.se2018.controller.utils.myLog;
 
 /**
  * @author Davide Yi Xian Hu
@@ -23,13 +24,13 @@ public class WindowPatternFactory {
 
 	private List<WindowPattern> windows;
 	private static final String STANDARD_WINDOW_PATH = "src/main/resources/std_window_pattern.json";
-
+	private myLog myLog;
 	public WindowPatternFactory() {
 		windows = new ArrayList<>();
 		try {
 			this.loadWindowPattern(STANDARD_WINDOW_PATH);
 		}catch (FileNotFoundException e) {
-			Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
+			myLog.getMyLog().log(Level.WARNING, e.getMessage());
 		}
 	}
 
@@ -55,7 +56,7 @@ public class WindowPatternFactory {
 		try {
 			reader.close();
 		} catch (IOException e) {
-			Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
+			myLog.getMyLog().log(Level.WARNING, e.getMessage());
 		}
 	}
 

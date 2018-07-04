@@ -8,6 +8,7 @@ import it.polimi.se2018.json.Json;
 import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.view.View;
 import sun.nio.ch.Net;
+import it.polimi.se2018.controller.utils.myLog;
 
 import java.io.*;
 import java.net.Socket;
@@ -23,6 +24,7 @@ public class SocketClient implements ClientInterface {
 	private ObjectInputStream inStream;
 	private ObjectOutputStream outStream;
 	private NetworkListener listener;
+	private myLog myLog;
 
 	/**
 	 * The user interface.
@@ -55,7 +57,7 @@ public class SocketClient implements ClientInterface {
 			this.outStream.flush();
 			this.inStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 		} catch (IOException e) {
-            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
+			myLog.getMyLog().log(Level.WARNING, e.getMessage());
 		}
 	}
 
@@ -94,7 +96,7 @@ public class SocketClient implements ClientInterface {
 			new Thread(listener).start();
 			this.uid = uid;
 		} catch (IOException e) {
-            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
+			myLog.getMyLog().log(Level.WARNING, e.getMessage());
 		}
 	}
 
@@ -133,9 +135,9 @@ public class SocketClient implements ClientInterface {
 				outStream.close();
 				socket.close();
 			} catch (IOException e1) {
-				e1.printStackTrace();
+				myLog.log(Level.WARNING, e1.getMessage());
 			}
-            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
+			myLog.getMyLog().log(Level.WARNING, e.getMessage());
 		}
 	}
 
@@ -348,14 +350,14 @@ public class SocketClient implements ClientInterface {
 				try {
 					handle(Json.getGson().fromJson(inStream.readUTF(), ViewUpdaterInterface.class));
 				} catch (IOException e) {
-                    Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
+					myLog.getMyLog().log(Level.WARNING, e.getMessage());
 					try {
 						inStream.close();
 						outStream.close();
 						socket.close();
 						this.run = false;
 					} catch (IOException e1) {
-						e1.printStackTrace();
+						myLog.log(Level.WARNING, e1.getMessage());
 					}
 				}
 			}

@@ -3,7 +3,7 @@ package it.polimi.se2018.json;
 import com.google.gson.*;
 import it.polimi.se2018.model.PlayerState;
 import it.polimi.se2018.model.ToolCard;
-
+import it.polimi.se2018.controller.utils.myLog;
 import java.lang.reflect.Type;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +27,10 @@ class ToolCardAdapter implements JsonSerializer<ToolCard>, JsonDeserializer<Tool
      * Package of tool cards.
      */
     private static final String PACKAGE = "it.polimi.se2018.model.";
+    /**
+     * The logger.
+     */
+    private myLog myLog;
 
     /**
      * {@inheritDoc}
@@ -43,7 +47,7 @@ class ToolCardAdapter implements JsonSerializer<ToolCard>, JsonDeserializer<Tool
         try {
             klass = Class.forName(className);
         } catch (ClassNotFoundException e) {
-            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
+            myLog.getMyLog().log(Level.WARNING, e.getMessage());
             throw new JsonParseException(e.getMessage());
         }
         return jsonDeserializationContext.deserialize(jsonObject.get(INSTANCE), klass);

@@ -12,15 +12,21 @@ public class myLog {
     private Logger log;
     FileHandler fh;
 
+    {
+        try {
+            fh = new FileHandler("/");
+        } catch (IOException e) {
+        }
+    }
 
-    private myLog() throws IOException {
+
+    private myLog(){
         log=Logger.getLogger(myLog.class.getName());
-        fh= new FileHandler("/");
         log.addHandler(fh);
         fh.setFormatter(new SimpleFormatter());
     }
 
-    public static myLog getMyLog() throws IOException {
+    public static myLog getMyLog(){
         if (mylog==null){
             mylog=new myLog();
         }

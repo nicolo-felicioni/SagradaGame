@@ -3,6 +3,7 @@ package it.polimi.se2018.json;
 import com.google.gson.*;
 import it.polimi.se2018.model.PublicObjectiveCard;
 import it.polimi.se2018.model.ToolCard;
+import it.polimi.se2018.controller.utils.myLog;
 
 import java.lang.reflect.Type;
 import java.util.logging.Level;
@@ -27,6 +28,10 @@ class PublicObjectiveCardAdapter implements JsonSerializer<PublicObjectiveCard>,
      * Package of public objectiva cards.
      */
     private static final String PACKAGE = "it.polimi.se2018.model.";
+    /**
+     * The logger.
+     */
+    private myLog myLog;
 
     /**
      * {@inheritDoc}
@@ -43,7 +48,7 @@ class PublicObjectiveCardAdapter implements JsonSerializer<PublicObjectiveCard>,
         try {
             klass = Class.forName(className);
         } catch (ClassNotFoundException e) {
-            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
+            myLog.getMyLog().log(Level.WARNING, e.getMessage());
             throw new JsonParseException(e.getMessage());
         }
         return jsonDeserializationContext.deserialize(jsonObject.get(INSTANCE), klass);

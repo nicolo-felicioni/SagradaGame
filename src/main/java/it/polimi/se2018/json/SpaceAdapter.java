@@ -2,6 +2,7 @@ package it.polimi.se2018.json;
 
 import com.google.gson.*;
 import it.polimi.se2018.model.Space;
+import it.polimi.se2018.controller.utils.myLog;
 
 import java.lang.reflect.Type;
 import java.util.logging.Level;
@@ -23,6 +24,10 @@ public class SpaceAdapter implements JsonSerializer<Space>, JsonDeserializer<Spa
      * Package of the spaces.
      */
     private static final String PACKAGE = "it.polimi.se2018.model.";
+    /**
+     * The logger;
+     */
+    private myLog myLog;
 
     /**
      * {@inheritDoc}
@@ -39,7 +44,7 @@ public class SpaceAdapter implements JsonSerializer<Space>, JsonDeserializer<Spa
         try {
             klass = Class.forName(className);
         } catch (ClassNotFoundException e) {
-            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
+            myLog.getMyLog().log(Level.WARNING, e.getMessage());
             throw new JsonParseException(e.getMessage());
         }
         return jsonDeserializationContext.deserialize(jsonObject.get(INSTANCE), klass);
