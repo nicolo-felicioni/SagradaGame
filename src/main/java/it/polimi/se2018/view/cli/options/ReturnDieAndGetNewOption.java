@@ -31,16 +31,25 @@ public class ReturnDieAndGetNewOption extends ComplexOption {
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setName() {
         this.name = NAME;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setSelectMessage() {
         this.selectMessage = SELECT;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int execute() {
         List<Integer> choices = makeChoices();
@@ -66,6 +75,14 @@ public class ReturnDieAndGetNewOption extends ComplexOption {
     }
 
 
+
+    /**
+     * this method will return a list of choices made by the user. the list of choices is a list of integer,
+     * the user shall enter his choice as an int following the instructions printed on the screen.
+     * This method will also wait after the drafted die choice until the draft pool is updated.
+     *
+     * @see #makeChoices()
+     */
     @Override
     protected List<Integer> makeChoices() {
         int choice;

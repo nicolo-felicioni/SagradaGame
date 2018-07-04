@@ -14,22 +14,36 @@ public class DecreaseDieValueOption extends ComplexOption {
     private static final String DECREASE_DIE_VALUE_MESSAGE = "Select the die you want to decrease.";
     private static final int READ_DIE_CHOICE = 0;
 
+
+    /**
+     * constructor
+     * @param cli the command line interface
+     */
     public DecreaseDieValueOption(CommandLineInterface cli) {
         super(cli);
         this.subOptions = new ArrayList<>();
         this.subOptions.add(new ReadDraftPoolDieOption(cli));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setName() {
         this.name = DECREASE_DIE_VALUE_NAME;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setSelectMessage() {
         this.selectMessage = DECREASE_DIE_VALUE_MESSAGE;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int execute() {
         List<Integer> choiceList = makeChoices();

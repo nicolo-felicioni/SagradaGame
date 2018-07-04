@@ -14,6 +14,9 @@ public class ShowPublicObjectiveCardsOption extends SimpleOption {
         this.name = SHOW_PUBLIC_OBJECTIVE_CARDS_NAME;
     }
 
+    /**
+     * this method shows the public objective cards on the table to the user.
+     */
     @Override
     public int execute() {
         Arrays.stream(cli.getPublicObjectiveCards()).forEach(Printer::print);

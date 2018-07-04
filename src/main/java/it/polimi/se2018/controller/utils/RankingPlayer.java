@@ -56,11 +56,21 @@ public class RankingPlayer implements Serializable{
     }
 
 
-
+    /**
+     * constructor.
+     * @param playerId the id of the player
+     */
     public RankingPlayer(String playerId){
         this.playerId = playerId;
     }
 
+    /**
+     * consturctor.
+     * @param playerId the id of the player
+     * @param points the total points
+     * @param pointsFromPrivateObjective the points earned from private objective card
+     * @param favorTokensRemaining the favor tokens remaining
+     */
     public RankingPlayer(String playerId, int points, int pointsFromPrivateObjective, int favorTokensRemaining){
         this.playerId = playerId;
         this.points = points;
@@ -69,24 +79,24 @@ public class RankingPlayer implements Serializable{
     }
 
     /**
-     * getter of
-     * @return
+     * getter of the player id
+     * @return the player id
      */
     public String getPlayerId(){
         return playerId;
     }
 
     /**
-     * getter of
-     * @return
+     * getter of the total points
+     * @return the total points
      */
     public int getPoints() {
         return points;
     }
 
     /**
-     * getter of
-     * @return
+     * getter of the points earned from private objective card
+     * @return the points earned from private objective card
      */
     public int getPointsFromPrivateObjective() {
         return pointsFromPrivateObjective;
@@ -94,8 +104,8 @@ public class RankingPlayer implements Serializable{
 
 
     /**
-     * getter of
-     * @return
+     * getter of the favor tokens remaining at the end of the game
+     * @return the favor tokens remaining at the end of the game
      */
     public int getFavorTokensRemaining() {
         return favorTokensRemaining;

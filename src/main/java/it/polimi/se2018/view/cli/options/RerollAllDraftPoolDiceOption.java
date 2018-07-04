@@ -14,6 +14,9 @@ public class RerollAllDraftPoolDiceOption extends SimpleOption {
     }
 
 
+    /**
+     * this method notifies the observers that the user wants to re-roll all the dice in the draft pool
+     */
     @Override
     public int execute() {
         cli.notifyObservers(new RerollAllDraftDiceGameEvent(cli.getPlayer().getId()));

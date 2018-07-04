@@ -19,16 +19,25 @@ public class RerollDraftedDieOption extends ComplexOption {
         this.subOptions.add(new ReadDraftPoolDieOption(cli));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setName() {
         this.name = NAME;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setSelectMessage() {
         this.selectMessage = SELECT_MESSAGE;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int execute() {
         List<Integer> choices = makeChoices();

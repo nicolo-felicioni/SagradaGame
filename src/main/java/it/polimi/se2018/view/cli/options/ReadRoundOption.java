@@ -17,6 +17,10 @@ public class ReadRoundOption extends SimpleOption {
         super(cli);
     }
 
+    /**
+     * this method returns the number of the round that the user has chosen
+     * @return the number of the round that the user has chosen
+     */
     @Override
     public int execute() {
         int choice;

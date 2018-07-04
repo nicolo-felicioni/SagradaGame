@@ -13,22 +13,36 @@ public class FlipDraftedDieOption extends ComplexOption {
     private static final String SELECT = "Select the die you want to flip.";
     private static final int DIE_CHOICE = 0;
 
+    /**
+     * constructor
+     * @param cli the command line interface
+     */
     public FlipDraftedDieOption(CommandLineInterface cli) {
         super(cli);
         subOptions = new ArrayList<>();
         subOptions.add(new ReadDraftPoolDieOption(cli));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setName() {
         this.name = NAME;
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setSelectMessage() {
         this.selectMessage = SELECT;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int execute() {
         List<Integer> choices = makeChoices();

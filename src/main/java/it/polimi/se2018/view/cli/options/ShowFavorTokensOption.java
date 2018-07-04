@@ -12,6 +12,9 @@ public class ShowFavorTokensOption extends SimpleOption{
         this.name = NAME;
     }
 
+    /**
+     * this method shows the favor tokens remaining to the user.
+     */
     @Override
     public int execute() {
         Printer.println("These are your favor tokens:");

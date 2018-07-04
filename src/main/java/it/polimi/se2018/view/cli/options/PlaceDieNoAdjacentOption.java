@@ -20,16 +20,25 @@ public class PlaceDieNoAdjacentOption extends ComplexOption {
         this.subOptions = OptionFactory.buildPlaceDieOptions(cli);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setName() {
         this.name = NAME;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setSelectMessage() {
         this.selectMessage = SELECT;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int execute() {
         Die selectedDie;

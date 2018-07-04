@@ -18,6 +18,10 @@ public class ReadRoundTrackDieOption extends SimpleOption {
     }
 
 
+    /**
+     * returns the number of the die present on the round track that the user has chosen
+     * @return the number of the die present on the round track that the user has chosen
+     */
     @Override
     public int execute() {
         int choice;

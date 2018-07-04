@@ -21,17 +21,26 @@ public class IncreaseDieValueOption extends ComplexOption {
         subOptions.add(new ReadDraftPoolDieOption(cli));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setName() {
         this.name = INCREASE_DIE_VALUE_NAME;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setSelectMessage() {
         this.selectMessage = SELECT;
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int execute() {
         List<Integer> choiceList = makeChoices();

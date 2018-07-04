@@ -15,6 +15,10 @@ public class ReadXOption extends SimpleOption {
         super(cli);
     }
 
+    /**
+     * returns the first coordinate of the space that the user has chosen
+     * @return the first coordinate of the space that the user has chosen
+     */
     @Override
     public int execute() {
         int choice;

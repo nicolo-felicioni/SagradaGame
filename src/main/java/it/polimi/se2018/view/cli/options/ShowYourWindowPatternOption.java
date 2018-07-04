@@ -14,6 +14,9 @@ public class ShowYourWindowPatternOption extends SimpleOption{
         this.name = SHOW_OTHER_WINDOW_NAME;
     }
 
+    /**
+     * this method shows the user's pattern.
+     */
     @Override
     public int execute() {
         Printer.print(cli.getPlayer().getPattern());
