@@ -156,6 +156,8 @@ public class CommandLineInterface extends AbstractView {
         Optional<Player> optionalPlayer = this.players.stream()
                 .filter(p -> p.getId().equals(playerId)).findAny();
 
+
+
         if (!optionalPlayer.isPresent()) {
             Player tempPlayer = new Player(playerId);
             tempPlayer.setConnected(connected);
@@ -167,12 +169,16 @@ public class CommandLineInterface extends AbstractView {
                 this.player.setTokens(favorTokens);
             }
 
-            //TODO - PROVA
-            if (!playerId.equals(this.player.getId())) {
-                Printer.print("Player '");
-                Printer.printColor(playerId, DieColor.BLUE);
-                Printer.println("' joined the game.");
-            }
+           if(!connected){
+                Printer.print("player '"+ playerId + "' disconnected.");
+                if(playerId.equals(this.player.getId())) {
+                    try {
+                        client.disconnect();
+                    } catch (NetworkException e) {
+                        e.printStackTrace();
+                    }
+                }
+           }
         }
 
     }
@@ -387,7 +393,6 @@ public class CommandLineInterface extends AbstractView {
 
 
         addGameObserver(this.client);
-        //TODO - DA FINIRE
     }
 
     private void connection() {

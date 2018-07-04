@@ -30,7 +30,7 @@ public class Player {
 		this.state = null;
 		this.privateObjectiveCard = null;
 		this.patterns = null;
-		this.connected = false;
+		this.connected = true;
 	}
 
 

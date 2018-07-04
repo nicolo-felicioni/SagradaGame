@@ -16,7 +16,7 @@ import java.util.List;
 
 public class MoveDieIgnoreColorOption extends ComplexOption {
 
-    private static final String NAME = "Move a die ignoring value restriction.";
+    private static final String NAME = "Move a die ignoring color restriction.";
 
     private static final String MOVE_DIE_MESSAGE = "Select the two points on the window pattern.";
     private static final int READ_FIRST_X_CHOICE = 0;
