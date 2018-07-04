@@ -6,6 +6,7 @@ import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.observer.game.GameEventObserver;
 
 import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 /**
  * @author Davide Yi Xian Hu
@@ -20,7 +21,6 @@ public interface ClientInterface extends GameEventObserver, ViewUpdaterObserver 
 	 */
 	void connect (String address, int port) throws NetworkException, NotBoundException;
 
-
 	/**
 	 * Disconnect the client.
 	 * @throws NetworkException if the client can not connect to the server.
@@ -33,6 +33,14 @@ public interface ClientInterface extends GameEventObserver, ViewUpdaterObserver 
 	 * @param uid the unique identifier of the client.
 	 */
 	void login (String uid) throws LoginException;
+
+
+	/**
+	 * Reconnect a client to the server.
+	 *
+	 * @param uid the unique identifier of the client.
+	 */
+	void reconnect (String uid) throws LoginException;
 
 	/**
 	 * Getter of the unique identifier.

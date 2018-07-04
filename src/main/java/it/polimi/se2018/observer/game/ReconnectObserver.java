@@ -1,7 +1,7 @@
 package it.polimi.se2018.observer.game;
 
 
-import it.polimi.se2018.event.game.ReconnectGameEvent;
+import it.polimi.se2018.event.network.ReconnectGameEvent;
 
 public interface ReconnectObserver {
 

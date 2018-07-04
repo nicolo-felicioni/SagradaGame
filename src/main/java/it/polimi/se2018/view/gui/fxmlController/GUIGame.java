@@ -353,7 +353,7 @@ public class GUIGame {
             } else if (toolCard.returnDieAndGetNewFromDiceBag()) {
                 Stage stage = new Stage();
                 guiSwapDieDraftPoolDiceBag.setContainer(stage);
-                stage.setScene(guiChooseDieValueScene);
+                stage.setScene(guiSwapDieDraftPoolDiceBagScene);
                 stage.setResizable(false);
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.initOwner(GUIController.primaryStage);
@@ -451,7 +451,7 @@ public class GUIGame {
             guiSwapDieDraftPoolDiceBag = loader.getController();
 
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIChooseDieValue.fxml"));
-            guiChooseDieValueScene = new Scene(loader.load(), 400, 250);
+            guiChooseDieValueScene = new Scene(loader.load(), 720, 150);
             guiChooseDieValueScene.getStylesheets().add("css/style.css");
             guiChooseDieValue = loader.getController();
 

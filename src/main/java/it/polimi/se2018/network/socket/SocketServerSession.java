@@ -264,16 +264,6 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 		this.notifyObservers(event);
 	}
 
-	/**
-	 * Handle a ReconnectGameEvent.
-	 *
-	 * @param event the ReconnectGameEvent.
-	 */
-	@Override
-	public void handle(ReconnectGameEvent event) {
-		this.notifyObservers(event);
-	}
-
 	private class NetworkListener implements Runnable {
 
 		/**
@@ -306,6 +296,15 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 			} catch (IOException e) {
 			} catch (LoginException e) {
 				send(new LoginResponse(false, LoginResponse.LOGIN_FAIL_MESSAGE).toJson());
+				try {
+					uid = new LoginMessage(inStream.readUTF(), true).getUid();
+					Server.getInstance().reconnect(uid, session);
+					send(new LoginResponse(true, LoginResponse.LOGIN_SUCCESS_MESSAGE).toJson());
+				} catch (IOException e1) {
+				} catch (LoginException e1) {
+					send(new LoginResponse(false, LoginResponse.LOGIN_FAIL_MESSAGE).toJson());
+
+				}
 			}
 		}
 

@@ -1,5 +1,6 @@
 package it.polimi.se2018.view.gui.fxmlController.stage;
 
+import it.polimi.se2018.event.game.DraftAndPlaceAgainGameEvent;
 import it.polimi.se2018.event.game.DraftAndPlaceGameEvent;
 import it.polimi.se2018.event.game.SwapDraftDieWithRoundTrackDieGameEvent;
 import it.polimi.se2018.model.DraftPool;
@@ -42,7 +43,7 @@ public class GUIDraftPlaceAgain extends GUIStage {
     @FXML
     private void placeDie(MouseEvent event) {
         if (draftPool.getSelectedDie() != null && windowPattern.getSelectedSpace() != null) {
-            this.observer.handle(new DraftAndPlaceGameEvent(draftPool.getSelectedDie(), windowPattern.getSelectedPosition(), playerId));
+            this.observer.handle(new DraftAndPlaceAgainGameEvent(draftPool.getSelectedDie(), windowPattern.getSelectedPosition(), playerId));
             container.close();
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

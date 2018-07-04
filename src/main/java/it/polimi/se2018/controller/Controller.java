@@ -9,16 +9,18 @@ import it.polimi.se2018.controller.updater.ErrorMessageUpdater;
 import it.polimi.se2018.controller.utils.RankingPlayer;
 import it.polimi.se2018.controller.utils.Scheduler;
 import it.polimi.se2018.event.game.*;
+import it.polimi.se2018.event.network.ReconnectGameEvent;
 import it.polimi.se2018.exceptions.*;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.observer.game.GameEventObserver;
+import it.polimi.se2018.observer.game.ReconnectObserver;
 
 import java.util.*;
 
 /**
  * @author Davide Yi Xian Hu
  */
-public class Controller implements GameEventObserver, ViewUpdaterObservable {
+public class Controller implements GameEventObserver, ViewUpdaterObservable, ReconnectObserver {
 
     private static final String TOOL_CARD_CONDITION_ERROR_MESSAGE = "The tool card can't make this action";
 
@@ -159,7 +161,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
             if (toolCard.placeDraftedDieNoAdjacent() && player.getState().canPlaceDie()) {
                 toolCard.consumeEffect();
                 draftPool.removeDie(event.getDraftedDie());
-                windowPattern.plaaceDieIgnoreAdjacent(event.getDraftedDie(), event.getPoint());
+                windowPattern.placeDieIgnoreAdjacent(event.getDraftedDie(), event.getPoint());
                 state.diePlaced();
                 model.setDraftPool(draftPool.cloneDraftPool());
                 model.setToolCard(toolCard.cloneToolCard());
@@ -197,7 +199,8 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
                 model.setDraftPool(draftPool.cloneDraftPool());
                 model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
                 model.changePlayerStateTo(event.getPlayerId(), state.cloneState());
-            }
+            } else if (!state.canPlaceDie())
+                this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), "You can't place die."));
         } catch (GameException e) {
             this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
         }
@@ -496,7 +499,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
                 toolCard.consumeEffect();
                 draftPool.removeDie(event.getDraftedDie());
                 roundTrack.remove(event.getRoundTrackDie(), event.getRound());
-                draftPool.addDie(event.getDraftedDie());
+                draftPool.addDie(event.getRoundTrackDie());
                 roundTrack.addDie(event.getDraftedDie(), event.getRound());
                 model.setToolCard(toolCard.cloneToolCard());
                 model.setDraftPool(draftPool.cloneDraftPool());
@@ -591,12 +594,15 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable {
     public void handle(ReconnectGameEvent event) {
         try {
             String id = event.getPlayerId();
-            this.disconnectedPlayersId.remove(id);
-            Player player = null;
-            player = model.getPlayer(id);
-            player.setConnected(true);
-            model.setPlayer(player);
-            model.notifyModel();
+            if(disconnectedPlayersId.contains(id)) {
+                this.disconnectedPlayersId.remove(id);
+                Player player = model.getPlayer(id);
+                player.setConnected(true);
+                model.setPlayer(player);
+                model.notifyModel();
+            } else {
+
+            }
         } catch (NotValidIdException | NotPresentPlayerException e) {
             this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
         }

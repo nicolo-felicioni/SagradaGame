@@ -21,6 +21,14 @@ public interface RMIClientInterface extends Remote {
     void login (String uid) throws RemoteException, LoginException;
 
     /**
+     * Reconnect a client to the server.
+     *
+     * @param uid the unique identifier of the client.
+     * @throws RemoteException if RMI errors occur during the connection.
+     */
+    void reconnect (String uid) throws RemoteException, LoginException;
+
+    /**
      * Getter of the unique identifier.
      *
      * @return the unique identifier.

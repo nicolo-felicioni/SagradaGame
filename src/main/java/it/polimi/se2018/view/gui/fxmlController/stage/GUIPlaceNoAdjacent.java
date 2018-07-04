@@ -1,6 +1,7 @@
 package it.polimi.se2018.view.gui.fxmlController.stage;
 
 import it.polimi.se2018.event.game.DraftAndPlaceGameEvent;
+import it.polimi.se2018.event.game.DraftAndPlaceNoAdjacentGameEvent;
 import it.polimi.se2018.model.DraftPool;
 import it.polimi.se2018.model.WindowPattern;
 import it.polimi.se2018.observer.game.GameEventObserver;
@@ -39,7 +40,7 @@ public class GUIPlaceNoAdjacent extends GUIStage{
     @FXML
     private void placeDie(MouseEvent event) {
         if (draftPool.getSelectedDie() != null && windowPattern.getSelectedSpace() != null) {
-            this.observer.handle(new DraftAndPlaceGameEvent(draftPool.getSelectedDie(), windowPattern.getSelectedPosition(), playerId));
+            this.observer.handle(new DraftAndPlaceNoAdjacentGameEvent(draftPool.getSelectedDie(), windowPattern.getSelectedPosition(), playerId));
             container.close();
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

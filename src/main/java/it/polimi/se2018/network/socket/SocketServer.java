@@ -34,17 +34,6 @@ public class SocketServer {
 		}
 	}
 
-	/**
-	 * Login a client to the server.
-	 *
-	 * @param uid the unique identifier of the client.
-	 * @param client the client.
-	 * @return the session between the client and the server.
-	 */
-	public SessionInterface login(String uid, ClientInterface client) throws LoginException {
-		return null;
-	}
-
 	private class Listener implements Runnable {
 		private boolean run = true;
 

@@ -23,17 +23,17 @@ public class ToolCardsFactory {
     public ToolCardsFactory() {
         cards = new ArrayList<>();
         this.cards.add(new ToolCardOne());
-        this.cards.add(new ToolCardTwo());
-        this.cards.add(new ToolCardThree());
-        this.cards.add(new ToolCardFour());
-        this.cards.add(new ToolCardFive());
-        this.cards.add(new ToolCardSix());
-        this.cards.add(new ToolCardSeven());
+        //this.cards.add(new ToolCardTwo());
+        //this.cards.add(new ToolCardThree());
+        //this.cards.add(new ToolCardFour());
+        //this.cards.add(new ToolCardFive());
+        //this.cards.add(new ToolCardSix());
+        //this.cards.add(new ToolCardSeven());
         this.cards.add(new ToolCardEight());
         this.cards.add(new ToolCardNine());
         this.cards.add(new ToolCardTen());
         this.cards.add(new ToolCardEleven());
-        this.cards.add(new ToolCardTwelve());
+        //this.cards.add(new ToolCardTwelve());
     }
 
     /**

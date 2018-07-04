@@ -164,6 +164,11 @@ public class GUIController extends Application implements GUIInterface{
                 () -> {
                     if (guiGameController != null && this.playerId.equals(playerId)) {
                         guiGameController.setPlayerState(state);
+                        if(state.hasChosenWindowPattern()) {
+                            this.showGame();
+                        } else {
+                            this.showChooseWindowPatternScene();
+                        }
                     }
                 }
         );
@@ -178,6 +183,21 @@ public class GUIController extends Application implements GUIInterface{
                         player.setTokens(favorTokens);
                         player.setConnected(connected);
                         guiGameController.setPlayer(player);
+                    }
+                    if (!connected) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("DISCONNECTION WARNING");
+                        alert.setHeaderText(playerId.toUpperCase() + " - Disconnected");
+                        alert.setContentText("Player has been disconnected.");
+                        alert.showAndWait();
+                        if (this.playerId.equals(playerId)) {
+                            try {
+                                this.client.disconnect();
+                                this.showLoginScene();
+                            } catch (NetworkException | IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
                     }
                 }
         );
@@ -243,7 +263,21 @@ public class GUIController extends Application implements GUIInterface{
 
     @Override
     public void updateEndGame(List<RankingPlayer> rankingPlayers) {
-        //todo g
+        Platform.runLater(
+                () -> {
+                    if(playerId.equals(this.playerId)) {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle(playerId.toUpperCase() + " - GAME END");
+                        alert.setHeaderText(rankingPlayers.get(0).getPlayerId() + " point : " + rankingPlayers.get(0).getPoints());
+                        String message = new String();
+                        for (RankingPlayer rk : rankingPlayers) {
+                            message = message + rk.getPlayerId() + " point : " + rk.getPoints() + "\n";
+                        }
+                        alert.setContentText(message);
+                        alert.showAndWait();
+                    }
+                }
+        );
     }
 
     /**
@@ -443,7 +477,6 @@ public class GUIController extends Application implements GUIInterface{
      */
     @Override
     public void handle(WindowPatternChosenGameEvent event) {
-        this.showGame();
         this.observable.notifyObservers(event);
     }
 
@@ -452,9 +485,12 @@ public class GUIController extends Application implements GUIInterface{
         try {
             this.client.login(event.getUsername());
             this.playerId = event.getUsername();
-            this.showChooseWindowPatternScene();
         } catch (LoginException e) {
-
+            try {
+                this.client.reconnect(event.getUsername());
+            } catch (LoginException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -465,9 +501,12 @@ public class GUIController extends Application implements GUIInterface{
      */
     @Override
     public void handle(ConnectRMIEvent event) {
+        try {
+        if(client != null) {
+            this.client.disconnect();
+        }
         this.client= new RMIClient(this);
         this.observable.addGameObserver(this.client);
-        try {
             client.connect(event.getAddress(),event.getPort());
         } catch (NetworkException | NotBoundException e) {
             e.printStackTrace();
@@ -488,16 +527,6 @@ public class GUIController extends Application implements GUIInterface{
         } catch (NetworkException | NotBoundException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Handle a ReconnectGameEvent.
-     *
-     * @param event the ReconnectGameEvent.
-     */
-    @Override
-    public void handle(ReconnectGameEvent event) {
-        //TODO
     }
 
     /**

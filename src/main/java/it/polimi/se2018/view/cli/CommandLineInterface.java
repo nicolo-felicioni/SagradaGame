@@ -13,6 +13,7 @@ import it.polimi.se2018.view.AbstractView;
 import it.polimi.se2018.view.cli.options.Option;
 
 import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -428,7 +429,11 @@ public class CommandLineInterface extends AbstractView {
                 client.login(username);
                 loginError = false;
             } catch (LoginException e) {
-                //Printer.println(e.getMessage());
+                try {
+                    client.reconnect(username);
+                } catch (LoginException e1) {
+                    e1.printStackTrace();
+                }
                 this.player = null;
             }
         } while (loginError);

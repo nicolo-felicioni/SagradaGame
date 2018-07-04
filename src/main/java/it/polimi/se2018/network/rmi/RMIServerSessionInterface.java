@@ -1,7 +1,7 @@
 package it.polimi.se2018.network.rmi;
 
 import it.polimi.se2018.event.game.*;
-import it.polimi.se2018.network.client.ClientInterface;
+import it.polimi.se2018.event.network.ReconnectGameEvent;
 
 import java.io.Serializable;
 import java.rmi.Remote;
@@ -166,10 +166,4 @@ public interface RMIServerSessionInterface extends Remote, Serializable {
      * @throws RemoteException if RMI errors occur during the connection.
      */
     void handle(WindowPatternChosenGameEvent event) throws RemoteException;
-
-    /**
-     * Handle a ReconnectGameEvent.
-     * @param event the ReconnectGameEvent.
-     */
-    void handle(ReconnectGameEvent event) throws RemoteException;
 }

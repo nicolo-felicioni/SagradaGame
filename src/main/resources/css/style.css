@@ -234,26 +234,23 @@
     -fx-background-repeat: no-repeat;
 }
 
+.fill-90 {
+    -fx-background-position: center;
+    -fx-background-size: 90% 90%;
+    -fx-background-repeat: no-repeat;
+}
+
 .space {
     -fx-background-color: #636e72;
-    -fx-background-position: center;
-    -fx-background-size: 80% 80%;
-    -fx-background-repeat: no-repeat;
 }
 
 .space-selected{
     -fx-background-color: #2d3436;
-    -fx-background-position: center;
-    -fx-background-size: 80% 80%;
-    -fx-background-repeat: no-repeat;
 }
 
 
 .space-highlighted {
     -fx-background-color: #f7d794;
-    -fx-background-position: center;
-    -fx-background-size: 80% 80%;
-    -fx-background-repeat: no-repeat;
 }
 
 .space-blank {
@@ -489,7 +486,7 @@ GUIToolCard .foreground GridPane{
 }
 
 GUIPrivateObjectiveCard {
-    -fx-background-image: url("../images/publiccard/shadevariety.jpg");
+    -fx-background-image: url("../images/privatecard/back.jpg");
 }
 
 GUIPrivateObjectiveCard .foreground GridPane{

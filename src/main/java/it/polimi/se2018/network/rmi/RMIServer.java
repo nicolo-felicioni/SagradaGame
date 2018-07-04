@@ -51,4 +51,19 @@ public class RMIServer implements RMIServerInterface {
 		return session;
 	}
 
+	/**
+	 * Reconnect a client to the server.
+	 *
+	 * @param uid the unique identifier of the client.
+	 * @param client the client.
+	 * @return the session between the client and the server.
+	 */
+	public synchronized RMIServerSessionInterface reconnect(String uid, RMIClientInterface client) throws RemoteException, NetworkException {
+		RMIServerSession session = new RMIServerSession(uid);
+		session.addClientObserver(client);
+		Server.getInstance().reconnect(uid, session);
+		UnicastRemoteObject.exportObject(session, ServerConfiguration.RMI_SERVER_PORT);
+		return session;
+	}
+
 }

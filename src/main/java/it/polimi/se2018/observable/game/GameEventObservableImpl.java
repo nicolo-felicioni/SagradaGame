@@ -23,7 +23,6 @@ public class GameEventObservableImpl implements GameEventObservable {
 	private List<MoveDieIgnoreValueRestrictionObserver> moveDieIgnoreValueRestrictionObservers;
 	private List<MoveDieMatchColorRoundTrackObserver> moveDieMatchColorRoundTrackObservers;
 	private List<MoveDieRespectAllRestrictionsObserver> moveDieRespectAllRestrictionsObservers;
-	private List<ReconnectObserver> reconnectObservers;
 	private List<RerollAllDraftDiceObserver> rerollAllDraftDiceObservers;
 	private List<RerollDraftDieObserver> rerollDraftDieObservers;
 	private List<StartGameObserver> startGameObservers;
@@ -45,7 +44,6 @@ public class GameEventObservableImpl implements GameEventObservable {
 		this.moveDieIgnoreValueRestrictionObservers = new ArrayList<>();
 		this.moveDieMatchColorRoundTrackObservers = new ArrayList<>();
 		this.moveDieRespectAllRestrictionsObservers = new ArrayList<>();
-		this.reconnectObservers = new ArrayList<>();
 		this.rerollAllDraftDiceObservers = new ArrayList<>();
 		this.rerollDraftDieObservers = new ArrayList<>();
 		this.startGameObservers = new ArrayList<>();
@@ -73,7 +71,6 @@ public class GameEventObservableImpl implements GameEventObservable {
 		this.moveDieIgnoreValueRestrictionObservers.add(observer);
 		this.moveDieMatchColorRoundTrackObservers.add(observer);
 		this.moveDieRespectAllRestrictionsObservers.add(observer);
-		this.reconnectObservers.add(observer);
 		this.rerollAllDraftDiceObservers.add(observer);
 		this.rerollDraftDieObservers.add(observer);
 		this.startGameObservers.add(observer);
@@ -101,7 +98,6 @@ public class GameEventObservableImpl implements GameEventObservable {
 		this.moveDieIgnoreValueRestrictionObservers.remove(observer);
 		this.moveDieMatchColorRoundTrackObservers.remove(observer);
 		this.moveDieRespectAllRestrictionsObservers.remove(observer);
-		this.reconnectObservers.remove(observer);
 		this.rerollAllDraftDiceObservers.remove(observer);
 		this.rerollDraftDieObservers.remove(observer);
 		this.startGameObservers.remove(observer);
@@ -681,33 +677,4 @@ public class GameEventObservableImpl implements GameEventObservable {
 		this.startGameObservers.forEach(o -> o.handle(event));
 	}
 
-	/**
-	 * Add a ReconnectObserver.
-	 *
-	 * @param observer the ReconnectObserver.
-	 */
-	@Override
-	public void addObserver(ReconnectObserver observer) {
-		this.reconnectObservers.add(observer);
-	}
-
-	/**
-	 * Remove a ReconnectObserver.
-	 *
-	 * @param observer the ReconnectObserver.
-	 */
-	@Override
-	public void removeObserver(ReconnectObserver observer) {
-		this.reconnectObservers.remove(observer);
-	}
-
-	/**
-	 * Notify the ReconnectObservers an ReconnectGameEvent.
-	 *
-	 * @param event the ReconnectGameEvent.
-	 */
-	@Override
-	public void notifyObservers(ReconnectGameEvent event) {
-		this.reconnectObservers.forEach(o -> o.handle(event));
-	}
 }

@@ -86,13 +86,17 @@ public class GUISpace extends Pane {
             this.getStyleClass().add("space");
         }
         if(space.hasDie()) {
-            this.getChildren().removeAll();
+            //this.getChildren().removeAll();
+            this.getStyleClass().add("fill-90");
             this.getStyleClass().add(this.space.getDie().getColor().toString().toLowerCase() + "-" + this.space.getDie().getValue().toString().toLowerCase());
         }else if(space.isColorRestricted()) {
+            this.getStyleClass().add("fill-80");
             this.getStyleClass().add("space-" + space.getColorRestriction().toString().toLowerCase());
         }else if(space.isValueRestricted()) {
+            this.getStyleClass().add("fill-80");
             this.getStyleClass().add("space-" + space.getValueRestriction().toString().toLowerCase());
         }else {
+            this.getStyleClass().add("fill-80");
             this.getStyleClass().add("space-blank");
         }
     }

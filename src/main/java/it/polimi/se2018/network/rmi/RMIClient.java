@@ -105,6 +105,21 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 	}
 
 	/**
+	 * Reconnect a client to the server.
+	 *
+	 * @param uid the unique identifier of the client.
+	 */
+	public void reconnect (String uid) throws LoginException {
+		try {
+			sessions.add(server.reconnect(uid, this));
+			this.uid = uid;
+		}catch(RemoteException | NetworkException e) {
+			Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
+			throw new LoginException("Login to server failed.");
+		}
+	}
+
+	/**
 	 * Getter of the unique identifier.
 	 *
 	 * @return the unique identifier.
@@ -429,19 +444,4 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 		});
 	}
 
-	/**
-	 * Handle a ReconnectGameEvent.
-	 *
-	 * @param event the ReconnectGameEvent.
-	 */
-	@Override
-	public void handle(ReconnectGameEvent event) {
-		this.sessions.forEach(session -> {
-			try {
-				session.handle(event);
-			} catch (RemoteException e) {
-				Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
-			}
-		});
-	}
 }

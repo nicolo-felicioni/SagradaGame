@@ -315,7 +315,7 @@ public class WindowPattern implements Serializable {
 	 * @param p the coordinates of the space.
 	 * @throws PlacementException if the die can not be placed.
 	 */
-	public void plaaceDieIgnoreAdjacent(Die die, Point p) throws PlacementException {
+	public void placeDieIgnoreAdjacent(Die die, Point p) throws PlacementException {
 		if(isPlaceableNoAdjacent(die, p)) {
 			spaces[p.getX()][p.getY()].placeDie(die);
 		} else {

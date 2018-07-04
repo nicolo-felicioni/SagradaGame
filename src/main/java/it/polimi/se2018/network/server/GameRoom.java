@@ -4,17 +4,21 @@ import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.controller.ViewUpdaterObserver;
 import it.polimi.se2018.event.game.*;
+import it.polimi.se2018.event.network.ReconnectGameEvent;
 import it.polimi.se2018.model.Model;
 import it.polimi.se2018.network.ServerConfiguration;
 import it.polimi.se2018.observable.game.GameEventObservableImpl;
+import it.polimi.se2018.observable.game.ReconnectObservable;
+import it.polimi.se2018.observer.game.ReconnectObserver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Davide Yi Xian Hu
  */
-public class GameRoom extends GameEventObservableImpl implements GameRoomInterface {
+public class GameRoom extends GameEventObservableImpl implements GameRoomInterface, ReconnectObservable {
 
     /**
      * If the game is already started, it's true. False otherwise.
@@ -30,6 +34,12 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
      * List of view updater observer.
      */
     private List<ViewUpdaterObserver> observers;
+
+
+    /**
+     * List of view updater observer.
+     */
+    private List<ReconnectObserver> reconnectObservers;
 
     /**
      * Timer.
@@ -52,10 +62,12 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
     public GameRoom() {
         this.playerSessions = new ArrayList<>();
         this.observers = new ArrayList<>();
+        this.reconnectObservers = new ArrayList<>();
         Model model = new Model();
         model.addObserver(this);
         Controller controller = new Controller(model);
         this.addGameObserver(controller);
+        this.addObserver((ReconnectObserver) controller);
         controller.addObserver(this);
         this.started = false;
     }
@@ -78,6 +90,22 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
             playerSessions.add(session);
             observers.add(session);
             this.refreshTimer();
+        }
+    }
+
+    /**
+     * Connect a player session to this game room and remove previous connection.
+     * @param session the player session.
+     */
+    public synchronized void substitutePlayerSession(SessionInterface session) {
+        if(this.isIn(session.getUID())){
+            Optional<SessionInterface> ses = playerSessions.stream().filter(s -> s.getUID().equals(session)).findAny();
+            if(ses.isPresent()) {
+                playerSessions.remove(ses.get());
+                observers.remove(ses.get());
+                playerSessions.add(session);
+                observers.add(session);
+            }
         }
     }
 
@@ -355,13 +383,33 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
     }
 
     /**
-     * Handle a ReconnectGameEvent.
+     * Add a ReconnectObserver.
+     *
+     * @param observer the ReconnectObserver.
+     */
+    @Override
+    public void addObserver(ReconnectObserver observer) {
+        this.reconnectObservers.add(observer);
+    }
+
+    /**
+     * Remove a ReconnectObserver.
+     *
+     * @param observer the ReconnectObserver.
+     */
+    @Override
+    public void removeObserver(ReconnectObserver observer) {
+        this.reconnectObservers.remove(observer);
+    }
+
+    /**
+     * Notify the ReconnectObservers an ReconnectGameEvent.
      *
      * @param event the ReconnectGameEvent.
      */
     @Override
-    public void handle(ReconnectGameEvent event) {
-        this.notifyObservers(event);
+    public void notifyObservers(ReconnectGameEvent event) {
+        this.reconnectObservers.forEach(o -> o.handle(event));
     }
 
     private class Timer implements Runnable {

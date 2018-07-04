@@ -99,6 +99,16 @@ public class SocketClient implements ClientInterface {
 	}
 
 	/**
+	 * Login a client to the server.
+	 *
+	 * @param uid the unique identifier of the client.
+	 */
+	@Override
+	public void reconnect(String uid) throws LoginException {
+		this.login(uid);
+	}
+
+	/**
 	 * Getter of the unique identifier.
 	 *
 	 * @return the unique identifier.
@@ -321,17 +331,6 @@ public class SocketClient implements ClientInterface {
 	public void handle(WindowPatternChosenGameEvent event) {
 		this.send(Json.getGson().toJson(event, GameEvent.class));
 	}
-
-	/**
-	 * Handle a ReconnectGameEvent.
-	 *
-	 * @param event the ReconnectGameEvent.
-	 */
-	@Override
-	public void handle(ReconnectGameEvent event) {
-		this.send(Json.getGson().toJson(event, GameEvent.class));
-	}
-
 
 	private class NetworkListener implements Runnable {
 		private boolean run = true;
