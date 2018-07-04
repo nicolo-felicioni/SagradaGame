@@ -51,7 +51,8 @@ public class GUIMoveDieIgnoreValue extends GUIStage{
 
     @FXML
     private void moveDieIgnoreValue(MouseEvent event) {
-        if(firstPattern.getSelectedPosition() != null && secondPattern.getSelectedPosition() != null) {
+        if(firstPattern.getSelectedPosition() != null && secondPattern.getSelectedPosition() != null && firstPattern.getSelectedSpace().hasDie() &&
+                secondPattern.getWindowPattern().isPlaceableIgnoreValue(firstPattern.getSelectedSpace().getDie(), secondPattern.getSelectedPosition())) {
             this.observer.handle(new MoveDieIgnoreValueRestrictionGameEvent(
                     firstPattern.getSelectedPosition(), secondPattern.getSelectedPosition(), playerId));
             container.close();

@@ -71,7 +71,9 @@ public class GUIMoveDieMatchColor extends GUIStage{
 
     @FXML
     private void moveDieMatchColor(MouseEvent event) {
-        if(firstPattern.getSelectedPosition() != null && secondPattern.getSelectedPosition() != null) {
+        if(firstPattern.getSelectedPosition() != null && secondPattern.getSelectedPosition() != null && firstPattern.getSelectedSpace().hasDie() &&
+                secondPattern.getWindowPattern().isPlaceable(firstPattern.getSelectedSpace().getDie(), secondPattern.getSelectedPosition()) &&
+                colors.stream().anyMatch(c -> firstPattern.getSelectedSpace().getDie().getColor().equals(c))) {
             this.observer.handle(new MoveDieMatchColorRoundTrackGameEvent(
                     firstPattern.getSelectedPosition(), secondPattern.getSelectedPosition(), playerId));
             container.close();
