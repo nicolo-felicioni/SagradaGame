@@ -483,8 +483,8 @@ public class GUIController extends Application implements GUIInterface{
     @Override
     public void handle(LoginEvent event){
         try {
-            this.client.login(event.getUsername());
             this.playerId = event.getUsername();
+            this.client.login(event.getUsername());
         } catch (LoginException e) {
             try {
                 this.client.reconnect(event.getUsername());
@@ -502,11 +502,12 @@ public class GUIController extends Application implements GUIInterface{
     @Override
     public void handle(ConnectRMIEvent event) {
         try {
-        if(client != null) {
-            this.client.disconnect();
-        }
-        this.client= new RMIClient(this);
-        this.observable.addGameObserver(this.client);
+            if(client != null) {
+                this.client.disconnect();
+                this.observable.removeGameObserver(client);
+            }
+            this.client= new RMIClient(this);
+            this.observable.addGameObserver(this.client);
             client.connect(event.getAddress(),event.getPort());
         } catch (NetworkException | NotBoundException e) {
             e.printStackTrace();
@@ -520,9 +521,13 @@ public class GUIController extends Application implements GUIInterface{
      */
     @Override
     public void handle(ConnectSocketEvent event) {
-        this.client=new SocketClient(this);
-        this.observable.addGameObserver(this.client);
         try {
+            if(client != null) {
+                this.client.disconnect();
+                this.observable.removeGameObserver(client);
+            }
+            this.client=new SocketClient(this);
+            this.observable.addGameObserver(this.client);
             client.connect(event.getAddress(),event.getPort());
         } catch (NetworkException | NotBoundException e) {
             e.printStackTrace();
@@ -535,7 +540,7 @@ public class GUIController extends Application implements GUIInterface{
      */
     private void showLoginScene() throws IOException{
 
-     //   /*
+        //   /*
         FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUILogin.fxml"));
         Parent root = loader.load();
         GUILogin controller = loader.getController();
@@ -547,7 +552,7 @@ public class GUIController extends Application implements GUIInterface{
         primaryStage.setTitle("Sagrada-The Game");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-   //     */
+        //     */
 
 
 /*

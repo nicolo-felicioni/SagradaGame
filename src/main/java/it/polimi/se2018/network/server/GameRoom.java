@@ -98,14 +98,13 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
      * @param session the player session.
      */
     public synchronized void substitutePlayerSession(SessionInterface session) {
-        if(this.isIn(session.getUID())){
-            Optional<SessionInterface> ses = playerSessions.stream().filter(s -> s.getUID().equals(session)).findAny();
-            if(ses.isPresent()) {
-                playerSessions.remove(ses.get());
-                observers.remove(ses.get());
-                playerSessions.add(session);
-                observers.add(session);
-            }
+        Optional<SessionInterface> ses = playerSessions.stream().filter(s -> s.getUID().equals(session.getUID())).findAny();
+        if(ses.isPresent()) {
+            playerSessions.remove(ses.get());
+            observers.remove(ses.get());
+            playerSessions.add(session);
+            observers.add(session);
+            this.notifyObservers(new ReconnectGameEvent(session.getUID()));
         }
     }
 

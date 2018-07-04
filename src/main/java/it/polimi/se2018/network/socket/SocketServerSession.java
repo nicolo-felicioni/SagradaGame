@@ -58,6 +58,13 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 			this.outStream.writeUTF(text);
 			this.outStream.flush();
 		} catch (IOException e) {
+			try {
+				inStream.close();
+				outStream.close();
+				socket.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		}
 	}
@@ -294,16 +301,34 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 					Json.getGson().fromJson(inStream.readUTF(), GameEvent.class).accept(session);
 				}
 			} catch (IOException e) {
+				try {
+					inStream.close();
+					outStream.close();
+					socket.close();
+					this.run = false;
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			} catch (LoginException e) {
 				send(new LoginResponse(false, LoginResponse.LOGIN_FAIL_MESSAGE).toJson());
 				try {
 					uid = new LoginMessage(inStream.readUTF(), true).getUid();
 					Server.getInstance().reconnect(uid, session);
 					send(new LoginResponse(true, LoginResponse.LOGIN_SUCCESS_MESSAGE).toJson());
-				} catch (IOException e1) {
+					while(this.run) {
+						Json.getGson().fromJson(inStream.readUTF(), GameEvent.class).accept(session);
+					}
+				} catch (IOException e2) {
+					try {
+						inStream.close();
+						outStream.close();
+						socket.close();
+						this.run = false;
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 				} catch (LoginException e1) {
 					send(new LoginResponse(false, LoginResponse.LOGIN_FAIL_MESSAGE).toJson());
-
 				}
 			}
 		}

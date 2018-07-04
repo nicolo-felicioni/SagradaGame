@@ -70,6 +70,7 @@ public class GUILogin extends GameEventObservableImpl implements GUILoginControl
             notifyObservers(new ConnectSocketEvent(adressText.getText(),Integer.parseInt(portText.getText())));
         }
         notifyObservers(new LoginEvent(accountText.getText()));
+        loginButton.setDisable(true);
     }
 
     /**
@@ -196,6 +197,7 @@ public class GUILogin extends GameEventObservableImpl implements GUILoginControl
     public void onKeyPressed(KeyEvent keyEvent) throws IOException {
         if (keyEvent.getCode().equals(KeyCode.ENTER)){
             if (accountText.isFocused()){
+                loginButton.setDisable(true);
                 logInAction();
             }
         }

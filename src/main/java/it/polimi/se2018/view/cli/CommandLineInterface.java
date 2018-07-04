@@ -431,10 +431,12 @@ public class CommandLineInterface extends AbstractView {
             } catch (LoginException e) {
                 try {
                     client.reconnect(username);
+                    loginError = false;
                 } catch (LoginException e1) {
                     e1.printStackTrace();
+                    this.player = null;
                 }
-                this.player = null;
+
             }
         } while (loginError);
 

@@ -69,6 +69,7 @@ public class GUIChooseWindowPattern {
     public GUIChooseWindowPattern() {
         this.observer = null;
         this.playerId = null;
+        this.selectedPattern = null;
     }
 
     /**
@@ -168,7 +169,10 @@ public class GUIChooseWindowPattern {
      */
     @FXML
     public void chooseWindowPattern(ActionEvent event) {
-        this.observer.handle(new WindowPatternChosenGameEvent(selectedPattern, playerId));
+        if(selectedPattern != null) {
+            this.choose.setDisable(true);
+            this.observer.handle(new WindowPatternChosenGameEvent(selectedPattern, playerId));
+        }
     }
 
     /**

@@ -60,7 +60,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
     /**
      * Player turn timer. Max amount of time a player has to make his moves in his turn.
      */
-    private static final int PLAYER_TURN_TIMER = 60000;
+    private static final int PLAYER_TURN_TIMER = 20000;
 
     /**
      * Handle a choose draft die value game event.
@@ -594,7 +594,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
     public void handle(ReconnectGameEvent event) {
         try {
             String id = event.getPlayerId();
-            if(disconnectedPlayersId.contains(id)) {
+            if(disconnectedPlayersId.stream().anyMatch(s -> s.equals(id))) {
                 this.disconnectedPlayersId.remove(id);
                 Player player = model.getPlayer(id);
                 player.setConnected(true);
@@ -697,9 +697,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
         if (this.scheduler.hasNext()) {
             try {
                 model.changePlayerStateTo(scheduler.getCurrentPlayerId(), new NotYourTurnState());
-                System.out.println(scheduler.getCurrentPlayerId());
                 String playerId = scheduler.next();
-                System.out.println(playerId);
                 if (disconnectedPlayersId.contains(playerId)) {
                     this.nextTurn();
                 } else if (scheduler.isFirstTurnOfPlayer()) {
@@ -866,7 +864,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
         Player player = model.getPlayer(id);
         player.setConnected(false);
         model.setPlayer(player);
-        if (model.getPlayers().stream().anyMatch(Player::isConnected)) {
+        if (model.getPlayers().stream().filter(Player::isConnected).count() > 1) {
             this.nextTurn();
         } else {
             this.endGame();

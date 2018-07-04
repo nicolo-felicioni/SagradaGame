@@ -128,6 +128,13 @@ public class SocketClient implements ClientInterface {
 			this.outStream.writeUTF(text);
 			this.outStream.flush();
 		} catch (IOException e) {
+			try {
+				inStream.close();
+				outStream.close();
+				socket.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
             Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
 		}
 	}
@@ -342,6 +349,14 @@ public class SocketClient implements ClientInterface {
 					handle(Json.getGson().fromJson(inStream.readUTF(), ViewUpdaterInterface.class));
 				} catch (IOException e) {
                     Logger.getLogger(Logger.GLOBAL_LOGGER_NAME).log(Level.WARNING, e.getMessage(), e);
+					try {
+						inStream.close();
+						outStream.close();
+						socket.close();
+						this.run = false;
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 		}
