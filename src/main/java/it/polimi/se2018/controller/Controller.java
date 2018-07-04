@@ -348,8 +348,8 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
                     model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
 
                 }
-            } else{
-                if(!windowPattern.getSpace(event.getInitialPosition()).hasDie())
+            } else {
+                if (!windowPattern.getSpace(event.getInitialPosition()).hasDie())
                     this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), NO_DIE_ERROR_MESSAGE));
                 else
                     this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), TOOL_CARD_CONDITION_ERROR_MESSAGE));
@@ -590,7 +590,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
     public void handle(ReconnectGameEvent event) {
         try {
             String id = event.getPlayerId();
-            if(disconnectedPlayersId.stream().anyMatch(s -> s.equals(id))) {
+            if (disconnectedPlayersId.stream().anyMatch(s -> s.equals(id))) {
                 this.disconnectedPlayersId.remove(id);
                 Player player = model.getPlayer(id);
                 player.setConnected(true);
@@ -624,7 +624,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
      */
     private void endGame() {
         List<RankingPlayer> players = sortPlayers();
-        this.notifyObservers(new EndGameUpdater(players));
+        this.notifyObservers(new EndGameUpdater(players, disconnectedPlayersId));
     }
 
     /**
@@ -783,9 +783,10 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
         List<Player> players = model.getPlayers();
         List<RankingPlayer> rankingPlayers = new ArrayList<>();
 
-        for (Player player : players) {
+        players.stream().filter(Player::isConnected).forEach(player -> {
             WindowPattern pattern = player.getPattern();
-            int numberOfEmptySpaces = (WindowPattern.SPACES_HEIGHT * WindowPattern.SPACES_LENGTH) - pattern.getNumberOfDice();
+            int numberOfEmptySpaces =
+                    (WindowPattern.SPACES_HEIGHT * WindowPattern.SPACES_LENGTH) - pattern.getNumberOfDice();
 
             int points;
             int favorTokens = player.getTokens();
@@ -793,9 +794,9 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
             int pointsFromPublicObjective = Arrays.stream(model.getPublicObjectiveCards())
                     .mapToInt(card -> card.calculatePoints(pattern)).sum();
             points = favorTokens + pointsFromPrivateObjective + pointsFromPublicObjective - numberOfEmptySpaces;
-            //TODO - non so come si calcola l ordine inverso dell ultimo round
-            rankingPlayers.add(new RankingPlayer(player.getId(), points, pointsFromPrivateObjective, favorTokens, 0));
-        }
+
+            rankingPlayers.add(new RankingPlayer(player.getId(), points, pointsFromPrivateObjective, favorTokens));
+        });
 
         Collections.sort(rankingPlayers, new RankingPlayer.RankingPlayerComparator().reversed());
 

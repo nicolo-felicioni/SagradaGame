@@ -34,6 +34,10 @@ public class Scheduler {
      * Current player identifier.
      */
     private String currentPlayerID;
+    /**
+     * The round off set.
+     */
+    private int roundOffSet;
 
     /**
      * Constructor.
@@ -101,9 +105,10 @@ public class Scheduler {
      */
     private void nextTurn() {
         if(this.hasNext()) {
-            if (this.currentTurn == (this.playerIds.size() * 2) ) {
+            if (this.currentTurn == (this.playerIds.size() * 2) -roundOffSet) {
                 this.currentTurn = 1;
                 this.currentRound++;
+                this.roundOffSet=0;
             } else {
                 this.currentTurn++;
             }
@@ -124,6 +129,7 @@ public class Scheduler {
      * @return true if a player id has been removed.
      */
     public boolean removeFirstOccurenceOf(String id) {
+        this.roundOffSet++;
         return this.queue.remove(id);
     }
 

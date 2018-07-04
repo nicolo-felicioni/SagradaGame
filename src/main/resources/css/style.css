@@ -487,6 +487,9 @@ GUIToolCard .foreground GridPane{
 
 GUIPrivateObjectiveCard {
     -fx-background-image: url("../images/privatecard/back.jpg");
+    -fx-background-position: center;
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
 }
 
 GUIPrivateObjectiveCard .foreground GridPane{
