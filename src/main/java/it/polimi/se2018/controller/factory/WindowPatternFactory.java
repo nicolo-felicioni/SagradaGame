@@ -16,6 +16,7 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import it.polimi.se2018.controller.utils.myLog;
+import it.polimi.se2018.network.ServerConfiguration;
 
 /**
  * @author Davide Yi Xian Hu
@@ -29,6 +30,9 @@ public class WindowPatternFactory {
 		windows = new ArrayList<>();
 		try {
 			this.loadWindowPattern(STANDARD_WINDOW_PATH);
+			if(ServerConfiguration.CUSTOM_PATTERN) {
+				this.loadWindowPattern(ServerConfiguration.CUSTOM_PATTERN_PATH);
+			}
 		}catch (FileNotFoundException e) {
 			myLog.getMyLog().log(Level.WARNING, e.getMessage());
 		}

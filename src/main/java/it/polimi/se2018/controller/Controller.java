@@ -9,19 +9,23 @@ import it.polimi.se2018.controller.updater.ErrorMessageUpdater;
 import it.polimi.se2018.controller.utils.RankingPlayer;
 import it.polimi.se2018.controller.utils.Scheduler;
 import it.polimi.se2018.event.game.*;
+import it.polimi.se2018.event.network.DisconnectEvent;
 import it.polimi.se2018.event.network.ReconnectGameEvent;
 import it.polimi.se2018.exceptions.*;
+import it.polimi.se2018.json.Json;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.network.ServerConfiguration;
+import it.polimi.se2018.observable.network.DisconnectObservable;
 import it.polimi.se2018.observer.game.GameEventObserver;
 import it.polimi.se2018.observer.game.ReconnectObserver;
+import it.polimi.se2018.observer.network.DisconnectObserver;
 
 import java.util.*;
 
 /**
  * @author Davide Yi Xian Hu
  */
-public class Controller implements GameEventObserver, ViewUpdaterObservable, ReconnectObserver {
+public class Controller implements GameEventObserver, ViewUpdaterObservable, ReconnectObserver, DisconnectObservable {
 
     private static final String TOOL_CARD_CONDITION_ERROR_MESSAGE = "The tool card can't make this action";
 
@@ -48,6 +52,11 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
     private List<ViewUpdaterObserver> observers;
 
     /**
+     * Disconnect observers.
+     */
+    private List<DisconnectObserver> disconnectObservers;
+
+    /**
      * Public constructor.
      *
      * @param model the game model.
@@ -56,6 +65,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
         this.model = model;
         this.disconnectedPlayersId = new ArrayList<>();
         this.observers = new ArrayList<>();
+        this.disconnectObservers = new ArrayList<>();
     }
 
     /**
@@ -373,8 +383,9 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
             WindowPattern windowPattern = model.getPlayer(event.getPlayerId()).getPattern();
             if (toolCard.moveADie() && windowPattern.getSpace(event.getInitialPosition()).hasDie()) {
                 toolCard.consumeEffect();
+                Die die = windowPattern.getSpace(event.getInitialPosition()).getDie();
                 windowPattern.removeDie(event.getInitialPosition());
-                windowPattern.placeDie(windowPattern.getSpace(event.getInitialPosition()).getDie(), event.getFinalPosition());
+                windowPattern.placeDie(die.cloneDie(), event.getFinalPosition());
                 model.setToolCard(toolCard);
                 model.setWindowPattern(event.getPlayerId(), windowPattern.cloneWindowPattern());
 
@@ -625,6 +636,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
     private void endGame() {
         List<RankingPlayer> players = sortPlayers();
         this.notifyObservers(new EndGameUpdater(players, disconnectedPlayersId));
+        this.model.getPlayersId().forEach(id -> this.notifyObservers(new DisconnectEvent(id)));
     }
 
     /**
@@ -896,5 +908,35 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
     @Override
     public void notifyObservers(ViewUpdaterInterface updater) {
         this.observers.forEach(o -> o.handle(updater));
+    }
+
+    /**
+     * Add a DisconnectObserver.
+     *
+     * @param observer the DisconnectObserver.
+     */
+    @Override
+    public void addObserver(DisconnectObserver observer) {
+        this.disconnectObservers.add(observer);
+    }
+
+    /**
+     * Remove a DisconnectObserver.
+     *
+     * @param observer the DisconnectObserver.
+     */
+    @Override
+    public void removeObserver(DisconnectObserver observer) {
+        this.disconnectObservers.remove(observer);
+    }
+
+    /**
+     * Notify the DisconnectObserver an DisconnectObserver.
+     *
+     * @param event the DisconnectEvent.
+     */
+    @Override
+    public void notifyObservers(DisconnectEvent event) {
+        this.disconnectObservers.forEach(o -> o.handle(event));
     }
 }

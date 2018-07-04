@@ -33,6 +33,16 @@ public class ServerConfiguration {
     public static int TURN_TIMER;
 
     /**
+     * True if the server have to load the custom pattern in the games.
+     */
+    public static boolean CUSTOM_PATTERN;
+
+    /**
+     * The custom pattern path location.
+     */
+    public static String CUSTOM_PATTERN_PATH;
+
+    /**
      * Server configuration file path.
      */
     private static final String CONF_PATH = "src/main/resources/server_conf.json";
@@ -47,6 +57,9 @@ public class ServerConfiguration {
             RMI_SERVER_PORT = configuration.rmiPort;
             SOCKET_SERVER_PORT = configuration.socketPort;
             GAME_ROOM_TIMER = configuration.gameRoomTimer;
+            TURN_TIMER = configuration.turnTimer;
+            CUSTOM_PATTERN = configuration.customPattern;
+            CUSTOM_PATTERN_PATH = configuration.customPatternPath;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,6 +86,16 @@ public class ServerConfiguration {
          * Turn timer.
          */
         private int turnTimer;
+
+        /**
+         * True if the server have to load the custom pattern in the games.
+         */
+        private boolean customPattern;
+
+        /**
+         * The custom pattern path location.
+         */
+        private String customPatternPath;
 
     }
 }

@@ -4,12 +4,14 @@ import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.controller.ViewUpdaterObserver;
 import it.polimi.se2018.event.game.*;
+import it.polimi.se2018.event.network.DisconnectEvent;
 import it.polimi.se2018.event.network.ReconnectGameEvent;
 import it.polimi.se2018.model.Model;
 import it.polimi.se2018.network.ServerConfiguration;
 import it.polimi.se2018.observable.game.GameEventObservableImpl;
 import it.polimi.se2018.observable.game.ReconnectObservable;
 import it.polimi.se2018.observer.game.ReconnectObserver;
+import it.polimi.se2018.observer.network.DisconnectObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,7 @@ import java.util.Optional;
 /**
  * @author Davide Yi Xian Hu
  */
-public class GameRoom extends GameEventObservableImpl implements GameRoomInterface, ReconnectObservable {
+public class GameRoom extends GameEventObservableImpl implements GameRoomInterface, ReconnectObservable, DisconnectObserver {
 
     /**
      * If the game is already started, it's true. False otherwise.
@@ -68,7 +70,8 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
         Controller controller = new Controller(model);
         this.addGameObserver(controller);
         this.addObserver((ReconnectObserver) controller);
-        controller.addObserver(this);
+        controller.addObserver((ViewUpdaterObserver) this);
+        controller.addObserver((DisconnectObserver) this);
         this.started = false;
     }
 
@@ -409,6 +412,20 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
     @Override
     public void notifyObservers(ReconnectGameEvent event) {
         this.reconnectObservers.forEach(o -> o.handle(event));
+    }
+
+    /**
+     * Handle a ConnectSocketEvent.
+     *
+     * @param event the ConnectSocketEvent.
+     */
+    @Override
+    public void handle(DisconnectEvent event) {
+        Optional<SessionInterface> ses = playerSessions.stream().filter(s -> s.getUID().equals(event.getPlayerId())).findAny();
+        if(ses.isPresent()) {
+            playerSessions.remove(ses.get());
+            observers.remove(ses.get());
+        }
     }
 
     private class Timer implements Runnable {

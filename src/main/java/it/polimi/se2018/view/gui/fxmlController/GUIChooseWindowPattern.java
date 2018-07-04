@@ -28,6 +28,11 @@ public class GUIChooseWindowPattern {
     private WindowPattern selectedPattern;
 
     /**
+     * True if the window has been chosen.
+     */
+    private boolean windowChosen;
+
+    /**
      * The private objective card.
      */
     @FXML
@@ -70,6 +75,7 @@ public class GUIChooseWindowPattern {
         this.observer = null;
         this.playerId = null;
         this.selectedPattern = null;
+        this.windowChosen = false;
     }
 
     /**
@@ -169,8 +175,8 @@ public class GUIChooseWindowPattern {
      */
     @FXML
     public void chooseWindowPattern(ActionEvent event) {
-        if(selectedPattern != null) {
-            this.choose.setDisable(true);
+        if(selectedPattern != null && !windowChosen) {
+            this.windowChosen = true;
             this.choose.setText("Waiting for other player to choose window pattern");
             this.observer.handle(new WindowPatternChosenGameEvent(selectedPattern, playerId));
         }

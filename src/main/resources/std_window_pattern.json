@@ -743,7 +743,7 @@
 				{
 					"x": 1,
 					"y": 1,
-					"value": 5
+					"value": 4
 				},
 				{
 					"x": 1,
@@ -1486,7 +1486,7 @@
 	},
 	{
 		"window": {
-			"name": "water of life",	
+			"name": "water of life",
 			"colorSpaces": [
 				{
 					"x": 3,
