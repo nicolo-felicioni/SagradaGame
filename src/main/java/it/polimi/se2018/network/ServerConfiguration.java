@@ -27,6 +27,12 @@ public class ServerConfiguration {
     public static int GAME_ROOM_TIMER;
 
     /**
+     * Turn timer.
+     * Amount of time to wait before disconnecting a client.
+     */
+    public static int TURN_TIMER;
+
+    /**
      * Server configuration file path.
      */
     private static final String CONF_PATH = "src/main/resources/server_conf.json";
@@ -38,7 +44,6 @@ public class ServerConfiguration {
         try(JsonReader reader = new JsonReader(new FileReader(CONF_PATH))) {
             Gson gson = new GsonBuilder().create();
             Configuration configuration = gson.fromJson(reader, Configuration.class);
-            System.out.println(gson.toJson(configuration));
             RMI_SERVER_PORT = configuration.rmiPort;
             SOCKET_SERVER_PORT = configuration.socketPort;
             GAME_ROOM_TIMER = configuration.gameRoomTimer;
@@ -60,9 +65,14 @@ public class ServerConfiguration {
         private int socketPort;
 
         /**
-         * Socket server port number.
+         * Game room timer.
          */
         private int gameRoomTimer;
+
+        /**
+         * Turn timer.
+         */
+        private int turnTimer;
 
     }
 }

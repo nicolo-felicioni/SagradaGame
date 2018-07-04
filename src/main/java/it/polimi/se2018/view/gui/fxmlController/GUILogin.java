@@ -71,6 +71,7 @@ public class GUILogin extends GameEventObservableImpl implements GUILoginControl
         }
         notifyObservers(new LoginEvent(accountText.getText()));
         loginButton.setDisable(true);
+        loginButton.setText("Waiting for server response");
     }
 
     /**
