@@ -11,6 +11,10 @@ public class ReadDraftPoolDieOption extends SimpleOption {
         super(cli);
     }
 
+    /**
+     * this method returns the number of the die in the draft pool that the user has chosen
+     * @return the number of the die in the draft pool that the user has chosen
+     */
     @Override
     public int execute() {
         int choice;
@@ -25,15 +29,25 @@ public class ReadDraftPoolDieOption extends SimpleOption {
         return choice;
     }
 
+    /**
+     * shows the draft pool to the user
+     */
     private void showDraftpool() {
         Printer.print(cli.getDraftPool());
     }
 
+    /**
+     * shows the available options to the user
+     */
     protected void showOptions() {
         showDraftpool();
         showGoBackOption();
     }
 
+    /**
+     * this method read the choice of the user
+     * @return the choice of the user
+     */
     private int readChoice() {
         int choice = cli.getKeyboard().readInt();
 

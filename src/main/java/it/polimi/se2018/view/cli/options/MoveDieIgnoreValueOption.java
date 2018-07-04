@@ -21,17 +21,26 @@ public class MoveDieIgnoreValueOption extends ComplexOption {
         subOptions = OptionFactory.buildMoveDieIgnoreValueOptions(cli);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setName() {
         this.name = NAME;
         this.selectMessage = MOVE_DIE_MESSAGE;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setSelectMessage() {
-
+        this.selectMessage = MOVE_DIE_MESSAGE;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int execute() {
 

@@ -10,11 +10,20 @@ public class ChooseWindowOption extends SimpleOption {
     private static final String CHOOSE_WINDOW_MESSAGE = "Select a window pattern";
     private static final String WRONG_CHOICE_MESSAGE = "There isn't any window with that number.";
 
+    /**
+     * constructor
+     * @param cli the command line interface
+     */
     public ChooseWindowOption(CommandLineInterface cli) {
         super(cli);
         this.name = CHOOSE_WINDOW_NAME;
     }
 
+    /**
+     * this method shows the initial window patterns of the player
+     * and asks the user to choice one of them.
+     * @return the number of the chosen pattern.
+     */
     @Override
     public int execute() {
         int choice;

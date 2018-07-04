@@ -17,12 +17,17 @@ public class MoveDieMatchColorOnRoundTrackOption extends MoveADieOption {
         super(cli);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setName() {
         this.name = NAME;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int execute() {
         List<Integer> choices = makeChoices();

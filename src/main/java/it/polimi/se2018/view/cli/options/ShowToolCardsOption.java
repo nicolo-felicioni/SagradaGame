@@ -14,14 +14,12 @@ public class ShowToolCardsOption extends SimpleOption {
         this.name = SHOW_TOOL_CARDS;
     }
 
+    /**
+     * this method shows the tool cards on the table to the user.
+     */
     @Override
     public int execute() {
-
-        //TODO DEBUG
-        Arrays.stream(cli.getToolCards()).forEach(card -> {
-            Printer.println(card.getClass().getSimpleName());
-            Printer.print(card);
-        });
+        Arrays.stream(cli.getToolCards()).forEach(Printer::print);
         return 0;
     }
 }

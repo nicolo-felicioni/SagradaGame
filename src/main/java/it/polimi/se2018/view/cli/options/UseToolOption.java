@@ -25,6 +25,10 @@ public class UseToolOption extends SimpleOption {
     }
 
 
+    /**
+     * this method choose the tool card to activate.
+     * @return the number of which tool card has been activated.
+     */
     @Override
     public int execute() {
         int choice;
@@ -53,6 +57,9 @@ public class UseToolOption extends SimpleOption {
         return 0;
     }
 
+    /**
+     * this method shows the possible tool cards.
+     */
     private void showOptions(){
         Printer.println(USE_TOOL_MESSAGE);
         for (int i = 0; i < cli.getToolCards().length; i++) {
@@ -64,6 +71,10 @@ public class UseToolOption extends SimpleOption {
     }
 
 
+    /**
+     * this method reads the input of the user
+     * @return the input of the user
+     */
     private int readChoice(){
         int choice = cli.getKeyboard().readInt();
         if ((choice <= 0 && choice != EXIT_CODE) || choice > cli.getToolCards().length)

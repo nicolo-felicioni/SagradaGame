@@ -21,17 +21,26 @@ public class MoveADieOption extends ComplexOption {
         this.subOptions = OptionFactory.buildMoveDieOptions(cli);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setSelectMessage() {
         this.selectMessage = SELECT;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setName() {
         this.name = NAME;
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int execute() {
         List<Integer> choices = makeChoices();

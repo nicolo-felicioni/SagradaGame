@@ -20,17 +20,26 @@ public class PlaceDieOption extends ComplexOption {
         this.subOptions = OptionFactory.buildPlaceDieOptions(cli);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setName() {
         this.name = PLACE_DIE_NAME;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setSelectMessage() {
         this.selectMessage = PLACE_DIE_MESSAGE;
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int execute() {
         Die selectedDie;

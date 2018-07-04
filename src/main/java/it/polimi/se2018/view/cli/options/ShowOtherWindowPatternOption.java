@@ -15,6 +15,9 @@ public class ShowOtherWindowPatternOption extends SimpleOption{
         this.name = SHOW_OTHER_WINDOW_NAME;
     }
 
+    /**
+     * this method shows the window pattern of the other players to the user.
+     */
     @Override
     public int execute() {
         List<Player> players = cli.getPlayers();

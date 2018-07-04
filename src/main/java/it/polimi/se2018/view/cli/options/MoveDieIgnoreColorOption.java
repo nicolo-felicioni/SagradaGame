@@ -29,16 +29,25 @@ public class MoveDieIgnoreColorOption extends ComplexOption {
         subOptions = OptionFactory.buildMoveDieIgnoreColorOptions(cli);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setName() {
         this.name = NAME;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void setSelectMessage() {
         this.selectMessage = MOVE_DIE_MESSAGE;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int execute() {
 

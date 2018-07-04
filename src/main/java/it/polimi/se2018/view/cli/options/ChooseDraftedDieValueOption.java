@@ -10,14 +10,25 @@ import it.polimi.se2018.view.cli.Printer;
 public class ChooseDraftedDieValueOption extends SimpleOption {
 
     private static final String WRONG_CHOICE_MESSAGE = "Impossible choice.";
-    private Die draftedDie;
     private static final String SELECT = "Select a value.";
 
+
+    //todo modificare costruttore
+
+    /**
+     * constructor
+     *
+     * @param cli the command line interface
+     */
     public ChooseDraftedDieValueOption(CommandLineInterface cli, Die draftedDie) {
         super(cli);
-        this.draftedDie = draftedDie;
+
     }
 
+    /**
+     * this method shows the drafted die and asks the user to choice a new value for it.
+     * @return the value that the user has chosen.
+     */
     @Override
     public int execute() {
         Printer.print("The die from the dice bag is : ");

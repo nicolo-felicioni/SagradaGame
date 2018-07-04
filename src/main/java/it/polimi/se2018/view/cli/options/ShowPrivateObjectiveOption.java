@@ -12,6 +12,9 @@ public class ShowPrivateObjectiveOption extends SimpleOption {
         this.name = NAME;
     }
 
+    /**
+     * this method shows the user's private objective card.
+     */
     @Override
     public int execute() {
         Printer.print(cli.getPrivateObjectiveCard());
