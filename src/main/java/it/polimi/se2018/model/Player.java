@@ -10,11 +10,35 @@ import java.util.Arrays;
 
 public class Player {
 
+	/**
+	 * the player id
+	 */
 	private final String id;
+
+	/**
+	 * the favor tokens of the player
+	 */
 	private int favorTokens;
+
+	/**
+	 * the private objective card of the player
+	 */
 	private PrivateObjectiveCard privateObjectiveCard;
-	private WindowPattern[] patterns; //the initial four patterns
-	private WindowPattern chosenPattern; //the chosen one
+
+	/**
+	 * the initial window patterns
+	 */
+	private WindowPattern[] patterns;
+
+	/**
+	 * the chosen one patter
+	 */
+	private WindowPattern chosenPattern;
+
+	/**
+	 * the state of the player.
+	 *
+	 */
 	private PlayerState state;
 
 	/**
@@ -22,9 +46,16 @@ public class Player {
 	 */
 	private boolean connected;
 
+	/**
+	 * constant field. the number of the initial window patterns.
+	 */
 	public static final int N_WINDOW_PATTERNS = 4;
 
 
+	/**
+	 * constructor.
+	 * @param id the id of the player.
+	 */
 	public Player(String id) {
 		this.id = id;
 		this.state = null;
@@ -37,14 +68,13 @@ public class Player {
 	/**
 	 * copy constructor.
 	 *
-	 * @param copy
+	 * @param copy the player to be copied
 	 */
-	//TODO - da rivedere
 	public Player(Player copy) {
 		this.id = copy.getId();
-		if (copy.patterns != null) //TODO a cosa serve questo if???
+		if (copy.patterns != null)
 			this.patterns = copy.getPatterns();
-		if (copy.chosenPattern != null)  //TODO a cosa serve questo if???
+		if (copy.chosenPattern != null)
 			this.chosenPattern = copy.chosenPattern.cloneWindowPattern();
 		this.privateObjectiveCard = copy.privateObjectiveCard;
 		this.state = copy.state;
@@ -171,7 +201,10 @@ public class Player {
 	}
 
 
-	//TODO N javadoc
+	/**
+	 * getter of the player's state.
+	 * @return the player's state.
+	 */
 	public PlayerState getState() {
 		if (state != null) {
 			return this.state.cloneState();
@@ -182,31 +215,48 @@ public class Player {
 
 
 	/**
-	 * @param playerState
+	 * setter of the player's state
+	 * @param playerState the player's state to set.
 	 */
 	public void changePlayerStateTo(PlayerState playerState) {
 		this.state = playerState.cloneState();
 	}
 
-	//TODO N javadoc
-	public void placeDie(Point p, Die die) throws PlacementException, IllegalMoveTurnException {
 
-		//TODO - Non so
+	/**
+	 * this method places a die in a point of the chosen window pattern of the player.
+	 *
+	 * it will check all constrictions following the game's rules.
+	 *
+	 *
+	 * @param p the point where the die should be placed
+	 * @param die the die that should be placed
+	 * @throws PlacementException if the die can't placed in the point p
+	 * @throws IllegalMoveTurnException if it's not this player's turn.
+	 */
+	public void placeDie(Point p, Die die) throws PlacementException, IllegalMoveTurnException {
 
 		if (this.state.canPlaceDie()) {
 			this.chosenPattern.placeDie(die, p);
 		}
-
 		this.state.diePlaced();
-
 	}
 
-	//TODO N javadoc
+	/**
+	 * this method places a die in a point of the chosen window pattern of the player.
+	 *
+	 * it will check all constrictions following the game's rules.
+	 *
+	 *
+	 * @param x the first coordinate of the point where the die should be placed
+	 * @param y the second coordinate of the point where the die should be placed
+	 * @param die the die that should be placed
+	 * @throws GameMoveException if the die can't placed in the point p
+	 * @throws NotValidDieException if the coordinates are not valid.
+	 */
 	public void placeDie(int x, int y, Die die) throws GameMoveException, NotValidPointException {
 
 		Point p = new Point(x, y);
-
-		//TODO - Non so
 
 		if (this.state.canPlaceDie()) {
 			this.chosenPattern.placeDie(die, p);
@@ -216,8 +266,9 @@ public class Player {
 
 	}
 
+
 	/**
-	 * Return if a die can be placed in a space of the chosen window pattern respecting all restrictions.
+	 * Return true if a die can be placed in a space of the chosen window pattern respecting all restrictions.
 	 *
 	 * @param p   the position of the space in the window pattern.
 	 * @param die the die.
@@ -242,17 +293,29 @@ public class Player {
 		}
 	}
 
-	//TODO N javadoc
+	/**
+	 * the method that has to be called to use a tool card.
+	 *
+	 * @throws GameMoveException if the player can't use a tool card.
+	 */
 	public void useTool() throws GameMoveException {
 		this.state.useTool();
 	}
 
-	//TODO N javadoc
+	/**
+	 * Indicates whether some other player is "equal to" this one.
+	 * @param player the player with which to compare.
+	 * @return true if the players are equal
+	 */
 	public boolean equalsPlayer(Player player) {
 		return this.getId().equals(player.getId());
 	}
 
-	//TODO N javadoc
+
+	/**
+	 * Returns a string representation of the player.
+	 * @return a string representation of the player.
+	 */
 	public String toString() {
 		return ("Player id: " + this.getId());
 	}

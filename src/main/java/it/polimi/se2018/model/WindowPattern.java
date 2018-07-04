@@ -12,12 +12,35 @@ import java.util.List;
 
 public class WindowPattern implements Serializable {
 
+	/**
+	 * the matrix formed of spaces of this window pattern
+	 */
 	private Space[][] spaces;
+
+	/**
+	 * the difficulty of this window pattern
+	 */
 	private int difficulty;
 
+
+	/**
+	 * the matrix's length
+	 */
 	public static final int SPACES_LENGTH = 5;
+
+	/**
+	 * the matrix's height
+	 */
 	public static final int SPACES_HEIGHT = 4;
+
+	/**
+	 * the minimum difficulty that any window pattern should have.
+	 */
 	public static final int MIN_DIFFICULTY = 3;
+
+	/**
+	 * the maximum difficulty that any window pattern should have.
+	 */
 	public static final int MAX_DIFFICULTY = 6;
 
 	/**
@@ -60,7 +83,7 @@ public class WindowPattern implements Serializable {
 	}
 
 	/**
-	 *
+	 * getter of the difficulty of the window pattern
 	 * @return the difficulty of the window pattern
 	 */
 	public int getDifficulty() {
@@ -68,9 +91,9 @@ public class WindowPattern implements Serializable {
 	}
 
 	/**
+	 * getter of the space at a certain point.
 	 *
 	 * @param p a point
-	 *
 	 * @return the corresponding space on the window pattern
 	 */
 	public Space getSpace(Point p){
@@ -79,6 +102,7 @@ public class WindowPattern implements Serializable {
 	}
 
 	/**
+	 * getter of the space at a certain point.
 	 *
 	 * @param x row coordinate
 	 * @param y column coordinate
@@ -90,7 +114,7 @@ public class WindowPattern implements Serializable {
 	}
 
 	/**
-	 *
+	 * getter of all the spaces.
 	 * @return a matrix with all the spaces of the window pattern
 	 */
 
@@ -107,6 +131,7 @@ public class WindowPattern implements Serializable {
 
 	/**
 	 * checks if the die is placeable for the window pattern.
+	 *
 	 * If the window is empty, this method checks if the point is on the edge of the window,
 	 * otherwise it will check if there is any adjacent die to the point p.
 	 * @param p a point
@@ -124,8 +149,11 @@ public class WindowPattern implements Serializable {
 
 	}
 
+
+
 	/**
 	 * Checks if the die is placeable for the window pattern ignoring color restrictions.
+	 *
 	 * If the window is empty, this method checks if the point is on the edge of the window,
 	 * otherwise it will check if there is any adjacent die to the point p.
 	 * Ignoring color restrictions.
@@ -187,6 +215,7 @@ public class WindowPattern implements Serializable {
 
 	/**
 	 * Checks if the die is placeable for the window pattern and there's no die in adjacent spaces.
+	 *
 	 * If the window is empty, this method checks if the point is on the edge of the window,
 	 * otherwise it will check if there is any adjacent die to the point p.
 	 *
@@ -203,6 +232,7 @@ public class WindowPattern implements Serializable {
 	}
 
 	/**
+	 * places a die in a certain point in this window pattern
 	 *
 	 * @param die a die
 	 * @param p the point where you want to place the die
@@ -224,6 +254,7 @@ public class WindowPattern implements Serializable {
 	}
 
 	/**
+	 * places a die in a certain point in this window pattern
 	 *
 	 * @param die a die
 	 * @param x the row where you want to place the die
@@ -243,6 +274,7 @@ public class WindowPattern implements Serializable {
 
 	/**
 	 * Places a die on a space of the window ignoring the space's color restrictions
+	 *
 	 * @param die a die
 	 * @param p the point where you want to place the die
 	 * @throws PlacementException  it will be thrown if the die is not placeable
@@ -258,6 +290,8 @@ public class WindowPattern implements Serializable {
 
 	/**
 	 *Places a die on a space of the window ignoring the space's color restrictions
+	 *
+	 *
 	 * @param die a die
 	 * @param x the row where you want to place the die
 	 * @param y the column where you want to place the die
@@ -276,6 +310,7 @@ public class WindowPattern implements Serializable {
 
 	/**
 	 *Places a die on a space of the window pattern ignoring the space's value restrictions
+	 *
 	 * @param die a die
 	 * @param p the point where you want to place the die
 	 * @throws PlacementException if the die isn't placeable
@@ -292,6 +327,7 @@ public class WindowPattern implements Serializable {
 
 	/**
 	 *Places a die on a space of the window pattern ignoring the space's value restrictions
+	 *
 	 * @param die a die
 	 * @param x the row where you want to place the die
 	 * @param y the column where you want to place the die
@@ -310,7 +346,9 @@ public class WindowPattern implements Serializable {
 	}
 
 	/**
-	 * Place a die on a space of the window pattern. The spaces adjacent to the space where the die will be placed must not have a die.
+	 * Place a die on a space of the window pattern.
+	 * The spaces adjacent to the space where the die will be placed don't need to have a die.
+	 *
 	 * @param die the die that have to be placed.
 	 * @param p the coordinates of the space.
 	 * @throws PlacementException if the die can not be placed.
@@ -326,6 +364,7 @@ public class WindowPattern implements Serializable {
 
 	/**
 	 * checks if there is a die adjacent to the point p orthogonally or diagonally
+	 *
 	 * @param p a point
 	 * @return true if there is a die adjacent to the point p, otherwise false
 	 */
@@ -424,6 +463,7 @@ public class WindowPattern implements Serializable {
 
 
 	/**
+	 * getter of all spaces as a list
 	 *
 	 * @return a list with all the spaces of the window pattern
 	 */
@@ -441,6 +481,7 @@ public class WindowPattern implements Serializable {
 
 
 	/**
+	 * get the number of dice present on the window
 	 *
 	 * @return the number of dice present on the window
 	 *
@@ -458,10 +499,11 @@ public class WindowPattern implements Serializable {
 	}
 
 	/**
+	 * clone method.
+	 * returns a clone of this window pattern.
 	 *
 	 * @return a copy of the window pattern
-	 * @throws WindowPatternDimensionException
-	 * @throws UnboundDifficultyValueException
+	 *
 	 */
 	public WindowPattern cloneWindowPattern() {
 
@@ -470,6 +512,7 @@ public class WindowPattern implements Serializable {
 		} catch (WindowPatternDimensionException e) {
 
 		} catch (UnboundDifficultyValueException e) {
+
 		}
 		return null;
 	}

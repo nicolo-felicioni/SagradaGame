@@ -46,7 +46,7 @@ public enum DieColor implements Serializable {
 
     /**
      *
-     * @param n
+     * @param n an integer number
      * @return the corresponding color of the input n
      */
     public static DieColor fromInt(int n) {
@@ -59,7 +59,6 @@ public enum DieColor implements Serializable {
     }
 
     /**
-     *
      * @return a random color
      */
 	public static DieColor getRandom() {

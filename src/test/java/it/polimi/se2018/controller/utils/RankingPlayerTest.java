@@ -18,20 +18,17 @@ public class RankingPlayerTest {
         players = new ArrayList<>();
 
         RankingPlayer nico = new RankingPlayer("nico");
-        nico.setPoints(30);
+        nico.setPoints(31);
         nico.setPointsFromPrivateObjective(10);
         nico.setFavorTokensRemaining(4);
-        nico.setReverseOrderFinalRound(1);
         RankingPlayer davide = new RankingPlayer("davide");
         davide.setPoints(30);
         davide.setPointsFromPrivateObjective(10);
         davide.setFavorTokensRemaining(2);
-        davide.setReverseOrderFinalRound(2);
         RankingPlayer gao = new RankingPlayer("gao");
         gao.setPoints(30);
         gao.setPointsFromPrivateObjective(10);
         gao.setFavorTokensRemaining(2);
-        gao.setReverseOrderFinalRound(0);
 
         players.add(gao);
         players.add(nico);

@@ -3,18 +3,30 @@ package it.polimi.se2018.model;
 import it.polimi.se2018.exceptions.ColorRestrictionViolatedException;
 import it.polimi.se2018.exceptions.PlacementException;
 
+/**
+ * @author Nicolò Felicioni
+ */
+
 public class ColorSpace extends Space {
 
+	/**
+	 *  the color of the space
+	 */
 	private DieColor color;
 
 	/**
-	 * 
-	 * @param color
+	 * constructor.
+	 * @param color the color of the space
 	 */
 	public ColorSpace(DieColor color) {
 		this.color=color;
 	}
 
+
+	/**
+	 *Copy constructor.
+	 * @param colorSpace the space to be copied
+	 */
 	public ColorSpace(ColorSpace colorSpace){
 		if(colorSpace.hasDie())
 			this.die=colorSpace.getDie();
@@ -22,7 +34,13 @@ public class ColorSpace extends Space {
 
     }
 
-    @Override
+
+	/**
+	 * Places a die in the space, checking the space conditions.
+	 * @param die the die to be placed in this space
+	 * @throws PlacementException if the die can't be placed in this space
+	 */
+	@Override
 	public void placeDie(Die die) throws PlacementException{
 
 		//checks the color restriction
@@ -36,8 +54,7 @@ public class ColorSpace extends Space {
 
 
 	/**
-	 * @param die
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void placeDieIgnoreColor(Die die) throws PlacementException {
@@ -45,8 +62,8 @@ public class ColorSpace extends Space {
 	}
 
 	/**
-	 * @param die
-	 * @inheritDoc
+	 *
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void placeDieIgnoreValue(Die die) throws PlacementException {
@@ -54,8 +71,7 @@ public class ColorSpace extends Space {
 	}
 
 	/**
-	 * @param die
-	 * @inheritDoc
+	 *{@inheritDoc}
 	 */
 	@Override
 	public boolean respectAllRestrictions(Die die) {
@@ -67,7 +83,7 @@ public class ColorSpace extends Space {
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean isColorRestricted() {
@@ -75,7 +91,7 @@ public class ColorSpace extends Space {
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean isValueRestricted() {
@@ -83,7 +99,7 @@ public class ColorSpace extends Space {
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	@Override
 	public DieColor getColorRestriction() {
@@ -91,7 +107,7 @@ public class ColorSpace extends Space {
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	@Override
 	public DieValue getValueRestriction() {
@@ -108,6 +124,10 @@ public class ColorSpace extends Space {
 		return new ColorSpace(this);
 	}
 
+	/**
+	 *
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equalsSpace(Space space){
 

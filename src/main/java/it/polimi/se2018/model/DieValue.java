@@ -26,18 +26,15 @@ public enum DieValue implements Serializable {
 	private int dieNumber;
 	private String unicodeValue;
 
-	/**
-	 *
-	 * @param dieValue
-	 */
+
 	DieValue(int dieValue, String unicodeValue){
 		this.dieNumber =dieValue;
 		this.unicodeValue=unicodeValue;
 	}
 
 	/**
-	 *
-	 * @return dieNumber
+	 * returns the value as an integer
+	 * @return the value as an integer
 	 */
 	public int toInt(){
 			return this.dieNumber;
@@ -48,8 +45,8 @@ public enum DieValue implements Serializable {
 	}
 
 	/**
-	 *
-	 * @param n
+	 * returns the corresponding die Value of input n
+	 * @param n an integer
 	 * @return corresponding die Value of input n
 	 */
 	public static DieValue fromInt(int n){
@@ -62,7 +59,7 @@ public enum DieValue implements Serializable {
 	}
 
 	/**
-	 *
+	 * get a random die value.
 	 * @return a random die Value
 	 */
 	public static DieValue getRandom() {

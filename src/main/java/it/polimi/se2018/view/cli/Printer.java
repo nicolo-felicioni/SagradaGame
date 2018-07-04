@@ -342,6 +342,8 @@ public class Printer {
         Printer.println("Points: " + rankingPlayer.getPoints());
         Printer.println("Points from private objective card: " + rankingPlayer.getPointsFromPrivateObjective());
         Printer.println("Remaining favor tokens: " + rankingPlayer.getFavorTokensRemaining());
-        Printer.println("Reverse order in the final round: " + rankingPlayer.getReverseOrderFinalRound());
+
+        //todo
+        //Printer.println("Reverse order in the final round: " + rankingPlayer.getReverseOrderFinalRound());
     }
 }

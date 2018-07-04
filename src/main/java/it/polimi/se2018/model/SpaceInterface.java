@@ -87,6 +87,11 @@ public interface SpaceInterface extends Serializable {
 	 */
 	boolean hasDie();
 
+	/**
+	 * the method returns true if this space is equal to the parameter.
+	 * @param space the space to compare with this space
+	 * @return true if the spaces are equal, false otherwise.
+	 */
 	boolean equalsSpace(Space space);
 
 }

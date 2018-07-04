@@ -8,11 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 public class DraftPool implements Serializable {
 
+    /**
+     * the list of dice on the draft pool.
+     */
     private List<Die> draftPool;
 
 
+    /**
+     * the drafted die.
+     */
     private Die draftedDie;
 
 
@@ -53,6 +60,11 @@ public class DraftPool implements Serializable {
     }
 
 
+    /**
+     * returns true if the draftpool has the die
+     * @param die the die to search in the draftpool
+     * @return true if the die is present
+     */
     public boolean hasDie(Die die){
         for(Die tempDie:draftPool){
             if(tempDie.equalsDie(tempDie))
@@ -63,7 +75,7 @@ public class DraftPool implements Serializable {
 
     /**
      * Method for adding a die in the draft pool
-     * @param die
+     * @param die the die to add
      */
     public void addDie(Die die){
         draftPool.add(die);
@@ -71,7 +83,7 @@ public class DraftPool implements Serializable {
 
     /**
      * Method for adding dice in the draft pool
-     * @param dice
+     * @param dice the dice to add
      */
     public void addDice(List<Die> dice){
        draftPool.addAll(dice);
@@ -79,7 +91,7 @@ public class DraftPool implements Serializable {
 
     /**
      *Method for removing a die from the draft pool
-     * @param die
+     * @param die the die to be removed
      * @throws NotValidDieException if the die is not present within the dice bag
      */
     public void removeDie(Die die) throws NotValidDieException{
@@ -102,7 +114,7 @@ public class DraftPool implements Serializable {
 
     /**
      * Method for get all the dice in the draft pool as an ArrayList
-     * @return ArrayList<die> containing all the dice in the draft pool
+     * @return a list of dice containing all the dice in the draft pool
      */
     public List<Die> getAllDice() {
         return new ArrayList<>(draftPool);
@@ -116,6 +128,10 @@ public class DraftPool implements Serializable {
         return new DraftPool(this);
     }
 
+    /**
+     * getter of the drafted die.
+     * @return the drafted die.
+     */
     public synchronized Die getDraftedDie() {
         if(this.draftedDie == null)
             return null;
@@ -123,6 +139,10 @@ public class DraftPool implements Serializable {
             return draftedDie.cloneDie();
     }
 
+    /**
+     * setter of the drafted die.
+     * @param draftedDie the drafted die.
+     */
     public synchronized void setDraftedDie(Die draftedDie) {
         this.draftedDie = draftedDie.cloneDie();
     }

@@ -15,12 +15,25 @@ import java.util.*;
 public class DiceBag implements Serializable {
 
 
+	/**
+	 * the number of present dice.
+	 */
 	private ArrayList<Integer> numberOfPresentDice;
 
-	private final static int INITIAL_NUMBER = 18;
-	private final static int NUMBER_OF_COLORS = 5;
+	/**
+	 * Constant field. the initial number of each set of colored dice.
+	 */
+	private static final int INITIAL_NUMBER = 18;
+
+	/**
+	 * Constant field. the initial number of colors.
+	 */
+	private static final int NUMBER_OF_COLORS = 5;
 
 
+	/**
+	 * constructor.
+	 */
 	public DiceBag(){
 		numberOfPresentDice = new ArrayList<>(NUMBER_OF_COLORS);
 		for(int i = 0; i< NUMBER_OF_COLORS; i++)
@@ -60,12 +73,12 @@ public class DiceBag implements Serializable {
 
 	}
 
+
 	/**
 	 * choose n random dice, remove them form the diceBag and return them
 	 * @param n number of random dice that will be returned
 	 * @return temp, an ArrayList with removed dice
 	 */
-
 	public List<Die> drawDice(int n) throws DiceBagException {
 		if(n < 0)
 			throw new NotValidNumberOfDiceException("Requested a negative number of dice");
@@ -82,6 +95,10 @@ public class DiceBag implements Serializable {
 	}
 
 
+	/**
+	 * returns the size of the dice bag.
+	 * @return the size of the dice bag.
+	 */
 	public int size() {
 		return numberOfPresentDice.stream().mapToInt(Integer::intValue).sum();
 	}

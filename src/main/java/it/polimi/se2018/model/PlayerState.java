@@ -7,11 +7,14 @@ package it.polimi.se2018.model;
 
 public abstract class PlayerState implements PlayerStateInterface{
 
+
     private boolean diePlaced ;
     private boolean toolActivated ;
 
 
-
+    /**
+     * default constructor.
+     */
     protected PlayerState(){
         this.diePlaced=false;
         this.toolActivated=false;
@@ -43,11 +46,16 @@ public abstract class PlayerState implements PlayerStateInterface{
     }
 
 
-
+    /**
+     * setter that the player placed a die.
+     */
     void setDiePlaced(){
         this.diePlaced = true;
     }
 
+    /**
+     * setter that the player used a tool.
+     */
     void setToolActivated(){
         this.toolActivated = true;
     }

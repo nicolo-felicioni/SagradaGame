@@ -27,7 +27,7 @@ public abstract class Space implements SpaceInterface, Cloneable{
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void placeDie(Die die) throws PlacementException {
@@ -40,7 +40,7 @@ public abstract class Space implements SpaceInterface, Cloneable{
 	}
 
 	/**
-	 * @inheritDoc
+	 * {@inheritDoc}
 	 */
 	@Override
 	public Die removeDie() throws SpaceNotOccupiedException {

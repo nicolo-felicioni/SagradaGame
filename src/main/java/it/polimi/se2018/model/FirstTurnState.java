@@ -23,26 +23,41 @@ public class FirstTurnState extends PlayerState {
         super(state);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean canPlaceDie() {
         return !isDiePlaced();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean canUseTool() {
         return !isToolActivated();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean canEndTurn() {
         return isDiePlaced(); //in the very first turn the player can end his turn only if he had already placed a die
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasChosenWindowPattern() {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void diePlaced() throws IllegalMoveTurnException {
         if(canPlaceDie())
@@ -50,6 +65,9 @@ public class FirstTurnState extends PlayerState {
         else throw new IllegalMoveTurnException("You have already placed a die in this turn!");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void useTool() throws IllegalMoveTurnException {
         if(canUseTool())
