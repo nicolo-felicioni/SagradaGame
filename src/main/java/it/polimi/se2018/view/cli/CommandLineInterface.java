@@ -277,7 +277,7 @@ public class CommandLineInterface extends AbstractView {
     }
 
     @Override
-    public synchronized void updateEndGame(List<RankingPlayer> rankingPlayers) {
+    public synchronized void updateEndGame(List<RankingPlayer> rankingPlayers, List<String> disconnectedPlayerId) {
 
         menu.setExit();
 
@@ -291,6 +291,10 @@ public class CommandLineInterface extends AbstractView {
             Printer.println(i+1 + " -> " + rankingPlayers.get(i).getPlayerId().toUpperCase());
             Printer.print(rankingPlayers.get(i));
         }
+        disconnectedPlayerId.stream().forEach(id->{
+            Printer.println("Disconnected players:");
+            Printer.println(id);
+        });
     }
 
 

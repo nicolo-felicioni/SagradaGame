@@ -11,13 +11,15 @@ import java.util.List;
 public class EndGameUpdater implements ViewUpdaterInterface {
 
     private List<RankingPlayer> players;
+    private List<String> disconnectedPlayerIds;
 
-    public EndGameUpdater(List<RankingPlayer> players){
+    public EndGameUpdater(List<RankingPlayer> players, List<String> disconnectedPlayersId){
         this.players = players;
+        this.disconnectedPlayerIds = disconnectedPlayersId;
     }
 
     @Override
     public void update(View view) {
-        view.updateEndGame(players);
+        view.updateEndGame(players, disconnectedPlayerIds);
     }
 }

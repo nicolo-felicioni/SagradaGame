@@ -262,7 +262,7 @@ public class GUIController extends Application implements GUIInterface{
     }
 
     @Override
-    public void updateEndGame(List<RankingPlayer> rankingPlayers) {
+    public void updateEndGame(List<RankingPlayer> rankingPlayers, List<String> disconnectedPlayerId) {
         Platform.runLater(
                 () -> {
                     if(playerId.equals(this.playerId)) {

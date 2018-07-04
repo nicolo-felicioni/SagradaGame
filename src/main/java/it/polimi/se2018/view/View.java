@@ -25,6 +25,6 @@ public interface View extends ViewUpdaterObserver {
     void updateWindowPattern(String playerId, WindowPattern windowPattern, WindowPatternPosition position);
     void updatePublicObjectiveCard(PublicObjectiveCard card, CardPosition position);
     void updateErrorMessage(String playerId, String message);
-    void updateEndGame(List<RankingPlayer> rankingPlayers);
+    void updateEndGame(List<RankingPlayer> rankingPlayers, List<String> disconnectedPlayerId);
 
 }
