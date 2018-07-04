@@ -42,7 +42,8 @@ public class GUIDraftPlaceAgain extends GUIStage {
 
     @FXML
     private void placeDie(MouseEvent event) {
-        if (draftPool.getSelectedDie() != null && windowPattern.getSelectedSpace() != null) {
+        if (draftPool.getSelectedDie() != null && windowPattern.getSelectedSpace() != null &&
+                windowPattern.getWindowPattern().isPlaceable(draftPool.getSelectedDie(), windowPattern.getSelectedPosition())) {
             this.observer.handle(new DraftAndPlaceAgainGameEvent(draftPool.getSelectedDie(), windowPattern.getSelectedPosition(), playerId));
             container.close();
         } else {

@@ -50,7 +50,8 @@ public class GUIMoveDie extends GUIStage{
 
     @FXML
     private void moveDie(MouseEvent event) {
-        if(firstPattern.getSelectedPosition() != null && secondPattern.getSelectedPosition() != null) {
+        if(firstPattern.getSelectedPosition() != null && secondPattern.getSelectedPosition() != null && firstPattern.getSelectedSpace().hasDie() &&
+                secondPattern.getWindowPattern().isPlaceable(firstPattern.getSelectedSpace().getDie(), secondPattern.getSelectedPosition())) {
             this.observer.handle(new MoveDieRespectAllRestrictionsGameEvent(
                     firstPattern.getSelectedPosition(), secondPattern.getSelectedPosition(), playerId));
             container.close();

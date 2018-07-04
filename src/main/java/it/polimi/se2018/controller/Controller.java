@@ -12,6 +12,7 @@ import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.event.network.ReconnectGameEvent;
 import it.polimi.se2018.exceptions.*;
 import it.polimi.se2018.model.*;
+import it.polimi.se2018.network.ServerConfiguration;
 import it.polimi.se2018.observer.game.GameEventObserver;
 import it.polimi.se2018.observer.game.ReconnectObserver;
 
@@ -56,11 +57,6 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
         this.disconnectedPlayersId = new ArrayList<>();
         this.observers = new ArrayList<>();
     }
-
-    /**
-     * Player turn timer. Max amount of time a player has to make his moves in his turn.
-     */
-    private static final int PLAYER_TURN_TIMER = 20000;
 
     /**
      * Handle a choose draft die value game event.
@@ -843,7 +839,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
         String currentPlayerId = scheduler.getCurrentPlayerId();
         new Thread(() -> {
             try {
-                Thread.sleep(PLAYER_TURN_TIMER);
+                Thread.sleep(ServerConfiguration.TURN_TIMER);
                 if (currentTurnId.equals(scheduler.getTurnId())) {
                     disconnectPlayer(currentPlayerId);
                 }

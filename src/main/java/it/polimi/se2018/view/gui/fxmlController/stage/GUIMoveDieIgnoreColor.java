@@ -51,7 +51,8 @@ public class GUIMoveDieIgnoreColor extends GUIStage{
 
     @FXML
     private void moveDieIgnoreColor(MouseEvent event) {
-        if(firstPattern.getSelectedPosition() != null && secondPattern.getSelectedPosition() != null) {
+        if(firstPattern.getSelectedPosition() != null && secondPattern.getSelectedPosition() != null && firstPattern.getSelectedSpace().hasDie() &&
+                secondPattern.getWindowPattern().isPlaceableIgnoreColor(firstPattern.getSelectedSpace().getDie(), secondPattern.getSelectedPosition())) {
             this.observer.handle(new MoveDieIgnoreColorRestrictionGameEvent(
                     firstPattern.getSelectedPosition(), secondPattern.getSelectedPosition(), playerId));
             container.close();

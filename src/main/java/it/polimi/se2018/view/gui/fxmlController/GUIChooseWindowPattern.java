@@ -171,6 +171,7 @@ public class GUIChooseWindowPattern {
     public void chooseWindowPattern(ActionEvent event) {
         if(selectedPattern != null) {
             this.choose.setDisable(true);
+            this.choose.setText("Waiting for other player to choose window pattern");
             this.observer.handle(new WindowPatternChosenGameEvent(selectedPattern, playerId));
         }
     }
