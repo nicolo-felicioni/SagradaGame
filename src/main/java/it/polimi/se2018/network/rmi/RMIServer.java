@@ -22,14 +22,14 @@ public class RMIServer implements RMIServerInterface {
 	public RMIServer(){
 		Registry registry = null;
 		try {
-			registry = LocateRegistry.createRegistry(ServerConfiguration.RMI_SERVER_PORT);
+			registry = LocateRegistry.createRegistry(ServerConfiguration.getRmiServerPort());
 		} catch (RemoteException e) {
 			MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 		}
 		if (registry != null) {
 			try {
 				registry.rebind("RMIServer", this);
-				UnicastRemoteObject.exportObject(this, ServerConfiguration.RMI_SERVER_PORT);
+				UnicastRemoteObject.exportObject(this, ServerConfiguration.getRmiServerPort());
 			} catch (RemoteException e) {
 				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
@@ -47,7 +47,7 @@ public class RMIServer implements RMIServerInterface {
 		RMIServerSession session = new RMIServerSession(uid);
 		session.addClientObserver(client);
 		Server.getInstance().login(uid, session);
-		UnicastRemoteObject.exportObject(session, ServerConfiguration.RMI_SERVER_PORT);
+		UnicastRemoteObject.exportObject(session, ServerConfiguration.getRmiServerPort());
 		return session;
 	}
 
@@ -62,7 +62,7 @@ public class RMIServer implements RMIServerInterface {
 		RMIServerSession session = new RMIServerSession(uid);
 		session.addClientObserver(client);
 		Server.getInstance().reconnect(uid, session);
-		UnicastRemoteObject.exportObject(session, ServerConfiguration.RMI_SERVER_PORT);
+		UnicastRemoteObject.exportObject(session, ServerConfiguration.getRmiServerPort());
 		return session;
 	}
 

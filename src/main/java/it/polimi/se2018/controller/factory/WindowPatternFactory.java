@@ -29,8 +29,8 @@ public class WindowPatternFactory {
 		windows = new ArrayList<>();
 		try {
 			this.loadWindowPattern(STANDARD_WINDOW_PATH);
-			if(ServerConfiguration.CUSTOM_PATTERN) {
-				this.loadWindowPattern(ServerConfiguration.CUSTOM_PATTERN_PATH);
+			if(ServerConfiguration.isCustomPattern()) {
+				this.loadWindowPattern(ServerConfiguration.getCustomPatternPath());
 			}
 		}catch (FileNotFoundException e) {
 			MyLog.getMyLog().log(Level.WARNING, e.getMessage());

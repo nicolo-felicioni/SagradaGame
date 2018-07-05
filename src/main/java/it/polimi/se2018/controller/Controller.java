@@ -12,7 +12,6 @@ import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.event.network.DisconnectEvent;
 import it.polimi.se2018.event.network.ReconnectGameEvent;
 import it.polimi.se2018.exceptions.*;
-import it.polimi.se2018.json.Json;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.network.ServerConfiguration;
 import it.polimi.se2018.observable.network.DisconnectObservable;
@@ -20,7 +19,10 @@ import it.polimi.se2018.observer.game.GameEventObserver;
 import it.polimi.se2018.observer.game.ReconnectObserver;
 import it.polimi.se2018.observer.network.DisconnectObserver;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author Davide Yi Xian Hu
@@ -851,7 +853,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
         String currentPlayerId = scheduler.getCurrentPlayerId();
         new Thread(() -> {
             try {
-                Thread.sleep(ServerConfiguration.TURN_TIMER);
+                Thread.sleep(ServerConfiguration.getTurnTimer());
                 if (currentTurnId.equals(scheduler.getTurnId())) {
                     disconnectPlayer(currentPlayerId);
                 }

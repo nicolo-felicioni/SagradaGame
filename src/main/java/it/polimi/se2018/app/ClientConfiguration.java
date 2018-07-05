@@ -14,7 +14,7 @@ public class ClientConfiguration {
     /**
      * The client app type.
      */
-    public static String CLIENT;
+    private static String client;
 
     /**
      * Server configuration file path.
@@ -28,10 +28,18 @@ public class ClientConfiguration {
         try (JsonReader reader = new JsonReader(new FileReader(CONF_PATH))) {
             Gson gson = new GsonBuilder().create();
             Configuration configuration = gson.fromJson(reader, Configuration.class);
-            CLIENT = configuration.client;
+            client = configuration.client;
         } catch (IOException e) {
             MyLog.getMyLog().log(Level.WARNING, e.getMessage());
         }
+    }
+
+    /**
+     * Return the client app type.
+     * @return the client app type.
+     */
+    public static String getClient() {
+        return client;
     }
 
     private static class Configuration {

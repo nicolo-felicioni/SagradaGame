@@ -143,7 +143,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
             playerSessions.stream().map(SessionInterface::getUID).distinct().forEach(id -> playerIds.add(id));
             handle(new StartGameEvent(playerIds));
         } else if(this.countUniqueIdentifier() >= MIN_PLAYER) {
-            this.timer = new Timer(ServerConfiguration.GAME_ROOM_TIMER);
+            this.timer = new Timer(ServerConfiguration.getGameRoomTimer());
             new Thread(timer).start();
         }
     }
