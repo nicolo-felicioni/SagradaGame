@@ -9,8 +9,6 @@ import java.util.List;
 
 public class RerollDraftedDieOption extends ComplexOption {
 
-    private static final String SELECT_MESSAGE = "Select a die you want to roll.";
-    private static final String NAME = "Roll a drafted die.";
     private static final int DIE_CHOICE = 0;
 
 
@@ -18,26 +16,10 @@ public class RerollDraftedDieOption extends ComplexOption {
      * constructor.
      * @param cli the command line interface
      */
-    public RerollDraftedDieOption(CommandLineInterface cli) {
-        super(cli);
+    public RerollDraftedDieOption(CommandLineInterface cli, String name, String select) {
+        super(cli, name, select);
         this.subOptions = new ArrayList<>();
         this.subOptions.add(new ReadDraftPoolDieOption(cli));
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setName() {
-        this.name = NAME;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setSelectMessage() {
-        this.selectMessage = SELECT_MESSAGE;
     }
 
     /**

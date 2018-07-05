@@ -8,38 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IncreaseDieValueOption extends ComplexOption {
-
-    private static final String INCREASE_DIE_VALUE_NAME = "Increase the value of a die.";
     private static final String ERROR_MESSAGE = "You can't increase this die";
+
     private static final int READ_DIE_CHOICE = 0;
-    private static final String SELECT = "Select the die you want to increase.";
+
 
     /**
      * constructor.
      * @param cli the command line interface
      */
-    public IncreaseDieValueOption(CommandLineInterface cli) {
-        super(cli);
+    public IncreaseDieValueOption(CommandLineInterface cli, String name, String select) {
+        super(cli, name, select);
         subOptions = new ArrayList<>();
         subOptions.add(new ReadDraftPoolDieOption(cli));
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setName() {
-        this.name = INCREASE_DIE_VALUE_NAME;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setSelectMessage() {
-        this.selectMessage = SELECT;
-    }
-
 
     /**
      * {@inheritDoc}

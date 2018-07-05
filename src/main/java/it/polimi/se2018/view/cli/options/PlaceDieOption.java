@@ -10,35 +10,16 @@ import java.util.List;
 
 public class PlaceDieOption extends ComplexOption {
 
-    private static final String PLACE_DIE_NAME = "Place a die.";
-    private static final String PLACE_DIE_MESSAGE = "Select a die, then a space in your pattern.";
 
 
     /**
      * constructor.
      * @param cli the command line interface
      */
-    public PlaceDieOption(CommandLineInterface cli) {
-        super(cli);
+    public PlaceDieOption(CommandLineInterface cli, String name, String select) {
+        super(cli, name, select);
         this.subOptions = OptionFactory.buildPlaceDieOptions(cli);
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setName() {
-        this.name = PLACE_DIE_NAME;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setSelectMessage() {
-        this.selectMessage = PLACE_DIE_MESSAGE;
-    }
-
 
     /**
      * {@inheritDoc}

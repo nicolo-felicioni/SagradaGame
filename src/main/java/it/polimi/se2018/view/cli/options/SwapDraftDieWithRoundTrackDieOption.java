@@ -14,34 +14,15 @@ public class SwapDraftDieWithRoundTrackDieOption extends ComplexOption {
     private static final int READ_DRAFT_DIE_CHOICE = 0;
     private static final int READ_ROUND_CHOICE = 1;
     private static final int READ_ROUND_DIE_CHOICE = 2;
-    private static final String NAME = "Swap a drafted die with a round track die.";
-    private static final String SELECT = "Select a die from the draft pool and then a die from the round track.";
-
 
 
     /**
      * constructor.
      * @param cli the command line interface
      */
-    public SwapDraftDieWithRoundTrackDieOption(CommandLineInterface cli) {
-        super(cli);
+    public SwapDraftDieWithRoundTrackDieOption(CommandLineInterface cli, String name, String select) {
+        super(cli, name, select);
         this.subOptions = OptionFactory.buildSwapDraftDieOptions(cli);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setName() {
-        this.name = NAME;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setSelectMessage() {
-        this.selectMessage = SELECT;
     }
 
     /**

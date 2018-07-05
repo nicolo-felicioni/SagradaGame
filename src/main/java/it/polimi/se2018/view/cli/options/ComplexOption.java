@@ -15,22 +15,26 @@ public abstract class ComplexOption extends Option {
      * constructor.
      * @param cli the command line interface
      */
-    public ComplexOption(CommandLineInterface cli) {
+    public ComplexOption(CommandLineInterface cli, String name, String selectMessage) {
         super(cli);
-        setSelectMessage();
-        setName();
+        setSelectMessage(selectMessage);
+        setName(name);
     }
 
 
     /**
      * setter of the name of the option.
      */
-    protected abstract void setName();
+    protected void setName(String name){
+        this.name = name;
+    }
 
     /**
      * setter of the message that will be printed before the initial selection.
      */
-    protected abstract void setSelectMessage();
+    private void setSelectMessage(String selectMessage){
+        this.selectMessage = selectMessage;
+    }
 
 
 

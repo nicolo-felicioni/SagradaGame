@@ -10,34 +10,16 @@ import java.util.List;
 
 public class PlaceDieNoAdjacentOption extends ComplexOption {
 
-    private static final String NAME = "Place a die in a space without adjacent dice";
-    private static final String SELECT = "Select a die.";
-
 
     /**
      * constructor.
      * @param cli the command line interface
      */
-    public PlaceDieNoAdjacentOption(CommandLineInterface cli) {
-        super(cli);
+    public PlaceDieNoAdjacentOption(CommandLineInterface cli, String name, String select) {
+        super(cli, name, select);
         this.subOptions = OptionFactory.buildPlaceDieOptions(cli);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setName() {
-        this.name = NAME;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setSelectMessage() {
-        this.selectMessage = SELECT;
-    }
 
     /**
      * {@inheritDoc}

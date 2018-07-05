@@ -10,8 +10,7 @@ import java.util.List;
 public class DecreaseDieValueOption extends ComplexOption {
 
     private static final String ERROR_MESSAGE = "You can't decrease this die.";
-    private static final String DECREASE_DIE_VALUE_NAME = "Decrease the value of a die.";
-    private static final String DECREASE_DIE_VALUE_MESSAGE = "Select the die you want to decrease.";
+
     private static final int READ_DIE_CHOICE = 0;
 
 
@@ -19,27 +18,13 @@ public class DecreaseDieValueOption extends ComplexOption {
      * constructor
      * @param cli the command line interface
      */
-    public DecreaseDieValueOption(CommandLineInterface cli) {
-        super(cli);
+    public DecreaseDieValueOption(CommandLineInterface cli, String name, String select) {
+        super(cli,name,select);
         this.subOptions = new ArrayList<>();
         this.subOptions.add(new ReadDraftPoolDieOption(cli));
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setName() {
-        this.name = DECREASE_DIE_VALUE_NAME;
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setSelectMessage() {
-        this.selectMessage = DECREASE_DIE_VALUE_MESSAGE;
-    }
 
     /**
      * {@inheritDoc}

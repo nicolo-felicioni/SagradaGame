@@ -10,35 +10,16 @@ import java.util.List;
 
 public class PlaceDieAfterFirstTurnOption extends ComplexOption {
 
-    private static final String NAME = "Place another die. You will skip your second turn.";
-    private static final String SELECT = "Select a die from the draftpool.";
 
 
     /**
      * constructor.
      * @param cli the command line interface
      */
-    public PlaceDieAfterFirstTurnOption(CommandLineInterface cli) {
-        super(cli);
+    public PlaceDieAfterFirstTurnOption(CommandLineInterface cli, String name, String select) {
+        super(cli, name, select);
         subOptions = OptionFactory.buildPlaceDieOptions(cli);
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setName() {
-        this.name = NAME;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setSelectMessage() {
-        this.selectMessage = SELECT;
-    }
-
 
     /**
      * {@inheritDoc}

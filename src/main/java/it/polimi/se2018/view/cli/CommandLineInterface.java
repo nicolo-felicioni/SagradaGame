@@ -146,6 +146,7 @@ public class CommandLineInterface extends AbstractView {
                 }
             } catch (InterruptedException e) {
                 MyLog.getMyLog().log(Level.WARNING, e.getMessage());
+                Thread.currentThread().interrupt();
             }
         }
 
@@ -200,7 +201,7 @@ public class CommandLineInterface extends AbstractView {
             this.player.setPrivateObjective(card);
             this.privateObjectiveCard = card;
             Printer.print(card); //todo
-            notify();//to wake up the thread
+            notifyAll();//to wake up the thread
         }
 
 
@@ -228,7 +229,7 @@ public class CommandLineInterface extends AbstractView {
             if (this.player.getId().equals(playerId)) {//if it is this player's window
                 patterns[position.toInt()] = windowPattern;
                 numberOfPatternsReceived++;
-                notify();//to wake up the thread
+                notifyAll();//to wake up the thread
                 Printer.println("Debug: you received a window pattern in position:" + position.name());
             }
     }
@@ -355,7 +356,7 @@ public class CommandLineInterface extends AbstractView {
 
                 if(state.canPlaceDie() && state.canUseTool())
                     Printer.println("It's your turn.");
-                notify();//to wake up the thread
+                notifyAll();//to wake up the thread
             }
 
         } else {

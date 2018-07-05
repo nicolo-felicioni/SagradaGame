@@ -4,7 +4,6 @@ import it.polimi.se2018.model.Die;
 import it.polimi.se2018.model.PlayerState;
 import it.polimi.se2018.model.ToolCard;
 import it.polimi.se2018.view.cli.CommandLineInterface;
-import it.polimi.se2018.view.cli.Printer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,6 +11,33 @@ import java.util.List;
 import java.util.Optional;
 
 public class OptionFactory {
+
+
+    private static final String DECREASE_DIE_VALUE_NAME = "Decrease the value of a die.";
+    private static final String DECREASE_DIE_VALUE_SELECT = "Select the die you want to decrease.";
+    private static final String FLIP_DRAFTED_DIE_NAME = "Flip a drafted die.";
+    private static final String FLIP_DRAFTED_DIE_SELECT = "Select the die you want to flip.";
+    private static final String INCREASE_DIE_VALUE_NAME = "Increase the value of a die.";
+    private static final String INCREASE_DIE_VALUE_SELECT = "Select the die you want to increase.";
+    private static final String MOVE_DIE_NAME = "Move a die respecting all restrictions.";
+    private static final String MOVE_DIE_SELECT = "Select the point of the die you want to move, then select the space where you want to put it.";
+    private static final String MOVE_DIE_IGNORE_COLOR_NAME = "Move a die ignoring color restriction.";
+    private static final String MOVE_DIE_IGNORE_VALUE_NAME = "Move a die ignoring value restriction.";
+    private static final String MOVE_DIE_MATCH_COLOR_NAME = "Move a die that matches its color with one die on round track.";
+    private static final String PLACE_DIE_AFTER_FIRST_NAME = "Place another die. You will skip your second turn.";
+    private static final String PLACE_DIE_AFTER_FIRST_SELECT = "Select a die from the draftpool.";
+    private static final String PLACE_DIE_NO_ADJACENT_NAME = "Place a die in a space without adjacent dice";
+    private static final String PLACE_DIE_NO_ADJACENT_SELECT = "Select a die.";
+    private static final String PLACE_DIE_NAME = "Place a die.";
+    private static final String PLACE_DIE_SELECT = "Select a die, then a space in your pattern.";
+    private static final String REROLL_DRAFTED_DIE_SELECT = "Select a die you want to roll.";
+    private static final String REROLL_DRAFTED_DIE_NAME = "Roll a drafted die.";
+    private static final String RETURN_DIE_NAME = "Return a die and get a new one from the dice bag.";
+    private static final String RETURN_DIE_SELECT = "Select the die to return.";
+    private static final String SWAP_WITH_ROUND_TRACK_NAME = "Swap a drafted die with a round track die.";
+    private static final String SWAP_WITH_ROUND_TRACK_SELECT = "Select a die from the draft pool and then a die from the round track.";
+
+
 
 
     /**
@@ -50,7 +76,7 @@ public class OptionFactory {
                 if ((state.canPlaceDie() || state.isDiePlaced()) || state.canUseTool()) {//if it's this player's turn
 
                     if (state.canPlaceDie()) {
-                        options.add(new PlaceDieOption(cli));
+                        options.add(new PlaceDieOption(cli, PLACE_DIE_NAME, PLACE_DIE_SELECT));
                     }
                     if (state.canUseTool()) {
                         options.add(new UseToolOption(cli));
@@ -170,34 +196,33 @@ public class OptionFactory {
      */
     private static void addToolCardOptions(List<Option> options, CommandLineInterface cli, ToolCard card){
         if(card.isActive()){
-            //todo debug
-            Printer.println("DEBUG: entrati in addToolCardOptions");
+
             if(card.rerollAllDraftPoolDice())
                 options.add(new RerollAllDraftPoolDiceOption(cli));
             if(card.increaseDieValue())
-                options.add(new IncreaseDieValueOption(cli));
+                options.add(new IncreaseDieValueOption(cli, INCREASE_DIE_VALUE_NAME, INCREASE_DIE_VALUE_SELECT));
             if(card.decreaseDieValue())
-                options.add(new DecreaseDieValueOption(cli));
+                options.add(new DecreaseDieValueOption(cli, DECREASE_DIE_VALUE_NAME, DECREASE_DIE_VALUE_SELECT));
             if(card.moveDieIgnoreColor())
-                options.add(new MoveDieIgnoreColorOption(cli));
+                options.add(new MoveDieIgnoreColorOption(cli, MOVE_DIE_IGNORE_COLOR_NAME, MOVE_DIE_SELECT));
             if(card.moveDieIgnoreValue())
-                options.add(new MoveDieIgnoreValueOption(cli));
+                options.add(new MoveDieIgnoreValueOption(cli, MOVE_DIE_IGNORE_VALUE_NAME, MOVE_DIE_SELECT));
             if(card.swapDraftDieWithRoundTrackDie())
-                options.add(new SwapDraftDieWithRoundTrackDieOption(cli));
+                options.add(new SwapDraftDieWithRoundTrackDieOption(cli, SWAP_WITH_ROUND_TRACK_NAME, SWAP_WITH_ROUND_TRACK_SELECT));
             if(card.rerollDraftedDie())
-                options.add(new RerollDraftedDieOption(cli));
+                options.add(new RerollDraftedDieOption(cli, REROLL_DRAFTED_DIE_NAME, REROLL_DRAFTED_DIE_SELECT));
             if(card.flipDraftedDie())
-                options.add(new FlipDraftedDieOption(cli));
+                options.add(new FlipDraftedDieOption(cli, FLIP_DRAFTED_DIE_NAME, FLIP_DRAFTED_DIE_SELECT));
             if(card.placeDraftedDieNoAdjacent())
-                options.add(new PlaceDieNoAdjacentOption(cli));
+                options.add(new PlaceDieNoAdjacentOption(cli, PLACE_DIE_NO_ADJACENT_NAME, PLACE_DIE_NO_ADJACENT_SELECT));
             if(card.moveADie())
-                options.add(new MoveADieOption(cli));
+                options.add(new MoveADieOption(cli, MOVE_DIE_NAME, MOVE_DIE_SELECT));
             if(card.moveTwoDiceMatchColorOnRoundTrack())
-                options.add(new MoveDieMatchColorOnRoundTrackOption(cli));
+                options.add(new MoveDieMatchColorOnRoundTrackOption(cli, MOVE_DIE_MATCH_COLOR_NAME, MOVE_DIE_SELECT));
             if(card.returnDieAndGetNewFromDiceBag())
-                options.add(new ReturnDieAndGetNewOption(cli));
+                options.add(new ReturnDieAndGetNewOption(cli, RETURN_DIE_NAME, RETURN_DIE_SELECT));
             if(card.placeDieAfterFirstTurn())
-                options.add(new PlaceDieAfterFirstTurnOption(cli));
+                options.add(new PlaceDieAfterFirstTurnOption(cli, PLACE_DIE_AFTER_FIRST_NAME, PLACE_DIE_AFTER_FIRST_SELECT));
         }
 
     }

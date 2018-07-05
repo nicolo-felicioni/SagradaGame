@@ -8,8 +8,6 @@ import it.polimi.se2018.view.cli.CommandLineInterface;
 import java.util.List;
 
 public class MoveADieOption extends ComplexOption {
-    private static final String NAME = "Move a die respecting all restrictions.";
-    private static final String SELECT = "Select the point of the die you want to move, then select the space where you want to put it.";
 
     protected static final int READ_FIRST_X_CHOICE = 0;
     protected static final int READ_FIRST_Y_CHOICE = 1;
@@ -20,25 +18,9 @@ public class MoveADieOption extends ComplexOption {
      * constructor.
      * @param cli the command line interface
      */
-    public MoveADieOption(CommandLineInterface cli) {
-        super(cli);
+    public MoveADieOption(CommandLineInterface cli, String name, String select) {
+        super(cli, name, select);
         this.subOptions = OptionFactory.buildMoveDieOptions(cli);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setSelectMessage() {
-        this.selectMessage = SELECT;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setName() {
-        this.name = NAME;
     }
 
 

@@ -17,8 +17,6 @@ import java.util.logging.Level;
 
 public class ReturnDieAndGetNewOption extends ComplexOption {
 
-    private static final String NAME = "Return a die and get a new one from the dice bag.";
-    private static final String SELECT = "Select the die to return.";
     private static final int READ_DIE_TO_SWAP_CHOICE = 0;
     private static final int READ_DIE_VALUE = 1;
     private static final int READ_X = 2;
@@ -31,28 +29,12 @@ public class ReturnDieAndGetNewOption extends ComplexOption {
      * constructor.
      * @param cli the command line interface
      */
-    public ReturnDieAndGetNewOption(CommandLineInterface cli) {
-        super(cli);
+    public ReturnDieAndGetNewOption(CommandLineInterface cli, String name, String select) {
+        super(cli, name, select);
         subOptions = new ArrayList<>();
         subOptions.add(new ReadDraftPoolDieOption(cli));
     }
 
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setName() {
-        this.name = NAME;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setSelectMessage() {
-        this.selectMessage = SELECT;
-    }
 
     /**
      * {@inheritDoc}
@@ -114,6 +96,7 @@ public class ReturnDieAndGetNewOption extends ComplexOption {
                                 cli.getDraftedDieLock().wait();
                             } catch (InterruptedException e) {
                                 MyLog.getMyLog().log(Level.WARNING, e.getMessage());
+                                Thread.currentThread().interrupt();
                             }
                         }
                     }

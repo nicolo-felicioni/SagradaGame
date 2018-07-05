@@ -10,23 +10,16 @@ import java.util.List;
 public class MoveDieMatchColorOnRoundTrackOption extends MoveADieOption {
 
 
-    private static final String NAME = "Move a die that matches its color with one die on round track.";
 
     /**
      * constructor.
      * @param cli the command line interface
      */
-    public MoveDieMatchColorOnRoundTrackOption(CommandLineInterface cli) {
-        super(cli);
+    public MoveDieMatchColorOnRoundTrackOption(CommandLineInterface cli, String name, String select) {
+        super(cli, name, select);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void setName() {
-        this.name = NAME;
-    }
+
 
     /**
      * {@inheritDoc}
