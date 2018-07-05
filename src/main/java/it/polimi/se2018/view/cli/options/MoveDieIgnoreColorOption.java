@@ -2,16 +2,9 @@ package it.polimi.se2018.view.cli.options;
 
 import it.polimi.se2018.event.game.MoveDieIgnoreColorRestrictionGameEvent;
 import it.polimi.se2018.exceptions.NotValidPointException;
-import it.polimi.se2018.model.Die;
 import it.polimi.se2018.model.Point;
 import it.polimi.se2018.view.cli.CommandLineInterface;
-import it.polimi.se2018.view.cli.Printer;
-import it.polimi.se2018.view.cli.options.ComplexOption;
-import it.polimi.se2018.view.cli.options.ReadXOption;
-import it.polimi.se2018.view.cli.options.ReadYOption;
-import it.polimi.se2018.view.cli.options.SimpleOption;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MoveDieIgnoreColorOption extends ComplexOption {

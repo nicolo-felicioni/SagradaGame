@@ -1,10 +1,9 @@
-package it.polimi.se2018.view.gui.fxmlController.stage;
+package it.polimi.se2018.view.gui.stage;
 
 import it.polimi.se2018.event.game.DecreaseDieValueGameEvent;
 import it.polimi.se2018.event.game.IncreaseDieValueGameEvent;
 import it.polimi.se2018.model.DraftPool;
-import it.polimi.se2018.observer.game.GameEventObserver;
-import it.polimi.se2018.view.gui.fxmlController.GUIDraftPool;
+import it.polimi.se2018.view.gui.GUIDraftPool;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;

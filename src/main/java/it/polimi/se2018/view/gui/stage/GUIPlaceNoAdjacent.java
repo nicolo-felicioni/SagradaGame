@@ -1,12 +1,10 @@
-package it.polimi.se2018.view.gui.fxmlController.stage;
+package it.polimi.se2018.view.gui.stage;
 
-import it.polimi.se2018.event.game.DraftAndPlaceGameEvent;
 import it.polimi.se2018.event.game.DraftAndPlaceNoAdjacentGameEvent;
 import it.polimi.se2018.model.DraftPool;
 import it.polimi.se2018.model.WindowPattern;
-import it.polimi.se2018.observer.game.GameEventObserver;
-import it.polimi.se2018.view.gui.fxmlController.GUIDraftPool;
-import it.polimi.se2018.view.gui.fxmlController.GUIWindowPattern;
+import it.polimi.se2018.view.gui.GUIDraftPool;
+import it.polimi.se2018.view.gui.GUIWindowPattern;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;

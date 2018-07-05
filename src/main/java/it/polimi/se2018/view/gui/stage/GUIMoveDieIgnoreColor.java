@@ -1,25 +1,15 @@
-package it.polimi.se2018.view.gui.fxmlController.stage;
+package it.polimi.se2018.view.gui.stage;
 
-import it.polimi.se2018.event.game.MoveDieIgnoreValueRestrictionGameEvent;
-import it.polimi.se2018.event.game.MoveDieMatchColorRoundTrackGameEvent;
+import it.polimi.se2018.event.game.MoveDieIgnoreColorRestrictionGameEvent;
 import it.polimi.se2018.exceptions.SpaceNotOccupiedException;
 import it.polimi.se2018.model.Die;
-import it.polimi.se2018.model.DieColor;
 import it.polimi.se2018.model.WindowPattern;
-import it.polimi.se2018.observer.game.GameEventObserver;
-import it.polimi.se2018.view.gui.fxmlController.GUIWindowPattern;
+import it.polimi.se2018.view.gui.GUIWindowPattern;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 
-import java.util.List;
-
-public class GUIMoveDieMatchColor extends GUIStage{
-
-    /**
-     * Round track dice colors.
-     */
-    private List<DieColor> colors;
+public class GUIMoveDieIgnoreColor extends GUIStage{
 
     @FXML
     GUIWindowPattern firstPattern;
@@ -31,22 +21,11 @@ public class GUIMoveDieMatchColor extends GUIStage{
      * Set the window pattern.
      * @param windowpattern the window pattern.
      */
-    public void setWindowpattern(WindowPattern windowpattern) {
+    public void setWindowPattern(WindowPattern windowpattern) {
         this.firstPattern.setWindowPattern(windowpattern);
         this.secondPattern.setWindowPattern(windowpattern);
-        highlightFirstPattern();
     }
 
-    public void setColors(List<DieColor> colors) {
-        this.colors = colors;
-        highlightFirstPattern();
-    }
-
-    private void highlightFirstPattern() {
-        if(colors != null && firstPattern.getWindowPattern() != null) {
-            firstPattern.highlightDiceMatchColors(colors);
-        }
-    }
 
     @FXML
     private void firstPatternClicked(MouseEvent event) {
@@ -62,19 +41,17 @@ public class GUIMoveDieMatchColor extends GUIStage{
             }
             secondPattern.setWindowPattern(window);
             if(die != null)
-                secondPattern.highlightPlaceableSpaces(die);
-        }else{
-            highlightFirstPattern();
+                secondPattern.highlightPlaceableIgnoreColorSpaces(die);
+        } else {
             secondPattern.setWindowPattern(firstPattern.getWindowPattern());
         }
     }
 
     @FXML
-    private void moveDieMatchColor(MouseEvent event) {
+    private void moveDieIgnoreColor(MouseEvent event) {
         if(firstPattern.getSelectedPosition() != null && secondPattern.getSelectedPosition() != null && firstPattern.getSelectedSpace().hasDie() &&
-                secondPattern.getWindowPattern().isPlaceable(firstPattern.getSelectedSpace().getDie(), secondPattern.getSelectedPosition()) &&
-                colors.stream().anyMatch(c -> firstPattern.getSelectedSpace().getDie().getColor().equals(c))) {
-            this.observer.handle(new MoveDieMatchColorRoundTrackGameEvent(
+                secondPattern.getWindowPattern().isPlaceableIgnoreColor(firstPattern.getSelectedSpace().getDie(), secondPattern.getSelectedPosition())) {
+            this.observer.handle(new MoveDieIgnoreColorRestrictionGameEvent(
                     firstPattern.getSelectedPosition(), secondPattern.getSelectedPosition(), playerId));
             container.close();
         } else {

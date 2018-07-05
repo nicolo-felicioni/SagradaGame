@@ -1,4 +1,4 @@
-package it.polimi.se2018.view.gui.fxmlController;
+package it.polimi.se2018.view.gui;
 
 import it.polimi.se2018.event.game.WindowPatternChosenGameEvent;
 import it.polimi.se2018.model.PrivateObjectiveCard;
@@ -30,7 +30,7 @@ public class GUIChooseWindowPattern {
     /**
      * True if the window has been chosen.
      */
-    private boolean windowChosen;
+    boolean windowChosen;
 
     /**
      * The private objective card.

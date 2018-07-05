@@ -1,12 +1,10 @@
-package it.polimi.se2018.view.gui.fxmlController.stage;
+package it.polimi.se2018.view.gui.stage;
 
-import it.polimi.se2018.event.game.MoveDieIgnoreColorRestrictionGameEvent;
 import it.polimi.se2018.event.game.MoveDieIgnoreValueRestrictionGameEvent;
 import it.polimi.se2018.exceptions.SpaceNotOccupiedException;
 import it.polimi.se2018.model.Die;
 import it.polimi.se2018.model.WindowPattern;
-import it.polimi.se2018.observer.game.GameEventObserver;
-import it.polimi.se2018.view.gui.fxmlController.GUIWindowPattern;
+import it.polimi.se2018.view.gui.GUIWindowPattern;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;

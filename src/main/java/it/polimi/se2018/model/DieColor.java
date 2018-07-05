@@ -4,8 +4,6 @@ import org.fusesource.jansi.Ansi;
 
 import java.io.Serializable;
 
-import static org.fusesource.jansi.Ansi.ansi;
-
 /**
  *@author PeiQing Gao
  */

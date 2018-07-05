@@ -1,11 +1,11 @@
-package it.polimi.se2018.view.gui.fxmlController;
+package it.polimi.se2018.view.gui;
 
 import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.event.game.DraftAndPlaceGameEvent;
 import it.polimi.se2018.event.game.RerollAllDraftDiceGameEvent;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.observer.game.GameEventObserver;
-import it.polimi.se2018.view.gui.fxmlController.stage.*;
+import it.polimi.se2018.view.gui.stage.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

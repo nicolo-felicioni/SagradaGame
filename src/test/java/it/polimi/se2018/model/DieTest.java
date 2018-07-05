@@ -5,12 +5,12 @@ package it.polimi.se2018.model;
  */
 
 import org.junit.Test;
+
+import static org.junit.Assert.*;
+
 /**
  * @author Nicolò Felicioni
  */
-
-
-import static org.junit.Assert.*;
 
 public class DieTest {
 

@@ -1,17 +1,15 @@
-package it.polimi.se2018.view.gui.fxmlController.stage;
+package it.polimi.se2018.view.gui.stage;
 
-import it.polimi.se2018.event.game.MoveDieIgnoreColorRestrictionGameEvent;
 import it.polimi.se2018.event.game.MoveDieRespectAllRestrictionsGameEvent;
 import it.polimi.se2018.exceptions.SpaceNotOccupiedException;
 import it.polimi.se2018.model.Die;
 import it.polimi.se2018.model.WindowPattern;
-import it.polimi.se2018.observer.game.GameEventObserver;
-import it.polimi.se2018.view.gui.fxmlController.GUIWindowPattern;
+import it.polimi.se2018.view.gui.GUIWindowPattern;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 
-public class GUIMoveDieIgnoreColor extends GUIStage{
+public class GUIMoveDie extends GUIStage{
 
     @FXML
     GUIWindowPattern firstPattern;
@@ -43,17 +41,17 @@ public class GUIMoveDieIgnoreColor extends GUIStage{
             }
             secondPattern.setWindowPattern(window);
             if(die != null)
-                secondPattern.highlightPlaceableIgnoreColorSpaces(die);
+                secondPattern.highlightPlaceableSpaces(die);
         } else {
             secondPattern.setWindowPattern(firstPattern.getWindowPattern());
         }
     }
 
     @FXML
-    private void moveDieIgnoreColor(MouseEvent event) {
+    private void moveDie(MouseEvent event) {
         if(firstPattern.getSelectedPosition() != null && secondPattern.getSelectedPosition() != null && firstPattern.getSelectedSpace().hasDie() &&
-                secondPattern.getWindowPattern().isPlaceableIgnoreColor(firstPattern.getSelectedSpace().getDie(), secondPattern.getSelectedPosition())) {
-            this.observer.handle(new MoveDieIgnoreColorRestrictionGameEvent(
+                secondPattern.getWindowPattern().isPlaceable(firstPattern.getSelectedSpace().getDie(), secondPattern.getSelectedPosition())) {
+            this.observer.handle(new MoveDieRespectAllRestrictionsGameEvent(
                     firstPattern.getSelectedPosition(), secondPattern.getSelectedPosition(), playerId));
             container.close();
         } else {

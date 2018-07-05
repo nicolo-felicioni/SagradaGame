@@ -1,13 +1,10 @@
-package it.polimi.se2018.view.gui.fxmlController.stage;
+package it.polimi.se2018.view.gui.stage;
 
 import it.polimi.se2018.event.game.ChooseDraftDieValueGameEvent;
-import it.polimi.se2018.event.game.RerollDraftDieGameEvent;
 import it.polimi.se2018.model.Die;
-import it.polimi.se2018.model.DieColor;
 import it.polimi.se2018.model.DieValue;
-import it.polimi.se2018.view.gui.fxmlController.GUIDie;
+import it.polimi.se2018.view.gui.GUIDie;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;

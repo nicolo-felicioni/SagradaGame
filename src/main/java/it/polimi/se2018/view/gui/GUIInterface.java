@@ -1,4 +1,4 @@
-package it.polimi.se2018.view.gui.fxmlController;
+package it.polimi.se2018.view.gui;
 
 import it.polimi.se2018.observer.game.GameEventObserver;
 import it.polimi.se2018.observer.network.ConnectRMIObserver;

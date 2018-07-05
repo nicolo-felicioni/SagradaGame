@@ -1,10 +1,6 @@
 package it.polimi.se2018.view.cli.options;
 
-import it.polimi.se2018.exceptions.NotValidRoundException;
-import it.polimi.se2018.exceptions.RoundTrackEmptyException;
-import it.polimi.se2018.model.DieColor;
 import it.polimi.se2018.model.RoundTrack;
-import it.polimi.se2018.model.WindowPattern;
 import it.polimi.se2018.view.cli.CommandLineInterface;
 import it.polimi.se2018.view.cli.Printer;
 

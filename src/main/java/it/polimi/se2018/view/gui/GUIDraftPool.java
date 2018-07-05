@@ -1,4 +1,4 @@
-package it.polimi.se2018.view.gui.fxmlController;
+package it.polimi.se2018.view.gui;
 
 import it.polimi.se2018.model.Die;
 import it.polimi.se2018.model.DraftPool;
@@ -6,7 +6,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 

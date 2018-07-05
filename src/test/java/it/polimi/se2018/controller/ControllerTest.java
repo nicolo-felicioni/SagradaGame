@@ -1,8 +1,6 @@
 package it.polimi.se2018.controller;
 
 import it.polimi.se2018.event.game.StartGameEvent;
-import it.polimi.se2018.exceptions.NotValidIdException;
-import it.polimi.se2018.exceptions.TooManyPlayersException;
 import it.polimi.se2018.model.Model;
 import it.polimi.se2018.model.Player;
 import org.junit.Before;
@@ -10,8 +8,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 public class ControllerTest {
 

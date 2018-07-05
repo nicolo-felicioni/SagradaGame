@@ -1,7 +1,6 @@
 package it.polimi.se2018.network.rmi;
 
 import it.polimi.se2018.exceptions.NetworkException;
-import it.polimi.se2018.network.server.SessionInterface;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

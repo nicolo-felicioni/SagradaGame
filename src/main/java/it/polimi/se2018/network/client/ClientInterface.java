@@ -6,7 +6,6 @@ import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.observer.game.GameEventObserver;
 
 import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 
 /**
  * @author Davide Yi Xian Hu

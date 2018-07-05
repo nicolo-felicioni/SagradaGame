@@ -3,7 +3,8 @@ package it.polimi.se2018.model;
 import it.polimi.se2018.exceptions.NotValidPointException;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Davide Yi Xian Hu

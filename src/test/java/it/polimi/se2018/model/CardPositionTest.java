@@ -3,7 +3,6 @@ package it.polimi.se2018.model;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 /**
  * @author Davide Yi Xian Hu

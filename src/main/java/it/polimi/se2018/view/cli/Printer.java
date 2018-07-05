@@ -8,8 +8,6 @@ import it.polimi.se2018.exceptions.RoundTrackEmptyException;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.view.cli.options.Option;
 import org.fusesource.jansi.Ansi;
-import org.fusesource.jansi.AnsiConsole;
-
 
 import java.util.List;
 import java.util.logging.Level;

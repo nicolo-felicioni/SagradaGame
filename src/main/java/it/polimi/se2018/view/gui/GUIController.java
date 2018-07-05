@@ -1,4 +1,4 @@
-package it.polimi.se2018.view.gui.fxmlController;
+package it.polimi.se2018.view.gui;
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.controller.utils.MyLog;
@@ -787,6 +787,8 @@ public class GUIController extends Application implements GUIInterface{
                 () -> {
                     guiChooseWindowPatternController.setObserver(this);
                     guiChooseWindowPatternController.setPlayerId(playerId);
+                    guiChooseWindowPatternController.choose.setText("CHOOSE");
+                    guiChooseWindowPatternController.windowChosen = false;
                     primaryStage.setScene(guiChooseWindowPatternScene);
                     primaryStage.show();
                 }

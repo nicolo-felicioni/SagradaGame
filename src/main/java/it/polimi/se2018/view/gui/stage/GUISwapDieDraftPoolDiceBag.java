@@ -1,9 +1,8 @@
-package it.polimi.se2018.view.gui.fxmlController.stage;
+package it.polimi.se2018.view.gui.stage;
 
-import it.polimi.se2018.event.game.RerollDraftDieGameEvent;
 import it.polimi.se2018.event.game.SwapDraftDieWithDiceBagDieGameEvent;
 import it.polimi.se2018.model.DraftPool;
-import it.polimi.se2018.view.gui.fxmlController.GUIDraftPool;
+import it.polimi.se2018.view.gui.GUIDraftPool;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;

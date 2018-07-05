@@ -1,12 +1,7 @@
 package it.polimi.se2018.model;
 
-import org.fusesource.jansi.Ansi;
-import org.fusesource.jansi.AnsiConsole;
-
 import java.io.Serializable;
 import java.util.Comparator;
-
-import static org.fusesource.jansi.Ansi.ansi;
 
 /**
  * The Class of die

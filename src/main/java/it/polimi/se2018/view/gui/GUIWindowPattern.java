@@ -1,4 +1,4 @@
-package it.polimi.se2018.view.gui.fxmlController;
+package it.polimi.se2018.view.gui;
 
 import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.exceptions.NotValidPointException;

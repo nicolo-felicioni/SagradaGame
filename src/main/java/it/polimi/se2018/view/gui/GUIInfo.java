@@ -1,7 +1,6 @@
-package it.polimi.se2018.view.gui.fxmlController;
+package it.polimi.se2018.view.gui;
 
 import it.polimi.se2018.event.game.EndTurnGameEvent;
-import it.polimi.se2018.event.game.UseToolCardGameEvent;
 import it.polimi.se2018.model.PlayerState;
 import it.polimi.se2018.model.WindowPattern;
 import it.polimi.se2018.observer.game.GameEventObserver;
@@ -20,7 +19,10 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GUIInfo extends GridPane {
 

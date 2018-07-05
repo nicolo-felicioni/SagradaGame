@@ -6,7 +6,6 @@ import it.polimi.se2018.model.Die;
 import it.polimi.se2018.model.Point;
 import it.polimi.se2018.view.cli.CommandLineInterface;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceDieOption extends ComplexOption {

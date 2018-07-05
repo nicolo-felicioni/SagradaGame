@@ -1,11 +1,10 @@
-package it.polimi.se2018.view.gui.fxmlController.stage;
+package it.polimi.se2018.view.gui.stage;
 
 import it.polimi.se2018.event.game.SwapDraftDieWithRoundTrackDieGameEvent;
 import it.polimi.se2018.model.DraftPool;
 import it.polimi.se2018.model.RoundTrack;
-import it.polimi.se2018.view.gui.fxmlController.GUIDraftPool;
-import it.polimi.se2018.view.gui.fxmlController.GUIRoundTrack;
-import it.polimi.se2018.view.gui.fxmlController.stage.GUIStage;
+import it.polimi.se2018.view.gui.GUIDraftPool;
+import it.polimi.se2018.view.gui.GUIRoundTrack;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;

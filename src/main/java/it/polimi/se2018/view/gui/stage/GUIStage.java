@@ -1,4 +1,4 @@
-package it.polimi.se2018.view.gui.fxmlController.stage;
+package it.polimi.se2018.view.gui.stage;
 
 import it.polimi.se2018.observer.game.GameEventObserver;
 import javafx.stage.Stage;

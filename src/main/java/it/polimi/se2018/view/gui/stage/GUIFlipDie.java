@@ -1,14 +1,8 @@
-package it.polimi.se2018.view.gui.fxmlController.stage;
+package it.polimi.se2018.view.gui.stage;
 
 import it.polimi.se2018.event.game.FlipDraftDieGameEvent;
-import it.polimi.se2018.event.game.IncreaseDieValueGameEvent;
-import it.polimi.se2018.event.game.MoveDieRespectAllRestrictionsGameEvent;
-import it.polimi.se2018.exceptions.SpaceNotOccupiedException;
-import it.polimi.se2018.model.Die;
 import it.polimi.se2018.model.DraftPool;
-import it.polimi.se2018.model.WindowPattern;
-import it.polimi.se2018.observer.game.GameEventObserver;
-import it.polimi.se2018.view.gui.fxmlController.GUIDraftPool;
+import it.polimi.se2018.view.gui.GUIDraftPool;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.input.MouseEvent;

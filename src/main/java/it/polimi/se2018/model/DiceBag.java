@@ -6,7 +6,8 @@ import it.polimi.se2018.exceptions.NotEnoughDiceException;
 import it.polimi.se2018.exceptions.NotValidNumberOfDiceException;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Nicolò Felicioni

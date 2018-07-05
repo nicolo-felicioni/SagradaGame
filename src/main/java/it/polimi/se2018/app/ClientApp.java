@@ -1,7 +1,7 @@
 package it.polimi.se2018.app;
 
 import it.polimi.se2018.view.cli.CommandLineInterface;
-import it.polimi.se2018.view.gui.fxmlController.GUIController;
+import it.polimi.se2018.view.gui.GUIController;
 
 public class ClientApp {
 

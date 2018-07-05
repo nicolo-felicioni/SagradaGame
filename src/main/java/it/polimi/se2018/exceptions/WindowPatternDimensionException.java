@@ -6,6 +6,5 @@ package it.polimi.se2018.exceptions;
  */
 
 public class WindowPatternDimensionException extends GameException {
-    public WindowPatternDimensionException() { super(); }
     public WindowPatternDimensionException(String message) { super(message); }
 }

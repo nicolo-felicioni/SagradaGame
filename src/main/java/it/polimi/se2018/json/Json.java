@@ -4,7 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.event.game.GameEvent;
-import it.polimi.se2018.model.*;
+import it.polimi.se2018.model.PlayerState;
+import it.polimi.se2018.model.PublicObjectiveCard;
+import it.polimi.se2018.model.Space;
+import it.polimi.se2018.model.ToolCard;
 
 /**
  * @author Davide Yi Xian Hu

@@ -1,6 +1,5 @@
 package it.polimi.se2018.view.cli.options;
 
-import it.polimi.se2018.event.game.DraftAndPlaceGameEvent;
 import it.polimi.se2018.event.game.DraftAndPlaceNoAdjacentGameEvent;
 import it.polimi.se2018.exceptions.NotValidPointException;
 import it.polimi.se2018.model.Die;

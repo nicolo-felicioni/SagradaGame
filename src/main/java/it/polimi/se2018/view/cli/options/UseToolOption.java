@@ -3,12 +3,8 @@ package it.polimi.se2018.view.cli.options;
 
 import it.polimi.se2018.event.game.UseToolCardGameEvent;
 import it.polimi.se2018.model.CardPosition;
-import it.polimi.se2018.model.ToolCard;
 import it.polimi.se2018.view.cli.CommandLineInterface;
 import it.polimi.se2018.view.cli.Printer;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class UseToolOption extends SimpleOption {
 

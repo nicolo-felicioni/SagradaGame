@@ -357,7 +357,7 @@ public class WindowPattern implements Serializable {
 		if(isPlaceableNoAdjacent(die, p)) {
 			spaces[p.getX()][p.getY()].placeDie(die);
 		} else {
-			throw new PlacementException("die not placeable because there's a die in adjacent position.");
+			throw new PlacementException("Die not placeable .");
 		}
 	}
 

@@ -8,11 +8,7 @@ public class GameException extends Exception{
 	/**
 	 * A textual representation of the exception.
 	 */
-	private String message;
-
-	public GameException(){
-		super();
-	}
+	private final String message;
 
 	/**
 	 * Constructor with a message.
@@ -24,7 +20,7 @@ public class GameException extends Exception{
 
 	/**
 	 * Getter of the message of the exception.
-	 * @return
+	 * @return the message of the exception.
 	 */
 	public String getMessage() {
 		return message;
