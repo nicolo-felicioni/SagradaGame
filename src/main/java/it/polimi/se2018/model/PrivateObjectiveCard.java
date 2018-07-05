@@ -90,27 +90,4 @@ public class PrivateObjectiveCard implements ObjectiveCard {
 		return points;
 	}
 
-
-	//todo - credo inutile
-	/**
-	 * Get the amount of dice that has a certain color in a window pattern.
-	 *
-	 * @param windowPattern the WindowPattern of the player.
-	 * @param color the color of the die.
-	 * @return the amount of dice that has a color equals to the input color.
-	 */
-	private int getAmountOfDiceWith(WindowPattern windowPattern, DieColor color) {
-		Space[][] spaces = windowPattern.getAllSpaces();
-		int numberOfDice = 0;
-		for(int i = 0; i < WindowPattern.SPACES_HEIGHT; i++) {
-			for(int j = 0; j < WindowPattern.SPACES_LENGTH; j++) {
-				if(spaces[i][j].hasDie()) {
-					if (color.equals(spaces[i][j].getDie().getColor())) {
-						numberOfDice++;
-					}
-				}
-			}
-		}
-		return numberOfDice;
-	}
 }

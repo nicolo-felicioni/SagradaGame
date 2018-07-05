@@ -50,8 +50,8 @@ public class SwapDraftDieWithRoundTrackDieGameEvent extends AbstractPlayerGameEv
 	 * @return the die in the round track.
 	 */
 	public Die getRoundTrackDie() {
-		return roundTrackDie;
-	} //TODO manca il clone
+		return roundTrackDie.cloneDie();
+	}
 
 	/**
 	 * Getter of the round position.

@@ -12,18 +12,19 @@ public class myLog {
     private Logger log;
     FileHandler fh;
 
-    {
-        try {
-            fh = new FileHandler("/");
-        } catch (IOException e) {
-        }
-    }
+
 
 
     private myLog(){
         log=Logger.getLogger(myLog.class.getName());
-        log.addHandler(fh);
-        fh.setFormatter(new SimpleFormatter());
+        {
+            try {
+                fh = new FileHandler("/log");
+                log.addHandler(fh);
+                fh.setFormatter(new SimpleFormatter());
+            } catch (IOException e) {
+            }
+        }
     }
 
     public static myLog getMyLog(){
