@@ -79,9 +79,9 @@ public class GUIMoveDieMatchColor extends GUIStage{
             container.close();
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Window spaces not selected");
-            alert.setHeaderText("Window spaces not selected");
-            alert.setContentText("Select a die from the left window and a space in the right window");
+            alert.setTitle("Move die error");
+            alert.setHeaderText("Input information not complete");
+            alert.setContentText("Select from the right window the die you want to move, from the right window the final position of the selected die.");
             alert.showAndWait();
         }
     }
