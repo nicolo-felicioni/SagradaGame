@@ -196,7 +196,7 @@ public class Player {
 	 * @param pattern the chosen pattern
 	 */
 	public void setChosenPattern(WindowPattern pattern) {
-		this.chosenPattern = pattern;
+		this.chosenPattern = pattern.cloneWindowPattern();
 		this.favorTokens = pattern.getDifficulty();
 	}
 

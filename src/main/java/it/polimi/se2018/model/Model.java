@@ -66,6 +66,7 @@ public class Model implements ViewUpdaterObservable {
         toolCards = new ToolCard[SET_OF_TOOL_CARDS_SIZE];
         roundTrack = new RoundTrack();
         observers = new ArrayList<>();
+        publicObjectiveCards = new PublicObjectiveCard[SET_OF_PUBLIC_OBJECTIVE_CARDS_SIZE];
     }
 
     /**
@@ -75,7 +76,7 @@ public class Model implements ViewUpdaterObservable {
      * @throws NotValidIdException if there is already a player with the same id of the player who should be added
      *
      */
-    public void addPlayer(Player player) throws TooManyPlayersException, NotValidIdException {
+    public synchronized void addPlayer(Player player) throws TooManyPlayersException, NotValidIdException {
         if(this.players.size()==MAX_NUMBER_OF_PLAYERS)
             throw new TooManyPlayersException("Too many players present in this game.");
 
@@ -92,7 +93,7 @@ public class Model implements ViewUpdaterObservable {
      * @param player player you want to remove
      * @throws NotPresentPlayerException if the player is not present
      */
-    public void removePlayer(Player player) throws NotPresentPlayerException {
+    public synchronized void removePlayer(Player player) throws NotPresentPlayerException {
         for(int i=0; i<this.players.size(); i++){
             if(this.players.get(i).equalsPlayer(player)){
                 this.players.remove(i);
@@ -107,7 +108,7 @@ public class Model implements ViewUpdaterObservable {
      * @param player the new player.
      * @throws NotPresentPlayerException if the player is not in the game.
      */
-    public void setPlayer(Player player) throws NotPresentPlayerException {
+    public synchronized void setPlayer(Player player) throws NotPresentPlayerException {
         removePlayer(player);
         try {
             addPlayer(player);
@@ -123,7 +124,7 @@ public class Model implements ViewUpdaterObservable {
      * @return the correspondent player
      * @throws NotValidIdException if there isn't any player with the given id.
      */
-    public Player getPlayer(String playerId) throws NotValidIdException {
+    public synchronized Player getPlayer(String playerId) throws NotValidIdException {
 
         Optional<Player> wantedPlayer = this.players.stream()
                 .filter(player -> player.getId().equals(playerId)).findAny();
@@ -138,7 +139,7 @@ public class Model implements ViewUpdaterObservable {
      * Return a copy of the dice bag.
      * @return the dice bag.
      */
-    public DiceBag getDiceBag() {
+    public synchronized DiceBag getDiceBag() {
         return diceBag.cloneDiceBag();
     }
 
@@ -146,7 +147,7 @@ public class Model implements ViewUpdaterObservable {
      * Set a dice bag.
      * @param diceBag the dice bag.
      */
-    public void setDiceBag(DiceBag diceBag) {
+    public synchronized void setDiceBag(DiceBag diceBag) {
         this.diceBag = diceBag.cloneDiceBag();
     }
 
@@ -154,7 +155,7 @@ public class Model implements ViewUpdaterObservable {
      * Return a copy of the round track.
      * @return the round track.
      */
-    public RoundTrack getRoundTrack() {
+    public synchronized RoundTrack getRoundTrack() {
         return this.roundTrack.cloneRoundTrack();
     }
 
@@ -162,7 +163,7 @@ public class Model implements ViewUpdaterObservable {
      * Set a round track.
      * @param roundTrack the round track.
      */
-    public void setRoundTrack(RoundTrack roundTrack) {
+    public synchronized void setRoundTrack(RoundTrack roundTrack) {
         this.roundTrack = roundTrack.cloneRoundTrack();
         this.notifyObservers(new RoundTrackUpdater(roundTrack.cloneRoundTrack()));
     }
@@ -171,7 +172,7 @@ public class Model implements ViewUpdaterObservable {
      * Return a copy of the draft pool.
      * @return the draft pool.
      */
-    public DraftPool getDraftPool() {
+    public synchronized DraftPool getDraftPool() {
         return this.draftPool.cloneDraftPool();
     }
 
@@ -179,7 +180,7 @@ public class Model implements ViewUpdaterObservable {
      * Set a draft pool.
      * @param draftPool the draft pool.
      */
-    public void setDraftPool(DraftPool draftPool) {
+    public synchronized void setDraftPool(DraftPool draftPool) {
         this.draftPool = draftPool.cloneDraftPool();
         this.notifyObservers(new DraftPoolUpdater(draftPool.cloneDraftPool()));
     }
@@ -189,7 +190,7 @@ public class Model implements ViewUpdaterObservable {
      * @param p the position of the tool card.
      * @return the tool card number in the position p.
      */
-    public ToolCard getToolCard(CardPosition p){
+    public synchronized ToolCard getToolCard(CardPosition p){
         if(toolCards != null) {
             return this.toolCards[p.toInt()].cloneToolCard();
         }else{
@@ -202,7 +203,7 @@ public class Model implements ViewUpdaterObservable {
      * @param card the tool card.
      * @param p the position of the tool card.
      */
-    public void setToolCard(ToolCard card, CardPosition p){
+    public synchronized void setToolCard(ToolCard card, CardPosition p){
         if(toolCards != null) {
             this.toolCards[p.toInt()] = card.cloneToolCard();
         }
@@ -213,7 +214,7 @@ public class Model implements ViewUpdaterObservable {
      * Tool card setter.
      * @param card the tool card.
      */
-    public void setToolCard(ToolCard card){
+    public synchronized void setToolCard(ToolCard card){
         for(int i = 0; i < toolCards.length; i++) {
             if( toolCards[i].getName().equals(card.getName()) ) {
                 toolCards[i] = card.cloneToolCard();
@@ -227,7 +228,7 @@ public class Model implements ViewUpdaterObservable {
      * @param p the position of the public objective card.
      * @return the tool card number in the position p.
      */
-    public PublicObjectiveCard getPublicObjectiveCard(CardPosition p){
+    public synchronized PublicObjectiveCard getPublicObjectiveCard(CardPosition p){
         if(publicObjectiveCards != null) {
             return this.publicObjectiveCards[p.toInt()];
         }else{
@@ -252,7 +253,7 @@ public class Model implements ViewUpdaterObservable {
      * Return a list of the players.
      * @return a list of players which are in the game.
      */
-    public List<Player> getPlayers() {
+    public synchronized List<Player> getPlayers() {
         List<Player> copyList = new ArrayList<>(this.players.size());
 
         for(Player player : this.players){
@@ -267,7 +268,7 @@ public class Model implements ViewUpdaterObservable {
      * Get the player's identifiers.
      * @return a list of players identifiers.
      */
-    public List<String> getPlayersId() {
+    public synchronized List<String> getPlayersId() {
         List<String> copyList = new ArrayList<>();
         for(Player player : this.players){
             copyList.add(player.getId());
@@ -282,7 +283,7 @@ public class Model implements ViewUpdaterObservable {
      * @throws NotValidIdException if there's no player with such a player identifer.
      * @throws NotValidPatternVectorException if the array of window pattern is not valid.
      */
-    public void setWindowPatterns(String playerId, WindowPattern[] windowPatterns) throws NotValidIdException, NotValidPatternVectorException {
+    public synchronized void setWindowPatterns(String playerId, WindowPattern[] windowPatterns) throws NotValidIdException, NotValidPatternVectorException {
         Optional<Player> wantedPlayer = this.players.stream()
                 .filter(player -> player.getId().equals(playerId)).findAny();
 
@@ -303,7 +304,7 @@ public class Model implements ViewUpdaterObservable {
      * @throws NotValidIdException if there's no player with such a player identifer.
      * @throws NotValidPatterException if the window pattern is not valid.
      */
-    public void setChosenWindowPattern(String playerId, WindowPattern windowPattern) throws NotValidIdException, NotValidPatterException {
+    public synchronized void setChosenWindowPattern(String playerId, WindowPattern windowPattern) throws NotValidIdException, NotValidPatterException {
         Optional<Player> wantedPlayer = this.players.stream()
                 .filter(player -> player.getId().equals(playerId)).findAny();
 
@@ -323,7 +324,7 @@ public class Model implements ViewUpdaterObservable {
      * @throws NotValidIdException if there's no player with such a player identifer.
      * @throws NotValidPatterException if the window pattern is not valid.
      */
-    public void setWindowPattern(String playerId, WindowPattern windowPattern) throws NotValidIdException, NotValidPatterException {
+    public synchronized void setWindowPattern(String playerId, WindowPattern windowPattern) throws NotValidIdException, NotValidPatterException {
         Optional<Player> wantedPlayer = this.players.stream()
                 .filter(player -> player.getId().equals(playerId)).findAny();
 
@@ -341,7 +342,7 @@ public class Model implements ViewUpdaterObservable {
      * @param privateObjectiveCard the private objective card.
      * @throws NotValidIdException if there's no player with such a player identifer.
      */
-    public void setPrivateObjectiveCard(String playerId, PrivateObjectiveCard privateObjectiveCard) throws NotValidIdException {
+    public synchronized void setPrivateObjectiveCard(String playerId, PrivateObjectiveCard privateObjectiveCard) throws NotValidIdException {
         Optional<Player> wantedPlayer = this.players.stream()
                 .filter(player -> player.getId().equals(playerId)).findAny();
 
@@ -360,7 +361,7 @@ public class Model implements ViewUpdaterObservable {
      * @param playerState the player state.
      * @throws NotValidIdException if there's no player with such a player identifer.
      */
-    public void changePlayerStateTo(String playerId, PlayerState playerState) throws NotValidIdException {
+    public synchronized void changePlayerStateTo(String playerId, PlayerState playerState) throws NotValidIdException {
         Optional<Player> wantedPlayer = this.players.stream()
                 .filter(player -> player.getId().equals(playerId)).findAny();
 
@@ -375,7 +376,7 @@ public class Model implements ViewUpdaterObservable {
      * gets all the public objective cards.
      * @return an array with all the public objective cards within.
      */
-    public PublicObjectiveCard[] getPublicObjectiveCards() {
+    public synchronized PublicObjectiveCard[] getPublicObjectiveCards() {
         PublicObjectiveCard[] cards = new PublicObjectiveCard[this.publicObjectiveCards.length];
         for(int i = 0; i < publicObjectiveCards.length; i++){
             cards[i] = publicObjectiveCards[i];
@@ -387,7 +388,7 @@ public class Model implements ViewUpdaterObservable {
      * gets all the tool cards.
      * @return an array with all the tool cards within.
      */
-    public ToolCard[] getToolCards() {
+    public synchronized ToolCard[] getToolCards() {
         ToolCard[] cards = new ToolCard[this.toolCards.length];
         for(int i = 0; i < toolCards.length; i++){
             cards[i] = toolCards[i].cloneToolCard();
@@ -399,7 +400,7 @@ public class Model implements ViewUpdaterObservable {
      * Set the public objective cards.
      * @param cards an array of public objective cards.
      */
-    public void setPublicObjectiveCards(PublicObjectiveCard[] cards) {
+    public synchronized void setPublicObjectiveCards(PublicObjectiveCard[] cards) {
         this.publicObjectiveCards = Arrays.copyOf(cards, cards.length);
         this.notifyObservers(new PublicObjectiveCardUpdater(cards[CardPosition.LEFT.toInt()], CardPosition.LEFT));
         this.notifyObservers(new PublicObjectiveCardUpdater(cards[CardPosition.CENTER.toInt()], CardPosition.CENTER));
@@ -410,7 +411,7 @@ public class Model implements ViewUpdaterObservable {
      * Set the tool cards.
      * @param cards an array of tool cards.
      */
-    public void setToolCards(ToolCard[] cards) {
+    public synchronized void setToolCards(ToolCard[] cards) {
         ToolCard[] tcards = new ToolCard[cards.length];
         for(int i = 0; i < cards.length; i++){
             tcards[i] = cards[i].cloneToolCard();
@@ -426,7 +427,7 @@ public class Model implements ViewUpdaterObservable {
      * Get active tool card if any is active.
      * @return the active tool card if there's one active. Otherwise return null;
      */
-    public ToolCard getActiveToolCard() {
+    public synchronized ToolCard getActiveToolCard() {
         Optional<ToolCard> toolCard = Arrays.asList(toolCards).stream().filter(ToolCard::isActive).findAny();
         if(toolCard.isPresent()) {
             return toolCard.get().cloneToolCard();
@@ -440,7 +441,7 @@ public class Model implements ViewUpdaterObservable {
     /**
      * Notify all observer the model state.
      */
-    public void notifyModel() {
+    public synchronized void notifyModel() {
         this.notifyObservers(new ToolCardUpdater(toolCards[CardPosition.LEFT.toInt()].cloneToolCard(), CardPosition.LEFT));
         this.notifyObservers(new ToolCardUpdater(toolCards[CardPosition.CENTER.toInt()].cloneToolCard(), CardPosition.CENTER));
         this.notifyObservers(new ToolCardUpdater(toolCards[CardPosition.RIGHT.toInt()].cloneToolCard(), CardPosition.RIGHT));
@@ -467,7 +468,7 @@ public class Model implements ViewUpdaterObservable {
      * @param observer the view updater observer.
      */
     @Override
-    public void addObserver(ViewUpdaterObserver observer) {
+    public synchronized void addObserver(ViewUpdaterObserver observer) {
         this.observers.add(observer);
     }
 
@@ -477,7 +478,7 @@ public class Model implements ViewUpdaterObservable {
      * @param observer the view updater observer.
      */
     @Override
-    public void removeObserver(ViewUpdaterObserver observer) {
+    public synchronized void removeObserver(ViewUpdaterObserver observer) {
         this.observers.remove(observer);
     }
 
@@ -487,7 +488,7 @@ public class Model implements ViewUpdaterObservable {
      * @param updater the view updater to be executed.
      */
     @Override
-    public void notifyObservers(ViewUpdaterInterface updater) {
+    public synchronized void notifyObservers(ViewUpdaterInterface updater) {
         this.observers.stream().forEach(observer -> observer.handle(updater));
     }
 
