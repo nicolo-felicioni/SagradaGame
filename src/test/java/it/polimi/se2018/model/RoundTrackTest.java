@@ -2,7 +2,6 @@ package it.polimi.se2018.model;
 
 import it.polimi.se2018.exceptions.NotValidDieException;
 import it.polimi.se2018.exceptions.NotValidRoundException;
-import it.polimi.se2018.exceptions.RoundTrackEmptyException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

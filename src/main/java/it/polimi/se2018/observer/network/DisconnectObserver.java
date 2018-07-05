@@ -1,6 +1,5 @@
 package it.polimi.se2018.observer.network;
 
-import it.polimi.se2018.event.network.ConnectSocketEvent;
 import it.polimi.se2018.event.network.DisconnectEvent;
 
 public interface DisconnectObserver {

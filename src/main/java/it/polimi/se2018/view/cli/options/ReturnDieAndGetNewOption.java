@@ -1,5 +1,6 @@
 package it.polimi.se2018.view.cli.options;
 
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.event.game.ChooseDraftDieValueGameEvent;
 import it.polimi.se2018.event.game.DraftAndPlaceGameEvent;
 import it.polimi.se2018.event.game.SwapDraftDieWithDiceBagDieGameEvent;
@@ -12,6 +13,7 @@ import it.polimi.se2018.view.cli.Printer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class ReturnDieAndGetNewOption extends ComplexOption {
 
@@ -70,7 +72,7 @@ public class ReturnDieAndGetNewOption extends ComplexOption {
                 cli.notifyObservers(new DraftAndPlaceGameEvent(newDie, p, cli.getPlayer().getId()));
 
             } catch (NotValidPointException e) {
-                e.printStackTrace();
+                MyLog.getMyLog().log(Level.WARNING, e.getMessage());
             }
 
         }
@@ -111,7 +113,7 @@ public class ReturnDieAndGetNewOption extends ComplexOption {
                             try {
                                 cli.getDraftedDieLock().wait();
                             } catch (InterruptedException e) {
-                                e.printStackTrace();
+                                MyLog.getMyLog().log(Level.WARNING, e.getMessage());
                             }
                         }
                     }

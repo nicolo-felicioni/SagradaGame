@@ -2,9 +2,12 @@ package it.polimi.se2018.view.cli;
 
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.controller.utils.RankingPlayer;
-import it.polimi.se2018.model.WindowPatternPosition;
-import it.polimi.se2018.exceptions.*;
+import it.polimi.se2018.exceptions.IllegalMoveTurnException;
+import it.polimi.se2018.exceptions.LoginException;
+import it.polimi.se2018.exceptions.NetworkException;
+import it.polimi.se2018.exceptions.PlacementException;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.network.rmi.RMIClient;
@@ -16,6 +19,7 @@ import java.rmi.NotBoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 
 /**
  * @author Nicolò Felicioni
@@ -127,7 +131,7 @@ public class CommandLineInterface extends AbstractView {
                     wait();
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                MyLog.getMyLog().log(Level.WARNING, e.getMessage());
                 Thread.currentThread().interrupt();
             }
         }
@@ -141,7 +145,7 @@ public class CommandLineInterface extends AbstractView {
                     wait();
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                MyLog.getMyLog().log(Level.WARNING, e.getMessage());
             }
         }
 
@@ -179,7 +183,7 @@ public class CommandLineInterface extends AbstractView {
                     try {
                         client.disconnect();
                     } catch (NetworkException e) {
-                        e.printStackTrace();
+                        MyLog.getMyLog().log(Level.WARNING, e.getMessage());
                     }
                 }
            }
@@ -245,9 +249,9 @@ public class CommandLineInterface extends AbstractView {
             try {
                 wantedPlayer.placeDie(p, draftedDie);
             } catch (PlacementException e) {
-                e.printStackTrace();
+                MyLog.getMyLog().log(Level.WARNING, e.getMessage());
             } catch (IllegalMoveTurnException e) {
-                e.printStackTrace();
+                MyLog.getMyLog().log(Level.WARNING, e.getMessage());
             }
         } else {
             //TODO - DUBBIA GESTIONE NEL CASO IN CUI NON SI TROVI UN GIOCATORE CON L'ID GIUSTO
@@ -477,7 +481,7 @@ public class CommandLineInterface extends AbstractView {
                     client.reconnect(username);
                     loginError = false;
                 } catch (LoginException e1) {
-                    e1.printStackTrace();
+                    MyLog.getMyLog().log(Level.WARNING, e1.getMessage());
                     this.player = null;
                 }
 

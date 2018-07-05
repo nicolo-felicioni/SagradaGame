@@ -1,13 +1,13 @@
 package it.polimi.se2018.json;
 
 import com.google.gson.*;
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.exceptions.UnboundDifficultyValueException;
 import it.polimi.se2018.exceptions.WindowPatternDimensionException;
 import it.polimi.se2018.model.*;
-import it.polimi.se2018.controller.utils.myLog;
+
 import java.lang.reflect.Type;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author Davide Yi Xian Hu
@@ -23,7 +23,6 @@ public class WindowPatternAdapter implements JsonSerializer<WindowPattern>, Json
 	private static final String DIFFICULTY = "difficulty";
 	private static final String NAME = "name";
 	private static final String WINDOW = "window";
-	private myLog myLog;
 	/**
 	 * {@inheritDoc}
 	 * Deserialize a json element.
@@ -58,7 +57,7 @@ public class WindowPatternAdapter implements JsonSerializer<WindowPattern>, Json
 		try {
 			return new WindowPattern(spaces, difficulty, name);
 		} catch (UnboundDifficultyValueException | WindowPatternDimensionException e) {
-			myLog.getMyLog().log(Level.WARNING,e.getMessage());
+			MyLog.getMyLog().log(Level.WARNING,e.getMessage());
 		}
 		return null;
 	}

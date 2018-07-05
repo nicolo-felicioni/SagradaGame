@@ -4,7 +4,6 @@ import it.polimi.se2018.event.game.WindowPatternChosenGameEvent;
 import it.polimi.se2018.model.WindowPattern;
 import it.polimi.se2018.view.cli.CommandLineInterface;
 import it.polimi.se2018.view.cli.Printer;
-import it.polimi.se2018.view.cli.options.Option;
 
 public class ChooseWindowOption extends SimpleOption {
     private static final String CHOOSE_WINDOW_NAME = "Choose a window pattern.";

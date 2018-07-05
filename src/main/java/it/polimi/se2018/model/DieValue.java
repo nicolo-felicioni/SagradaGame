@@ -16,12 +16,12 @@ public enum DieValue implements Serializable {
 	/**
 	 * The highest value.
 	 */
-	private static DieValue MAX_VALUE = DieValue.SIX;
+	private static final DieValue MAX_VALUE = DieValue.SIX;
 
 	/**
 	 * The lowest value.
 	 */
-	private static DieValue MIN_VALUE = DieValue.ONE;
+	private static final DieValue MIN_VALUE = DieValue.ONE;
 
 	private int dieNumber;
 	private String unicodeValue;

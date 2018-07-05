@@ -1,13 +1,13 @@
 package it.polimi.se2018.controller.utils;
 
-import it.polimi.se2018.model.Player;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class SchedulerTest {
 

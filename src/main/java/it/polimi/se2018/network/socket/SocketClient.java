@@ -1,19 +1,17 @@
 package it.polimi.se2018.network.socket;
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.json.Json;
 import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.view.View;
-import sun.nio.ch.Net;
-import it.polimi.se2018.controller.utils.myLog;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author davide yi xian hu
@@ -24,7 +22,6 @@ public class SocketClient implements ClientInterface {
 	private ObjectInputStream inStream;
 	private ObjectOutputStream outStream;
 	private NetworkListener listener;
-	private myLog myLog;
 
 	/**
 	 * The user interface.
@@ -57,7 +54,7 @@ public class SocketClient implements ClientInterface {
 			this.outStream.flush();
 			this.inStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 		} catch (IOException e) {
-			myLog.getMyLog().log(Level.WARNING, e.getMessage());
+			MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 		}
 	}
 
@@ -73,7 +70,7 @@ public class SocketClient implements ClientInterface {
 			this.inStream.close();
 			this.socket.close();
 		} catch (IOException e) {
-			new NetworkException("Disconnection failed");
+			throw new NetworkException("Disconnection failed");
 		}
 	}
 
@@ -96,7 +93,7 @@ public class SocketClient implements ClientInterface {
 			new Thread(listener).start();
 			this.uid = uid;
 		} catch (IOException e) {
-			myLog.getMyLog().log(Level.WARNING, e.getMessage());
+			MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 		}
 	}
 
@@ -135,9 +132,9 @@ public class SocketClient implements ClientInterface {
 				outStream.close();
 				socket.close();
 			} catch (IOException e1) {
-				myLog.log(Level.WARNING, e1.getMessage());
+				MyLog.getMyLog().log(Level.WARNING,e1.getMessage());
 			}
-			myLog.getMyLog().log(Level.WARNING, e.getMessage());
+			MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 		}
 	}
 
@@ -350,14 +347,14 @@ public class SocketClient implements ClientInterface {
 				try {
 					handle(Json.getGson().fromJson(inStream.readUTF(), ViewUpdaterInterface.class));
 				} catch (IOException e) {
-					myLog.getMyLog().log(Level.WARNING, e.getMessage());
+					MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 					try {
 						inStream.close();
 						outStream.close();
 						socket.close();
 						this.run = false;
 					} catch (IOException e1) {
-						myLog.log(Level.WARNING, e1.getMessage());
+						MyLog.getMyLog().log(Level.WARNING,e1.getMessage());
 					}
 				}
 			}

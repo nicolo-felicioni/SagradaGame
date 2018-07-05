@@ -2,7 +2,6 @@ package it.polimi.se2018.view.cli.options;
 
 import it.polimi.se2018.event.game.IncreaseDieValueGameEvent;
 import it.polimi.se2018.model.Die;
-import it.polimi.se2018.model.DieValue;
 import it.polimi.se2018.view.cli.CommandLineInterface;
 
 import java.util.ArrayList;

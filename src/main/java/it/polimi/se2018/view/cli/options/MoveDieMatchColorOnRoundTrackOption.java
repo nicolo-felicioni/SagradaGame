@@ -1,7 +1,6 @@
 package it.polimi.se2018.view.cli.options;
 
 import it.polimi.se2018.event.game.MoveDieMatchColorRoundTrackGameEvent;
-import it.polimi.se2018.event.game.MoveDieRespectAllRestrictionsGameEvent;
 import it.polimi.se2018.exceptions.NotValidPointException;
 import it.polimi.se2018.model.Point;
 import it.polimi.se2018.view.cli.CommandLineInterface;

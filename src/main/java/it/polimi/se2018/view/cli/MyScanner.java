@@ -1,9 +1,11 @@
 package it.polimi.se2018.view.cli;
 
+import it.polimi.se2018.controller.utils.MyLog;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
+import java.util.logging.Level;
 
 /**
  * @author Nicolò Felicioni
@@ -30,7 +32,7 @@ public class MyScanner {
         try {
             return in.readLine();
         } catch (IOException e) {
-            e.printStackTrace();//TODO- DUBBIO
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());//TODO- DUBBIO
             return null;
         }
     }

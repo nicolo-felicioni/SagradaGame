@@ -1,15 +1,15 @@
 package it.polimi.se2018.network.rmi;
 
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.network.ServerConfiguration;
-import it.polimi.se2018.network.server.GameRoom;
-import it.polimi.se2018.network.server.SessionInterface;
 import it.polimi.se2018.network.server.Server;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.logging.Level;
 
 /**
  * @author Davide Yi Xian Hu
@@ -22,16 +22,16 @@ public class RMIServer implements RMIServerInterface {
 	public RMIServer(){
 		Registry registry = null;
 		try {
-			registry = LocateRegistry.createRegistry(ServerConfiguration.RMI_SERVER_PORT);
+			registry = LocateRegistry.createRegistry(ServerConfiguration.getRmiServerPort());
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 		}
 		if (registry != null) {
 			try {
 				registry.rebind("RMIServer", this);
-				UnicastRemoteObject.exportObject(this, ServerConfiguration.RMI_SERVER_PORT);
+				UnicastRemoteObject.exportObject(this, ServerConfiguration.getRmiServerPort());
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		}
 	}
@@ -47,7 +47,7 @@ public class RMIServer implements RMIServerInterface {
 		RMIServerSession session = new RMIServerSession(uid);
 		session.addClientObserver(client);
 		Server.getInstance().login(uid, session);
-		UnicastRemoteObject.exportObject(session, ServerConfiguration.RMI_SERVER_PORT);
+		UnicastRemoteObject.exportObject(session, ServerConfiguration.getRmiServerPort());
 		return session;
 	}
 
@@ -62,7 +62,7 @@ public class RMIServer implements RMIServerInterface {
 		RMIServerSession session = new RMIServerSession(uid);
 		session.addClientObserver(client);
 		Server.getInstance().reconnect(uid, session);
-		UnicastRemoteObject.exportObject(session, ServerConfiguration.RMI_SERVER_PORT);
+		UnicastRemoteObject.exportObject(session, ServerConfiguration.getRmiServerPort());
 		return session;
 	}
 

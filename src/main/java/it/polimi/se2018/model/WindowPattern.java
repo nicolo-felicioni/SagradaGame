@@ -1,10 +1,12 @@
 package it.polimi.se2018.model;
 
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.exceptions.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * @author Nicolò Felicioni
@@ -42,6 +44,8 @@ public class WindowPattern implements Serializable {
 	 * the maximum difficulty that any window pattern should have.
 	 */
 	public static final int MAX_DIFFICULTY = 6;
+
+	private static final String DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN="die not placeable due to window restrictions";
 
 	/**
 	 * Window pattern name.
@@ -249,7 +253,7 @@ public class WindowPattern implements Serializable {
 		}
 
 		else
-			throw new PlacementException("die not placeable due to window restrictions");
+			throw new PlacementException(DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN);
 
 	}
 
@@ -266,7 +270,7 @@ public class WindowPattern implements Serializable {
 		if(isPlaceable(die, p))
 			spaces[p.getX()][p.getY()].placeDie(die);
 		else
-			throw new PlacementException("die not placeable due to window restrictions");
+			throw new PlacementException(DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN);
 
 
 	}
@@ -284,7 +288,7 @@ public class WindowPattern implements Serializable {
 		if(isPlaceableIgnoreColor(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreColor(die);
 		else
-			throw new PlacementException("die not placeable due to window restrictions");
+			throw new PlacementException(DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN);
 
 	}
 
@@ -305,7 +309,7 @@ public class WindowPattern implements Serializable {
 		if(isPlaceableIgnoreColor(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreColor(die);
 		else
-			throw new PlacementException("die not placeable due to window restrictions");
+			throw new PlacementException(DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN);
 	}
 
 	/**
@@ -320,7 +324,7 @@ public class WindowPattern implements Serializable {
 		if(isPlaceableIgnoreValue(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreValue(die);
 		else
-			throw new PlacementException("die not placeable due to window restrictions");
+			throw new PlacementException(DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN);
 
 	}
 
@@ -341,7 +345,7 @@ public class WindowPattern implements Serializable {
 		if(isPlaceableIgnoreValue(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreValue(die);
 		else
-			throw new PlacementException("die not placeable due to window restrictions");
+			throw new PlacementException(DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN);
 
 	}
 
@@ -357,7 +361,7 @@ public class WindowPattern implements Serializable {
 		if(isPlaceableNoAdjacent(die, p)) {
 			spaces[p.getX()][p.getY()].placeDie(die);
 		} else {
-			throw new PlacementException("die not placeable because there's a die in adjacent position.");
+			throw new PlacementException("Die not placeable .");
 		}
 	}
 
@@ -509,10 +513,8 @@ public class WindowPattern implements Serializable {
 
 		try {
 			return new WindowPattern(getAllSpaces(), this.difficulty, this.name);
-		} catch (WindowPatternDimensionException e) {
-
-		} catch (UnboundDifficultyValueException e) {
-
+		} catch (WindowPatternDimensionException | UnboundDifficultyValueException e) {
+			MyLog.getMyLog().log(Level.WARNING,e.getMessage());
 		}
 		return null;
 	}
@@ -530,7 +532,7 @@ public class WindowPattern implements Serializable {
 					if(! this.getSpace(i, j).equalsSpace(pattern.getSpace(i, j)))
 						return false;
 				} catch (NotValidPointException e) {
-					//impossible
+					MyLog.getMyLog().log(Level.WARNING,e.getMessage());
 				}
 			}
 		}

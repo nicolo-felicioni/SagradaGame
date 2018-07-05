@@ -1,7 +1,6 @@
 package it.polimi.se2018.model;
 
 import it.polimi.se2018.exceptions.PlacementException;
-import it.polimi.se2018.exceptions.SpaceAlreadyOccupiedException;
 
 /**
  * author PeiQing Gao

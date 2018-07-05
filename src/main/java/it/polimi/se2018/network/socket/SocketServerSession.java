@@ -1,6 +1,7 @@
 package it.polimi.se2018.network.socket;
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.exceptions.NetworkException;
@@ -12,6 +13,7 @@ import it.polimi.se2018.observable.game.GameEventObservableImpl;
 import java.io.*;
 import java.net.Socket;
 import java.rmi.RemoteException;
+import java.util.logging.Level;
 
 /**
  * @author davide yi xian hu
@@ -40,7 +42,7 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 			this.inStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
 			new Thread(new NetworkListener(this)).start();
 		} catch (IOException e) {
-			e.printStackTrace();
+			MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 		}
 	}
 
@@ -63,9 +65,9 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 				outStream.close();
 				socket.close();
 			} catch (IOException e1) {
-				e1.printStackTrace();
+				MyLog.getMyLog().log(Level.WARNING, e1.getMessage());
 			}
-			e.printStackTrace();
+			MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 		}
 	}
 
@@ -307,7 +309,7 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 					socket.close();
 					this.run = false;
 				} catch (IOException e1) {
-					e1.printStackTrace();
+					MyLog.getMyLog().log(Level.WARNING, e1.getMessage());
 				}
 			} catch (LoginException e) {
 				send(new LoginResponse(false, LoginResponse.LOGIN_FAIL_MESSAGE).toJson());
@@ -325,7 +327,7 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 						socket.close();
 						this.run = false;
 					} catch (IOException e1) {
-						e1.printStackTrace();
+						MyLog.getMyLog().log(Level.WARNING, e1.getMessage());
 					}
 				} catch (LoginException e1) {
 					send(new LoginResponse(false, LoginResponse.LOGIN_FAIL_MESSAGE).toJson());

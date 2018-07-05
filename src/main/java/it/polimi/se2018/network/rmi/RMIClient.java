@@ -1,12 +1,13 @@
 package it.polimi.se2018.network.rmi;
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.view.View;
-import it.polimi.se2018.controller.utils.myLog;
+
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -40,10 +41,6 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 	 * The network game event observers;
 	 */
 	private List<RMIServerSessionInterface> sessions;
-	/**
-	 * The Logger.
-	 */
-	private myLog myLog;
 
 	/**
 	 * Constructor.
@@ -68,7 +65,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			server = (RMIServerInterface) registry.lookup("RMIServer") ;
 			UnicastRemoteObject.exportObject(this, 0);
 		} catch (RemoteException e) {
-			myLog.getMyLog().log(Level.WARNING,e.getMessage());
+			MyLog.getMyLog().log(Level.WARNING,e.getMessage());
 		}
 	}
 
@@ -102,7 +99,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			sessions.add(server.login(uid, this));
 			this.uid = uid;
 		}catch(RemoteException | NetworkException e) {
-			myLog.getMyLog().log(Level.WARNING, e.getMessage());
+			MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			throw new LoginException("Login to server failed.");
 		}
 	}
@@ -117,7 +114,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			sessions.add(server.reconnect(uid, this));
 			this.uid = uid;
 		}catch(RemoteException | NetworkException e) {
-			myLog.getMyLog().log(Level.WARNING, e.getMessage());
+			MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			throw new LoginException("Login to server failed.");
 		}
 	}
@@ -154,7 +151,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}
@@ -170,7 +167,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}
@@ -186,7 +183,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}
@@ -202,7 +199,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}
@@ -218,7 +215,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}
@@ -234,7 +231,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}
@@ -250,7 +247,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}
@@ -266,7 +263,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}
@@ -282,7 +279,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}
@@ -298,7 +295,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}
@@ -314,7 +311,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}
@@ -330,7 +327,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}
@@ -346,7 +343,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}
@@ -362,7 +359,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}
@@ -378,7 +375,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}
@@ -394,7 +391,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}
@@ -410,7 +407,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}
@@ -426,7 +423,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}
@@ -442,7 +439,7 @@ public class RMIClient implements RMIClientInterface, ClientInterface {
 			try {
 				session.handle(event);
 			} catch (RemoteException e) {
-				myLog.getMyLog().log(Level.WARNING, e.getMessage());
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}

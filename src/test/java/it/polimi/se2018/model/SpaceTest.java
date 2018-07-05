@@ -9,7 +9,6 @@ import it.polimi.se2018.exceptions.SpaceNotOccupiedException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
 import java.util.List;

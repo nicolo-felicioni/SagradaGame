@@ -2,7 +2,6 @@ package it.polimi.se2018.view;
 
 import it.polimi.se2018.controller.ViewUpdaterObserver;
 import it.polimi.se2018.controller.utils.RankingPlayer;
-import it.polimi.se2018.model.WindowPatternPosition;
 import it.polimi.se2018.model.*;
 
 import java.util.List;

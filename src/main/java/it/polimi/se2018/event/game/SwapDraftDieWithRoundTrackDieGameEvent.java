@@ -6,12 +6,7 @@ import it.polimi.se2018.observer.game.GameEventObserver;
 /**
  * @author Davide Yi Xian Hu
  */
-public class SwapDraftDieWithRoundTrackDieGameEvent extends AbstractPlayerGameEvent {
-
-	/**
-	 * The die in the draft pool.
-	 */
-	private Die draftedDie;
+public class SwapDraftDieWithRoundTrackDieGameEvent extends AbstractPlayerDraftedDieGameEvent {
 
 	/**
 	 * The die in the round track.
@@ -31,18 +26,9 @@ public class SwapDraftDieWithRoundTrackDieGameEvent extends AbstractPlayerGameEv
 	 * @param playerId the player identifier.
 	 */
 	public SwapDraftDieWithRoundTrackDieGameEvent(Die draftDie, Die roundTrackDie, int round, String playerId) {
-		super(playerId);
-		this.draftedDie = new Die(draftDie);
+		super(draftDie, playerId);
 		this.roundTrackDie = new Die(roundTrackDie);
 		this.round = round;
-	}
-
-	/**
-	 * Getter of the die in the draft pool.
-	 * @return the die in the draft pool.
-	 */
-	public Die getDraftedDie() {
-		return new Die(draftedDie);
 	}
 
 	/**

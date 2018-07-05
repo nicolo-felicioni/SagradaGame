@@ -6,12 +6,7 @@ import it.polimi.se2018.observer.game.GameEventObserver;
 /**
  * @author Davide Yi Xian Hu
  */
-public class RerollDraftDieGameEvent extends AbstractPlayerGameEvent {
-
-	/**
-	 * The die of the draft pool.
-	 */
-	private Die draftedDie;
+public class RerollDraftDieGameEvent extends AbstractPlayerDraftedDieGameEvent {
 
 	/**
 	 * Constructor.
@@ -19,16 +14,7 @@ public class RerollDraftDieGameEvent extends AbstractPlayerGameEvent {
 	 * @param playerId the player identifier.
 	 */
 	public RerollDraftDieGameEvent(Die draftedDie, String playerId) {
-		super(playerId);
-		this.draftedDie = draftedDie.cloneDie();
-	}
-
-	/**
-	 * Getter of the drafted die from the draft pool.
-	 * @return the drafted die from the draft pool.
-	 */
-	public Die getDraftedDie() {
-		return draftedDie.cloneDie();
+		super(draftedDie, playerId);
 	}
 
 	/**

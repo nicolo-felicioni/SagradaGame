@@ -37,6 +37,7 @@ public class ValueSpace extends Space {
 	/**
 	 *{@inheritDoc}
 	 */
+	@Override
 	public void placeDie(Die die) throws PlacementException{
 
 		//checks the value restriction
@@ -69,11 +70,7 @@ public class ValueSpace extends Space {
 	 */
 	@Override
 	public boolean respectAllRestrictions(Die die) {
-		if (this.getValueRestriction() == die.getValue()){
-			return true;
-		}else{
-			return false;
-		}
+		return this.getValueRestriction() == die.getValue();
 	}
 
 	/**

@@ -1,6 +1,5 @@
 package it.polimi.se2018.exceptions;
 
-public class NotValidMoveException extends GameException{
-    public NotValidMoveException() { super(); }
+public class NotValidMoveException extends GameMoveException{
     public NotValidMoveException(String message) { super(message); }
 }

@@ -3,6 +3,7 @@ package it.polimi.se2018.network.server;
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.controller.ViewUpdaterObserver;
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.event.network.DisconnectEvent;
 import it.polimi.se2018.event.network.ReconnectGameEvent;
@@ -16,6 +17,7 @@ import it.polimi.se2018.observer.network.DisconnectObserver;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 
 /**
  * @author Davide Yi Xian Hu
@@ -141,7 +143,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
             playerSessions.stream().map(SessionInterface::getUID).distinct().forEach(id -> playerIds.add(id));
             handle(new StartGameEvent(playerIds));
         } else if(this.countUniqueIdentifier() >= MIN_PLAYER) {
-            this.timer = new Timer(ServerConfiguration.GAME_ROOM_TIMER);
+            this.timer = new Timer(ServerConfiguration.getGameRoomTimer());
             new Thread(timer).start();
         }
     }
@@ -176,10 +178,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
      * @param updater the view updater.
      */
     public void notifyObservers(ViewUpdaterInterface updater) {
-        this.observers.forEach(observer -> {
-            new Thread( () -> {
-                observer.handle(updater);
-            }).start();});
+        this.observers.forEach(observer -> new Thread( () -> observer.handle(updater)).start());
     }
 
     /**
@@ -380,7 +379,6 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
      */
     @Override
     public void handle(ViewUpdaterInterface updater) {
-        System.out.println(" <=== GameRoom :: View Updater received. Type : " + updater.getClass().getSimpleName() + "."); //TODO println
         this.notifyObservers(updater);
     }
 
@@ -456,13 +454,12 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
                     Thread.sleep(this.time);
                 }
                 if(isActive()) {
-                    System.out.println(" ==> GameRoom :: Time out. Game is starting..."); //TODO println
                     List<String> playerIds = new ArrayList<>();
                     playerSessions.stream().map(SessionInterface::getUID).distinct().forEach(id -> playerIds.add(id));
                     handle(new StartGameEvent(playerIds));
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                MyLog.getMyLog().log(Level.WARNING, e.getMessage());
                 Thread.currentThread().interrupt();
             }
         }

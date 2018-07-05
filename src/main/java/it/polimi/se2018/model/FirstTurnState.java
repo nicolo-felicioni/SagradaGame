@@ -4,7 +4,7 @@ package it.polimi.se2018.model;
  * @author Nicolò Felicioni
  */
 
-import it.polimi.se2018.exceptions.*;
+import it.polimi.se2018.exceptions.IllegalMoveTurnException;
 
 public class FirstTurnState extends PlayerState {
 

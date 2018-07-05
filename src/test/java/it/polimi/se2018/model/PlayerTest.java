@@ -2,7 +2,6 @@ package it.polimi.se2018.model;
 
 import it.polimi.se2018.controller.factory.WindowPatternFactory;
 import it.polimi.se2018.exceptions.*;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -79,8 +78,6 @@ public class PlayerTest {
         } catch (IllegalMoveTurnException e) {
 
         } catch (GameMoveException e) {
-            fail();
-        } catch (NotValidPointException e) {
             fail();
         }
     }

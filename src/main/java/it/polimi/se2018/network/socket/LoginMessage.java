@@ -1,8 +1,6 @@
 package it.polimi.se2018.network.socket;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 /**
  * @author davide yi xian hu

@@ -7,12 +7,7 @@ import it.polimi.se2018.observer.game.GameEventObserver;
 /**
  * @author Davide Yi Xian Hu
  */
-public class ChooseDraftDieValueGameEvent extends AbstractPlayerGameEvent {
-
-	/**
-	 * The die of the draft pool.
-	 */
-	private Die draftedDie;
+public class ChooseDraftDieValueGameEvent extends AbstractPlayerDraftedDieGameEvent {
 
 	/**
 	 * The die value to assign.
@@ -26,17 +21,8 @@ public class ChooseDraftDieValueGameEvent extends AbstractPlayerGameEvent {
 	 * @param value the value to assign to the die.
 	 */
 	public ChooseDraftDieValueGameEvent(Die draftedDie, DieValue value, String playerId) {
-		super(playerId);
-		this.draftedDie = new Die(draftedDie);
+		super(draftedDie, playerId);
 		this.value = value;
-	}
-
-	/**
-	 * Getter of the drafted die from the draft pool.
-	 * @return the drafted die from the draft pool.
-	 */
-	public Die getDraftedDie() {
-		return new Die(draftedDie);
 	}
 
 	/**

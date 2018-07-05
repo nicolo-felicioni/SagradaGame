@@ -75,11 +75,7 @@ public class ColorSpace extends Space {
 	 */
 	@Override
 	public boolean respectAllRestrictions(Die die) {
-		if (this.getColorRestriction() == die.getColor()){
-			return true;
-		}else {
-			return false;
-		}
+		return this.getColorRestriction() == die.getColor();
 	}
 
 	/**

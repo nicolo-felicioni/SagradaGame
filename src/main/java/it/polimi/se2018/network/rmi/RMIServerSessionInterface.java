@@ -1,7 +1,6 @@
 package it.polimi.se2018.network.rmi;
 
 import it.polimi.se2018.event.game.*;
-import it.polimi.se2018.event.network.ReconnectGameEvent;
 
 import java.io.Serializable;
 import java.rmi.Remote;

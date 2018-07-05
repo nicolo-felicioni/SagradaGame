@@ -9,12 +9,14 @@ import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.controller.ViewUpdaterObservable;
 import it.polimi.se2018.controller.ViewUpdaterObserver;
 import it.polimi.se2018.controller.updater.*;
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.exceptions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 
 
 public class Model implements ViewUpdaterObservable {
@@ -26,6 +28,7 @@ public class Model implements ViewUpdaterObservable {
     private ToolCard[] toolCards;
     private RoundTrack roundTrack;
 
+    private static final String WANTED_NOT_VALID_ID="Wanted to get a player with a not valid id.";
 
     /**
      * View updater observers.
@@ -109,7 +112,7 @@ public class Model implements ViewUpdaterObservable {
         try {
             addPlayer(player);
         } catch (TooManyPlayersException | NotValidIdException e) {
-            e.printStackTrace();
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
         }
     }
 
@@ -126,7 +129,7 @@ public class Model implements ViewUpdaterObservable {
                 .filter(player -> player.getId().equals(playerId)).findAny();
 
         if(!wantedPlayer.isPresent())
-            throw new NotValidIdException("Wanted to get a player with a not valid id.");
+            throw new NotValidIdException(WANTED_NOT_VALID_ID);
 
         return new Player(wantedPlayer.get());
     }
@@ -145,7 +148,6 @@ public class Model implements ViewUpdaterObservable {
      */
     public void setDiceBag(DiceBag diceBag) {
         this.diceBag = diceBag.cloneDiceBag();
-        this.notifyObservers(new DiceBagUpdater(diceBag.cloneDiceBag()));
     }
 
     /**
@@ -285,7 +287,7 @@ public class Model implements ViewUpdaterObservable {
                 .filter(player -> player.getId().equals(playerId)).findAny();
 
         if(!wantedPlayer.isPresent())
-            throw new NotValidIdException("Wanted to get a player with a not valid id.");
+            throw new NotValidIdException(WANTED_NOT_VALID_ID);
 
         wantedPlayer.get().setPatterns(windowPatterns);
         notifyObservers(new WindowPatternUpdater(playerId, windowPatterns[WindowPatternPosition.FIRST.toInt()].cloneWindowPattern(), WindowPatternPosition.FIRST));
@@ -306,7 +308,7 @@ public class Model implements ViewUpdaterObservable {
                 .filter(player -> player.getId().equals(playerId)).findAny();
 
         if(!wantedPlayer.isPresent())
-            throw new NotValidIdException("Wanted to get a player with a not valid id.");
+            throw new NotValidIdException(WANTED_NOT_VALID_ID);
 
         wantedPlayer.get().choosePattern(windowPattern);
 
@@ -326,7 +328,7 @@ public class Model implements ViewUpdaterObservable {
                 .filter(player -> player.getId().equals(playerId)).findAny();
 
         if(!wantedPlayer.isPresent())
-            throw new NotValidIdException("Wanted to get a player with a not valid id.");
+            throw new NotValidIdException(WANTED_NOT_VALID_ID);
 
         wantedPlayer.get().setPattern(windowPattern);
 
@@ -344,7 +346,7 @@ public class Model implements ViewUpdaterObservable {
                 .filter(player -> player.getId().equals(playerId)).findAny();
 
         if(!wantedPlayer.isPresent())
-            throw new NotValidIdException("Wanted to get a player with a not valid id.");
+            throw new NotValidIdException(WANTED_NOT_VALID_ID);
 
         wantedPlayer.get().setPrivateObjective(privateObjectiveCard);
         notifyObservers(new PrivateObjectiveCardUpdater(playerId, privateObjectiveCard));
@@ -363,7 +365,7 @@ public class Model implements ViewUpdaterObservable {
                 .filter(player -> player.getId().equals(playerId)).findAny();
 
         if(!wantedPlayer.isPresent())
-            throw new NotValidIdException("Wanted to get a player with a not valid id.");
+            throw new NotValidIdException(WANTED_NOT_VALID_ID);
 
         wantedPlayer.get().changePlayerStateTo(playerState.cloneState());
         this.notifyObservers(new PlayerStateUpdater(playerId, playerState.cloneState()));
@@ -448,7 +450,6 @@ public class Model implements ViewUpdaterObservable {
         this.notifyObservers(new PublicObjectiveCardUpdater(publicObjectiveCards[CardPosition.LEFT.toInt()], CardPosition.LEFT));
         this.notifyObservers(new PublicObjectiveCardUpdater(publicObjectiveCards[CardPosition.CENTER.toInt()], CardPosition.CENTER));
         this.notifyObservers(new PublicObjectiveCardUpdater(publicObjectiveCards[CardPosition.RIGHT.toInt()], CardPosition.RIGHT));
-        this.notifyObservers(new DiceBagUpdater(diceBag.cloneDiceBag()));
         this.notifyObservers(new RoundTrackUpdater(roundTrack.cloneRoundTrack()));
         this.notifyObservers(new DraftPoolUpdater(draftPool.cloneDraftPool()));
         this.players.forEach(player -> {
