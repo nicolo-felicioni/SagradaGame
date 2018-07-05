@@ -1,10 +1,11 @@
 package it.polimi.se2018.model;
 
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.exceptions.NotValidPointException;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.logging.Level;
 
 /**
  * @author Davide Yi Xian Hu
@@ -24,29 +25,26 @@ public class Point implements Serializable {
 	/** Minimum value of x.
 	 *
 	 */
-	public static final int X_MIN = 0;
+	private static final int X_MIN = 0;
 
 	/** Maximum value of x.
 	 *
 	 */
-	public static final int X_MAX = 3;
+	private static final int X_MAX = 3;
 
 	/** Minimum value of y.
 	 *
 	 */
-	public static final int Y_MIN = 0;
+	private static final int Y_MIN = 0;
 
 	/** Maximum value of y.
 	 *
 	 */
-	public static final int Y_MAX = 4;
+	private static final int Y_MAX = 4;
 
 
 	public boolean isEdgyPoint(){
-		if(getX() == X_MIN || getX() == X_MAX|| getY() == Y_MIN || getY() == Y_MAX)
-			return true;
-		else
-			return false;
+		return getX() == X_MIN || getX() == X_MAX || getY() == Y_MIN || getY() == Y_MAX;
 	}
 
 	/**
@@ -92,16 +90,24 @@ public class Point implements Serializable {
 		List<Point> ortoganalPoints = new ArrayList<>();
 		try {
 			ortoganalPoints.add(new Point(x - 1, y));
-		} catch (NotValidPointException e) { }
+		} catch (NotValidPointException e) {
+			MyLog.getMyLog().log(Level.WARNING,e.getMessage());
+		}
 		try {
 			ortoganalPoints.add(new Point(x + 1, y));
-		} catch (NotValidPointException e) { }
+		} catch (NotValidPointException e) {
+			MyLog.getMyLog().log(Level.WARNING,e.getMessage());
+		}
 		try {
 			ortoganalPoints.add(new Point(x, y - 1));
-		} catch (NotValidPointException e) { }
+		} catch (NotValidPointException e) {
+			MyLog.getMyLog().log(Level.WARNING,e.getMessage());
+		}
 		try {
 			ortoganalPoints.add(new Point(x, y + 1));
-		} catch (NotValidPointException e) { }
+		} catch (NotValidPointException e) {
+			MyLog.getMyLog().log(Level.WARNING,e.getMessage());
+		}
 		return ortoganalPoints;
 	}
 
@@ -114,16 +120,24 @@ public class Point implements Serializable {
 		List<Point> diagonalPoints = new ArrayList<Point>();
 		try {
 			diagonalPoints.add(new Point(x - 1, y - 1));
-		} catch (NotValidPointException e) { }
+		} catch (NotValidPointException e) {
+			MyLog.getMyLog().log(Level.WARNING,e.getMessage());
+		}
 		try {
 			diagonalPoints.add(new Point(x - 1, y + 1));
-		} catch (NotValidPointException e) { }
+		} catch (NotValidPointException e) {
+			MyLog.getMyLog().log(Level.WARNING,e.getMessage());
+		}
 		try {
 			diagonalPoints.add(new Point(x + 1, y - 1));
-		} catch (NotValidPointException e) { }
+		} catch (NotValidPointException e) {
+			MyLog.getMyLog().log(Level.WARNING,e.getMessage());
+		}
 		try {
 			diagonalPoints.add(new Point(x + 1, y + 1));
-		} catch (NotValidPointException e) { }
+		} catch (NotValidPointException e) {
+			MyLog.getMyLog().log(Level.WARNING,e.getMessage());
+		}
 		return diagonalPoints;
 	}
 
