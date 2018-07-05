@@ -1,2 +1,4 @@
-lug 05, 2018 6:33:37 PM it.polimi.se2018.controller.utils.MyLog log
-AVVERTENZA: Login error
+Jul 05, 2018 11:42:37 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: Login error
+Jul 05, 2018 11:42:37 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: Login to server failed.

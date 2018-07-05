@@ -545,6 +545,15 @@ public class GUIController extends Application implements GUIInterface{
         primaryStage.setTitle("Sagrada-The Game");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
+        primaryStage.setOnCloseRequest(event -> {
+            if(client != null) {
+                try {
+                    client.disconnect();
+                } catch (NetworkException e) {
+                    MyLog.getMyLog().log(Level.WARNING, e.getMessage());
+                }
+            }
+        });
 
     }
 

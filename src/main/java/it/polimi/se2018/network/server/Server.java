@@ -3,6 +3,7 @@ package it.polimi.se2018.network.server;
 import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.network.rmi.RMIServer;
 import it.polimi.se2018.network.socket.SocketServer;
+import it.polimi.se2018.observer.network.DisconnectObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,7 @@ public class Server {
 			}
 			room.addPlayerSession(session);
 			session.addGameObserver(room);
+			session.addObserver((DisconnectObserver) room);
 		}else{
 			throw new LoginException(LoginException.DEFAULT_LOGIN_ERROR_MESSAGE);
 		}
@@ -80,12 +82,13 @@ public class Server {
 	 */
 	public void reconnect(String uid, SessionInterface session) throws LoginException {
 		//Look for a game room where a client has already logged in.
-		GameRoom room = getGameRoom(uid);
+		GameRoom room = getGameRoomDisconnectedPlayer(uid);
 		if(room == null) {
 			throw new LoginException(LoginException.DEFAULT_LOGIN_ERROR_MESSAGE);
 		}else{
-			room.substitutePlayerSession(session);
+			room.addPlayerSession(session);
 			session.addGameObserver(room);
+			session.addObserver((DisconnectObserver) room);
 		}
 	}
 
@@ -111,6 +114,21 @@ public class Server {
 	 */
 	private GameRoom getGameRoom(String uid) {
 		Optional<GameRoom> gameRoom = roomList.stream().filter(room -> room.isIn(uid)).findAny();
+		if (gameRoom.isPresent()) {
+			return gameRoom.get();
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * Look for a game room that contain a disconnected player with an uid. Return null if no room has that player.
+	 *
+	 * @param uid the player unique identifier.
+	 * @return a game room that contains the disconnected player, null if no room has that player.
+	 */
+	private GameRoom getGameRoomDisconnectedPlayer(String uid) {
+		Optional<GameRoom> gameRoom = roomList.stream().filter(room -> room.isInAsDisconnected(uid)).findAny();
 		if (gameRoom.isPresent()) {
 			return gameRoom.get();
 		} else {

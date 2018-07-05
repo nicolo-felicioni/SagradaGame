@@ -426,14 +426,14 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
                 model.setDraftPool(draftPool);
             } else {
                 if (scheduler.isFirstHalfOfRound())
-                    this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), "It's not your second turn."));
+                    this.notifyObservers(new ErrorMessageUpdater(event.getPlayerId(), "It's not your second turn."));
                 else if (player.getState().isDiePlaced())
-                    this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), "Can't activate this tool card because you have already placed a die."));
+                    this.notifyObservers(new ErrorMessageUpdater(event.getPlayerId(), "Can't activate this tool card because you have already placed a die."));
                 else if (toolCard != null && !toolCard.rerollAllDraftPoolDice())
-                    this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), TOOL_CARD_CONDITION_ERROR_MESSAGE));
+                    this.notifyObservers(new ErrorMessageUpdater(event.getPlayerId(), TOOL_CARD_CONDITION_ERROR_MESSAGE));
             }
         } catch (GameMoveException e) {
-            this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
+            this.notifyObservers(new ErrorMessageUpdater(event.getPlayerId(), e.getMessage()));
         }
     }
 
@@ -458,9 +458,9 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
                 model.setToolCard(toolCard.cloneToolCard());
                 model.setDraftPool(draftPool.cloneDraftPool());
             } else
-                this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), TOOL_CARD_CONDITION_ERROR_MESSAGE));
+                this.notifyObservers(new ErrorMessageUpdater(event.getPlayerId(), TOOL_CARD_CONDITION_ERROR_MESSAGE));
         } catch (GameMoveException e) {
-            this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
+            this.notifyObservers(new ErrorMessageUpdater(event.getPlayerId(), e.getMessage()));
         }
     }
 
@@ -488,9 +488,9 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
                 model.setDraftPool(draftPool.cloneDraftPool());
                 model.setDiceBag(diceBag.cloneDiceBag());
             } else
-                this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), TOOL_CARD_CONDITION_ERROR_MESSAGE));
+                this.notifyObservers(new ErrorMessageUpdater(event.getPlayerId(), TOOL_CARD_CONDITION_ERROR_MESSAGE));
         } catch (GameMoveException e) {
-            this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
+            this.notifyObservers(new ErrorMessageUpdater(event.getPlayerId(), e.getMessage()));
         }
     }
 
@@ -517,9 +517,9 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
                 model.setDraftPool(draftPool.cloneDraftPool());
                 model.setRoundTrack(roundTrack.cloneRoundTrack());
             } else
-                this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), TOOL_CARD_CONDITION_ERROR_MESSAGE));
+                this.notifyObservers(new ErrorMessageUpdater(event.getPlayerId(), TOOL_CARD_CONDITION_ERROR_MESSAGE));
         } catch (GameMoveException e) {
-            this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
+            this.notifyObservers(new ErrorMessageUpdater(event.getPlayerId(), e.getMessage()));
         }
     }
 
@@ -545,13 +545,13 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
                 model.setToolCard(toolCard.cloneToolCard(), event.getPositionOfToolCard());
             } else {
                 if (player.getTokens() < toolCard.cost())
-                    this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), "You haven't enough tokens."));
+                    this.notifyObservers(new ErrorMessageUpdater(event.getPlayerId(), "You haven't enough tokens."));
                 else if (!state.canUseTool())
-                    this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), "You can't use a tool card"));
+                    this.notifyObservers(new ErrorMessageUpdater(event.getPlayerId(), "You can't use a tool card"));
             }
 
         } catch (GameMoveException | NotPresentPlayerException e) {
-            this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
+            this.notifyObservers(new ErrorMessageUpdater(event.getPlayerId(), e.getMessage()));
         }
     }
 
@@ -602,13 +602,13 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
     public void handle(ReconnectGameEvent event) {
         try {
             String id = event.getPlayerId();
-            if (disconnectedPlayersId.stream().anyMatch(s -> s.equals(id))) {
+            if(disconnectedPlayersId.stream().anyMatch(i -> i.equals(id))) {
                 this.disconnectedPlayersId.remove(id);
-                Player player = model.getPlayer(id);
-                player.setConnected(true);
-                model.setPlayer(player);
-                model.notifyModel();
             }
+            Player player = model.getPlayer(id);
+            player.setConnected(true);
+            model.setPlayer(player);
+            model.notifyModel();
         } catch (NotValidIdException | NotPresentPlayerException e) {
             this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
         }
@@ -869,6 +869,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
         Player player = model.getPlayer(id);
         player.setConnected(false);
         model.setPlayer(player);
+        notifyObservers(new DisconnectEvent(id));
         if (model.getPlayers().stream().filter(Player::isConnected).count() > 1) {
             this.nextTurn();
         } else {

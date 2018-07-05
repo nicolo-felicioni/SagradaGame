@@ -1,7 +1,7 @@
 {
   "rmiPort":33333,
   "socketPort":55555,
-  "gameRoomTimer":15000,
+  "gameRoomTimer":5000,
   "turnTimer":120000,
   "customPattern":true,
   "customPatternPath":"src/main/resources/custom_window_pattern.json"

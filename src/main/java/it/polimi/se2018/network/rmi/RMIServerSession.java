@@ -3,8 +3,11 @@ package it.polimi.se2018.network.rmi;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.event.game.*;
+import it.polimi.se2018.event.network.DisconnectEvent;
 import it.polimi.se2018.network.server.SessionInterface;
 import it.polimi.se2018.observable.game.GameEventObservableImpl;
+import it.polimi.se2018.observable.network.DisconnectObservable;
+import it.polimi.se2018.observer.network.DisconnectObserver;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -22,6 +25,11 @@ public class RMIServerSession extends GameEventObservableImpl implements Session
 	private transient List<RMIClientInterface> clientInterfaces;
 
 	/**
+	 * The disconnect event observers.
+	 */
+	private List<DisconnectObserver> disconnectObservers;
+
+	/**
 	 * Unique identifier of the client.
 	 */
 	private String uid;
@@ -31,6 +39,7 @@ public class RMIServerSession extends GameEventObservableImpl implements Session
 	 * @param uid the user identifier.
 	 */
 	public RMIServerSession(String uid) {
+		this.disconnectObservers = new ArrayList<>();
 		this.clientInterfaces = new ArrayList<>();
 		this.uid = uid;
 	}
@@ -40,6 +49,7 @@ public class RMIServerSession extends GameEventObservableImpl implements Session
 	 */
 	@Override
 	public synchronized void disconnect(RMIClientInterface client) {
+		this.notifyObservers(new DisconnectEvent(uid));
 		this.clientInterfaces.remove(client);
 	}
 
@@ -276,6 +286,36 @@ public class RMIServerSession extends GameEventObservableImpl implements Session
 	@Override
 	public void handle(WindowPatternChosenGameEvent event) {
 		this.notifyObservers(event);
+	}
+
+	/**
+	 * Add a DisconnectObserver.
+	 *
+	 * @param observer the DisconnectObserver.
+	 */
+	@Override
+	public void addObserver(DisconnectObserver observer) {
+		this.disconnectObservers.add(observer);
+	}
+
+	/**
+	 * Remove a DisconnectObserver.
+	 *
+	 * @param observer the DisconnectObserver.
+	 */
+	@Override
+	public void removeObserver(DisconnectObserver observer) {
+		this.disconnectObservers.remove(observer);
+	}
+
+	/**
+	 * Notify the DisconnectObserver an DisconnectObserver.
+	 *
+	 * @param event the DisconnectEvent.
+	 */
+	@Override
+	public void notifyObservers(DisconnectEvent event) {
+		this.disconnectObservers.forEach(o -> o.handle(event));
 	}
 
 }

@@ -35,6 +35,11 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
     private List<SessionInterface> playerSessions;
 
     /**
+     * List of disconnected network controllers of the players in the game room.
+     */
+    private List<SessionInterface> disconnectedSessions;
+
+    /**
      * List of view updater observer.
      */
     private List<ViewUpdaterObserver> observers;
@@ -65,6 +70,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
      */
     public GameRoom() {
         this.playerSessions = new ArrayList<>();
+        this.disconnectedSessions = new ArrayList<>();
         this.observers = new ArrayList<>();
         this.reconnectObservers = new ArrayList<>();
         Model model = new Model();
@@ -91,25 +97,19 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
      * @param session the player session.
      */
     public synchronized void addPlayerSession(SessionInterface session) {
-        if(!this.isIn(session.getUID())){
+        if(this.isInAsDisconnected(session.getUID())) {
+            Optional<SessionInterface> ses = disconnectedSessions.stream().filter(s -> s.getUID().equals(session.getUID())).findAny();
+            if(ses.isPresent()) {
+                disconnectedSessions.remove(ses.get());
+                observers.remove(ses.get());
+                playerSessions.add(session);
+                observers.add(session);
+                this.notifyObservers(new ReconnectGameEvent(session.getUID()));
+            }
+        }else if(!this.isIn(session.getUID())){
             playerSessions.add(session);
             observers.add(session);
             this.refreshTimer();
-        }
-    }
-
-    /**
-     * Connect a player session to this game room and remove previous connection.
-     * @param session the player session.
-     */
-    public synchronized void substitutePlayerSession(SessionInterface session) {
-        Optional<SessionInterface> ses = playerSessions.stream().filter(s -> s.getUID().equals(session.getUID())).findAny();
-        if(ses.isPresent()) {
-            playerSessions.remove(ses.get());
-            observers.remove(ses.get());
-            playerSessions.add(session);
-            observers.add(session);
-            this.notifyObservers(new ReconnectGameEvent(session.getUID()));
         }
     }
 
@@ -119,9 +119,26 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
      * @return true if the player is in this room.
      */
     public synchronized boolean isIn(String uid) {
+        return playerSessions.stream().anyMatch(s -> s.getUID().equals(uid)) || disconnectedSessions.stream().anyMatch(s -> s.getUID().equals(uid));
+    }
+
+    /**
+     * Check if a player is connected to this room.
+     * @param uid the user identifier.
+     * @return true if the player is connected but in this room.
+     */
+    public synchronized boolean isInAsConnected(String uid) {
         return playerSessions.stream().anyMatch(s -> s.getUID().equals(uid));
     }
 
+    /**
+     * Check if a player is disconnected to this room.
+     * @param uid the user identifier.
+     * @return true if the player is disconnected but in this room.
+     */
+    public synchronized boolean isInAsDisconnected(String uid) {
+        return disconnectedSessions.stream().anyMatch(s -> s.getUID().equals(uid));
+    }
 
     /**
      * Refresh the timer.
@@ -410,11 +427,12 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
      * @param event the ConnectSocketEvent.
      */
     @Override
-    public void handle(DisconnectEvent event) {
+    public synchronized void handle(DisconnectEvent event) {
         Optional<SessionInterface> ses = playerSessions.stream().filter(s -> s.getUID().equals(event.getPlayerId())).findAny();
         if(ses.isPresent()) {
             playerSessions.remove(ses.get());
             observers.remove(ses.get());
+            disconnectedSessions.add(ses.get());
         }
     }
 

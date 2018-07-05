@@ -3,16 +3,20 @@ package it.polimi.se2018.network.socket;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.event.game.*;
+import it.polimi.se2018.event.network.DisconnectEvent;
 import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.json.Json;
 import it.polimi.se2018.network.server.Server;
 import it.polimi.se2018.network.server.SessionInterface;
 import it.polimi.se2018.observable.game.GameEventObservableImpl;
+import it.polimi.se2018.observer.network.DisconnectObserver;
 
 import java.io.*;
 import java.net.Socket;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -25,6 +29,11 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 	private ObjectOutputStream outStream;
 
 	/**
+	 * The disconnect event observers.
+	 */
+	private List<DisconnectObserver> disconnectObservers;
+
+	/**
 	 * Unique identifier of the client.
 	 */
 	private String uid;
@@ -34,6 +43,7 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 	 * @param socket the socket connection with the client.
 	 */
 	public SocketServerSession(Socket socket) {
+		this.disconnectObservers = new ArrayList<>();
 		this.socket = socket;
 		try {
 			this.outStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
@@ -63,6 +73,7 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 				inStream.close();
 				outStream.close();
 				socket.close();
+				notifyObservers(new DisconnectEvent(uid));
 			} catch (IOException e1) {
 				MyLog.getMyLog().log(Level.WARNING, e1.getMessage());
 			}
@@ -74,8 +85,6 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 	 * Handle a view update from the network.
 	 *
 	 * @param updater the view updater.
-	 * @throws RemoteException  if RMI errors occur during the connection.
-	 * @throws NetworkException if any connection error occurs during the connection.
 	 */
 	@Override
 	public synchronized void handle(ViewUpdaterInterface updater) {
@@ -272,6 +281,36 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 		this.notifyObservers(event);
 	}
 
+	/**
+	 * Add a DisconnectObserver.
+	 *
+	 * @param observer the DisconnectObserver.
+	 */
+	@Override
+	public void addObserver(DisconnectObserver observer) {
+		this.disconnectObservers.remove(observer);
+	}
+
+	/**
+	 * Remove a DisconnectObserver.
+	 *
+	 * @param observer the DisconnectObserver.
+	 */
+	@Override
+	public void removeObserver(DisconnectObserver observer) {
+		this.disconnectObservers.remove(observer);
+	}
+
+	/**
+	 * Notify the DisconnectObserver an DisconnectObserver.
+	 *
+	 * @param event the DisconnectEvent.
+	 */
+	@Override
+	public void notifyObservers(DisconnectEvent event) {
+		this.disconnectObservers.forEach(o -> o.handle(event));
+	}
+
 	private class NetworkListener implements Runnable {
 
 		/**
@@ -283,7 +322,7 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 		 * Constructor.
 		 * @param session the socket server session.
 		 */
-		public NetworkListener(SocketServerSession session) {
+		NetworkListener(SocketServerSession session) {
 			this.session = session;
 		}
 
@@ -306,6 +345,7 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 					inStream.close();
 					outStream.close();
 					socket.close();
+					notifyObservers(new DisconnectEvent(uid));
 					this.run = false;
 				} catch (IOException e1) {
 					MyLog.getMyLog().log(Level.WARNING, e1.getMessage());
@@ -324,6 +364,7 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 						inStream.close();
 						outStream.close();
 						socket.close();
+						notifyObservers(new DisconnectEvent(uid));
 						this.run = false;
 					} catch (IOException e1) {
 						MyLog.getMyLog().log(Level.WARNING, e1.getMessage());
