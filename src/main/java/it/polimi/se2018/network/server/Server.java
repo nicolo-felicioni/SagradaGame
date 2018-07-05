@@ -26,12 +26,8 @@ public class Server {
 	 * Private default constructor.
 	 */
 	private Server() {
-		System.out.println("Starting RMI Server..."); //TODO println
 		new RMIServer();
-		System.out.println("RMI Server started. Ready to accept connections."); //TODO println
-		System.out.println("Starting Socket Server..."); //TODO println
 		new SocketServer();
-		System.out.println("Socket Server started. Ready to accept connections."); //TODO println
 	}
 
 
@@ -56,7 +52,6 @@ public class Server {
 	 * @throws LoginException if the login fails.
 	 */
 	public void login(String uid, SessionInterface session) throws LoginException {
-		System.out.println(" => Server :: Player " + uid + " connected"); //TODO println
 		//Look for a game room where a client has already logged in.
 		GameRoom room = getGameRoom(uid);
 		if(room == null) {
@@ -64,7 +59,6 @@ public class Server {
 			room = getNotStartedGameRoom();
 			if(room == null) {
 				//Create a new game room.
-				System.out.println(" => Server :: Game room created."); //TODO println
 				room = new GameRoom();
 				roomList.add(room);
 			}

@@ -147,7 +147,6 @@ public class Model implements ViewUpdaterObservable {
      */
     public void setDiceBag(DiceBag diceBag) {
         this.diceBag = diceBag.cloneDiceBag();
-        this.notifyObservers(new DiceBagUpdater(diceBag.cloneDiceBag()));
     }
 
     /**
@@ -450,7 +449,6 @@ public class Model implements ViewUpdaterObservable {
         this.notifyObservers(new PublicObjectiveCardUpdater(publicObjectiveCards[CardPosition.LEFT.toInt()], CardPosition.LEFT));
         this.notifyObservers(new PublicObjectiveCardUpdater(publicObjectiveCards[CardPosition.CENTER.toInt()], CardPosition.CENTER));
         this.notifyObservers(new PublicObjectiveCardUpdater(publicObjectiveCards[CardPosition.RIGHT.toInt()], CardPosition.RIGHT));
-        this.notifyObservers(new DiceBagUpdater(diceBag.cloneDiceBag()));
         this.notifyObservers(new RoundTrackUpdater(roundTrack.cloneRoundTrack()));
         this.notifyObservers(new DraftPoolUpdater(draftPool.cloneDraftPool()));
         this.players.forEach(player -> {

@@ -561,7 +561,6 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
      */
     @Override
     public void handle(WindowPatternChosenGameEvent event) {
-        System.out.println(" ===> Controller :: Window pattern choice received."); //TODO println
         try {
             if (!model.getPlayer(event.getPlayerId()).getState().hasChosenWindowPattern()) {
                 model.setChosenWindowPattern(event.getPlayerId(), event.getWindow());
@@ -570,8 +569,6 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
             this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
         }
         if (this.checkAllPlayersHaveChosenWindowPattern()) {
-            System.out.println(" ===> Controller :: All players have chosen a window pattern..."); //TODO println
-            System.out.println(" ===> Controller :: Init public objective cards and tool cards..."); //TODO println
             this.initPublicObjectiveCards();
             this.initToolCards();
             this.firstTurn();
@@ -585,7 +582,6 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
      */
     @Override
     public void handle(StartGameEvent event) {
-        System.out.println(" ===> Controller :: Game started. Initializing the model..."); //TODO println
         this.startGame(event.getPlayerIds());
         this.initScheduler();
         this.initPrivateObjectiveCards();
@@ -751,8 +747,10 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
                 });
                 if (scheduler.isFirstTurnOfPlayer()) {
                     model.changePlayerStateTo(playerId, new FirstTurnState());
+                    startTurnTimer();
                 } else {
                     model.changePlayerStateTo(playerId, new YourTurnState());
+                    startTurnTimer();
                 }
                 initRound();
             } catch (NotValidIdException e) {

@@ -382,7 +382,6 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
      */
     @Override
     public void handle(ViewUpdaterInterface updater) {
-        System.out.println(" <=== GameRoom :: View Updater received. Type : " + updater.getClass().getSimpleName() + "."); //TODO println
         this.notifyObservers(updater);
     }
 
@@ -458,7 +457,6 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
                     Thread.sleep(this.time);
                 }
                 if(isActive()) {
-                    System.out.println(" ==> GameRoom :: Time out. Game is starting..."); //TODO println
                     List<String> playerIds = new ArrayList<>();
                     playerSessions.stream().map(SessionInterface::getUID).distinct().forEach(id -> playerIds.add(id));
                     handle(new StartGameEvent(playerIds));
