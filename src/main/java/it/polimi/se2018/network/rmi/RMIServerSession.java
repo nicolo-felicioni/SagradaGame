@@ -1,14 +1,15 @@
 package it.polimi.se2018.network.rmi;
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.event.game.*;
-import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.network.server.SessionInterface;
 import it.polimi.se2018.observable.game.GameEventObservableImpl;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * @author Davide Yi Xian Hu
@@ -59,7 +60,7 @@ public class RMIServerSession extends GameEventObservableImpl implements Session
 			try {
 				observer.handle(updater);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			}
 		});
 	}

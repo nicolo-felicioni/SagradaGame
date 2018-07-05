@@ -3,10 +3,11 @@ package it.polimi.se2018.network;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
-import it.polimi.se2018.event.game.GameEvent;
+import it.polimi.se2018.controller.utils.MyLog;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Level;
 
 public class ServerConfiguration {
 
@@ -61,7 +62,7 @@ public class ServerConfiguration {
             CUSTOM_PATTERN = configuration.customPattern;
             CUSTOM_PATTERN_PATH = configuration.customPatternPath;
         } catch (IOException e) {
-            e.printStackTrace();
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
         }
     }
 

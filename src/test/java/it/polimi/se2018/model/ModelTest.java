@@ -1,10 +1,12 @@
 package it.polimi.se2018.model;
 
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.exceptions.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.logging.Level;
 
 import static org.junit.Assert.*;
 
@@ -28,9 +30,9 @@ public class ModelTest {
         try {
             return new WindowPattern(blankSpaces, randomDiff, "pattern");
         } catch (WindowPatternDimensionException e) {
-            e.printStackTrace();
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
         } catch (UnboundDifficultyValueException e) {
-            e.printStackTrace();
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
         }
 
         //impossible
@@ -255,9 +257,9 @@ public class ModelTest {
             model.addPlayer(new Player("Nico"));
             model.addPlayer(new Player("Davide"));
         } catch (TooManyPlayersException e) {
-            e.printStackTrace();
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
         } catch (NotValidIdException e) {
-            e.printStackTrace();
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
         }
         List<Player> players = model.getPlayers();
 

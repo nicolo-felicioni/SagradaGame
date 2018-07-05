@@ -3,6 +3,7 @@ package it.polimi.se2018.network.server;
 import it.polimi.se2018.controller.Controller;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.controller.ViewUpdaterObserver;
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.event.network.DisconnectEvent;
 import it.polimi.se2018.event.network.ReconnectGameEvent;
@@ -16,6 +17,7 @@ import it.polimi.se2018.observer.network.DisconnectObserver;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 
 /**
  * @author Davide Yi Xian Hu
@@ -462,7 +464,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
                     handle(new StartGameEvent(playerIds));
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                MyLog.getMyLog().log(Level.WARNING, e.getMessage());
                 Thread.currentThread().interrupt();
             }
         }

@@ -9,12 +9,14 @@ import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.controller.ViewUpdaterObservable;
 import it.polimi.se2018.controller.ViewUpdaterObserver;
 import it.polimi.se2018.controller.updater.*;
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.exceptions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
 
 
 public class Model implements ViewUpdaterObservable {
@@ -109,7 +111,7 @@ public class Model implements ViewUpdaterObservable {
         try {
             addPlayer(player);
         } catch (TooManyPlayersException | NotValidIdException e) {
-            e.printStackTrace();
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
         }
     }
 

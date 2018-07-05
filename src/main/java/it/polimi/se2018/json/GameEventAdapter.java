@@ -1,8 +1,9 @@
 package it.polimi.se2018.json;
 
 import com.google.gson.*;
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.event.game.GameEvent;
-import it.polimi.se2018.controller.utils.myLog;
+
 import java.lang.reflect.Type;
 import java.util.logging.Level;
 
@@ -26,11 +27,6 @@ class GameEventAdapter implements JsonSerializer<GameEvent>, JsonDeserializer<Ga
      */
     private static final String PACKAGE = "it.polimi.se2018.event.game.";
     /**
-     * The logger.
-     */
-    private myLog myLog;
-
-    /**
      * {@inheritDoc}
      * Deserialize a json element.
      *
@@ -45,7 +41,7 @@ class GameEventAdapter implements JsonSerializer<GameEvent>, JsonDeserializer<Ga
         try {
             klass = Class.forName(className);
         } catch (ClassNotFoundException e) {
-            myLog.getMyLog().log(Level.WARNING, e.getMessage());
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
             throw new JsonParseException(e.getMessage());
         }
         return jsonDeserializationContext.deserialize(jsonObject.get(INSTANCE), klass);

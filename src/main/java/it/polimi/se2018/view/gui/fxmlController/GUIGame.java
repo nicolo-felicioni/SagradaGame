@@ -1,5 +1,6 @@
 package it.polimi.se2018.view.gui.fxmlController;
 
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.event.game.DraftAndPlaceGameEvent;
 import it.polimi.se2018.event.game.RerollAllDraftDiceGameEvent;
 import it.polimi.se2018.model.*;
@@ -7,13 +8,13 @@ import it.polimi.se2018.observer.game.GameEventObserver;
 import it.polimi.se2018.view.gui.fxmlController.stage.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public class GUIGame {
@@ -461,7 +462,7 @@ public class GUIGame {
             guiMoveDieMatchColor = loader.getController();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
         }
     }
 

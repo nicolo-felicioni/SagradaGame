@@ -3,9 +3,11 @@ package it.polimi.se2018.app;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
+import it.polimi.se2018.controller.utils.MyLog;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Level;
 
 public class ClientConfiguration {
 
@@ -28,7 +30,7 @@ public class ClientConfiguration {
             Configuration configuration = gson.fromJson(reader, Configuration.class);
             CLIENT = configuration.client;
         } catch (IOException e) {
-            e.printStackTrace();
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
         }
     }
 

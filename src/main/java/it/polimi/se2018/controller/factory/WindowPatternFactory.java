@@ -3,9 +3,12 @@ package it.polimi.se2018.controller.factory;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.json.Json;
 import it.polimi.se2018.json.WindowPatternAdapter;
-import it.polimi.se2018.model.*;
+import it.polimi.se2018.model.WindowPattern;
+import it.polimi.se2018.network.ServerConfiguration;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,9 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-import it.polimi.se2018.controller.utils.myLog;
-import it.polimi.se2018.network.ServerConfiguration;
 
 /**
  * @author Davide Yi Xian Hu
@@ -25,7 +25,6 @@ public class WindowPatternFactory {
 
 	private List<WindowPattern> windows;
 	private static final String STANDARD_WINDOW_PATH = "src/main/resources/std_window_pattern.json";
-	private myLog myLog;
 	public WindowPatternFactory() {
 		windows = new ArrayList<>();
 		try {
@@ -34,7 +33,7 @@ public class WindowPatternFactory {
 				this.loadWindowPattern(ServerConfiguration.CUSTOM_PATTERN_PATH);
 			}
 		}catch (FileNotFoundException e) {
-			myLog.getMyLog().log(Level.WARNING, e.getMessage());
+			MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 		}
 	}
 
@@ -60,7 +59,7 @@ public class WindowPatternFactory {
 		try {
 			reader.close();
 		} catch (IOException e) {
-			myLog.getMyLog().log(Level.WARNING, e.getMessage());
+			MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 		}
 	}
 

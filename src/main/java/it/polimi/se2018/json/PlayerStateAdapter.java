@@ -1,8 +1,8 @@
 package it.polimi.se2018.json;
 
 import com.google.gson.*;
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.model.PlayerState;
-import  it.polimi.se2018.controller.utils.myLog;
 
 import java.lang.reflect.Type;
 import java.util.logging.Level;
@@ -27,8 +27,6 @@ class PlayerStateAdapter implements JsonSerializer<PlayerState>, JsonDeserialize
      */
     private static final String PACKAGE = "it.polimi.se2018.model.";
 
-    private myLog myLog;
-
     /**
      * {@inheritDoc}
      * Deserialize a json element.
@@ -44,7 +42,7 @@ class PlayerStateAdapter implements JsonSerializer<PlayerState>, JsonDeserialize
         try {
             klass = Class.forName(className);
         } catch (ClassNotFoundException e) {
-            myLog.getMyLog().log(Level.WARNING, e.getMessage());
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
             throw new JsonParseException(e.getMessage());
         }
         return jsonDeserializationContext.deserialize(jsonObject.get(INSTANCE), klass);

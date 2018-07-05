@@ -2,7 +2,7 @@ package it.polimi.se2018.json;
 
 import com.google.gson.*;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.controller.utils.myLog;
+import it.polimi.se2018.controller.utils.MyLog;
 
 import java.lang.reflect.Type;
 import java.util.logging.Level;
@@ -26,11 +26,6 @@ class ViewUpdaterAdapter implements JsonSerializer<ViewUpdaterInterface>, JsonDe
 	 */
 	private static final String PACKAGE = "it.polimi.se2018.controller.updater.";
 	/**
-	 * The logger
-	 */
-	private myLog myLog;
-
-	/**
 	 * {@inheritDoc}
 	 * Deserialize a json element.
 	 * @return a View Updater.
@@ -44,7 +39,7 @@ class ViewUpdaterAdapter implements JsonSerializer<ViewUpdaterInterface>, JsonDe
 		try {
 			klass = Class.forName(className);
 		} catch (ClassNotFoundException e) {
-			myLog.getMyLog().log(Level.WARNING, e.getMessage());
+			MyLog.getMyLog().log(Level.WARNING, e.getMessage());
 			throw new JsonParseException(e.getMessage());
 		}
 		return jsonDeserializationContext.deserialize(jsonObject.get(INSTANCE), klass);

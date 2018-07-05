@@ -1,22 +1,21 @@
 package it.polimi.se2018.controller.utils;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-public class myLog {
-    private static myLog mylog;
+public class MyLog {
+    private static MyLog mylog;
     private Logger log;
     FileHandler fh;
 
 
 
 
-    private myLog(){
-        log=Logger.getLogger(myLog.class.getName());
+    private MyLog(){
+        log=Logger.getLogger(MyLog.class.getName());
         {
             try {
                 fh = new FileHandler("/log");
@@ -27,9 +26,9 @@ public class myLog {
         }
     }
 
-    public static myLog getMyLog(){
+    public static MyLog getMyLog(){
         if (mylog==null){
-            mylog=new myLog();
+            mylog=new MyLog();
         }
         return mylog;
     }

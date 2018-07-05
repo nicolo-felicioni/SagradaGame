@@ -1,8 +1,7 @@
 package it.polimi.se2018.view.gui.fxmlController;
 
 import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.controller.factory.ToolCardsFactory;
-import it.polimi.se2018.controller.factory.WindowPatternFactory;
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.controller.utils.RankingPlayer;
 import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.event.network.ConnectRMIEvent;
@@ -10,8 +9,6 @@ import it.polimi.se2018.event.network.ConnectSocketEvent;
 import it.polimi.se2018.event.network.LoginEvent;
 import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.exceptions.NetworkException;
-import it.polimi.se2018.exceptions.NotValidPointException;
-import it.polimi.se2018.exceptions.PlacementException;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.network.rmi.RMIClient;
@@ -30,10 +27,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.List;
+import java.util.logging.Level;
 
 /**
  * Author Gao PeiQing
@@ -83,7 +78,7 @@ public class GUIController extends Application implements GUIInterface{
             guiGameController = loader.getController();
             guiGameScene = new Scene(root);
         } catch (IOException e) {
-            e.printStackTrace();
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
         }
         try {
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIChooseWindowPattern.fxml"));
@@ -91,7 +86,7 @@ public class GUIController extends Application implements GUIInterface{
             guiChooseWindowPatternController = loader.getController();
             guiChooseWindowPatternScene = new Scene(root);
         } catch (IOException e) {
-            e.printStackTrace();
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
         }
 
 
@@ -195,7 +190,7 @@ public class GUIController extends Application implements GUIInterface{
                                 this.client.disconnect();
                                 this.showLoginScene();
                             } catch (NetworkException | IOException e) {
-                                e.printStackTrace();
+                                MyLog.getMyLog().log(Level.WARNING, e.getMessage());
                             }
                         }
                     }
@@ -489,7 +484,7 @@ public class GUIController extends Application implements GUIInterface{
             try {
                 this.client.reconnect(event.getUsername());
             } catch (LoginException e1) {
-                e1.printStackTrace();
+                MyLog.getMyLog().log(Level.WARNING, e1.getMessage());
             }
         }
     }
@@ -510,7 +505,7 @@ public class GUIController extends Application implements GUIInterface{
             this.observable.addGameObserver(this.client);
             client.connect(event.getAddress(),event.getPort());
         } catch (NetworkException | NotBoundException e) {
-            e.printStackTrace();
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
         }
     }
 
@@ -530,7 +525,7 @@ public class GUIController extends Application implements GUIInterface{
             this.observable.addGameObserver(this.client);
             client.connect(event.getAddress(),event.getPort());
         } catch (NetworkException | NotBoundException e) {
-            e.printStackTrace();
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
         }
     }
 
@@ -591,7 +586,7 @@ public class GUIController extends Application implements GUIInterface{
             space.placeDie(new Die(DieColor.BLUE, DieValue.ONE));
             s = new GUISpace(space,  new Point(0, 0));
         } catch (Exception e) {
-            e.printStackTrace();
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
         }
         */
 

@@ -1,5 +1,6 @@
 package it.polimi.se2018.view.gui.fxmlController;
 
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.exceptions.NotValidPointException;
 import it.polimi.se2018.model.*;
 import javafx.event.EventHandler;
@@ -14,6 +15,7 @@ import javafx.scene.layout.Priority;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class GUIWindowPattern extends GridPane{
 
@@ -106,7 +108,7 @@ public class GUIWindowPattern extends GridPane{
                     GridPane.setHgrow(guiSpace, Priority.ALWAYS);
                     GridPane.setVgrow(guiSpace, Priority.ALWAYS);
                 } catch (NotValidPointException e) {
-                    e.printStackTrace();
+                    MyLog.getMyLog().log(Level.WARNING, e.getMessage());
                 }
             }
         }
@@ -136,7 +138,7 @@ public class GUIWindowPattern extends GridPane{
                     GridPane.setHgrow(guiSpace, Priority.ALWAYS);
                     GridPane.setVgrow(guiSpace, Priority.ALWAYS);
                 } catch (NotValidPointException e) {
-                    e.printStackTrace();
+                    MyLog.getMyLog().log(Level.WARNING, e.getMessage());
                 }
             }
         }
@@ -165,7 +167,7 @@ public class GUIWindowPattern extends GridPane{
                     GridPane.setHgrow(guiSpace, Priority.ALWAYS);
                     GridPane.setVgrow(guiSpace, Priority.ALWAYS);
                 } catch (NotValidPointException e) {
-                    e.printStackTrace();
+                    MyLog.getMyLog().log(Level.WARNING, e.getMessage());
                 }
             }
         }
@@ -194,7 +196,7 @@ public class GUIWindowPattern extends GridPane{
                     GridPane.setHgrow(guiSpace, Priority.ALWAYS);
                     GridPane.setVgrow(guiSpace, Priority.ALWAYS);
                 } catch (NotValidPointException e) {
-                    e.printStackTrace();
+                    MyLog.getMyLog().log(Level.WARNING, e.getMessage());
                 }
             }
         }
@@ -224,7 +226,7 @@ public class GUIWindowPattern extends GridPane{
                     GridPane.setHgrow(guiSpace, Priority.ALWAYS);
                     GridPane.setVgrow(guiSpace, Priority.ALWAYS);
                 } catch (NotValidPointException e) {
-                    e.printStackTrace();
+                    MyLog.getMyLog().log(Level.WARNING, e.getMessage());
                 }
             }
         }
@@ -253,7 +255,7 @@ public class GUIWindowPattern extends GridPane{
                     GridPane.setHgrow(guiSpace, Priority.ALWAYS);
                     GridPane.setVgrow(guiSpace, Priority.ALWAYS);
                 } catch (NotValidPointException e) {
-                    e.printStackTrace();
+                    MyLog.getMyLog().log(Level.WARNING, e.getMessage());
                 }
             }
         }
