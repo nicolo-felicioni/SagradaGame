@@ -69,7 +69,7 @@ public class Printer {
     /**
      * print a colored string with a new line character in the end.
      *
-     * @param s the string to be printed
+     * @param s     the string to be printed
      * @param color the color of the string
      */
     public static void printlnColor(String s, DieColor color) {
@@ -132,9 +132,9 @@ public class Printer {
 
     /**
      * private utility method, it will print a space with a die in it with two brackets with a die within.
-     * @see #print(Space)
      *
      * @param space the space to be printed
+     * @see #print(Space)
      */
     private static void printSpaceWithDie(Space space) {
         if (space.isColorRestricted()) {
@@ -198,7 +198,6 @@ public class Printer {
     }
 
 
-
     /**
      * print the round track.
      * if a box is with no die it will be printed with its number.
@@ -208,23 +207,22 @@ public class Printer {
      */
     public static void print(RoundTrack roundTrack) {
 
-        if (!roundTrack.getAllDice().isEmpty()) {
-            for (int round = 1; round <= RoundTrack.SIZE; round++) {
-                print(round + ": ");
-                print("[");
-                try {
-                    if (roundTrack.getDice(round).isEmpty()) {
-                        print(" ");
-                    } else {
-                        roundTrack.getDice(round).forEach(Printer::print);
-                    }
-                    print("] ");
-                } catch (NotValidRoundException e) {
+
+        for (int round = 1; round <= RoundTrack.SIZE; round++) {
+            print(round + ": ");
+            print("[");
+            try {
+                if (roundTrack.getDice(round).isEmpty()) {
                     print(" ");
+                } else {
+                    roundTrack.getDice(round).forEach(Printer::print);
                 }
+                print("] ");
+            } catch (NotValidRoundException e) {
+                print(" ] ");
             }
-            newLine();
         }
+        newLine();
     }
 
 
@@ -309,6 +307,7 @@ public class Printer {
 
     /**
      * this method shows to the user a list of options.
+     *
      * @param options a list of options that has to be shown.
      */
     public static void print(List<Option> options) {
@@ -322,6 +321,7 @@ public class Printer {
 
     /**
      * print a boolean with a new line character in the end.
+     *
      * @param b the boolean to be printed
      */
     public static void println(boolean b) {
@@ -330,6 +330,7 @@ public class Printer {
 
     /**
      * print a boolean.
+     *
      * @param b the boolean to be printed
      */
     public static void print(boolean b) {
@@ -338,6 +339,7 @@ public class Printer {
 
     /**
      * the method prints the player name and his points.
+     *
      * @param rankingPlayer the player to be printed.
      */
     public static void print(RankingPlayer rankingPlayer) {
@@ -371,6 +373,7 @@ public class Printer {
     /**
      * print a value space as a grey die.
      * Used by {@link #print(Space)}
+     *
      * @param value the value of the value space
      */
     private static void printValueSpace(DieValue value) {
@@ -381,6 +384,7 @@ public class Printer {
     /**
      * print a value space as a colored square.
      * Used by {@link #print(Space)}
+     *
      * @param color the color of the color space
      */
     private static void printColorSpace(DieColor color) {
@@ -390,6 +394,7 @@ public class Printer {
 
     /**
      * print a generic card name and info.
+     *
      * @param card the card to be printed.
      */
     private static void printCard(Card card) {

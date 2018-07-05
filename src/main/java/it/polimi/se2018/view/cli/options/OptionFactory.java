@@ -157,8 +157,8 @@ public class OptionFactory {
      */
     public static void addReturnDieAndGetNewOptions(List<Option> options, CommandLineInterface cli, Die draftedDie){
         options.add(new ChooseDraftedDieValueOption(cli, draftedDie));
-        options.add(new ReadXOption(cli));
-        options.add(new ReadYOption(cli));
+        options.add(new ReadXOptionNoGoBack(cli));
+        options.add(new ReadYOptionNoGoBack(cli));
     }
 
 
@@ -196,6 +196,8 @@ public class OptionFactory {
                 options.add(new MoveDieMatchColorOnRoundTrackOption(cli));
             if(card.returnDieAndGetNewFromDiceBag())
                 options.add(new ReturnDieAndGetNewOption(cli));
+            if(card.placeDieAfterFirstTurn())
+                options.add(new PlaceDieAfterFirstTurnOption(cli));
         }
 
     }
@@ -216,6 +218,7 @@ public class OptionFactory {
         options.add(new ShowPublicObjectiveCardsOption(cli));
         options.add(new ShowToolCardsOption(cli));
         options.add(new ShowOtherWindowPatternOption(cli));
+        options.add(new ShowRoundTrackOption(cli));
     }
 
 

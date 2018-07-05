@@ -106,6 +106,7 @@ public class CommandLineInterface extends AbstractView {
         keyboard = new MyScanner();
         patterns = new WindowPattern[Player.N_WINDOW_PATTERNS];
         toolCards = new ToolCard[Model.SET_OF_TOOL_CARDS_SIZE];
+        roundTrack = new RoundTrack();
         publicObjectiveCards = new PublicObjectiveCard[Model.SET_OF_PUBLIC_OBJECTIVE_CARDS_SIZE];
         numberOfPatternsReceived = 0;
     }

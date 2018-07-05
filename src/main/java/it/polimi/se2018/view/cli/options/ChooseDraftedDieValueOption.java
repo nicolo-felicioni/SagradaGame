@@ -41,7 +41,7 @@ class ChooseDraftedDieValueOption extends SimpleOption {
         do {
             Printer.println(SELECT);
             choice = cli.getKeyboard().readInt();
-            if (choice < DieValue.ONE.toInt() || choice >= DieValue.SIX.toInt()) { //if the choice isn't in the range
+            if (choice < DieValue.ONE.toInt() || choice > DieValue.SIX.toInt()) { //if the choice isn't in the range
                 Printer.println(WRONG_CHOICE_MESSAGE);
                 validChoice = false;
             } else

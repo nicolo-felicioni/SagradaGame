@@ -50,8 +50,8 @@ public class SwapDraftDieWithRoundTrackDieOption extends ComplexOption {
     @Override
     public int execute() {
         if (cli.getRoundTrack().isEmpty()) {
-            Printer.print("Roundtrack empty!");
-            return -1;
+            Printer.println("Roundtrack empty!");
+            return EXIT_CODE;
         } else {
 
             List<Integer> choices = makeChoices();
@@ -72,6 +72,9 @@ public class SwapDraftDieWithRoundTrackDieOption extends ComplexOption {
         }
     }
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     protected List<Integer> makeChoices() {
         int choice;
