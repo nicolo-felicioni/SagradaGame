@@ -7,13 +7,12 @@ import it.polimi.se2018.model.WindowPattern;
 import it.polimi.se2018.view.cli.CommandLineInterface;
 import it.polimi.se2018.view.cli.Printer;
 
-public class ChooseDraftedDieValueOption extends SimpleOption {
+class ChooseDraftedDieValueOption extends SimpleOption {
 
     private static final String WRONG_CHOICE_MESSAGE = "Impossible choice.";
     private static final String SELECT = "Select a value.";
 
 
-    //todo modificare costruttore
 
     /**
      * constructor

@@ -9,6 +9,10 @@ public class ShowToolCardsOption extends SimpleOption {
     private static final String SHOW_TOOL_CARDS = "Show the tool cards.";
 
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public ShowToolCardsOption(CommandLineInterface cli) {
         super(cli);
         this.name = SHOW_TOOL_CARDS;

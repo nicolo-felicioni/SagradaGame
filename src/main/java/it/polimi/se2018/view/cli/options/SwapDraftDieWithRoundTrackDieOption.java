@@ -18,6 +18,11 @@ public class SwapDraftDieWithRoundTrackDieOption extends ComplexOption {
     private static final String SELECT = "Select a die from the draft pool and then a die from the round track.";
 
 
+
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public SwapDraftDieWithRoundTrackDieOption(CommandLineInterface cli) {
         super(cli);
         this.subOptions = OptionFactory.buildSwapDraftDieOptions(cli);

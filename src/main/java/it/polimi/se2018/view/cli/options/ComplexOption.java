@@ -12,7 +12,8 @@ public abstract class ComplexOption extends Option {
 
 
     /**
-     * {@inheritDoc}
+     * constructor.
+     * @param cli the command line interface
      */
     public ComplexOption(CommandLineInterface cli) {
         super(cli);

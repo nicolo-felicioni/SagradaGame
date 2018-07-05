@@ -16,6 +16,10 @@ public class MoveADieOption extends ComplexOption {
     protected static final int READ_SECOND_X_CHOICE = 2;
     protected static final int READ_SECOND_Y_CHOICE = 3;
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public MoveADieOption(CommandLineInterface cli) {
         super(cli);
         this.subOptions = OptionFactory.buildMoveDieOptions(cli);

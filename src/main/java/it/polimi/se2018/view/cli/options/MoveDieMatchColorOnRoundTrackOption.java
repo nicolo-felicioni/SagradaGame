@@ -13,6 +13,10 @@ public class MoveDieMatchColorOnRoundTrackOption extends MoveADieOption {
 
     private static final String NAME = "Move a die that matches its color with one die on round track.";
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public MoveDieMatchColorOnRoundTrackOption(CommandLineInterface cli) {
         super(cli);
     }

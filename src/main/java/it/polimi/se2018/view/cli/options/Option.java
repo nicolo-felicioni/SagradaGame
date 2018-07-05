@@ -30,7 +30,7 @@ public abstract class Option {
      * @param cli the command line interface that has this option.
      *
      */
-    protected Option(CommandLineInterface cli){
+    Option(CommandLineInterface cli){
         this.cli=cli;
     }
 

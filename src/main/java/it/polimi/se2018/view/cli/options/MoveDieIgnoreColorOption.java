@@ -24,6 +24,10 @@ public class MoveDieIgnoreColorOption extends ComplexOption {
     private static final int READ_SECOND_X_CHOICE = 2;
     private static final int READ_SECOND_Y_CHOICE = 3;
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public MoveDieIgnoreColorOption(CommandLineInterface cli) {
         super(cli);
         subOptions = OptionFactory.buildMoveDieIgnoreColorOptions(cli);

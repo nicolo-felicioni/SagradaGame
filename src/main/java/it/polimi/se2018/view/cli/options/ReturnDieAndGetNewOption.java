@@ -24,6 +24,11 @@ public class ReturnDieAndGetNewOption extends ComplexOption {
     private Die draftedDie;
 
 
+
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public ReturnDieAndGetNewOption(CommandLineInterface cli) {
         super(cli);
         subOptions = new ArrayList<>();

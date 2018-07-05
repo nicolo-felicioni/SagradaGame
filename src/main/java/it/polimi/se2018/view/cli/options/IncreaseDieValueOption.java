@@ -15,6 +15,10 @@ public class IncreaseDieValueOption extends ComplexOption {
     private static final int READ_DIE_CHOICE = 0;
     private static final String SELECT = "Select the die you want to increase.";
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public IncreaseDieValueOption(CommandLineInterface cli) {
         super(cli);
         subOptions = new ArrayList<>();

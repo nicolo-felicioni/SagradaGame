@@ -6,11 +6,15 @@ import it.polimi.se2018.view.cli.CommandLineInterface;
 import it.polimi.se2018.view.cli.Printer;
 
 public class ReadXOption extends SimpleOption {
-    final static String READ_X_MESSAGE = "Enter the first coordinate of the space."
+    private static final String READ_X_MESSAGE = "Enter the first coordinate of the space."
             + "\nEnter " + EXIT_CODE + " for go back.";
-    final static String INFO = "Coordinates starts from 0.";
-    final static String WRONG_CHOICE_MESSAGE = "Wrong coordinate.";
+    private static final String INFO = "Coordinates starts from 0.";
+    private static final String WRONG_CHOICE_MESSAGE = "Wrong coordinate.";
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public ReadXOption(CommandLineInterface cli) {
         super(cli);
     }
