@@ -13,6 +13,10 @@ public class ReadRoundOption extends SimpleOption {
     private static final String MESSAGE = "Select the round on the round track.";
     private static final String WRONG_CHOICE_MESSAGE = "This round doesn't exist.";
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public ReadRoundOption(CommandLineInterface cli) {
         super(cli);
     }

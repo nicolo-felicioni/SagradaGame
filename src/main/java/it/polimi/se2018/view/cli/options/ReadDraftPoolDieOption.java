@@ -7,6 +7,10 @@ public class ReadDraftPoolDieOption extends SimpleOption {
 
     static final String WRONG_CHOICE_MESSAGE = "This die doesn't exists.";
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public ReadDraftPoolDieOption(CommandLineInterface cli) {
         super(cli);
     }

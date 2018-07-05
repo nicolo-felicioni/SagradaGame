@@ -15,6 +15,10 @@ public class PlaceDieNoAdjacentOption extends ComplexOption {
     private static final String SELECT = "Select a die.";
 
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public PlaceDieNoAdjacentOption(CommandLineInterface cli) {
         super(cli);
         this.subOptions = OptionFactory.buildPlaceDieOptions(cli);

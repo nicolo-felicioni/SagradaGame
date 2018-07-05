@@ -8,7 +8,8 @@ public class ShowDraftPoolOption extends SimpleOption {
     private static final String SHOW_DRAFT_POOL_NAME = "Show draft pool.";
 
     /**
-     * @param cli
+     * constructor.
+     * @param cli the command line interface
      */
     public ShowDraftPoolOption(CommandLineInterface cli) {
         super(cli);

@@ -12,6 +12,10 @@ public class ReadRoundTrackDieOption extends SimpleOption {
     private int round;
     private static final String WRONG_CHOICE_MESSAGE = "This die doesn't exists.";
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public ReadRoundTrackDieOption(CommandLineInterface cli, int round) {
         super(cli);
         this.round = round;

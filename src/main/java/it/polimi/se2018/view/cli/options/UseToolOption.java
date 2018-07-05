@@ -19,6 +19,10 @@ public class UseToolOption extends SimpleOption {
     private static final String ERROR_USE_TOOL = "There isn't any tool card with that number.";
     private static final String ERROR_COST_TOOL = "Not enough tokens!";
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public UseToolOption(CommandLineInterface cli) {
         super(cli);
         this.name = USE_TOOL_NAME;

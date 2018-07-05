@@ -7,6 +7,10 @@ public class ShowPrivateObjectiveOption extends SimpleOption {
     private static final String NAME = "Show your private objective card.";
 
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public ShowPrivateObjectiveOption(CommandLineInterface cli) {
         super(cli);
         this.name = NAME;

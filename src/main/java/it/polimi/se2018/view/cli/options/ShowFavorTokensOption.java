@@ -7,6 +7,10 @@ public class ShowFavorTokensOption extends SimpleOption{
     private static final String NAME = "Show your favor tokens.";
 
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public ShowFavorTokensOption(CommandLineInterface cli) {
         super(cli);
         this.name = NAME;

@@ -15,6 +15,10 @@ public class PlaceDieOption extends ComplexOption {
     private static final String PLACE_DIE_MESSAGE = "Select a die, then a space in your pattern.";
 
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public PlaceDieOption(CommandLineInterface cli) {
         super(cli);
         this.subOptions = OptionFactory.buildPlaceDieOptions(cli);

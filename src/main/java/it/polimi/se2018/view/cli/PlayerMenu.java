@@ -11,20 +11,34 @@ public class PlayerMenu extends Menu {
     private volatile boolean exit = false;
 
 
+    /**
+     * constructor
+     * @param cli the command line interface
+     */
     public PlayerMenu(CommandLineInterface cli) {
         super(cli);
     }
 
 
-
+    /**
+     * this method set the exit option.
+     * if it is set, the menu will allow the player to end the game
+     */
     public synchronized void setExit(){
         this.exit = true;
     }
 
+    /**
+     * getter of the exit flag
+     * @return a boolean flag
+     */
     private synchronized boolean getExit(){
         return exit;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     int executeMenu() {
 
@@ -41,7 +55,7 @@ public class PlayerMenu extends Menu {
             } else {//if it was pressed the right key
 
                 do {
-                    this.options = OptionFactory.buildOptions(cli, cli.getPlayer().getState(), getExit());
+                    this.options = OptionFactory.buildPlayerMenuOptions(cli, cli.getPlayer().getState(), getExit());
                     Printer.println(SELECT_MESSAGE);
                     Printer.print(options);
                     choice = cli.getKeyboard().readInt();

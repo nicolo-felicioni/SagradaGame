@@ -15,6 +15,10 @@ public class PlaceDieAfterFirstTurnOption extends ComplexOption {
     private static final String SELECT = "Select a die from the draftpool.";
 
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public PlaceDieAfterFirstTurnOption(CommandLineInterface cli) {
         super(cli);
         subOptions = OptionFactory.buildPlaceDieOptions(cli);
