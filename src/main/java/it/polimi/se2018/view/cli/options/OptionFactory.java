@@ -13,28 +13,119 @@ import java.util.Optional;
 public class OptionFactory {
 
 
+    /**
+     * the die value option name.
+     */
     private static final String DECREASE_DIE_VALUE_NAME = "Decrease the value of a die.";
+
+    /**
+     * the die value option select message.
+     */
     private static final String DECREASE_DIE_VALUE_SELECT = "Select the die you want to decrease.";
+
+    /**
+     * the flip drafted die option name.
+     */
     private static final String FLIP_DRAFTED_DIE_NAME = "Flip a drafted die.";
+
+    /**
+     * the flip drafted die option select message.
+     */
     private static final String FLIP_DRAFTED_DIE_SELECT = "Select the die you want to flip.";
+
+    /**
+     * the increase die value option name.
+     */
     private static final String INCREASE_DIE_VALUE_NAME = "Increase the value of a die.";
+
+    /**
+     * the increase die value option select message.
+     */
     private static final String INCREASE_DIE_VALUE_SELECT = "Select the die you want to increase.";
+
+    /**
+     * the move die option name.
+     */
     private static final String MOVE_DIE_NAME = "Move a die respecting all restrictions.";
+
+    /**
+     * the move die option select message.
+     */
     private static final String MOVE_DIE_SELECT = "Select the point of the die you want to move, then select the space where you want to put it.";
+
+    /**
+     * the move die ignore color option name.
+     */
     private static final String MOVE_DIE_IGNORE_COLOR_NAME = "Move a die ignoring color restriction.";
+
+    /**
+     * the move die ignore color value name.
+     */
     private static final String MOVE_DIE_IGNORE_VALUE_NAME = "Move a die ignoring value restriction.";
+
+    /**
+     * the move die ignore match color name.
+     */
     private static final String MOVE_DIE_MATCH_COLOR_NAME = "Move a die that matches its color with one die on round track.";
+
+    /**
+     * the place a die after first turn option name.
+     */
     private static final String PLACE_DIE_AFTER_FIRST_NAME = "Place another die. You will skip your second turn.";
+
+    /**
+     * the place a die after first turn option select message.
+     */
     private static final String PLACE_DIE_AFTER_FIRST_SELECT = "Select a die from the draftpool.";
+
+    /**
+     * the place a die no adjacent option name.
+     */
     private static final String PLACE_DIE_NO_ADJACENT_NAME = "Place a die in a space without adjacent dice";
+
+    /**
+     * the place a die no adjacent option select message.
+     */
     private static final String PLACE_DIE_NO_ADJACENT_SELECT = "Select a die.";
+
+    /**
+     * the place a die option name.
+     */
     private static final String PLACE_DIE_NAME = "Place a die.";
+
+    /**
+     * the place a die option select message.
+     */
     private static final String PLACE_DIE_SELECT = "Select a die, then a space in your pattern.";
+
+    /**
+     * the re-roll drafted die option select message.
+     */
     private static final String REROLL_DRAFTED_DIE_SELECT = "Select a die you want to roll.";
+
+    /**
+     * the re-roll drafted die option name.
+     */
     private static final String REROLL_DRAFTED_DIE_NAME = "Roll a drafted die.";
+
+    /**
+     * the return a die in the dice bag option name.
+     */
     private static final String RETURN_DIE_NAME = "Return a die and get a new one from the dice bag.";
+
+    /**
+     * the return a die in the dice bag option select message.
+     */
     private static final String RETURN_DIE_SELECT = "Select the die to return.";
+
+    /**
+     * the swap with round track die option name.
+     */
     private static final String SWAP_WITH_ROUND_TRACK_NAME = "Swap a drafted die with a round track die.";
+
+    /**
+     * the swap with round track die option select message.
+     */
     private static final String SWAP_WITH_ROUND_TRACK_SELECT = "Select a die from the draft pool and then a die from the round track.";
 
 
