@@ -122,14 +122,6 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
         return playerSessions.stream().anyMatch(s -> s.getUID().equals(uid));
     }
 
-    /**
-     * Disconnect a player from this game room.
-     * @param uid the player identifier.
-     */
-    private synchronized void removePlayerSession(String uid) {
-        playerSessions.stream().filter(s -> s.getUID().equals(uid)).forEach(s -> observers.remove(s));
-        this.refreshTimer();
-    }
 
     /**
      * Refresh the timer.

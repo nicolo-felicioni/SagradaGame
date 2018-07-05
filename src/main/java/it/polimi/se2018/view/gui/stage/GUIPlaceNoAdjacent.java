@@ -38,7 +38,7 @@ public class GUIPlaceNoAdjacent extends GUIStage{
     @FXML
     private void placeDie(MouseEvent event) {
         if (draftPool.getSelectedDie() != null && windowPattern.getSelectedSpace() != null &&
-                windowPattern.getWindowPattern().isPlaceable(draftPool.getSelectedDie(), windowPattern.getSelectedPosition())) {
+                windowPattern.getWindowPattern().isPlaceableNoAdjacent(draftPool.getSelectedDie(), windowPattern.getSelectedPosition())) {
             this.observer.handle(new DraftAndPlaceNoAdjacentGameEvent(draftPool.getSelectedDie(), windowPattern.getSelectedPosition(), playerId));
             container.close();
         } else {

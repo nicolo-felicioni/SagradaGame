@@ -479,6 +479,7 @@ public class GUIController extends Application implements GUIInterface{
             this.playerId = event.getUsername();
             this.client.login(event.getUsername());
         } catch (LoginException e) {
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
             try {
                 this.client.reconnect(event.getUsername());
             } catch (LoginException e1) {

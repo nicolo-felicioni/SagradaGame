@@ -10,7 +10,7 @@ import java.util.logging.Level;
 /**
  * @author Davide Yi Xian Hu
  */
-class PlayerStateAdapter implements JsonSerializer<PlayerState>, JsonDeserializer<PlayerState> {
+class PlayerStateAdapter extends JsonAdapter<PlayerState> {
 
     /**
      * ClassName
@@ -28,39 +28,10 @@ class PlayerStateAdapter implements JsonSerializer<PlayerState>, JsonDeserialize
     private static final String PACKAGE = "it.polimi.se2018.model.";
 
     /**
-     * {@inheritDoc}
-     * Deserialize a json element.
-     *
-     * @return a player state.
+     * Constructor.
      */
-    @Override
-    public PlayerState deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) {
-        JsonObject jsonObject = jsonElement.getAsJsonObject();
-        JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);
-        String className = PACKAGE + prim.getAsString();
-        Class<?> klass = null;
-        try {
-            klass = Class.forName(className);
-        } catch (ClassNotFoundException e) {
-            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
-            throw new JsonParseException(e.getMessage());
-        }
-        return jsonDeserializationContext.deserialize(jsonObject.get(INSTANCE), klass);
+    PlayerStateAdapter() {
+        super(CLASSNAME, INSTANCE, PACKAGE);
     }
 
-    /**
-     * {@inheritDoc}
-     * Serialize a player state.
-     *
-     * @return a JsonElement.
-     */
-    @Override
-    public JsonElement serialize(PlayerState updater, Type type, JsonSerializationContext jsonSerializationContext) {
-        JsonObject retValue = new JsonObject();
-        String className = updater.getClass().getSimpleName();
-        retValue.addProperty(CLASSNAME, className);
-        JsonElement elem = jsonSerializationContext.serialize(updater);
-        retValue.add(INSTANCE, elem);
-        return retValue;
-    }
 }
