@@ -7,12 +7,7 @@ import it.polimi.se2018.observer.game.GameEventObserver;
 /**
  * @author Davide Yi Xian Hu
  */
-public class DraftAndPlaceAgainGameEvent extends AbstractPlayerGameEvent {
-
-	/**
-	 * The die of the draft pool.
-	 */
-	private Die draftedDie;
+public class DraftAndPlaceAgainGameEvent extends AbstractPlayerDraftedDieGameEvent {
 
 	/**
 	 * The position of the space in a window pattern;
@@ -26,17 +21,8 @@ public class DraftAndPlaceAgainGameEvent extends AbstractPlayerGameEvent {
 	 * @param id the identifier of the player.
 	 */
 	public DraftAndPlaceAgainGameEvent(Die draftedDie, Point point, String id) {
-		super(id);
-		this.draftedDie = draftedDie.cloneDie();
+		super(draftedDie, id);
 		this.point = point.clonePoint();
-	}
-
-	/**
-	 * Getter of the drafted die from the draft pool.
-	 * @return the drafted die from the draft pool.
-	 */
-	public Die getDraftedDie() {
-		return draftedDie.cloneDie();
 	}
 
 	/**

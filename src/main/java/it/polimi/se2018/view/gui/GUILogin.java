@@ -51,7 +51,7 @@ public class GUILogin extends GameEventObservableImpl implements GUILoginControl
     @FXML
     BorderPane borderPane;
     /**
-     * the log in button
+     * the log.txt in button
      */
     @FXML
     Button loginButton;

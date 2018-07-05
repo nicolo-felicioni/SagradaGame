@@ -3,7 +3,7 @@ package it.polimi.se2018.exceptions;
 /**
  * @author davide yi xian hu
  */
-public class NetworkException extends GameException {
+public class NetworkException extends GameMoveException {
 
 	/**
 	 * @inheritDoc

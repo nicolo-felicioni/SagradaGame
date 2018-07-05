@@ -79,8 +79,6 @@ public class PlayerTest {
 
         } catch (GameMoveException e) {
             fail();
-        } catch (NotValidPointException e) {
-            fail();
         }
     }
 

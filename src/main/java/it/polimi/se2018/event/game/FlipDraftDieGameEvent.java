@@ -6,12 +6,7 @@ import it.polimi.se2018.observer.game.GameEventObserver;
 /**
  * @author Davide Yi Xian Hu
  */
-public class FlipDraftDieGameEvent extends AbstractPlayerGameEvent {
-
-	/**
-	 * The die of the draft pool.
-	 */
-	private Die draftedDie;
+public class FlipDraftDieGameEvent extends AbstractPlayerDraftedDieGameEvent {
 
 	/**
 	 * Constructor.
@@ -19,18 +14,8 @@ public class FlipDraftDieGameEvent extends AbstractPlayerGameEvent {
 	 * @param playerId the player identifier.
 	 */
 	public FlipDraftDieGameEvent(Die draftedDie, String playerId) {
-		super(playerId);
-		this.draftedDie = draftedDie.cloneDie();
+		super(draftedDie, playerId);
 	}
-
-	/**
-	 * Getter of the drafted die from the draft pool.
-	 * @return the drafted die from the draft pool.
-	 */
-	public Die getDraftedDie() {
-		return draftedDie.cloneDie();
-	}
-
 
 	/**
 	 * Accept an observer. Visitor pattern.

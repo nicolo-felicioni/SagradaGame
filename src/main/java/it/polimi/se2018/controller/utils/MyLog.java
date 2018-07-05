@@ -18,11 +18,11 @@ public class MyLog {
         log=Logger.getLogger(MyLog.class.getName());
         {
             try {
-                fh = new FileHandler("/log");
+                fh = new FileHandler("log.txt");
                 log.addHandler(fh);
                 fh.setFormatter(new SimpleFormatter());
             } catch (IOException e) {
-                MyLog.getMyLog().log(Level.WARNING,e.getMessage());
+                Logger.getLogger(MyLog.class.getName()).log(Level.WARNING, "Logger warning");
             }
         }
     }

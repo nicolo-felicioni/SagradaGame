@@ -22,6 +22,13 @@ public class ClientConfiguration {
     private static final String CONF_PATH = "src/main/resources/client_conf.json";
 
     /**
+     * Constructor.
+     */
+    private ClientConfiguration() {
+        getClientConfiguration();
+    }
+
+    /**
      * Load client configuration from file.
      */
     public static void getClientConfiguration() {

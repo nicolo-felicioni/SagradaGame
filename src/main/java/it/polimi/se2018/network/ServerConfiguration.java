@@ -49,6 +49,13 @@ public class ServerConfiguration {
     private static final String CONF_PATH = "src/main/resources/server_conf.json";
 
     /**
+     * Constructor.
+     */
+    private ServerConfiguration() {
+        getServerConfiguration();
+    }
+
+    /**
      * Load server configuration from file.
      */
     public static void getServerConfiguration() {
