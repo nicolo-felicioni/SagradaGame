@@ -14,6 +14,10 @@ public class RerollDraftedDieOption extends ComplexOption {
     private static final int DIE_CHOICE = 0;
 
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public RerollDraftedDieOption(CommandLineInterface cli) {
         super(cli);
         this.subOptions.add(new ReadDraftPoolDieOption(cli));

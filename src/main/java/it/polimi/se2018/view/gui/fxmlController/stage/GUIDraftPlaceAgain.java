@@ -48,9 +48,9 @@ public class GUIDraftPlaceAgain extends GUIStage {
             container.close();
         } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Die not selected error");
-            alert.setHeaderText("Die not selected error");
-            alert.setContentText("Before increasing a die value, you should select a die from the draft pool");
+            alert.setTitle("Draft and place error");
+            alert.setHeaderText("Input information not complete");
+            alert.setContentText("Dear player, select a draft pool die and a space in the window pattern before clicking the button.");
             alert.showAndWait();
         }
     }

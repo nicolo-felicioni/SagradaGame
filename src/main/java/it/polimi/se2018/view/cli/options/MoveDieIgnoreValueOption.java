@@ -16,6 +16,10 @@ public class MoveDieIgnoreValueOption extends ComplexOption {
     private static final int READ_SECOND_X_CHOICE = 2;
     private static final int READ_SECOND_Y_CHOICE = 3;
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public MoveDieIgnoreValueOption(CommandLineInterface cli) {
         super(cli);
         subOptions = OptionFactory.buildMoveDieIgnoreValueOptions(cli);

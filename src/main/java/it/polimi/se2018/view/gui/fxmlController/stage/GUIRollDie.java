@@ -32,7 +32,7 @@ public class GUIRollDie extends GUIStage{
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Die not selected error");
             alert.setHeaderText("Die not selected error");
-            alert.setContentText("Before increasing a die value, you should select a die from the draft pool");
+            alert.setContentText("Before rolling a die, you should select a die from the draft pool");
             alert.showAndWait();
         }
     }

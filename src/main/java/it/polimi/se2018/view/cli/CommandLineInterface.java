@@ -32,14 +32,37 @@ public class CommandLineInterface extends AbstractView {
 
     public static final int END_GAME_CODE = -999;
     private final Object draftedDieLock = new Object();
+    private ClientInterface client;
+    private volatile boolean exit = false;
+    private PlayerMenu menu;
+    private List<Player> players;
+    private Player player;
+    private WindowPattern[] patterns;
+    private RoundTrack roundTrack;
+    private DraftPool draftPool;
+    private PrivateObjectiveCard privateObjectiveCard;
+    private ToolCard[] toolCards;
+    private PublicObjectiveCard[] publicObjectiveCards;
+    private int numberOfPatternsReceived;
+
+    private static final String WELCOME_MESSAGE = "WELCOME TO SAGRADA!";
+    private static final String CONNECTION_REQUEST_MESSAGE = "What connection do you want? \n1. RMI\n2. Socket";
+    private static final String PORT_REQUEST_MESSAGE = "Enter the number of the port: ";
+    private static final String ADDRESS_REQUEST_MESSAGE = "Enter the IP address of the server: ";
+    private static final String USERNAME_REQUEST_MESSAGE = "Enter your username: ";
+    private static final String NOT_YOUR_TURN_MESSAGE = "It's not your turn.";
+    private static final String CHOICE_ERROR_MESSAGE = "Not valid choice.";
+    private static final int RMI_CHOICE = 1;
+    private static final int SOCKET_CHOICE = 2;
+    private static final String LOADING_MESSAGE = "Loading...";
+    private static final DieColor ERROR_COLOR = DieColor.RED;
+
+
+
 
     public Object getDraftedDieLock() {
         return draftedDieLock;
     }
-
-    private ClientInterface client;
-
-    private volatile boolean exit = false;
 
 
     public synchronized List<Player> getPlayers() {
@@ -73,29 +96,6 @@ public class CommandLineInterface extends AbstractView {
     public synchronized PublicObjectiveCard[] getPublicObjectiveCards() {
         return publicObjectiveCards;
     }
-
-    private PlayerMenu menu;
-    private List<Player> players;
-    private Player player;
-    private WindowPattern[] patterns;
-    private RoundTrack roundTrack;
-    private DraftPool draftPool;
-    private PrivateObjectiveCard privateObjectiveCard;
-    private ToolCard[] toolCards;
-    private PublicObjectiveCard[] publicObjectiveCards;
-    private int numberOfPatternsReceived;
-
-    private static final String WELCOME_MESSAGE = "WELCOME TO SAGRADA!";
-    private static final String CONNECTION_REQUEST_MESSAGE = "What connection do you want? \n1. RMI\n2. Socket";
-    private static final String PORT_REQUEST_MESSAGE = "Enter the number of the port: ";
-    private static final String ADDRESS_REQUEST_MESSAGE = "Enter the IP address of the server: ";
-    private static final String USERNAME_REQUEST_MESSAGE = "Enter your username: ";
-    private static final String NOT_YOUR_TURN_MESSAGE = "It's not your turn.";
-    private static final String CHOICE_ERROR_MESSAGE = "Not valid choice.";
-    private static final int RMI_CHOICE = 1;
-    private static final int SOCKET_CHOICE = 2;
-    private static final String LOADING_MESSAGE = "Loading...";
-    private static final DieColor ERROR_COLOR = DieColor.RED;
 
 
     public MyScanner getKeyboard() {
@@ -155,6 +155,9 @@ public class CommandLineInterface extends AbstractView {
 
     //-----------------------------UPDATER--------------------------------------------------------------------
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void updatePlayer(String playerId, int favorTokens, boolean connected) {
         Optional<Player> optionalPlayer = this.players.stream()
@@ -187,6 +190,9 @@ public class CommandLineInterface extends AbstractView {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void updatePrivateObjectiveCard(String playerId, PrivateObjectiveCard card) {
         if (this.player.getId().equals(playerId)) {
@@ -199,6 +205,9 @@ public class CommandLineInterface extends AbstractView {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void updateWindowPattern(String playerId, WindowPattern windowPattern, WindowPatternPosition position) {
 
@@ -223,6 +232,9 @@ public class CommandLineInterface extends AbstractView {
             }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void updateMoveDieFromDraftToWindow(Point p, Die draftedDie, String playerId) {
         Player wantedPlayer;
@@ -233,7 +245,6 @@ public class CommandLineInterface extends AbstractView {
         if (optPlayer.isPresent()) {
             wantedPlayer = optPlayer.get();
 
-            //TODO- DUBBIA GESTIONE DELLE ECCEZIONI
             try {
                 wantedPlayer.placeDie(p, draftedDie);
             } catch (PlacementException e) {
@@ -243,23 +254,32 @@ public class CommandLineInterface extends AbstractView {
             }
         } else {
             //TODO - DUBBIA GESTIONE NEL CASO IN CUI NON SI TROVI UN GIOCATORE CON L'ID GIUSTO
-            Printer.println("No such player!");
         }
 
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void updateToolCard(ToolCard toolCard, int number) {
         this.toolCards[number] = toolCard;
         Printer.println("DEBUG: è arrivato l'update della tool card in posizione: " + number); //todo
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void updateRoundTrack(RoundTrack roundTrack) {
         this.roundTrack = roundTrack;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void updateDraftPool(DraftPool draftPool) {
         this.draftPool = draftPool;
@@ -268,17 +288,29 @@ public class CommandLineInterface extends AbstractView {
         }
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void updatePublicObjectiveCard(PublicObjectiveCard card, CardPosition position) {
         this.publicObjectiveCards[position.toInt()] = card;
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void updateErrorMessage(String playerId, String message) {
         if(playerId.equals(this.player.getId()))
             Printer.printlnColor(message, ERROR_COLOR);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void updateEndGame(List<RankingPlayer> rankingPlayers, List<String> disconnectedPlayerId) {
 
@@ -301,6 +333,10 @@ public class CommandLineInterface extends AbstractView {
     }
 
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public synchronized void updateStatePlayer(String playerId, PlayerState state) {
         Player wantedPlayer;
@@ -326,6 +362,10 @@ public class CommandLineInterface extends AbstractView {
         }
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void handle(ViewUpdaterInterface updater) {
         updater.update(this);

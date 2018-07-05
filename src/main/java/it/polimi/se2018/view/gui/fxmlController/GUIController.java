@@ -270,6 +270,12 @@ public class GUIController extends Application implements GUIInterface{
                         }
                         alert.setContentText(message);
                         alert.showAndWait();
+                        try {
+                            this.client.disconnect();
+                            this.showLoginScene();
+                        } catch (NetworkException | IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
         );

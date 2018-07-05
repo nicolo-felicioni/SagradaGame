@@ -9,6 +9,11 @@ import java.util.List;
 public class ShowYourWindowPatternOption extends SimpleOption{
     private static final String SHOW_OTHER_WINDOW_NAME = "Show your window pattern.";
 
+
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public ShowYourWindowPatternOption(CommandLineInterface cli) {
         super(cli);
         this.name = SHOW_OTHER_WINDOW_NAME;

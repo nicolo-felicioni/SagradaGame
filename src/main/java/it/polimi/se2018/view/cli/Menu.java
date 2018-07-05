@@ -10,12 +10,22 @@ public abstract class Menu {
     CommandLineInterface cli;
 
 
-
+    /**
+     * constructor
+     * @param cli the command line interface
+     */
     public Menu(CommandLineInterface cli){
         this.cli = cli;
     }
 
 
+    /**
+     * this method will execute the menu.
+     *
+     * Once the menu is executed, it will show the available option and permit to choose one of them.
+     * After the choice, the menu will execute the chosen option.
+     *
+     */
     abstract int executeMenu();
 
 

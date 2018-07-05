@@ -9,6 +9,10 @@ public class ReadYOption extends SimpleOption {
             + "\nEnter " + EXIT_CODE + " for go back.";
     private static final String WRONG_CHOICE_MESSAGE = "Wrong coordinate.";
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public ReadYOption(CommandLineInterface cli) {
         super(cli);
     }

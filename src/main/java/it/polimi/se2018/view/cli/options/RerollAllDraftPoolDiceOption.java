@@ -8,6 +8,10 @@ public class RerollAllDraftPoolDiceOption extends SimpleOption {
     private static final String REROLL_NAME = "Reroll all the dice in the draft pool.";
 
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public RerollAllDraftPoolDiceOption(CommandLineInterface cli) {
         super(cli);
         this.name = REROLL_NAME;

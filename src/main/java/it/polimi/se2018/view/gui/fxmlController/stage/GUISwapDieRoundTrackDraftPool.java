@@ -44,7 +44,7 @@ public class GUISwapDieRoundTrackDraftPool extends GUIStage {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Die not selected error");
             alert.setHeaderText("Die not selected error");
-            alert.setContentText("Before increasing a die value, you should select a die from the draft pool");
+            alert.setContentText("Dear player, please select a die from the draft pool and a die from the round track.");
             alert.showAndWait();
         }
     }

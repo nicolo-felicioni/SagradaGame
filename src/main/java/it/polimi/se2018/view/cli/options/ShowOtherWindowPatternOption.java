@@ -10,6 +10,10 @@ public class ShowOtherWindowPatternOption extends SimpleOption{
 
     private static final String SHOW_OTHER_WINDOW_NAME = "Show other players' window pattern.";
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public ShowOtherWindowPatternOption(CommandLineInterface cli) {
         super(cli);
         this.name = SHOW_OTHER_WINDOW_NAME;

@@ -9,6 +9,10 @@ public class ShowPublicObjectiveCardsOption extends SimpleOption {
 
     private static final String SHOW_PUBLIC_OBJECTIVE_CARDS_NAME= "Show public objective cards.";
 
+    /**
+     * constructor.
+     * @param cli the command line interface
+     */
     public ShowPublicObjectiveCardsOption(CommandLineInterface cli) {
         super(cli);
         this.name = SHOW_PUBLIC_OBJECTIVE_CARDS_NAME;

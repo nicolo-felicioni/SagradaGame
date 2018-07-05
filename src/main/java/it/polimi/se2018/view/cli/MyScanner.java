@@ -16,7 +16,9 @@ public class MyScanner {
     private static final String INPUT_ERROR = "Wrong input, not a number.\nEnter a number.";
 
 
-
+    /**
+     * constructor.
+     */
     public MyScanner(){
         this.in = new BufferedReader(new InputStreamReader(System.in));
     }
