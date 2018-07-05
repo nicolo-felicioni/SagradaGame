@@ -108,6 +108,8 @@ public class GUIGame {
     private Scene guiChooseDieValueScene;
     private GUIChooseDieValue guiChooseDieValue;
 
+    private static final String CSS_PATCH="css/style.css";
+
     /**
      * Constructor.
      */
@@ -404,17 +406,17 @@ public class GUIGame {
             
             FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIIncreaseDecreaseDraftPoolDie.fxml"));
             guiIncreaseDecreaseDraftPoolDieScene = new Scene(loader.load(), 900, 180);
-            guiIncreaseDecreaseDraftPoolDieScene.getStylesheets().add("css/style.css");
+            guiIncreaseDecreaseDraftPoolDieScene.getStylesheets().add(CSS_PATCH);
             guiIncreaseDecreaseDraftPoolDie = loader.getController();
 
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIMoveDieIgnoreColor.fxml"));
             guiMoveDieIgnoreColorScene = new Scene(loader.load(), 920, 560);
-            guiMoveDieIgnoreColorScene.getStylesheets().add("css/style.css");
+            guiMoveDieIgnoreColorScene.getStylesheets().add(CSS_PATCH);
             guiMoveDieIgnoreColor = loader.getController();
 
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIMoveDieIgnoreValue.fxml"));
             guiMoveDieIgnoreValueScene = new Scene(loader.load(), 920, 560);
-            guiMoveDieIgnoreValueScene.getStylesheets().add("css/style.css");
+            guiMoveDieIgnoreValueScene.getStylesheets().add(CSS_PATCH);
             guiMoveDieIgnoreValue = loader.getController();
 
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIMoveDie.fxml"));
@@ -423,42 +425,42 @@ public class GUIGame {
 
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUISwapDieRoundTrackDraftPool.fxml"));
             guiSwapDieRoundTrackDraftPoolScene = new Scene(loader.load(), 500, 430);
-            guiSwapDieRoundTrackDraftPoolScene.getStylesheets().add("css/style.css");
+            guiSwapDieRoundTrackDraftPoolScene.getStylesheets().add(CSS_PATCH);
             guiSwapDieRoundTrackDraftPool = loader.getController();
 
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIRollDie.fxml"));
             guiRollDieScene = new Scene(loader.load(), 900, 180);
-            guiRollDieScene.getStylesheets().add("css/style.css");
+            guiRollDieScene.getStylesheets().add(CSS_PATCH);
             guiRollDie = loader.getController();
 
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIDraftPlaceAgain.fxml"));
             guiDraftPlaceAgainScene = new Scene(loader.load(), 450, 600);
-            guiDraftPlaceAgainScene.getStylesheets().add("css/style.css");
+            guiDraftPlaceAgainScene.getStylesheets().add(CSS_PATCH);
             guiDraftPlaceAgain = loader.getController();
 
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIPlaceNoAdjacent.fxml"));
             guiPlaceNoAdjacentScene = new Scene(loader.load(), 450, 600);
-            guiPlaceNoAdjacentScene.getStylesheets().add("css/style.css");
+            guiPlaceNoAdjacentScene.getStylesheets().add(CSS_PATCH);
             guiPlaceNoAdjacent = loader.getController();
 
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIFlipDie.fxml"));
             guiFlipDieScene = new Scene(loader.load(), 900, 180);
-            guiFlipDieScene.getStylesheets().add("css/style.css");
+            guiFlipDieScene.getStylesheets().add(CSS_PATCH);
             guiFlipDie = loader.getController();
 
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUISwapDieDraftPoolDiceBag.fxml"));
             guiSwapDieDraftPoolDiceBagScene = new Scene(loader.load(), 900, 180);
-            guiSwapDieDraftPoolDiceBagScene.getStylesheets().add("css/style.css");
+            guiSwapDieDraftPoolDiceBagScene.getStylesheets().add(CSS_PATCH);
             guiSwapDieDraftPoolDiceBag = loader.getController();
 
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIChooseDieValue.fxml"));
             guiChooseDieValueScene = new Scene(loader.load(), 720, 150);
-            guiChooseDieValueScene.getStylesheets().add("css/style.css");
+            guiChooseDieValueScene.getStylesheets().add(CSS_PATCH);
             guiChooseDieValue = loader.getController();
 
             loader = new FXMLLoader(getClass().getClassLoader().getResource("fxml/GUIMoveDieMatchColor.fxml"));
             guiMoveDieMatchColorScene = new Scene(loader.load(), 920, 560);
-            guiMoveDieMatchColorScene.getStylesheets().add("css/style.css");
+            guiMoveDieMatchColorScene.getStylesheets().add(CSS_PATCH);
             guiMoveDieMatchColor = loader.getController();
 
         } catch (IOException e) {

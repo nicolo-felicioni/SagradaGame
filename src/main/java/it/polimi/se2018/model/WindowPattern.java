@@ -45,6 +45,8 @@ public class WindowPattern implements Serializable {
 	 */
 	public static final int MAX_DIFFICULTY = 6;
 
+	private static final String DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN="die not placeable due to window restrictions";
+
 	/**
 	 * Window pattern name.
 	 */
@@ -251,7 +253,7 @@ public class WindowPattern implements Serializable {
 		}
 
 		else
-			throw new PlacementException("die not placeable due to window restrictions");
+			throw new PlacementException(DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN);
 
 	}
 
@@ -268,7 +270,7 @@ public class WindowPattern implements Serializable {
 		if(isPlaceable(die, p))
 			spaces[p.getX()][p.getY()].placeDie(die);
 		else
-			throw new PlacementException("die not placeable due to window restrictions");
+			throw new PlacementException(DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN);
 
 
 	}
@@ -286,7 +288,7 @@ public class WindowPattern implements Serializable {
 		if(isPlaceableIgnoreColor(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreColor(die);
 		else
-			throw new PlacementException("die not placeable due to window restrictions");
+			throw new PlacementException(DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN);
 
 	}
 
@@ -307,7 +309,7 @@ public class WindowPattern implements Serializable {
 		if(isPlaceableIgnoreColor(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreColor(die);
 		else
-			throw new PlacementException("die not placeable due to window restrictions");
+			throw new PlacementException(DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN);
 	}
 
 	/**
@@ -322,7 +324,7 @@ public class WindowPattern implements Serializable {
 		if(isPlaceableIgnoreValue(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreValue(die);
 		else
-			throw new PlacementException("die not placeable due to window restrictions");
+			throw new PlacementException(DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN);
 
 	}
 
@@ -343,7 +345,7 @@ public class WindowPattern implements Serializable {
 		if(isPlaceableIgnoreValue(die, p))
 			spaces[p.getX()][p.getY()].placeDieIgnoreValue(die);
 		else
-			throw new PlacementException("die not placeable due to window restrictions");
+			throw new PlacementException(DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN);
 
 	}
 

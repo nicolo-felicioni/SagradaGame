@@ -4,6 +4,8 @@ import it.polimi.se2018.model.Point;
 import it.polimi.se2018.model.Space;
 import javafx.scene.layout.Pane;
 
+import java.util.logging.FileHandler;
+
 public class GUISpace extends Pane {
 
     /**
@@ -21,6 +23,7 @@ public class GUISpace extends Pane {
      */
     private boolean selected;
 
+    private static final String FILL_80_CSS="fill-80";
     /**
      * Constructor.
      * @param space the space.
@@ -90,14 +93,14 @@ public class GUISpace extends Pane {
             this.getStyleClass().add("fill-90");
             this.getStyleClass().add(this.space.getDie().getColor().toString().toLowerCase() + "-" + this.space.getDie().getValue().toString().toLowerCase());
         }else if(space.isColorRestricted()) {
-            this.getStyleClass().add("fill-80");
+            this.getStyleClass().add(FILL_80_CSS);
             this.getStyleClass().add("space-" + space.getColorRestriction().toString().toLowerCase());
         }else if(space.isValueRestricted()) {
-            this.getStyleClass().add("fill-80");
+            this.getStyleClass().add(FILL_80_CSS);
             this.getStyleClass().add("space-" + space.getValueRestriction().toString().toLowerCase());
         }else {
             this.getStyleClass().add("fill-80");
-            this.getStyleClass().add("space-blank");
+            this.getStyleClass().add(FILL_80_CSS);
         }
     }
 

@@ -178,10 +178,7 @@ public class GameRoom extends GameEventObservableImpl implements GameRoomInterfa
      * @param updater the view updater.
      */
     public void notifyObservers(ViewUpdaterInterface updater) {
-        this.observers.forEach(observer -> {
-            new Thread( () -> {
-                observer.handle(updater);
-            }).start();});
+        this.observers.forEach(observer -> new Thread( () -> observer.handle(updater)).start());
     }
 
     /**

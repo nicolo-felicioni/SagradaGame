@@ -117,7 +117,7 @@ public class Point implements Serializable {
 	 * @return a list of points.
 	 */
 	public List<Point> getDiagonalPoints() {
-		List<Point> diagonalPoints = new ArrayList<Point>();
+		List<Point> diagonalPoints = new ArrayList<>();
 		try {
 			diagonalPoints.add(new Point(x - 1, y - 1));
 		} catch (NotValidPointException e) {
@@ -147,7 +147,7 @@ public class Point implements Serializable {
 	 * @return a list of points.
 	 */
 	public List<Point> getAdjacentSpaces () {
-		List<Point> adjacentPoints = new ArrayList<Point>();
+		List<Point> adjacentPoints = new ArrayList<>();
 		adjacentPoints.addAll(getDiagonalPoints());
 		adjacentPoints.addAll(getOrtogonalPoints());
 		return adjacentPoints;

@@ -51,7 +51,8 @@ public class MoveDieIgnoreColorOption extends ComplexOption {
         List<Integer> choices = makeChoices();
 
         if(!choices.isEmpty()){
-            Point firstPoint, secondPoint;
+            Point firstPoint;
+            Point secondPoint;
             try {
                 firstPoint = new Point(choices.get(READ_FIRST_X_CHOICE), choices.get(READ_FIRST_Y_CHOICE));
                 secondPoint = new Point(choices.get(READ_SECOND_X_CHOICE), choices.get(READ_SECOND_Y_CHOICE));

@@ -28,6 +28,7 @@ public class Model implements ViewUpdaterObservable {
     private ToolCard[] toolCards;
     private RoundTrack roundTrack;
 
+    private static final String WANTED_NOT_VALID_ID="Wanted to get a player with a not valid id.";
 
     /**
      * View updater observers.
@@ -128,7 +129,7 @@ public class Model implements ViewUpdaterObservable {
                 .filter(player -> player.getId().equals(playerId)).findAny();
 
         if(!wantedPlayer.isPresent())
-            throw new NotValidIdException("Wanted to get a player with a not valid id.");
+            throw new NotValidIdException(WANTED_NOT_VALID_ID);
 
         return new Player(wantedPlayer.get());
     }
@@ -286,7 +287,7 @@ public class Model implements ViewUpdaterObservable {
                 .filter(player -> player.getId().equals(playerId)).findAny();
 
         if(!wantedPlayer.isPresent())
-            throw new NotValidIdException("Wanted to get a player with a not valid id.");
+            throw new NotValidIdException(WANTED_NOT_VALID_ID);
 
         wantedPlayer.get().setPatterns(windowPatterns);
         notifyObservers(new WindowPatternUpdater(playerId, windowPatterns[WindowPatternPosition.FIRST.toInt()].cloneWindowPattern(), WindowPatternPosition.FIRST));
@@ -307,7 +308,7 @@ public class Model implements ViewUpdaterObservable {
                 .filter(player -> player.getId().equals(playerId)).findAny();
 
         if(!wantedPlayer.isPresent())
-            throw new NotValidIdException("Wanted to get a player with a not valid id.");
+            throw new NotValidIdException(WANTED_NOT_VALID_ID);
 
         wantedPlayer.get().choosePattern(windowPattern);
 
@@ -327,7 +328,7 @@ public class Model implements ViewUpdaterObservable {
                 .filter(player -> player.getId().equals(playerId)).findAny();
 
         if(!wantedPlayer.isPresent())
-            throw new NotValidIdException("Wanted to get a player with a not valid id.");
+            throw new NotValidIdException(WANTED_NOT_VALID_ID);
 
         wantedPlayer.get().setPattern(windowPattern);
 
@@ -345,7 +346,7 @@ public class Model implements ViewUpdaterObservable {
                 .filter(player -> player.getId().equals(playerId)).findAny();
 
         if(!wantedPlayer.isPresent())
-            throw new NotValidIdException("Wanted to get a player with a not valid id.");
+            throw new NotValidIdException(WANTED_NOT_VALID_ID);
 
         wantedPlayer.get().setPrivateObjective(privateObjectiveCard);
         notifyObservers(new PrivateObjectiveCardUpdater(playerId, privateObjectiveCard));
@@ -364,7 +365,7 @@ public class Model implements ViewUpdaterObservable {
                 .filter(player -> player.getId().equals(playerId)).findAny();
 
         if(!wantedPlayer.isPresent())
-            throw new NotValidIdException("Wanted to get a player with a not valid id.");
+            throw new NotValidIdException(WANTED_NOT_VALID_ID);
 
         wantedPlayer.get().changePlayerStateTo(playerState.cloneState());
         this.notifyObservers(new PlayerStateUpdater(playerId, playerState.cloneState()));
