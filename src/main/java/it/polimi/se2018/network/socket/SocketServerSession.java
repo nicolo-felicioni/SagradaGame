@@ -23,7 +23,6 @@ public class SocketServerSession extends GameEventObservableImpl implements Sess
 	private final Socket socket;
 	private ObjectInputStream inStream;
 	private ObjectOutputStream outStream;
-	private NetworkListener listener;
 
 	/**
 	 * Unique identifier of the client.

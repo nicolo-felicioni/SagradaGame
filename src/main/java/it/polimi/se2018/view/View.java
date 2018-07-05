@@ -12,15 +12,6 @@ import java.util.List;
 
 public interface View extends ViewUpdaterObserver {
 
-
-    /**
-     * method that updates the view after that a die has been moved from the draft pool to the window pattern
-     * @param p the point where the die is placed
-     * @param draftedDie the drafted die
-     * @param playerId the player id
-     */
-    void updateMoveDieFromDraftToWindow(Point p, Die draftedDie, String playerId);
-
     /**
      * method that updates the view after a tool card changed
      * @param toolCard the updated tool card

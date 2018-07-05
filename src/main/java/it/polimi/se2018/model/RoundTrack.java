@@ -45,7 +45,9 @@ public class RoundTrack implements Serializable {
      */
     public int getRound() {
         int i;
-        for (i = 0; i < 10 && !track[i].isEmpty(); i++) {
+        for (i = 0; i < 10; i++) {
+            if(track[i].isEmpty())
+                break;
         }
         return i + 1;
     }

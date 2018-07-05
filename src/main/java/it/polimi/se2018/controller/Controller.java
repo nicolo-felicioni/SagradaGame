@@ -715,7 +715,6 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
                     startTurnTimer();
                 }
                 if (scheduler.isFirstTurnOfRound()) {
-                    endRound();
                     initRound();
                 }
                 ToolCard toolCard = model.getActiveToolCard();
@@ -767,24 +766,20 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
      */
     private void initRound() {
         try {
-            DraftPool draftPool = new DraftPool();
+            RoundTrack roundTrack = model.getRoundTrack().cloneRoundTrack();
+            DraftPool draftPool = model.getDraftPool();
             DiceBag diceBag = model.getDiceBag();
+            if(!scheduler.isFirstTurnOfGame()) {
+                roundTrack.addDice(draftPool.getAllDice());
+                model.setRoundTrack(roundTrack.cloneRoundTrack());
+            }
+            draftPool.removeAllDice();
             draftPool.addDice(diceBag.drawDice(model.getPlayers().size() * 2 + 1));
             model.setDraftPool(draftPool);
             model.setDiceBag(diceBag);
         } catch (DiceBagException e) {
             this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
         }
-    }
-
-    /**
-     * End the round. Move all the remaining dice in the draft pool to the roundTrack.
-     */
-    private void endRound() {
-        DraftPool draftPool = model.getDraftPool();
-        RoundTrack roundTrack = model.getRoundTrack();
-        roundTrack.addDice(draftPool.getAllDice());
-        model.setRoundTrack(roundTrack);
     }
 
     /**

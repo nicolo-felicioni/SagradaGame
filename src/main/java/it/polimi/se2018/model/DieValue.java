@@ -1,6 +1,7 @@
 package it.polimi.se2018.model;
 
 import java.io.Serializable;
+import java.util.Random;
 
 /**
  * @author PeiQing Gao
@@ -63,7 +64,7 @@ public enum DieValue implements Serializable {
 	 * @return a random die Value
 	 */
 	public static DieValue getRandom() {
-		return values()[(int) (Math.random() * values().length)];
+		return values()[new Random().nextInt(values().length)];
 	}
 
 	/**

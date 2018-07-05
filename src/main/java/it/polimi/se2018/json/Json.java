@@ -14,6 +14,10 @@ import it.polimi.se2018.model.ToolCard;
  */
 public class Json {
 
+    private Json() {
+
+    }
+
     /**
      * Return a gson object. It has registered the type adapter the model needs.
      * Can cast every object of the model into json.
@@ -23,7 +27,6 @@ public class Json {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(ViewUpdaterInterface.class, new ViewUpdaterAdapter());
         gsonBuilder.registerTypeAdapter(Space.class, new SpaceAdapter());
-        //gsonBuilder.registerTypeAdapter(WindowPattern.class, new WindowPatternAdapter());
         gsonBuilder.registerTypeAdapter(PlayerState.class, new PlayerStateAdapter());
         gsonBuilder.registerTypeAdapter(ToolCard.class, new ToolCardAdapter());
         gsonBuilder.registerTypeAdapter(PublicObjectiveCard.class, new PublicObjectiveCardAdapter());

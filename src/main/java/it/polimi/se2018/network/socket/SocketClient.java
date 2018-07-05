@@ -21,7 +21,6 @@ public class SocketClient implements ClientInterface {
 	private Socket socket;
 	private ObjectInputStream inStream;
 	private ObjectOutputStream outStream;
-	private NetworkListener listener;
 
 	/**
 	 * The user interface.
@@ -89,7 +88,7 @@ public class SocketClient implements ClientInterface {
 			if(!response.isLoginResult()){
 				throw new LoginException(response.getMessage());
 			}
-			this.listener = new NetworkListener();
+			NetworkListener listener = new NetworkListener();
 			new Thread(listener).start();
 			this.uid = uid;
 		} catch (IOException e) {

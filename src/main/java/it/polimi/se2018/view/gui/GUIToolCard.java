@@ -72,15 +72,17 @@ public class GUIToolCard extends GridPane {
             this.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    if(advancedMode)
-                    foreground.setVisible(true);
+                    if(advancedMode) {
+                        foreground.setVisible(true);
+                    }
                 }
             });
             this.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    if(advancedMode)
-                    foreground.setVisible(false);
+                    if(advancedMode) {
+                        foreground.setVisible(false);
+                    }
                 }
             });
             show.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
