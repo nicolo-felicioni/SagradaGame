@@ -274,7 +274,7 @@ public class GUIController extends Application implements GUIInterface{
                             this.client.disconnect();
                             this.showLoginScene();
                         } catch (NetworkException | IOException e) {
-                            e.printStackTrace();
+                            MyLog.getMyLog().log(Level.WARNING,e.getMessage());
                         }
                     }
                 }

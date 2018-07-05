@@ -37,6 +37,7 @@ public class ValueSpace extends Space {
 	/**
 	 *{@inheritDoc}
 	 */
+	@Override
 	public void placeDie(Die die) throws PlacementException{
 
 		//checks the value restriction

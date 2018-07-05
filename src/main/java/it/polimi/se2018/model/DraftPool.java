@@ -14,7 +14,7 @@ public class DraftPool implements Serializable {
     /**
      * the list of dice on the draft pool.
      */
-    private List<Die> draftPool;
+    private List<Die> draft;
 
 
     /**
@@ -28,7 +28,7 @@ public class DraftPool implements Serializable {
      * Empty Constructor
      */
     public DraftPool(){
-        draftPool = new ArrayList<>();
+        draft = new ArrayList<>();
     }
 
 
@@ -38,7 +38,7 @@ public class DraftPool implements Serializable {
      * @param draftPool
      */
     public DraftPool(DraftPool draftPool){
-        this.draftPool= new ArrayList<>(draftPool.getAllDice());
+        this.draft= new ArrayList<>(draftPool.getAllDice());
         if(draftPool.draftedDie != null)
             this.draftedDie = new Die(draftPool.draftedDie);
     }
@@ -48,7 +48,7 @@ public class DraftPool implements Serializable {
      * @return true of false
      */
     public boolean isEmpty(){
-        return draftPool.isEmpty();
+        return draft.isEmpty();
     }
 
     /**
@@ -56,7 +56,7 @@ public class DraftPool implements Serializable {
      * @return true or false
      */
     public int size(){
-        return draftPool.size();
+        return draft.size();
     }
 
 
@@ -66,7 +66,7 @@ public class DraftPool implements Serializable {
      * @return true if the die is present
      */
     public boolean hasDie(Die die){
-        for(Die tempDie:draftPool){
+        for(Die tempDie:draft){
             if(tempDie.equalsDie(tempDie))
                 return true;
         }
@@ -78,7 +78,7 @@ public class DraftPool implements Serializable {
      * @param die the die to add
      */
     public void addDie(Die die){
-        draftPool.add(die);
+        draft.add(die);
     }
 
     /**
@@ -86,7 +86,7 @@ public class DraftPool implements Serializable {
      * @param dice the dice to add
      */
     public void addDice(List<Die> dice){
-       draftPool.addAll(dice);
+       draft.addAll(dice);
     }
 
     /**
@@ -96,9 +96,9 @@ public class DraftPool implements Serializable {
      */
     public void removeDie(Die die) throws NotValidDieException{
 
-       for(int i=0; i<draftPool.size(); i++){
-           if(draftPool.get(i).equalsDie(die)){
-               draftPool.remove(i);
+       for(int i=0; i<draft.size(); i++){
+           if(draft.get(i).equalsDie(die)){
+               draft.remove(i);
                return;
            }
        }
@@ -109,7 +109,7 @@ public class DraftPool implements Serializable {
      * Remove all dice from the draft pool.
      */
     public void removeAllDice() {
-        draftPool.clear();
+        draft.clear();
     }
 
     /**
@@ -117,7 +117,7 @@ public class DraftPool implements Serializable {
      * @return a list of dice containing all the dice in the draft pool
      */
     public List<Die> getAllDice() {
-        return new ArrayList<>(draftPool);
+        return new ArrayList<>(draft);
     }
 
     /**
@@ -152,7 +152,7 @@ public class DraftPool implements Serializable {
      * Roll every dice in the draft pool.
      */
     public void rollAllDice() {
-        this.draftPool.forEach(Die::roll);
+        this.draft.forEach(Die::roll);
     }
 
 }

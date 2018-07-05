@@ -1,10 +1,12 @@
 package it.polimi.se2018.model;
 
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.exceptions.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * @author Nicolò Felicioni
@@ -509,10 +511,8 @@ public class WindowPattern implements Serializable {
 
 		try {
 			return new WindowPattern(getAllSpaces(), this.difficulty, this.name);
-		} catch (WindowPatternDimensionException e) {
-
-		} catch (UnboundDifficultyValueException e) {
-
+		} catch (WindowPatternDimensionException | UnboundDifficultyValueException e) {
+			MyLog.getMyLog().log(Level.WARNING,e.getMessage());
 		}
 		return null;
 	}
@@ -530,7 +530,7 @@ public class WindowPattern implements Serializable {
 					if(! this.getSpace(i, j).equalsSpace(pattern.getSpace(i, j)))
 						return false;
 				} catch (NotValidPointException e) {
-					//impossible
+					MyLog.getMyLog().log(Level.WARNING,e.getMessage());
 				}
 			}
 		}

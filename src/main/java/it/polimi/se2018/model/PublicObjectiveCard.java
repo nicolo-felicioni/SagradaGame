@@ -58,10 +58,8 @@ public abstract class PublicObjectiveCard implements ObjectiveCard {
 		int numberOfDice = 0;
 		for(int i = 0; i < WindowPattern.SPACES_HEIGHT; i++) {
 			for(int j = 0; j < WindowPattern.SPACES_LENGTH; j++) {
-				if(spaces[i][j].hasDie()) {
-					if (value.equals(spaces[i][j].getDie().getValue())) {
-						numberOfDice++;
-					}
+				if((spaces[i][j].hasDie())&&(value.equals(spaces[i][j].getDie().getValue()))) {
+					numberOfDice++;
 				}
 			}
 		}
@@ -81,10 +79,8 @@ public abstract class PublicObjectiveCard implements ObjectiveCard {
 		int numberOfDice = 0;
 		for(int i = 0; i < WindowPattern.SPACES_HEIGHT; i++) {
 			for(int j = 0; j < WindowPattern.SPACES_LENGTH; j++) {
-				if(spaces[i][j].hasDie()) {
-					if (color.equals(spaces[i][j].getDie().getColor())) {
-						numberOfDice++;
-					}
+				if((spaces[i][j].hasDie())&&(color.equals(spaces[i][j].getDie().getColor()))) {
+					numberOfDice++;
 				}
 			}
 		}

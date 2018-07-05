@@ -22,6 +22,7 @@ public class MyLog {
                 log.addHandler(fh);
                 fh.setFormatter(new SimpleFormatter());
             } catch (IOException e) {
+                MyLog.getMyLog().log(Level.WARNING,e.getMessage());
             }
         }
     }

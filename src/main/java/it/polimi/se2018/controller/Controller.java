@@ -6,6 +6,7 @@ import it.polimi.se2018.controller.factory.ToolCardsFactory;
 import it.polimi.se2018.controller.factory.WindowPatternFactory;
 import it.polimi.se2018.controller.updater.EndGameUpdater;
 import it.polimi.se2018.controller.updater.ErrorMessageUpdater;
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.controller.utils.RankingPlayer;
 import it.polimi.se2018.controller.utils.Scheduler;
 import it.polimi.se2018.event.game.*;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * @author Davide Yi Xian Hu
@@ -605,8 +607,6 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
                 player.setConnected(true);
                 model.setPlayer(player);
                 model.notifyModel();
-            } else {
-
             }
         } catch (NotValidIdException | NotPresentPlayerException e) {
             this.notifyObservers(new ErrorMessageUpdater(scheduler.getCurrentPlayerId(), e.getMessage()));
@@ -858,7 +858,7 @@ public class Controller implements GameEventObserver, ViewUpdaterObservable, Rec
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             } catch (NotValidIdException | NotPresentPlayerException e) {
-
+                MyLog.getMyLog().log(Level.WARNING,e.getMessage());
             }
         }).start();
     }

@@ -26,6 +26,7 @@ public class GameException extends Exception{
 	 * Getter of the message of the exception.
 	 * @return
 	 */
+	@Override
 	public String getMessage() {
 		return message;
 	}
