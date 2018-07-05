@@ -112,17 +112,11 @@ public class GUIController extends Application implements GUIInterface{
         Application.launch(new String[0]);
     }
 
-
-    @Override
-    public void updateMoveDieFromDraftToWindow(Point p, Die draftedDie, String playerId) {
-
-    }
-
     @Override
     public void updateToolCard(ToolCard toolCard, int number) {
         Platform.runLater(
                 () -> {
-                    if (guiGameController != null && this.playerId.equals(playerId)) {
+                    if (guiGameController != null ) {
                         guiGameController.setToolCard(toolCard, CardPosition.fromInt(number));
                     }
                 }
@@ -134,7 +128,7 @@ public class GUIController extends Application implements GUIInterface{
     public void updateRoundTrack(RoundTrack roundTrack) {
         Platform.runLater(
                 () -> {
-                    if (guiGameController != null && this.playerId.equals(playerId)) {
+                    if (guiGameController != null) {
                         guiGameController.setRoundtrack(roundTrack);
                     }
                 }
@@ -145,7 +139,7 @@ public class GUIController extends Application implements GUIInterface{
     public void updateDraftPool(DraftPool draftPool) {
         Platform.runLater(
                 () -> {
-                    if (guiGameController != null && this.playerId.equals(playerId)) {
+                    if (guiGameController != null) {
                         guiGameController.setDraftpool(draftPool);
                     }
                 }
@@ -234,7 +228,7 @@ public class GUIController extends Application implements GUIInterface{
     public void updatePublicObjectiveCard(PublicObjectiveCard card, CardPosition position) {
         Platform.runLater(
                 () -> {
-                    if (guiGameController != null && this.playerId.equals(playerId)) {
+                    if (guiGameController != null) {
                         guiGameController.setPublicCard(card, position);
                     }
                 }
@@ -260,22 +254,20 @@ public class GUIController extends Application implements GUIInterface{
     public void updateEndGame(List<RankingPlayer> rankingPlayers, List<String> disconnectedPlayerId) {
         Platform.runLater(
                 () -> {
-                    if(playerId.equals(this.playerId)) {
-                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                        alert.setTitle(playerId.toUpperCase() + " - GAME END");
-                        alert.setHeaderText(rankingPlayers.get(0).getPlayerId() + " point : " + rankingPlayers.get(0).getPoints());
-                        String message = new String();
-                        for (RankingPlayer rk : rankingPlayers) {
-                            message = message + rk.getPlayerId() + " point : " + rk.getPoints() + "\n";
-                        }
-                        alert.setContentText(message);
-                        alert.showAndWait();
-                        try {
-                            this.client.disconnect();
-                            this.showLoginScene();
-                        } catch (NetworkException | IOException e) {
-                            MyLog.getMyLog().log(Level.WARNING,e.getMessage());
-                        }
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle(playerId.toUpperCase() + " - GAME END");
+                    alert.setHeaderText(rankingPlayers.get(0).getPlayerId() + " point : " + rankingPlayers.get(0).getPoints());
+                    String message = new String();
+                    for (RankingPlayer rk : rankingPlayers) {
+                        message = message + rk.getPlayerId() + " point : " + rk.getPoints() + "\n";
+                    }
+                    alert.setContentText(message);
+                    alert.showAndWait();
+                    try {
+                        this.client.disconnect();
+                        this.showLoginScene();
+                    } catch (NetworkException | IOException e) {
+                        MyLog.getMyLog().log(Level.WARNING,e.getMessage());
                     }
                 }
         );

@@ -1,5 +1,6 @@
 package it.polimi.se2018.view.cli;
 
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.controller.utils.RankingPlayer;
 import it.polimi.se2018.exceptions.NotValidPointException;
 import it.polimi.se2018.exceptions.NotValidRoundException;
@@ -10,6 +11,7 @@ import org.fusesource.jansi.Ansi;
 
 
 import java.util.List;
+import java.util.logging.Level;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
@@ -167,7 +169,7 @@ public class Printer {
                 try {
                     print(windowPattern.getSpace(i, j));
                 } catch (NotValidPointException e) {
-                    e.printStackTrace();
+                    MyLog.getMyLog().log(Level.WARNING, e.getMessage());
                 }
 
             }
@@ -188,7 +190,7 @@ public class Printer {
                 try {
                     print(windowPattern.getSpace(i, j));
                 } catch (NotValidPointException e) {
-                    e.printStackTrace();
+                    MyLog.getMyLog().log(Level.WARNING, e.getMessage());
                 }
 
             }

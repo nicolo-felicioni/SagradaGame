@@ -113,11 +113,11 @@ public class Player {
 	 * @return an array with the 4 pattern this player can choose before starting the game.
 	 */
 	public WindowPattern[] getPatterns() {
-		WindowPattern[] patterns = new WindowPattern[N_WINDOW_PATTERNS];
+		WindowPattern[] windows = new WindowPattern[N_WINDOW_PATTERNS];
 		for (int i = 0; i < N_WINDOW_PATTERNS; i++) {
-			patterns[i] = this.patterns[i].cloneWindowPattern();
+			windows[i] = this.patterns[i].cloneWindowPattern();
 		}
-		return patterns;
+		return windows;
 	}
 
 	/**

@@ -237,33 +237,6 @@ public class CommandLineInterface extends AbstractView {
      * {@inheritDoc}
      */
     @Override
-    public synchronized void updateMoveDieFromDraftToWindow(Point p, Die draftedDie, String playerId) {
-        Player wantedPlayer;
-
-        Optional<Player> optPlayer = this.players.stream()
-                .filter(pl -> pl.getId().equals(playerId)).findAny();
-
-        if (optPlayer.isPresent()) {
-            wantedPlayer = optPlayer.get();
-
-            try {
-                wantedPlayer.placeDie(p, draftedDie);
-            } catch (PlacementException e) {
-                MyLog.getMyLog().log(Level.WARNING, e.getMessage());
-            } catch (IllegalMoveTurnException e) {
-                MyLog.getMyLog().log(Level.WARNING, e.getMessage());
-            }
-        } else {
-            //TODO - DUBBIA GESTIONE NEL CASO IN CUI NON SI TROVI UN GIOCATORE CON L'ID GIUSTO
-        }
-
-
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public synchronized void updateToolCard(ToolCard toolCard, int number) {
         this.toolCards[number] = toolCard;
         Printer.println("DEBUG: è arrivato l'update della tool card in posizione: " + number); //todo

@@ -146,8 +146,8 @@ public class WindowPattern implements Serializable {
 		else
 			return (this.isThereSomeDieAdjacent(p) &&
 					p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
-                            .noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
-                                    this.getSpace(point).getDie().getValue()==die.getValue()) &&
+							.noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
+									this.getSpace(point).getDie().getValue()==die.getValue()) &&
 					getSpace(p).respectAllRestrictions(die) )&& !getSpace(p).hasDie();
 
 
@@ -171,18 +171,17 @@ public class WindowPattern implements Serializable {
 				return p.isEdgyPoint() && getSpace(p).getValueRestriction() == die.getValue();
 			else
 				return p.isEdgyPoint();
-		} else
-			if (getSpace(p).isValueRestricted())
-				return (this.isThereSomeDieAdjacent(p) &&
-						p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
-								.noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
-										this.getSpace(point).getDie().getValue()==die.getValue()) &&
-						getSpace(p).getValueRestriction() == die.getValue()) && !getSpace(p).hasDie();
-			else
-				return (this.isThereSomeDieAdjacent(p) &&
-						p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
-								.noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
-										this.getSpace(point).getDie().getValue()==die.getValue())) && !getSpace(p).hasDie();
+		} else if (getSpace(p).isValueRestricted())
+			return (this.isThereSomeDieAdjacent(p) &&
+					p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
+							.noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
+									this.getSpace(point).getDie().getValue()==die.getValue()) &&
+					getSpace(p).getValueRestriction() == die.getValue()) && !getSpace(p).hasDie();
+		else
+			return (this.isThereSomeDieAdjacent(p) &&
+					p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
+							.noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
+									this.getSpace(point).getDie().getValue()==die.getValue())) && !getSpace(p).hasDie();
 
 	}
 
@@ -201,8 +200,7 @@ public class WindowPattern implements Serializable {
 				return p.isEdgyPoint() && getSpace(p).getColorRestriction() == die.getColor();
 			else
 				return p.isEdgyPoint();
-		} else
-		if (getSpace(p).isColorRestricted())
+		} else if (getSpace(p).isColorRestricted())
 			return (this.isThereSomeDieAdjacent(p) &&
 					p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
 							.noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||

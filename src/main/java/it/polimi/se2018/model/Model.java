@@ -400,11 +400,7 @@ public class Model implements ViewUpdaterObservable {
      * @param cards an array of public objective cards.
      */
     public void setPublicObjectiveCards(PublicObjectiveCard[] cards) {
-        PublicObjectiveCard[] publicObjectiveCards = new PublicObjectiveCard[cards.length];
-        for(int i = 0; i < cards.length; i++){
-            publicObjectiveCards[i] = cards[i];
-        }
-        this.publicObjectiveCards = publicObjectiveCards;
+        this.publicObjectiveCards = Arrays.copyOf(cards, cards.length);
         this.notifyObservers(new PublicObjectiveCardUpdater(cards[CardPosition.LEFT.toInt()], CardPosition.LEFT));
         this.notifyObservers(new PublicObjectiveCardUpdater(cards[CardPosition.CENTER.toInt()], CardPosition.CENTER));
         this.notifyObservers(new PublicObjectiveCardUpdater(cards[CardPosition.RIGHT.toInt()], CardPosition.RIGHT));
@@ -415,11 +411,12 @@ public class Model implements ViewUpdaterObservable {
      * @param cards an array of tool cards.
      */
     public void setToolCards(ToolCard[] cards) {
-        ToolCard[] toolCards = new ToolCard[cards.length];
+        ToolCard[] tcards = new ToolCard[cards.length];
         for(int i = 0; i < cards.length; i++){
-            toolCards[i] = cards[i];
+            tcards[i] = cards[i].cloneToolCard();
+
         }
-        this.toolCards = toolCards;
+        this.toolCards = Arrays.copyOf(tcards, tcards.length);
         this.notifyObservers(new ToolCardUpdater(cards[CardPosition.LEFT.toInt()].cloneToolCard(), CardPosition.LEFT));
         this.notifyObservers(new ToolCardUpdater(cards[CardPosition.CENTER.toInt()].cloneToolCard(), CardPosition.CENTER));
         this.notifyObservers(new ToolCardUpdater(cards[CardPosition.RIGHT.toInt()].cloneToolCard(), CardPosition.RIGHT));

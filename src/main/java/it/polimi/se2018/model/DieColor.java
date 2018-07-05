@@ -3,6 +3,7 @@ package it.polimi.se2018.model;
 import org.fusesource.jansi.Ansi;
 
 import java.io.Serializable;
+import java.util.Random;
 
 /**
  *@author PeiQing Gao
@@ -60,6 +61,6 @@ public enum DieColor implements Serializable {
      * @return a random color
      */
 	public static DieColor getRandom() {
-		return values()[(int) (Math.random() * values().length)];
+		return values()[(new Random().nextInt(values().length))];
 	}
 }

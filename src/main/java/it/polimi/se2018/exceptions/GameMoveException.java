@@ -22,6 +22,7 @@ public class GameMoveException extends Exception{
 	 * Getter of the message of the exception.
 	 * @return the message of the exception.
 	 */
+	@Override
 	public String getMessage() {
 		return message;
 	}

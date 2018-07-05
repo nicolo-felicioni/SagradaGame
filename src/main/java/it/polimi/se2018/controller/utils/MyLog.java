@@ -22,7 +22,7 @@ public class MyLog {
                 log.addHandler(fh);
                 fh.setFormatter(new SimpleFormatter());
             } catch (IOException e) {
-                Logger.getLogger(MyLog.class.getName()).log(Level.WARNING, "Logger warning");
+                log.log(Level.WARNING, "Logger warning");
             }
         }
     }

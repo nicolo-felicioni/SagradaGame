@@ -89,7 +89,6 @@ public class GUISpace extends Pane {
             this.getStyleClass().add("space");
         }
         if(space.hasDie()) {
-            //this.getChildren().removeAll();
             this.getStyleClass().add("fill-90");
             this.getStyleClass().add(this.space.getDie().getColor().toString().toLowerCase() + "-" + this.space.getDie().getValue().toString().toLowerCase());
         }else if(space.isColorRestricted()) {
@@ -99,8 +98,8 @@ public class GUISpace extends Pane {
             this.getStyleClass().add(FILL_80_CSS);
             this.getStyleClass().add("space-" + space.getValueRestriction().toString().toLowerCase());
         }else {
-            this.getStyleClass().add("fill-80");
             this.getStyleClass().add(FILL_80_CSS);
+            this.getStyleClass().add("space-blank");
         }
     }
 
