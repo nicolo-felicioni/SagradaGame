@@ -114,7 +114,7 @@ public class WindowPattern implements Serializable {
 	 * @return the corresponding space on the window pattern
 	 */
 	public Space getSpace(int x, int y) throws NotValidPointException {
-		return getSpace(new Point(x, y));
+		return getSpace(new Point(x, y)).cloneSpace();
 	}
 
 	/**
@@ -248,7 +248,7 @@ public class WindowPattern implements Serializable {
 
 		if(isPlaceable(die, p)){
 
-			spaces[p.getX()][p.getY()].placeDie(die);
+			spaces[p.getX()][p.getY()].placeDie(die.cloneDie());
 
 		}
 
@@ -268,7 +268,7 @@ public class WindowPattern implements Serializable {
 
 		Point p = new Point(x, y);
 		if(isPlaceable(die, p))
-			spaces[p.getX()][p.getY()].placeDie(die);
+			spaces[p.getX()][p.getY()].placeDie(die.cloneDie());
 		else
 			throw new PlacementException(DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN);
 
@@ -286,7 +286,7 @@ public class WindowPattern implements Serializable {
 	public void placeDieIgnoreColor(Die die, Point p) throws PlacementException {
 
 		if(isPlaceableIgnoreColor(die, p))
-			spaces[p.getX()][p.getY()].placeDieIgnoreColor(die);
+			spaces[p.getX()][p.getY()].placeDieIgnoreColor(die.cloneDie());
 		else
 			throw new PlacementException(DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN);
 
@@ -307,7 +307,7 @@ public class WindowPattern implements Serializable {
 		Point p = new Point(x, y);
 
 		if(isPlaceableIgnoreColor(die, p))
-			spaces[p.getX()][p.getY()].placeDieIgnoreColor(die);
+			spaces[p.getX()][p.getY()].placeDieIgnoreColor(die.cloneDie());
 		else
 			throw new PlacementException(DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN);
 	}
@@ -322,7 +322,7 @@ public class WindowPattern implements Serializable {
 	public void placeDieIgnoreValue(Die die, Point p) throws PlacementException {
 
 		if(isPlaceableIgnoreValue(die, p))
-			spaces[p.getX()][p.getY()].placeDieIgnoreValue(die);
+			spaces[p.getX()][p.getY()].placeDieIgnoreValue(die.cloneDie());
 		else
 			throw new PlacementException(DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN);
 
@@ -343,7 +343,7 @@ public class WindowPattern implements Serializable {
 
 
 		if(isPlaceableIgnoreValue(die, p))
-			spaces[p.getX()][p.getY()].placeDieIgnoreValue(die);
+			spaces[p.getX()][p.getY()].placeDieIgnoreValue(die.cloneDie());
 		else
 			throw new PlacementException(DIE_NOT_PLACEABLE_DUO_WINDOW_PATTERN);
 
@@ -359,7 +359,7 @@ public class WindowPattern implements Serializable {
 	 */
 	public void placeDieIgnoreAdjacent(Die die, Point p) throws PlacementException {
 		if(isPlaceableNoAdjacent(die, p)) {
-			spaces[p.getX()][p.getY()].placeDie(die);
+			spaces[p.getX()][p.getY()].placeDie(die.cloneDie());
 		} else {
 			throw new PlacementException("Die not placeable .");
 		}
@@ -392,7 +392,7 @@ public class WindowPattern implements Serializable {
 
 		try {
 			die = copy.removeDie(a);
-			copy.placeDie(die, b);
+			copy.placeDie(die.cloneDie(), b.clonePoint());
 		} catch (PlacementException e) {
 			return false;
 		}
@@ -411,7 +411,7 @@ public class WindowPattern implements Serializable {
 		if(this.isPossibleMoveDie(a, b)){
 			try {
 				die = this.removeDie(a);
-				this.placeDie(die, b);
+				this.placeDie(die.cloneDie(), b.clonePoint());
 			} catch (PlacementException e) {
 				//impossible
 				throw new NotValidMoveException("Impossible to move the die");

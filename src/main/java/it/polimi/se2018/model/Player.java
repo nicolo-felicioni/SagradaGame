@@ -173,7 +173,7 @@ public class Player {
 		if (Arrays.stream(this.patterns).noneMatch(p -> p.equalsWindowPattern(pattern))) {
 			throw new NotValidPatterException("the pattern " + pattern + "is not present in the four possible patterns");
 		}
-		this.chosenPattern = pattern;
+		this.chosenPattern = pattern.cloneWindowPattern();
 		this.favorTokens = pattern.getDifficulty();
 	}
 
@@ -185,7 +185,7 @@ public class Player {
 	 */
 	public void setPattern(WindowPattern pattern) throws NotValidPatterException {
 		if (this.chosenPattern.getName().equals(pattern.getName())) {
-			this.chosenPattern = pattern;
+			this.chosenPattern = pattern.cloneWindowPattern();
 		} else {
 			throw new NotValidPatterException("The pattern is not valid, the new pattern must have the same name as the old.");
 		}

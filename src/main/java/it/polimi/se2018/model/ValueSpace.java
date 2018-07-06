@@ -42,7 +42,7 @@ public class ValueSpace extends Space {
 
 		//checks the value restriction
 		if(respectAllRestrictions(die))
-			super.placeDie(die);
+			super.placeDie(die.cloneDie());
 		else
 			//color restriction violated
 			throw new ValueRestrictionViolatedException("This space has value:" + this.value +
@@ -54,7 +54,7 @@ public class ValueSpace extends Space {
 	 */
 	@Override
 	public void placeDieIgnoreColor(Die die) throws PlacementException {
-		this.placeDie(die);
+		this.placeDie(die.cloneDie());
 	}
 
 	/**
@@ -62,7 +62,7 @@ public class ValueSpace extends Space {
 	 */
 	@Override
 	public void placeDieIgnoreValue(Die die) throws PlacementException {
-		super.placeDie(die);
+		super.placeDie(die.cloneDie());
 	}
 
 	/**

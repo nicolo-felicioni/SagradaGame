@@ -76,7 +76,7 @@ public class DraftPool implements Serializable {
      * @param die the die to add
      */
     public void addDie(Die die){
-        draft.add(die);
+        draft.add(die.cloneDie());
     }
 
     /**

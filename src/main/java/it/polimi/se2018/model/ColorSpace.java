@@ -45,7 +45,7 @@ public class ColorSpace extends Space {
 
 		//checks the color restriction
 		if(respectAllRestrictions(die))
-			super.placeDie(die);
+			super.placeDie(die.cloneDie());
 		else
 			//color restriction violated
 			throw new ColorRestrictionViolatedException("This space has color:" + this.color +
@@ -58,7 +58,7 @@ public class ColorSpace extends Space {
 	 */
 	@Override
 	public void placeDieIgnoreColor(Die die) throws PlacementException {
-		super.placeDie(die);
+		super.placeDie(die.cloneDie());
 	}
 
 	/**
@@ -67,7 +67,7 @@ public class ColorSpace extends Space {
 	 */
 	@Override
 	public void placeDieIgnoreValue(Die die) throws PlacementException {
-		this.placeDie(die);
+		this.placeDie(die.cloneDie());
 	}
 
 	/**

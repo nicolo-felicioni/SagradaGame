@@ -27,7 +27,7 @@ public class BlankSpace extends Space {
      */
     @Override
     public void placeDieIgnoreColor(Die die) throws PlacementException {
-        placeDie(die);
+        placeDie(die.cloneDie());
     }
 
     /**
@@ -36,7 +36,7 @@ public class BlankSpace extends Space {
      */
     @Override
     public void placeDieIgnoreValue(Die die) throws PlacementException {
-        placeDie(die);
+        placeDie(die.cloneDie());
     }
 
     /**
