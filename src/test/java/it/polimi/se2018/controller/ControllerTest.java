@@ -1,6 +1,8 @@
 package it.polimi.se2018.controller;
 
 import it.polimi.se2018.controller.utils.RankingPlayer;
+import it.polimi.se2018.event.game.DraftAndPlaceGameEvent;
+import it.polimi.se2018.event.game.EndTurnGameEvent;
 import it.polimi.se2018.event.game.StartGameEvent;
 import it.polimi.se2018.event.game.WindowPatternChosenGameEvent;
 import it.polimi.se2018.exceptions.*;
@@ -12,6 +14,7 @@ import org.junit.Test;
 import javax.tools.Tool;
 import java.util.*;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ControllerTest {
@@ -193,94 +196,81 @@ public class ControllerTest {
         assertTrue(viewModel.getPublicObjectiveCards().length == 3);
         assertTrue(Arrays.stream(viewModel.getPublicObjectiveCards()).allMatch(t -> t != null));
         assertTrue(viewModel.getDraftPool().getAllDice().size() == 7);
-        assertTrue(viewModel.getPlayers().stream().anyMatch(p -> p.getState().canPlaceDie()));
-        assertTrue(viewModel.getPlayers().stream().anyMatch(p -> p.getState().canUseTool()));
-        assertTrue(viewModel.getPlayers().stream().noneMatch(p -> p.getState().canEndTurn()));
 
     }
 
     @Test
-    public void handle() {
+    public void handle() throws Exception{
+        List<String> ids = new ArrayList<>();
+        ids.add(player1.getId());
+        ids.add(player2.getId());
+        ids.add(player3.getId());
+        controller.handle(new StartGameEvent(ids));
+        controller.handle(new WindowPatternChosenGameEvent(windowsToChoose.get(player1.getId())[0], player1.getId()));
+        controller.handle(new WindowPatternChosenGameEvent(windowsToChoose.get(player2.getId())[0], player2.getId()));
+        controller.handle(new WindowPatternChosenGameEvent(windowsToChoose.get(player3.getId())[0], player3.getId()));
+        Optional<Player> pl = viewModel.getPlayers().stream().filter(p -> p.getState().canPlaceDie()).findAny();
+        Die die = null;
+        Point p = null;
+        if(pl.isPresent()) {
+            WindowPattern w = pl.get().getPattern();
+            while(true) {
+                die = Die.getRandomDie();
+                p =  new Point(new Random().nextInt(4), new Random().nextInt(5));
+                if(w.isPlaceable(die, p)) {
+                    System.out.println(die);
+                    System.out.println(p);
+                    System.out.println(w.getSpace(p).getColorRestriction() + " " + w.getSpace(p).getColorRestriction() + " " + w.getSpace(p).getClass().getSimpleName());
+
+                    controller.handle(new DraftAndPlaceGameEvent(die, p, pl.get().getId()));
+                    break;
+                }
+
+            }
+        }
+        for(Player player : viewModel.getPlayers()) {
+            if(player.getState().canEndTurn()) {
+                assertTrue(player.getPattern().getSpace(p).hasDie());
+                assertTrue(player.getPattern().getSpace(p).getDie().equalsDie(die));
+            }
+        }
     }
 
     @Test
-    public void handle3() {
+    public void handleEndTurn() throws Exception{
+        List<String> ids = new ArrayList<>();
+        ids.add(player1.getId());
+        ids.add(player2.getId());
+        ids.add(player3.getId());
+        controller.handle(new StartGameEvent(ids));
+        controller.handle(new WindowPatternChosenGameEvent(windowsToChoose.get(player1.getId())[0], player1.getId()));
+        controller.handle(new WindowPatternChosenGameEvent(windowsToChoose.get(player2.getId())[0], player2.getId()));
+        controller.handle(new WindowPatternChosenGameEvent(windowsToChoose.get(player3.getId())[0], player3.getId()));
+        Optional<Player> pl = viewModel.getPlayers().stream().filter(p -> p.getState().canPlaceDie()).findAny();
+        Die die = null;
+        Point p = null;
+        if(pl.isPresent()) {
+            WindowPattern w = pl.get().getPattern();
+            while(true) {
+                die = Die.getRandomDie();
+                p =  new Point(new Random().nextInt(4), new Random().nextInt(5));
+                if(w.isPlaceable(die, p)) {
+                    System.out.println(die);
+                    System.out.println(p);
+                    System.out.println(w.getSpace(p).getColorRestriction() + " " + w.getSpace(p).getColorRestriction() + " " + w.getSpace(p).getClass().getSimpleName());
+                    controller.handle(new DraftAndPlaceGameEvent(die, p, pl.get().getId()));
+                    controller.handle(new EndTurnGameEvent(pl.get().getId()));
+                    break;
+                }
+
+            }
+        }
+        for(Player player : viewModel.getPlayers()) {
+            if(player.getState().canPlaceDie()) {
+                assertFalse(player.getState().canEndTurn());
+            }
+        }
     }
 
-    @Test
-    public void handle4() {
-    }
-
-    @Test
-    public void handle5() {
-    }
-
-    @Test
-    public void handle6() {
-    }
-
-    @Test
-    public void handle7() {
-    }
-
-    @Test
-    public void handle8() {
-    }
-
-    @Test
-    public void handle9() {
-    }
-
-    @Test
-    public void handle10() {
-    }
-
-    @Test
-    public void handle11() {
-    }
-
-    @Test
-    public void handle12() {
-    }
-
-    @Test
-    public void handle13() {
-    }
-
-    @Test
-    public void handle14() {
-    }
-
-    @Test
-    public void handle15() {
-    }
-
-    @Test
-    public void handle16() {
-    }
-
-    @Test
-    public void handle17() {
-    }
-
-    @Test
-    public void handle18() {
-    }
-
-    @Test
-    public void handle19() {
-    }
-
-    @Test
-    public void addObserver() {
-    }
-
-    @Test
-    public void removeObserver() {
-    }
-
-    @Test
-    public void notifyObservers() {
-    }
 
 }
