@@ -1,0 +1,88 @@
+Jul 06, 2018 8:15:31 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:15:31 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:15:31 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:15:31 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:15:58 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:15:58 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:15:58 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:16:14 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:16:14 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:16:14 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:16:14 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:16:18 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: y parameter should be between 0and 4
+Jul 06, 2018 8:16:18 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: y parameter should be between 0and 4
+Jul 06, 2018 8:16:18 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: y parameter should be between 0and 4
+Jul 06, 2018 8:16:18 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: y parameter should be between 0and 4
+Jul 06, 2018 8:16:24 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:16:24 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:16:24 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: y parameter should be between 0and 4
+Jul 06, 2018 8:16:24 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:16:24 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: y parameter should be between 0and 4
+Jul 06, 2018 8:16:24 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:16:24 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: y parameter should be between 0and 4
+Jul 06, 2018 8:16:39 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:16:39 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:16:39 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: y parameter should be between 0and 4
+Jul 06, 2018 8:16:39 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:16:39 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: y parameter should be between 0and 4
+Jul 06, 2018 8:16:39 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:16:39 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: y parameter should be between 0and 4
+Jul 06, 2018 8:16:58 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: y parameter should be between 0and 4
+Jul 06, 2018 8:16:58 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: y parameter should be between 0and 4
+Jul 06, 2018 8:16:58 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: y parameter should be between 0and 4
+Jul 06, 2018 8:16:58 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: y parameter should be between 0and 4
+Jul 06, 2018 8:17:06 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:17:06 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:17:06 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:17:06 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:17:09 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: y parameter should be between 0and 4
+Jul 06, 2018 8:17:09 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:17:09 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:17:09 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:17:09 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: y parameter should be between 0and 4
+Jul 06, 2018 8:17:09 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: x parameter should be between 0and 3
+Jul 06, 2018 8:17:09 PM it.polimi.se2018.controller.utils.MyLog log
+WARNING: y parameter should be between 0and 4
