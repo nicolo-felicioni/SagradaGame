@@ -6,8 +6,6 @@ import it.polimi.se2018.view.View;
 
 import java.util.List;
 
-//todo
-
 public class EndGameUpdater implements ViewUpdaterInterface {
 
     private List<RankingPlayer> players;

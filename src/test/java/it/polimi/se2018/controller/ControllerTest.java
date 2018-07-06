@@ -5,13 +5,15 @@ import it.polimi.se2018.event.game.DraftAndPlaceGameEvent;
 import it.polimi.se2018.event.game.EndTurnGameEvent;
 import it.polimi.se2018.event.game.StartGameEvent;
 import it.polimi.se2018.event.game.WindowPatternChosenGameEvent;
-import it.polimi.se2018.exceptions.*;
+import it.polimi.se2018.exceptions.NotPresentPlayerException;
+import it.polimi.se2018.exceptions.NotValidIdException;
+import it.polimi.se2018.exceptions.NotValidPatternVectorException;
+import it.polimi.se2018.exceptions.TooManyPlayersException;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.view.View;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.tools.Tool;
 import java.util.*;
 
 import static org.junit.Assert.assertFalse;

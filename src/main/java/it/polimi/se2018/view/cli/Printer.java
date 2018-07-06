@@ -4,11 +4,9 @@ import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.controller.utils.RankingPlayer;
 import it.polimi.se2018.exceptions.NotValidPointException;
 import it.polimi.se2018.exceptions.NotValidRoundException;
-import it.polimi.se2018.exceptions.RoundTrackEmptyException;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.view.cli.options.Option;
 import org.fusesource.jansi.Ansi;
-
 
 import java.util.List;
 import java.util.logging.Level;
@@ -348,9 +346,6 @@ public class Printer {
         Printer.println("Points: " + rankingPlayer.getPoints());
         Printer.println("Points from private objective card: " + rankingPlayer.getPointsFromPrivateObjective());
         Printer.println("Remaining favor tokens: " + rankingPlayer.getFavorTokensRemaining());
-
-        //todo
-        //Printer.println("Reverse order in the final round: " + rankingPlayer.getReverseOrderFinalRound());
     }
 
 

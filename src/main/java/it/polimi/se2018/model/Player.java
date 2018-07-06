@@ -186,8 +186,9 @@ public class Player {
 	public void setPattern(WindowPattern pattern) throws NotValidPatterException {
 		if (this.chosenPattern.getName().equals(pattern.getName())) {
 			this.chosenPattern = pattern;
-		} else
+		} else {
 			throw new NotValidPatterException("The pattern is not valid, the new pattern must have the same name as the old.");
+		}
 	}
 
 	/**
@@ -254,7 +255,7 @@ public class Player {
 	 * @throws GameMoveException if the die can't placed in the point p
 	 * @throws NotValidDieException if the coordinates are not valid.
 	 */
-	public void placeDie(int x, int y, Die die) throws GameMoveException, NotValidPointException {
+	public void placeDie(int x, int y, Die die) throws GameMoveException {
 
 		Point p = new Point(x, y);
 

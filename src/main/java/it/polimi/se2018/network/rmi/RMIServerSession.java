@@ -6,7 +6,6 @@ import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.event.network.DisconnectEvent;
 import it.polimi.se2018.network.server.SessionInterface;
 import it.polimi.se2018.observable.game.GameEventObservableImpl;
-import it.polimi.se2018.observable.network.DisconnectObservable;
 import it.polimi.se2018.observer.network.DisconnectObserver;
 
 import java.rmi.RemoteException;
@@ -27,7 +26,7 @@ public class RMIServerSession extends GameEventObservableImpl implements Session
 	/**
 	 * The disconnect event observers.
 	 */
-	private List<DisconnectObserver> disconnectObservers;
+	private transient List<DisconnectObserver> disconnectObservers;
 
 	/**
 	 * Unique identifier of the client.

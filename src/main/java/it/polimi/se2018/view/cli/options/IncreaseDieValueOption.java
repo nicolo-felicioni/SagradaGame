@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IncreaseDieValueOption extends ComplexOption {
-    private static final String ERROR_MESSAGE = "You can't increase this die";
 
     private static final int READ_DIE_CHOICE = 0;
 

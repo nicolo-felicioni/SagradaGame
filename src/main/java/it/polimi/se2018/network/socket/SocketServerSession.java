@@ -5,7 +5,6 @@ import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.event.game.*;
 import it.polimi.se2018.event.network.DisconnectEvent;
 import it.polimi.se2018.exceptions.LoginException;
-import it.polimi.se2018.exceptions.NetworkException;
 import it.polimi.se2018.json.Json;
 import it.polimi.se2018.network.server.Server;
 import it.polimi.se2018.network.server.SessionInterface;
@@ -14,7 +13,6 @@ import it.polimi.se2018.observer.network.DisconnectObserver;
 
 import java.io.*;
 import java.net.Socket;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;

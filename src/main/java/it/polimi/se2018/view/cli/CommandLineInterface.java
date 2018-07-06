@@ -4,10 +4,8 @@ package it.polimi.se2018.view.cli;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
 import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.controller.utils.RankingPlayer;
-import it.polimi.se2018.exceptions.IllegalMoveTurnException;
 import it.polimi.se2018.exceptions.LoginException;
 import it.polimi.se2018.exceptions.NetworkException;
-import it.polimi.se2018.exceptions.PlacementException;
 import it.polimi.se2018.model.*;
 import it.polimi.se2018.network.client.ClientInterface;
 import it.polimi.se2018.network.rmi.RMIClient;
@@ -122,7 +120,7 @@ public class CommandLineInterface extends AbstractView {
         typeOfConnectionRequest();
         connection();
         login();
-        Printer.println(LOADING_MESSAGE);//todo
+        Printer.println(LOADING_MESSAGE);
 
 
         while (!areInitialOptionsInitialized()) {
@@ -137,7 +135,7 @@ public class CommandLineInterface extends AbstractView {
         }
 
         startChooseWindow();
-        Printer.println(LOADING_MESSAGE);//todo
+        Printer.println(LOADING_MESSAGE);
 
         while (!areAllWindowInitialized()) {
             try {
@@ -200,7 +198,7 @@ public class CommandLineInterface extends AbstractView {
         if (this.player.getId().equals(playerId)) {
             this.player.setPrivateObjective(card);
             this.privateObjectiveCard = card;
-            Printer.print(card); //todo
+            Printer.print(card);
             notifyAll();//to wake up the thread
         }
 
@@ -230,7 +228,6 @@ public class CommandLineInterface extends AbstractView {
                 patterns[position.toInt()] = windowPattern;
                 numberOfPatternsReceived++;
                 notifyAll();//to wake up the thread
-                Printer.println("Debug: you received a window pattern in position:" + position.name());
             }
     }
 
@@ -240,7 +237,6 @@ public class CommandLineInterface extends AbstractView {
     @Override
     public synchronized void updateToolCard(ToolCard toolCard, int number) {
         this.toolCards[number] = toolCard;
-        Printer.println("DEBUG: è arrivato l'update della tool card in posizione: " + number); //todo
     }
 
 
@@ -325,15 +321,11 @@ public class CommandLineInterface extends AbstractView {
             if (wantedPlayer.equalsPlayer(player)) {
                 player.changePlayerStateTo(state);
 
-                Printer.printlnColor("DEBUG: stato del player:" + state.getClass().getSimpleName(), DieColor.RED);
-
                 if(state.canPlaceDie() && state.canUseTool())
                     Printer.println("It's your turn.");
                 notifyAll();//to wake up the thread
             }
 
-        } else {
-            //TODO - DUBBIA GESTIONE NEL CASO IN CUI NON SI TROVI UN GIOCATORE CON L'ID GIUSTO
         }
     }
 

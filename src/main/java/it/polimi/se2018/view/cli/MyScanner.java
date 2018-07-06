@@ -32,7 +32,7 @@ public class MyScanner {
         try {
             return in.readLine();
         } catch (IOException e) {
-            MyLog.getMyLog().log(Level.WARNING, e.getMessage());//TODO- DUBBIO
+            MyLog.getMyLog().log(Level.WARNING, e.getMessage());
             return null;
         }
     }

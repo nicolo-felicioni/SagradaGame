@@ -1,5 +1,6 @@
 package it.polimi.se2018.view.gui;
 
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.model.PrivateObjectiveCard;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -12,6 +13,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.logging.Level;
 
 public class GUIPrivateObjectiveCard extends GridPane {
 
@@ -84,7 +86,7 @@ public class GUIPrivateObjectiveCard extends GridPane {
             });
             foreground.setVisible(false);
         } catch (IOException exception)  {
-            throw new RuntimeException(exception);
+            MyLog.getMyLog().log(Level.WARNING, exception.getMessage());
         }
     }
 

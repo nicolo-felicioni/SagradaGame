@@ -1,5 +1,6 @@
 package it.polimi.se2018.view.gui;
 
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.event.game.EndTurnGameEvent;
 import it.polimi.se2018.model.PlayerState;
 import it.polimi.se2018.model.WindowPattern;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
 public class GUIInfo extends GridPane {
 
@@ -97,7 +99,7 @@ public class GUIInfo extends GridPane {
                                     RowConstraints row = new RowConstraints();
                                     row.setVgrow(Priority.ALWAYS);
                                     pane.getRowConstraints().add(row);
-                                    List<String> keys = new ArrayList<String>(windowPatternMap.keySet());
+                                    List<String> keys = new ArrayList<>(windowPatternMap.keySet());
                                     for(int i = 0; i < keys.size(); i++) {
                                         ColumnConstraints column = new ColumnConstraints();
                                         column.setHgrow(Priority.ALWAYS);
@@ -119,7 +121,7 @@ public class GUIInfo extends GridPane {
                 }
             });
         } catch (IOException exception)  {
-            throw new RuntimeException(exception);
+            MyLog.getMyLog().log(Level.WARNING, exception.getMessage());
         }
     }
 

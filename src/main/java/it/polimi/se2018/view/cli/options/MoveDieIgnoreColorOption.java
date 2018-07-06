@@ -9,8 +9,6 @@ import java.util.List;
 
 public class MoveDieIgnoreColorOption extends ComplexOption {
 
-
-    private static final String MOVE_DIE_MESSAGE = "Select the two points on the window pattern.";
     private static final int READ_FIRST_X_CHOICE = 0;
     private static final int READ_FIRST_Y_CHOICE = 1;
     private static final int READ_SECOND_X_CHOICE = 2;

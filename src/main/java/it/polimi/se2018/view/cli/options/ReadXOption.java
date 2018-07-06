@@ -34,7 +34,7 @@ public class ReadXOption extends SimpleOption {
             if(pattern != null)
                 Printer.printOnlySpaces(pattern);
             else
-                Printer.printlnColor("DEBUG: pattern is null", DieColor.RED);
+                Printer.printlnColor("Pattern not initialized", DieColor.RED);
 
             Printer.println(READ_X_MESSAGE);
             Printer.println(INFO);

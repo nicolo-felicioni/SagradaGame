@@ -4,8 +4,6 @@ import it.polimi.se2018.model.Point;
 import it.polimi.se2018.model.Space;
 import javafx.scene.layout.Pane;
 
-import java.util.logging.FileHandler;
-
 public class GUISpace extends Pane {
 
     /**

@@ -53,6 +53,9 @@ public class GUIWindowPattern extends GridPane{
     @FXML
     private GridPane difficulty;
 
+    private static final String DIFF_CIRCLE = "diff-circle";
+
+    private static final String SPACE_HIGHLIGHTED = "space-highlighted";
     /**
      * Constructor.
      */
@@ -87,7 +90,7 @@ public class GUIWindowPattern extends GridPane{
             });
             refresh();
         } catch (IOException exception)  {
-            throw new RuntimeException(exception);
+            MyLog.getMyLog().log(Level.WARNING, exception.getMessage());
         }
     }
 
@@ -116,7 +119,7 @@ public class GUIWindowPattern extends GridPane{
         this.difficulty.getChildren().clear();
         for (int i = 0; i < window.getDifficulty(); i++) {
             Pane circle = new Pane();
-            circle.getStyleClass().add("diff-circle");
+            circle.getStyleClass().add(DIFF_CIRCLE);
             GridPane.setHgrow(circle, Priority.ALWAYS);
             GridPane.setVgrow(circle, Priority.ALWAYS);
             this.difficulty.add(circle, 5 - i , 0);
@@ -132,7 +135,7 @@ public class GUIWindowPattern extends GridPane{
                 try {
                     GUISpace guiSpace = new GUISpace(spaces[i][j], new Point(i, j));
                     if(die != null && window.isPlaceable(die, new Point(i, j)))
-                        guiSpace.getStyleClass().add("space-highlighted");
+                        guiSpace.getStyleClass().add(SPACE_HIGHLIGHTED);
                     guiSpaces.add(guiSpace);
                     this.windowPattern.add(guiSpace, j, i, 1, 1);
                     GridPane.setHgrow(guiSpace, Priority.ALWAYS);
@@ -146,7 +149,7 @@ public class GUIWindowPattern extends GridPane{
         this.difficulty.getChildren().clear();
         for (int i = 0; i < window.getDifficulty(); i++) {
             Pane circle = new Pane();
-            circle.getStyleClass().add("diff-circle");
+            circle.getStyleClass().add(DIFF_CIRCLE);
             GridPane.setHgrow(circle, Priority.ALWAYS);
             GridPane.setVgrow(circle, Priority.ALWAYS);
             this.difficulty.add(circle, 5 - i , 0);
@@ -161,7 +164,7 @@ public class GUIWindowPattern extends GridPane{
                 try {
                     GUISpace guiSpace = new GUISpace(spaces[i][j], new Point(i, j));
                     if(die != null && window.isPlaceableIgnoreColor(die, new Point(i, j)))
-                        guiSpace.getStyleClass().add("space-highlighted");
+                        guiSpace.getStyleClass().add(SPACE_HIGHLIGHTED);
                     guiSpaces.add(guiSpace);
                     this.windowPattern.add(guiSpace, j, i, 1, 1);
                     GridPane.setHgrow(guiSpace, Priority.ALWAYS);
@@ -175,7 +178,7 @@ public class GUIWindowPattern extends GridPane{
         this.difficulty.getChildren().clear();
         for (int i = 0; i < window.getDifficulty(); i++) {
             Pane circle = new Pane();
-            circle.getStyleClass().add("diff-circle");
+            circle.getStyleClass().add(DIFF_CIRCLE);
             GridPane.setHgrow(circle, Priority.ALWAYS);
             GridPane.setVgrow(circle, Priority.ALWAYS);
             this.difficulty.add(circle, 5 - i , 0);
@@ -190,7 +193,7 @@ public class GUIWindowPattern extends GridPane{
                 try {
                     GUISpace guiSpace = new GUISpace(spaces[i][j], new Point(i, j));
                     if(die != null && window.isPlaceableIgnoreValue(die, new Point(i, j)))
-                        guiSpace.getStyleClass().add("space-highlighted");
+                        guiSpace.getStyleClass().add(SPACE_HIGHLIGHTED);
                     guiSpaces.add(guiSpace);
                     this.windowPattern.add(guiSpace, j, i, 1, 1);
                     GridPane.setHgrow(guiSpace, Priority.ALWAYS);
@@ -204,7 +207,7 @@ public class GUIWindowPattern extends GridPane{
         this.difficulty.getChildren().clear();
         for (int i = 0; i < window.getDifficulty(); i++) {
             Pane circle = new Pane();
-            circle.getStyleClass().add("diff-circle");
+            circle.getStyleClass().add(DIFF_CIRCLE);
             GridPane.setHgrow(circle, Priority.ALWAYS);
             GridPane.setVgrow(circle, Priority.ALWAYS);
             this.difficulty.add(circle, 5 - i , 0);
@@ -220,7 +223,7 @@ public class GUIWindowPattern extends GridPane{
                     Space sp = spaces[i][j];
                     GUISpace guiSpace = new GUISpace(spaces[i][j], new Point(i, j));
                     if(colors != null && sp.hasDie() && colors.contains(sp.getDie().getColor()))
-                        guiSpace.getStyleClass().add("space-highlighted");
+                        guiSpace.getStyleClass().add(SPACE_HIGHLIGHTED);
                     guiSpaces.add(guiSpace);
                     this.windowPattern.add(guiSpace, j, i, 1, 1);
                     GridPane.setHgrow(guiSpace, Priority.ALWAYS);
@@ -234,7 +237,7 @@ public class GUIWindowPattern extends GridPane{
         this.difficulty.getChildren().clear();
         for (int i = 0; i < window.getDifficulty(); i++) {
             Pane circle = new Pane();
-            circle.getStyleClass().add("diff-circle");
+            circle.getStyleClass().add(DIFF_CIRCLE);
             GridPane.setHgrow(circle, Priority.ALWAYS);
             GridPane.setVgrow(circle, Priority.ALWAYS);
             this.difficulty.add(circle, 5 - i , 0);
@@ -249,7 +252,7 @@ public class GUIWindowPattern extends GridPane{
                 try {
                     GUISpace guiSpace = new GUISpace(spaces[i][j], new Point(i, j));
                     if(die != null && window.isPlaceableNoAdjacent(die, new Point(i, j)))
-                        guiSpace.getStyleClass().add("space-highlighted");
+                        guiSpace.getStyleClass().add(SPACE_HIGHLIGHTED);
                     guiSpaces.add(guiSpace);
                     this.windowPattern.add(guiSpace, j, i, 1, 1);
                     GridPane.setHgrow(guiSpace, Priority.ALWAYS);
@@ -263,7 +266,7 @@ public class GUIWindowPattern extends GridPane{
         this.difficulty.getChildren().clear();
         for (int i = 0; i < window.getDifficulty(); i++) {
             Pane circle = new Pane();
-            circle.getStyleClass().add("diff-circle");
+            circle.getStyleClass().add(DIFF_CIRCLE);
             GridPane.setHgrow(circle, Priority.ALWAYS);
             GridPane.setVgrow(circle, Priority.ALWAYS);
             this.difficulty.add(circle, 5 - i , 0);

@@ -3,8 +3,6 @@ package it.polimi.se2018.view.cli.options;
 import it.polimi.se2018.view.cli.CommandLineInterface;
 import it.polimi.se2018.view.cli.Printer;
 
-import java.util.Arrays;
-
 public class ShowRoundTrackOption extends SimpleOption {
     private static final String SHOW_ROUND_CARDS = "Show the round track.";
 

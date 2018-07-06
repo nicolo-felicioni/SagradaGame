@@ -9,8 +9,6 @@ import java.util.List;
 
 public class DecreaseDieValueOption extends ComplexOption {
 
-    private static final String ERROR_MESSAGE = "You can't decrease this die.";
-
     private static final int READ_DIE_CHOICE = 0;
 
 

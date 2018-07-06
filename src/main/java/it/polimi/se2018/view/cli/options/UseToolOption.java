@@ -51,8 +51,6 @@ public class UseToolOption extends SimpleOption {
         }
 
         cli.notifyObservers(new UseToolCardGameEvent(position, cli.getPlayer().getId()));
-        Printer.println("DEBUG: Mandato evento useTool"); //todo
-        Printer.println(position.name()); //todo
 
         return 0;
     }

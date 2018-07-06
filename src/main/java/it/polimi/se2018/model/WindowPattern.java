@@ -166,23 +166,24 @@ public class WindowPattern implements Serializable {
 	 * @param p a point.
 	 */
 	public boolean isPlaceableIgnoreColor(Die die, Point p) {
-		if(this.getNumberOfDice() == 0) {
+		if (this.getNumberOfDice() == 0) {
 			if (getSpace(p).isValueRestricted())
 				return p.isEdgyPoint() && getSpace(p).getValueRestriction() == die.getValue();
 			else
 				return p.isEdgyPoint();
-		} else if (getSpace(p).isValueRestricted())
+		} else if (getSpace(p).isValueRestricted()) {
 			return (this.isThereSomeDieAdjacent(p) &&
 					p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
-							.noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
-									this.getSpace(point).getDie().getValue()==die.getValue()) &&
+							.noneMatch(point -> this.getSpace(point).getDie().getColor() == die.getColor() ||
+									this.getSpace(point).getDie().getValue() == die.getValue()) &&
 					getSpace(p).getValueRestriction() == die.getValue()) && !getSpace(p).hasDie();
-		else
+		} else {
 			return (this.isThereSomeDieAdjacent(p) &&
 					p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
-							.noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
-									this.getSpace(point).getDie().getValue()==die.getValue())) && !getSpace(p).hasDie();
+							.noneMatch(point -> this.getSpace(point).getDie().getColor() == die.getColor() ||
+									this.getSpace(point).getDie().getValue() == die.getValue())) && !getSpace(p).hasDie();
 
+		}
 	}
 
 	/**
@@ -195,23 +196,24 @@ public class WindowPattern implements Serializable {
 	 * @param p a point.
 	 */
 	public boolean isPlaceableIgnoreValue(Die die, Point p) {
-		if(this.getNumberOfDice() == 0) {
+		if (this.getNumberOfDice() == 0) {
 			if (getSpace(p).isColorRestricted())
 				return p.isEdgyPoint() && getSpace(p).getColorRestriction() == die.getColor();
 			else
 				return p.isEdgyPoint();
-		} else if (getSpace(p).isColorRestricted())
+		} else if (getSpace(p).isColorRestricted()) {
 			return (this.isThereSomeDieAdjacent(p) &&
 					p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
-							.noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
-									this.getSpace(point).getDie().getValue()==die.getValue()) &&
+							.noneMatch(point -> this.getSpace(point).getDie().getColor() == die.getColor() ||
+									this.getSpace(point).getDie().getValue() == die.getValue()) &&
 					getSpace(p).getColorRestriction() == die.getColor()) && !getSpace(p).hasDie();
-		else
+		} else {
 			return (this.isThereSomeDieAdjacent(p) &&
 					p.getOrtogonalPoints().stream().filter(point -> this.getSpace(point).hasDie())
-							.noneMatch(point -> this.getSpace(point).getDie().getColor()==die.getColor() ||
-									this.getSpace(point).getDie().getValue()==die.getValue())) && !getSpace(p).hasDie();
+							.noneMatch(point -> this.getSpace(point).getDie().getColor() == die.getColor() ||
+									this.getSpace(point).getDie().getValue() == die.getValue())) && !getSpace(p).hasDie();
 
+		}
 	}
 
 
@@ -414,9 +416,9 @@ public class WindowPattern implements Serializable {
 				//impossible
 				throw new NotValidMoveException("Impossible to move the die");
 			}
-		}else
+		} else {
 			throw new NotValidMoveException("Impossible to move the die");
-
+		}
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package it.polimi.se2018.view.gui;
 
+import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.model.Die;
 import it.polimi.se2018.model.DraftPool;
 import javafx.event.EventHandler;
@@ -12,6 +13,7 @@ import javafx.scene.layout.Priority;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class GUIDraftPool extends GridPane{
 
@@ -60,7 +62,7 @@ public class GUIDraftPool extends GridPane{
                 }
             });
         } catch (IOException exception)  {
-            throw new RuntimeException(exception);
+            MyLog.getMyLog().log(Level.WARNING, exception.getMessage());
         }
 
     }

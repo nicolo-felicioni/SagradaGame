@@ -30,24 +30,9 @@ public class GUIGame {
     private GameEventObserver observer;
 
     /**
-     * The private objective card.
-     */
-    private PrivateObjectiveCard privateObjectiveCard;
-
-    /**
      * The player state.
      */
     private PlayerState playerState;
-
-    /**
-     * The selected tool card.
-     */
-    private CardPosition selectedToolCard;
-
-    /**
-     * The player.
-     */
-    private Player player;
 
     @FXML
     GUIDraftPool draftpool;
@@ -254,7 +239,6 @@ public class GUIGame {
      * @param privateObjectiveCard the private objective card.
      */
     public void setPrivateObjectiveCard(PrivateObjectiveCard privateObjectiveCard) {
-        this.privateObjectiveCard = privateObjectiveCard;
         this.privatecard.setPrivateObjectiveCard(privateObjectiveCard);
     }
 
@@ -273,7 +257,6 @@ public class GUIGame {
      * @param player the player.
      */
     public void setPlayer(Player player) {
-        this.player = player.clonePlayer();
         this.infobox.setTokens(player.getTokens());
     }
 

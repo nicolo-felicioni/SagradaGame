@@ -4,7 +4,8 @@ import it.polimi.se2018.controller.utils.MyLog;
 import it.polimi.se2018.exceptions.NotValidPointException;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 /**

@@ -1,11 +1,6 @@
 package it.polimi.se2018.json;
 
-import com.google.gson.*;
 import it.polimi.se2018.controller.ViewUpdaterInterface;
-import it.polimi.se2018.controller.utils.MyLog;
-
-import java.lang.reflect.Type;
-import java.util.logging.Level;
 /**
  * @author Davide Yi Xian Hu
  */
