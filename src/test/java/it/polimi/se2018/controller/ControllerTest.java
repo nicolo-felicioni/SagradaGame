@@ -216,7 +216,7 @@ public class ControllerTest {
         Point p = null;
         if(pl.isPresent()) {
             WindowPattern w = pl.get().getPattern();
-            while(true) {
+            for (int i=0;i<999999;i++){
                 die = Die.getRandomDie();
                 p =  new Point(new Random().nextInt(4), new Random().nextInt(5));
                 if(w.isPlaceable(die, p)) {
